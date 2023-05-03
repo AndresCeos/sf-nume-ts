@@ -25,7 +25,8 @@ function AuthProvider({ children }: any) {
   };
 
   useEffect(() => {
-    apiGet('/user/signedIn').then((res) => {
+    apiPost('wp-json/jwt-auth/v1/token/validate').then((res) => {
+      console.log({ res });
       let language = 'fr';
       if (res.data.signedIn !== false) {
         handleLogin({
