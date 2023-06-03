@@ -3,6 +3,10 @@ import env from '../utils/constants';
 
 const instance = axios.create({
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  },
 });
 
 export const apiPost = async (path: string, data?: any): Promise<Api.Response> => {

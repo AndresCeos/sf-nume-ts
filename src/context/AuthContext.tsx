@@ -4,7 +4,7 @@ export interface UserPreferences {
   language: 'fr' | 'en';
 }
 
-export interface LoginData {
+export interface User {
   token: string;
   firstName: string;
   lastName: string;
@@ -24,8 +24,8 @@ export interface LoginData {
 
 export interface AuthContextInterface {
   readonly isLoggedIn: boolean;
-  user: LoginData;
-  handleLogin: (login: LoginData) => void;
+  user: User;
+  handleLogin: (login: User) => void;
   handleLogout: () => Promise<unknown>;
   handleLanguageChange: (language: string) => void;
   handleUpdateProfile: () => Promise<unknown>;

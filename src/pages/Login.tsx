@@ -30,7 +30,7 @@ function Login() {
         username: email,
         password,
       });
-      localStorage.setItem('userAuthenticated', JSON.stringify(userAuthenticated.data));
+      localStorage.setItem('token', userAuthenticated.data.token);
     } catch (err) {
       if (request.isAxiosError(err)) {
         setFormError(err.response?.data?.message);
