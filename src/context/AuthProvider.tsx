@@ -1,8 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
-  // eslint-disable-next-line @typescript-eslint/comma-dangle
-  AuthContext, AuthContextInterface, User
+  AuthContext, AuthContextInterface, User,
 } from './AuthContext';
 import { authReducer, types } from './AuthReducer';
 
@@ -17,7 +15,6 @@ const INITIAL_STATE = {
 function AuthProvider({ children }: any) {
   const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE);
   const [loading, setLoading] = useState<boolean>(true);
-  const { i18n } = useTranslation();
 
   const handleLogin = (login: User) => {
     const action = { type: types.login, ...login };
@@ -29,9 +26,8 @@ function AuthProvider({ children }: any) {
       setLoading(false);
       return;
     }
-    apiPost('/wp-json/app/v1/validate').then((res) => {
+    apiPost('/wp-json/app/v1/is_logged').then((res) => {
       if (res.status === 200) {
-        let language = 'fr';
         if (res.data.signedIn !== false) {
           handleLogin({
             token: res.data.token,
@@ -50,9 +46,7 @@ function AuthProvider({ children }: any) {
             appVersion: res.data.app_version,
             license: res.data.license_id,
           });
-          language = res.data.userPreferences.language;
         }
-        i18n.changeLanguage(language);
       }
     }).finally(() => {
       setLoading(false);
@@ -71,17 +65,11 @@ function AuthProvider({ children }: any) {
     handleLogin({ ...login });
   };
 
-  const handleLanguageChange = (language: string) => {
-    const action = { type: types.languageChange, language };
-    dispatch(action);
-  };
-
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value: AuthContextInterface = {
     ...authState,
     handleLogin,
     handleLogout,
-    handleLanguageChange,
     handleUpdateProfile,
   };
 

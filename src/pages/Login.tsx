@@ -9,9 +9,11 @@ import Logo from '@/assets/logo_login.png';
 import welcome from '@/assets/welcome.png';
 
 import { apiPost } from '@/api/index';
+import useAuth from '@/hooks/useAuth';
 import useForm from '@/hooks/useForm';
 
 function Login() {
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const initialForm = {
     email: '',
@@ -26,14 +28,25 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const userAuthenticated = await apiPost('wp-json/jwt-auth/v1/token', {
+      const res = await apiPost('/wp-json/app/v1/authenticate', {
         username: email,
         password,
       });
-      localStorage.setItem('token', userAuthenticated.data.token);
+      if (res.success === false) {
+        setFormError(res.data.msg);
+        setIsLoading(false);
+        return;
+      }
+      console.log({ res });
+      localStorage.setItem('token', res.data.token);
+      window.location.href = '/dashboard';
     } catch (err) {
+      console.log({ err });
       if (request.isAxiosError(err)) {
-        setFormError(err.response?.data?.message);
+        setFormError(err.response?.data?.msg);
+        console.log(err.response?.data?.msg);
+        console.log(err.response?.data);
+        console.log(err.response);
         return;
       }
       setFormError(t('somethingWentWrong') as string);

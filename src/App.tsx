@@ -1,10 +1,11 @@
 import { Toaster } from 'react-hot-toast';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Modal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
-import AuthProvider from './context/AuthProvider';
-import Router from './router/Router';
-import './utils/i18n';
+
+import AuthProvider from '@/context/AuthProvider';
+import Router from '@/router/Router';
+
+import '@/utils/i18n';
 
 Modal.setAppElement('#root');
 
