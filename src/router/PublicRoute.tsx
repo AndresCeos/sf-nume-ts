@@ -8,7 +8,7 @@ function PublicRoute({ children }: any) {
     return children;
   }
 
-  return <Navigate to="/dashboard/" replace />;
+  return <Navigate to="/dashboard" replace />;
 }
 
 export default PublicRoute;

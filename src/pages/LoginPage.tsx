@@ -11,7 +11,7 @@ import welcome from '@/assets/welcome.png';
 import { apiPost } from '@/api/index';
 import useForm from '@/hooks/useForm';
 
-function Login() {
+function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const initialForm = {
     email: '',
@@ -125,4 +125,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

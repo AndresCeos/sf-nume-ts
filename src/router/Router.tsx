@@ -3,11 +3,23 @@ import PrivateRoute from './PrivateRoute';
 
 import PublicRoute from './PublicRoute';
 
-import Home from '@/pages/dashboard/Home';
-import Login from '@/pages/Login';
+import Sidebar from '@/components/Sidebar';
+import LoginPage from '@/pages/LoginPage';
+import ConsultantPage from '@/pages/dashboard/ConsultantPage';
+import HomePage from '@/pages/dashboard/HomePage';
 
 function MainContainer({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col flex-1 w-full">{children}</div>;
+  return (
+    <>
+      navbar...
+      <div className="app">
+        <Sidebar />
+        <section className="app-content">
+          {children}
+        </section>
+      </div>
+    </>
+  );
 }
 
 function Router() {
@@ -19,7 +31,8 @@ function Router() {
           <MainContainer>
             <PrivateRoute>
               <Routes>
-                <Route path="" element={<Home />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/consultante" element={<ConsultantPage />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </PrivateRoute>
@@ -31,7 +44,7 @@ function Router() {
         element={(
           <PublicRoute>
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<LoginPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </PublicRoute>

@@ -28,25 +28,23 @@ function AuthProvider({ children }: any) {
     }
     apiPost('/wp-json/app/v1/is_logged').then((res) => {
       if (res.status === 200) {
-        if (res.data.signedIn !== false) {
-          handleLogin({
-            token: res.data.token,
-            firstName: res.data.user_first_name,
-            lastName: res.data.user_last_name,
-            scdLastName: res.data.user_scd_last_name,
-            photoURL: res.data.photoURL,
-            birthDate: res.data.birthDate,
-            email: res.data.user_email,
-            company: res.data.user_company,
-            telephone: res.data.user_phone,
-            phoneNumber: res.data.company_phone,
-            address: res.data.company_direction,
-            website: res.data.company_website,
-            logoURL: res.data.company_logo,
-            appVersion: res.data.app_version,
-            license: res.data.license_id,
-          });
-        }
+        handleLogin({
+          token: res.data.token,
+          firstName: res.data.user_first_name,
+          lastName: res.data.user_last_name,
+          scdLastName: res.data.user_scd_last_name,
+          photoURL: res.data.photoURL,
+          birthDate: res.data.birthDate,
+          email: res.data.user_email,
+          company: res.data.user_company,
+          telephone: res.data.user_phone,
+          phoneNumber: res.data.company_phone,
+          address: res.data.company_direction,
+          website: res.data.company_website,
+          logoURL: res.data.company_logo,
+          appVersion: res.data.app_version,
+          license: res.data.licence_id,
+        });
       }
     }).finally(() => {
       setLoading(false);

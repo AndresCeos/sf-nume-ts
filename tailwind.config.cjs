@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         main: {
+          50: '#D8C7EB',
           700: '#693061',
           900: '#320033',
         },
@@ -18,6 +19,7 @@ module.exports = {
         yellow: '#E28A05',
         blue: '#056BE2',
         aguamarina: '#31FFFF',
+        grayNc: '#e0d8cc',
       },
       gridTemplateColumns: {
         '14': 'repeat(14, minmax(0, 1fr))',

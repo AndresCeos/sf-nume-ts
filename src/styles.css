@@ -9,6 +9,36 @@
     font-family: 'Open Sans', sans-serif;
     @apply bg-main-700;
   }
+  .app {
+    display: flex;
+    flex-wrap: nowrap;
+    height: calc(100vh - 85px);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .app-content {
+    width: 100%;
+    background-color: #ebeef7;
+    overflow-x: auto;
+    background-size: cover;
+    overflow-y: auto;
+  }
+  .app-sidebar {
+    min-width: 202px;
+    max-width: 202px;
+    background-color: #ffffff;
+    height: calc(100vh - 85px);
+    @apply flex flex-col justify-between shrink-0 text-gray-500;
+  }
+  .sidebar-link{
+    @apply text-[13px] pl-3 pr-1 py-2 flex items-center border-b border-grayNc;
+  }
+  .sidebar-link.active {
+    @apply font-medium text-black bg-grayNc bg-opacity-80;
+  }
+  .sidebar-link.active-purple {
+    @apply font-medium text-black bg-main-50;
+  }
 }
 
 @layer components {
