@@ -9,11 +9,9 @@ import Logo from '@/assets/logo_login.png';
 import welcome from '@/assets/welcome.png';
 
 import { apiPost } from '@/api/index';
-import useAuth from '@/hooks/useAuth';
 import useForm from '@/hooks/useForm';
 
 function Login() {
-  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const initialForm = {
     email: '',
@@ -37,16 +35,11 @@ function Login() {
         setIsLoading(false);
         return;
       }
-      console.log({ res });
       localStorage.setItem('token', res.data.token);
       window.location.href = '/dashboard';
     } catch (err) {
-      console.log({ err });
       if (request.isAxiosError(err)) {
         setFormError(err.response?.data?.msg);
-        console.log(err.response?.data?.msg);
-        console.log(err.response?.data);
-        console.log(err.response);
         return;
       }
       setFormError(t('somethingWentWrong') as string);
