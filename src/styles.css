@@ -16,6 +16,14 @@
     overflow-x: auto;
     overflow-y: hidden;
   }
+  .app-navbar{
+    @apply h-[85px] bg-main-700 border-gray-200;
+  }
+  .app-logo {
+    max-height: 85px;
+    transform: scale(1);
+    object-fit: contain;
+  }
   .app-content {
     width: 100%;
     background-color: #ebeef7;

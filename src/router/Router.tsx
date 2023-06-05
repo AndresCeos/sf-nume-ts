@@ -3,6 +3,7 @@ import PrivateRoute from './PrivateRoute';
 
 import PublicRoute from './PublicRoute';
 
+import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import LoginPage from '@/pages/LoginPage';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
@@ -11,7 +12,7 @@ import HomePage from '@/pages/dashboard/HomePage';
 function MainContainer({ children }: { children: React.ReactNode }) {
   return (
     <>
-      navbar...
+      <Navbar />
       <div className="app">
         <Sidebar />
         <section className="app-content">
