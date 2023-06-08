@@ -12,16 +12,15 @@ import saveReport from '@/assets/navbar/save_report.svg';
 import updateUser from '@/assets/navbar/update_user.svg';
 
 import Logo from '@/assets/logo.png';
-
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/context/AuthProvider';
 
 function Notifications() {
   return null;
 }
 
 function Navbar() {
-  const { user } = useAuth();
-  const { firstName, lastName } = user;
+  const { user: userAuth } = useAuth();
+  const { firstName, lastName } = userAuth?.user ?? {};
 
   const handlerEdit = () => {
     console.log('handlerEdit');

@@ -1,89 +1,56 @@
-import { useEffect, useReducer, useState } from 'react';
-import {
-  AuthContext, AuthContextInterface, User,
-} from './AuthContext';
-import { authReducer, types } from './AuthReducer';
+import { initReactQueryAuth } from 'react-query-auth';
 
-import { apiGet, apiPost } from '@/api/index';
-import Loader from '@/components/Loader';
+import axios from '@/api/axios';
+import LoaderComponent from '@/components/LoaderComponent';
+import storage from '@/utils/storage';
 
-const INITIAL_STATE = {
-  isLoading: true,
-  isLoggedIn: false,
-};
-
-function AuthProvider({ children }: any) {
-  const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const handleLogin = (login: User) => {
-    const action = { type: types.login, ...login };
-    dispatch(action);
-  };
-
-  useEffect(() => {
-    if (!localStorage.getItem('token')) {
-      setLoading(false);
-      return;
-    }
-    apiPost('/wp-json/app/v1/is_logged').then((res) => {
-      if (res.status === 200) {
-        handleLogin({
-          token: res.data.token,
-          firstName: res.data.user_first_name,
-          lastName: res.data.user_last_name,
-          scdLastName: res.data.user_scd_last_name,
-          photoURL: res.data.photoURL,
-          birthDate: res.data.birthDate,
-          email: res.data.user_email,
-          company: res.data.user_company,
-          telephone: res.data.user_phone,
-          phoneNumber: res.data.company_phone,
-          address: res.data.company_direction,
-          website: res.data.company_website,
-          logoURL: res.data.company_logo,
-          appVersion: res.data.app_version,
-          license: res.data.licence_id,
-        });
-      }
-    }).finally(() => {
-      setLoading(false);
-    });
-  }, []);
-
-  const handleLogout = async () => {
-    await apiPost('/user/signOut');
-    const action = { type: types.logout };
-    dispatch(action);
-  };
-
-  const handleUpdateProfile = async () => {
-    const response = await apiGet('/user/signedIn').then((res: Api.Response) => res);
-    const login = response.data as User;
-    handleLogin({ ...login });
-  };
-
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const value: AuthContextInterface = {
-    ...authState,
-    handleLogin,
-    handleLogout,
-    handleUpdateProfile,
-  };
-
-  if (loading) {
-    return (
-      <AuthContext.Provider value={value}>
-        <Loader />
-      </AuthContext.Provider>
-    );
-  }
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+async function handleUserResponse(response: Api.UserResponse) {
+  storage.setToken(response.token);
+  return response;
 }
 
-export default AuthProvider;
+const getUser = (): Promise<Api.UserResponse> => axios.post('/wp-json/app/v2/auth/me');
+
+async function loadUser() {
+  if (storage.getToken()) {
+    const data = await getUser();
+    return data;
+  }
+  return null;
+}
+
+type LoginCredentialsDTO = {
+  username: string;
+  password: string;
+};
+
+const loginWithEmailAndPassword = (data: LoginCredentialsDTO): Promise<Api.UserResponse> => axios.post('/wp-json/app/v2/auth/login', data);
+
+async function loginFn(data: LoginCredentialsDTO) {
+  const response = await loginWithEmailAndPassword(data);
+  const user = await handleUserResponse(response);
+  return user;
+}
+
+async function registerFn(data: LoginCredentialsDTO) {
+  const response = await loginWithEmailAndPassword(data);
+  const user = await handleUserResponse(response);
+  return user;
+}
+
+async function logoutFn() {
+  storage.clearToken();
+  window.location.assign(window.location.origin as unknown as string);
+}
+
+const authConfig = {
+  loadUser,
+  loginFn,
+  registerFn,
+  logoutFn,
+  LoaderComponent() {
+    return <LoaderComponent />;
+  },
+};
+
+export const { AuthProvider, useAuth } = initReactQueryAuth<Api.UserResponse | null, unknown, LoginCredentialsDTO>(authConfig);

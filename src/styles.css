@@ -54,7 +54,7 @@
     min-height: calc(100vh - 85px);
   }
   .btn {
-    @apply bg-yellow h-9 rounded-full text-base text-white font-bold outline-none cursor-pointer;
+    @apply bg-yellow h-9 rounded-full text-base text-white font-bold outline-none cursor-pointer px-4;
     @apply shadow-md;
     @apply hover:opacity-90;
     @apply transition-all;
@@ -62,5 +62,9 @@
   }
   .btn.btn-icon {
     @apply flex items-center justify-center gap-2;
+  }
+
+  .btn.btn-white {
+    @apply bg-white text-black;
   }
 }

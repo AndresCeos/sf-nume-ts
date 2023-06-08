@@ -23,26 +23,25 @@ import ic_life_path from '@/assets/sidebar/life_path.svg';
 import ic_name from '@/assets/sidebar/name.svg';
 import ic_pinnacle from '@/assets/sidebar/pinnacle.svg';
 import ic_vibration_time from '@/assets/sidebar/vibration_time.svg';
-
-import useAuth from '@/hooks/useAuth';
+import { useAuth } from '@/context/AuthProvider';
 
 function Sidebar() {
   const [currentPage, setCurrentPage] = useState('');
-  const { user, handleLogout } = useAuth();
+  const { user: userAuth, logout } = useAuth();
   const {
-    firstName, lastName, photoURL, license,
-  } = user;
+    firstName, lastName, avatar,
+  } = userAuth?.user ?? {};
 
   return (
     <div className="app-sidebar">
       <div className="overflow-y-auto">
         <div className="mt-3 flex items-center py-2 px-3">
-          <img src={photoURL} className="rounded-full object-contain w-12 h-12" alt="profile" />
+          <img src={avatar} className="rounded-full object-contain w-12 h-12" alt="profile" />
           <div className="flex flex-col ml-3">
             <label className="font-bold text-main-700 text-sm">{`${firstName} ${lastName}`}</label>
             <label className="text-green-600 text-sm flex items-center">
               <VscCircleFilled size={24} className="-ml-2" />
-              {`Licencia ${license}`}
+              {`Licencia ${userAuth?.license?.id}`}
             </label>
           </div>
         </div>
@@ -51,10 +50,10 @@ function Sidebar() {
             <li className="">
               <NavLink
                 end
-                to="/dashboard"
+                to="/"
                 className="sidebar-link"
                 aria-current="page"
-                onClick={() => setCurrentPage('dashboard')}
+                onClick={() => setCurrentPage('')}
               >
                 <img src={ic_home} className="w-6 h-4 object-center" alt="ic_home" />
                 <label className="ml-2">Inicio</label>
@@ -63,7 +62,7 @@ function Sidebar() {
             <li className="">
               <NavLink
                 end
-                to="/dashboard/consultante"
+                to="/consultante"
                 className="sidebar-link"
                 aria-current="page"
                 onClick={() => setCurrentPage('')}
@@ -86,7 +85,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/pinaculo"
+                to="/pinaculo"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -97,7 +96,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/camino"
+                to="/camino"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -108,7 +107,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/nombre"
+                to="/nombre"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -119,7 +118,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/crear_nombre"
+                to="/crear_nombre"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -130,7 +129,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/destino"
+                to="/destino"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -141,7 +140,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/tiempo"
+                to="/tiempo"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -152,7 +151,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/retornos"
+                to="/retornos"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -163,7 +162,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/circulo_tiempo"
+                to="/circulo_tiempo"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -174,7 +173,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/calendario"
+                to="/calendario"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -185,7 +184,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/calendarioMensual"
+                to="/calendarioMensual"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -207,7 +206,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/sinastria"
+                to="/sinastria"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -218,7 +217,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/sinastria_vibracion"
+                to="/sinastria_vibracion"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -229,7 +228,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/sinastria_retornos"
+                to="/sinastria_retornos"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -240,7 +239,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/sinastria_destino"
+                to="/sinastria_destino"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -251,7 +250,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/sinastria_compatibilidad"
+                to="/sinastria_compatibilidad"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -273,7 +272,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/group_pinnacle"
+                to="/group_pinnacle"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -284,7 +283,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/group_vibracion"
+                to="/group_vibracion"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -295,7 +294,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/dashboard/group_retornos"
+                to="/group_retornos"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -306,7 +305,7 @@ function Sidebar() {
             <li className="config-menu">
               <NavLink
                 end
-                to="/dashboard/config"
+                to="/config"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >
@@ -319,7 +318,7 @@ function Sidebar() {
             <li className="config-menu">
               <NavLink
                 end
-                to="/dashboard/soporte"
+                to="/soporte"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >
@@ -332,7 +331,7 @@ function Sidebar() {
             <li className="config-menu">
               <button
                 type="button"
-                onClick={() => handleLogout()}
+                onClick={() => logout()}
                 className="sidebar-link w-full text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >

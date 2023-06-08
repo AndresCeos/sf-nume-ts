@@ -1,18 +1,18 @@
 import request from 'axios';
 import cx from 'classnames';
 import { t } from 'i18next';
-import { useState } from 'react';
 import { CgSpinnerTwo } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 
 import Logo from '@/assets/logo_login.png';
 import welcome from '@/assets/welcome.png';
 
-import { apiPost } from '@/api/index';
+import { useAuth } from '@/context/AuthProvider';
 import useForm from '@/hooks/useForm';
 
 function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isLoggingIn } = useAuth();
+
   const initialForm = {
     email: '',
     password: '',
@@ -24,27 +24,15 @@ function LoginPage() {
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setFormError('');
     try {
-      const res = await apiPost('/wp-json/app/v1/authenticate', {
-        username: email,
-        password,
-      });
-      if (res.success === false) {
-        setFormError(res.data.msg);
-        setIsLoading(false);
-        return;
-      }
-      localStorage.setItem('token', res.data.token);
-      window.location.href = '/dashboard';
+      await login({ username: email, password });
     } catch (err) {
       if (request.isAxiosError(err)) {
-        setFormError(err.response?.data?.msg);
+        setFormError(err.response?.data?.data?.msg ?? t('somethingWentWrong') as string);
         return;
       }
       setFormError(t('somethingWentWrong') as string);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -99,12 +87,12 @@ function LoginPage() {
                 />
                 <button
                   type="submit"
-                  className={cx('btn w-5/12', { 'btn-icon': isLoading })}
+                  className={cx('btn w-5/12', { 'btn-icon': isLoggingIn })}
                   value="Entrar"
-                  disabled={isLoading}
+                  disabled={isLoggingIn}
                 >
                   Entrar
-                  {isLoading && <CgSpinnerTwo className="animate-spin ml-2" />}
+                  {isLoggingIn && <CgSpinnerTwo className="animate-spin ml-2" />}
                 </button>
                 {formError && (
                   <div
