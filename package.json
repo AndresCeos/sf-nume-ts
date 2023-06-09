@@ -47,6 +47,7 @@
     "type-fest": "^1.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@types/react-gtm-module": "^2.0.1",

@@ -1,9 +1,13 @@
+import moment from 'moment';
+
+import TimeCircle from '@/components/Universal/TimeCircle';
 import { useAuth } from '@/context/AuthProvider';
 
 function HomePage() {
   const { user: userAuth } = useAuth();
-  const { firstName, lastName } = userAuth?.user ?? {};
+  const { firstName, lastName, birthDate } = userAuth?.user ?? {};
   const names = `${firstName} ${lastName}`;
+
   return (
     <>
       <div />
@@ -14,6 +18,10 @@ function HomePage() {
           </h2>
           <h2 className="text-main-700 text-2xl">a tu Software de Numerología</h2>
           <img src="/assets/welcome.png" className="welcomeLogo" alt="welcome" />
+        </div>
+
+        <div className="row-span-2 flex justify-center items-center">
+          {moment(birthDate).isValid() ? <TimeCircle /> : null}
         </div>
 
       </div>
