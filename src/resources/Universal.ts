@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import moment from 'moment';
 
+import { reduceNumber, reduceNumberISK } from '@/utils/numbers';
+
 moment.locale('es-mx');
 
-type UniversalDay = {
+type SplittedDate = {
   day?: number,
   month?: number,
   year?: number,
@@ -32,157 +34,202 @@ export class Universal {
     this.date = new Date(date);
   }
 
-  /*  Función adaptada a Redux */
-  // calcUniversalDay(monthToCalculate ,dayToCalculate ,yearToCalculate) {
-  calcUniversalDay(opts: UniversalDay) {
-    const monthToCalculate = _.isNil(opts?.month) ? this.NOW.format('M') : opts.month;
-    const dayToCalculate = _.isNil(opts?.day) ? this.NOW.format('D') : opts.day;
-    const yearToCalculate = _.isNil(opts?.year) ? this.NOW.format('YYYY') : opts.year;
-    return this.reduceNumber(
+  /**
+   * @returns {number} - Universal Year
+   * @description
+   * 1. Sumar los dígitos del año
+   * 2. Si el resultado del paso 1 es mayor a 9, sumar los dígitos del resultado del paso 1
+   * 3. Regresar el resultado del paso 2
+   * @example
+   * 1. 2021 = 5
+   * 2. 5 <= 9, regresar 5
+   * 1. 2022 = 6
+   * 2. 6 <= 9, regresar 6
+   * 1. 2023 = 7
+   * 2. 7 <= 9, regresar 7
+   * 1. 2024 = 8
+   * 2. 8 <= 9, regresar 8
+   * 1. 2025 = 9
+   * 2. 9 <= 9, regresar 9
+   */
+  calcUniversalYear(year?: number): number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    return reduceNumber(yearToCalculate);
+  }
+
+  /**
+   * @returns {string} - Universal Year with Karmic Symbol
+   */
+  calcUniversalYearISK(year?: number): string {
+    const universalYear = this.calcUniversalYear(year);
+    return this.karmicos.includes(universalYear) ? '*' : '';
+  }
+
+  /**
+   * @param {number} day - Day in number format
+   * @param {number} month - Month in number format
+   * @param {number} year - Year in number format
+   * @returns {number} - Universal Day
+   * @description
+   * 1. Sumar el día, el mes y el año
+   * 2. Si el resultado del paso 1 es mayor a 9, sumar los dígitos del resultado del paso 1
+   * 3. Regresar el resultado del paso 2
+   * @example
+   * 1. 1 + 1 + 2021 = 2023
+   * 2. 2023 <= 9, regresar 2023
+   * 1. 1 + 1 + 2022 = 2024
+   * 2. 2024 <= 9, regresar 2024
+   * 1. 1 + 1 + 2023 = 2025
+   * 2. 2025 <= 9, regresar 2025
+   */
+  calcUniversalDay(opts: SplittedDate): number {
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const dayToCalculate = _.isNil(opts?.day) ? Number(this.NOW.format('D')) : opts.day;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    return reduceNumber(
       this.calcUniversalYear(yearToCalculate)
       + monthToCalculate
       + dayToCalculate,
     );
   }
 
-/* Universal  Day Karmico
-calcUniversalDayISK(dayToCalculate = null, monthToCalculate = null, yearToCalculate = null) {
-  const universalDay = this.reduceNumberISK(this.calcUniversalYear(yearToCalculate) + dayToCalculate + monthToCalculate);
-  return this.karmicos.includes(universalDay) ? '*' : '';
-}
-
-/* Función adaptada a Redux  
-calcCurrentUniversalWeek(dayToCalculate = null, monthToCalculate = null, yearToCalculate = null) {
-  dayToCalculate = dayToCalculate || this.NOW.date();
-  monthToCalculate = monthToCalculate || this.NOW.month() + 1;
-  yearToCalculate = yearToCalculate || this.NOW.year();
-
-  const sumUniversalWeekOne = this.reduceNumber(this.reduceNumber(yearToCalculate) + this.reduceNumber(monthToCalculate));
-  if (dayToCalculate >= 1 && dayToCalculate <= 7) {
-    return sumUniversalWeekOne;
+  /**
+   * @returns {string} - Universal Day with Karmic Symbol
+   */
+  calcUniversalDayISK(opts: SplittedDate): string {
+    const universalDay = reduceNumberISK(this.calcUniversalDay(opts));
+    return this.karmicos.includes(universalDay) ? '*' : '';
   }
 
-  const sumUniversalWeekTwo = this.reduceNumber(this.reduceNumber(yearToCalculate) + sumUniversalWeekOne);
-  if (dayToCalculate >= 8 && dayToCalculate <= 14) {
-    return sumUniversalWeekTwo;
-  }
-
-  const sumUniversalWeekThree = this.reduceNumber(sumUniversalWeekTwo + sumUniversalWeekOne);
-  if (dayToCalculate >= 15 && dayToCalculate <= 21) {
-    return sumUniversalWeekThree;
-  }
-
-  const sumUniversalWeekFour = this.reduceNumber(this.reduceNumber(monthToCalculate) + sumUniversalWeekOne);
-  if (dayToCalculate >= 22) {
+  /**
+   * @param {number} month - Month in number format
+   * @param {number} year - Year in number format
+   * @returns {number} - Universal Week
+   * @description
+   * 1. Sumar el mes y el año
+   * 2. Si el día está entre 1 y 7, regresar el resultado del paso 1
+   * 3. Sumar el resultado del paso 1 con el resultado del paso 2
+   * 4. Si el día está entre 8 y 14, regresar el resultado del paso 3
+   * 5. Sumar el resultado del paso 1 con el resultado del paso 3
+   * 6. Si el día está entre 15 y 21, regresar el resultado del paso 5
+   * 7. Sumar el mes y el resultado del paso 1
+   * 8. Regresar el resultado del paso 7
+   * @example
+   * 1. 1 + 2021 = 2022
+   * 2. 1 <= 1 <= 7, regresar 2022
+   * 3. 2022 + 2022 = 4044
+   * 4. 8 <= 1 <= 14, regresar 4044
+   * 5. 2022 + 4044 = 6066
+   * 6. 15 <= 1 <= 21, regresar 6066
+   * 7. 1 + 2022 = 2023
+   * 8. Regresar 2023
+   */
+  calcCurrentUniversalWeek(opts: SplittedDate): number {
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const dayToCalculate = _.isNil(opts?.day) ? Number(this.NOW.format('D')) : opts.day;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const sumUniversalWeekOne = reduceNumber(reduceNumber(yearToCalculate) + reduceNumber(monthToCalculate));
+    if (dayToCalculate >= 1 && dayToCalculate <= 7) {
+      return sumUniversalWeekOne;
+    }
+    const sumUniversalWeekTwo = reduceNumber(reduceNumber(yearToCalculate) + sumUniversalWeekOne);
+    if (dayToCalculate >= 8 && dayToCalculate <= 14) {
+      return sumUniversalWeekTwo;
+    }
+    const sumUniversalWeekThree = reduceNumber(sumUniversalWeekTwo + sumUniversalWeekOne);
+    if (dayToCalculate >= 15 && dayToCalculate <= 21) {
+      return sumUniversalWeekThree;
+    }
+    const sumUniversalWeekFour = reduceNumber(reduceNumber(monthToCalculate) + sumUniversalWeekOne);
     return sumUniversalWeekFour;
   }
-}
 
-/* Current Universal Week Karmico 
-calcCurrentUniversalWeekISK(dayToCalculate = null, monthToCalculate = null, yearToCalculate = null) {
-  const sumUniversalWeekOne = this.reduceNumberISK(yearToCalculate + monthToCalculate);
-  if (dayToCalculate >= 1 && dayToCalculate <= 7) {
-    return this.karmicos.includes(sumUniversalWeekOne) ? '*' : '';
-  }
-
-  const sumUniversalWeekTwo = this.reduceNumberISK(yearToCalculate + sumUniversalWeekOne);
-  if (dayToCalculate >= 8 && dayToCalculate <= 14) {
-    return this.karmicos.includes(sumUniversalWeekTwo) ? '*' : '';
-  }
-
-  const sumUniversalWeekThree = this.reduceNumberISK(sumUniversalWeekTwo + sumUniversalWeekOne);
-  if (dayToCalculate >= 15 && dayToCalculate <= 21) {
-    return this.karmicos.includes(sumUniversalWeekThree) ? '*' : '';
-  }
-
-  const sumUniversalWeekFour = this.reduceNumberISK(monthToCalculate + sumUniversalWeekOne);
-  if (dayToCalculate >= 22) {
+  /**
+   * @returns {string} - Current Universal week with Karmic Symbol
+   */
+  calcCurrentUniversalWeekISK(opts: SplittedDate): string {
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const dayToCalculate = _.isNil(opts?.day) ? Number(this.NOW.format('D')) : opts.day;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const sumUniversalWeekOne = reduceNumberISK(yearToCalculate + monthToCalculate);
+    if (dayToCalculate >= 1 && dayToCalculate <= 7) {
+      return this.karmicos.includes(sumUniversalWeekOne) ? '*' : '';
+    }
+    const sumUniversalWeekTwo = reduceNumberISK(yearToCalculate + sumUniversalWeekOne);
+    if (dayToCalculate >= 8 && dayToCalculate <= 14) {
+      return this.karmicos.includes(sumUniversalWeekTwo) ? '*' : '';
+    }
+    const sumUniversalWeekThree = reduceNumberISK(sumUniversalWeekTwo + sumUniversalWeekOne);
+    if (dayToCalculate >= 15 && dayToCalculate <= 21) {
+      return this.karmicos.includes(sumUniversalWeekThree) ? '*' : '';
+    }
+    const sumUniversalWeekFour = reduceNumberISK(monthToCalculate + sumUniversalWeekOne);
     return this.karmicos.includes(sumUniversalWeekFour) ? '*' : '';
   }
-}
 
-/*  Función adaptada a Redux 
-calcUniversalWeek(monthToCalculate = null, weekToCalculate, yearToCalculate = null) {
-  monthToCalculate = monthToCalculate || this.NOW.month() + 1;
-  yearToCalculate = yearToCalculate || this.NOW.year();
-  const weekOne = monthToCalculate + this.calcUniversalYear(yearToCalculate);
-  if (weekToCalculate === 1) { return this.reduceNumber(weekOne); }
-  const weekTwo = this.calcUniversalYear(yearToCalculate) + weekOne;
-  if (weekToCalculate === 2) { return this.reduceNumber(weekTwo); }
-  const weekThr = weekOne + weekTwo;
-  if (weekToCalculate === 3) { return this.reduceNumber(weekThr); }
-  const weekFou = monthToCalculate + weekOne;
-  if (weekToCalculate === 4) { return this.reduceNumber(weekFou); }
-}
+  /**
+   * @param {number} weekToCalculate - Week to calculate
+   * @param {number} month - Month in number format
+   * @param {number} year - Year in number format
+   * @returns {number} - Universal Week
+   */
+  calcUniversalWeek(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): number {
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const weekOne = monthToCalculate + this.calcUniversalYear(yearToCalculate);
+    if (weekToCalculate === 1) {
+      return reduceNumber(weekOne);
+    }
+    const weekTwo = this.calcUniversalYear(yearToCalculate) + weekOne;
+    if (weekToCalculate === 2) {
+      return reduceNumber(weekTwo);
+    }
+    const weekThr = weekOne + weekTwo;
+    if (weekToCalculate === 3) {
+      return reduceNumber(weekThr);
+    }
+    const weekFou = monthToCalculate + weekOne;
+    return reduceNumber(weekFou);
+  }
 
-/* Universal Week Karmico 
-calcUniversalWeekISK(monthToCalculate = null, weekToCalculate, yearToCalculate = null) {
-  const weekOne = monthToCalculate + this.calcUniversalYear(yearToCalculate);
-  if (weekToCalculate === 1) {
-    const universalWeekOne = this.reduceNumberISK(weekOne);
-    return this.karmicos.includes(universalWeekOne) ? '*' : '';
-  }
-  const weekTwo = this.calcUniversalYear(yearToCalculate) + weekOne;
-  if (weekToCalculate === 2) {
-    const universalWeekTwo = this.reduceNumberISK(weekTwo);
-    return this.karmicos.includes(universalWeekTwo) ? '*' : '';
-  }
-  const weekThr = weekOne + weekTwo;
-  if (weekToCalculate === 3) {
-    const universalWeekThree = this.reduceNumberISK(weekThr);
-    return this.karmicos.includes(universalWeekThree) ? '*' : '';
-  }
-  const weekFou = monthToCalculate + weekOne;
-  if (weekToCalculate === 4) {
-    const universalweekFou = this.reduceNumberISK(weekFou);
+  calcUniversalWeekISK(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): string {
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const weekOne = monthToCalculate + this.calcUniversalYear(yearToCalculate);
+    if (weekToCalculate === 1) {
+      const universalWeekOne = reduceNumberISK(weekOne);
+      return this.karmicos.includes(universalWeekOne) ? '*' : '';
+    }
+    const weekTwo = this.calcUniversalYear(yearToCalculate) + weekOne;
+    if (weekToCalculate === 2) {
+      const universalWeekTwo = reduceNumberISK(weekTwo);
+      return this.karmicos.includes(universalWeekTwo) ? '*' : '';
+    }
+    const weekThr = weekOne + weekTwo;
+    if (weekToCalculate === 3) {
+      const universalWeekThree = reduceNumberISK(weekThr);
+      return this.karmicos.includes(universalWeekThree) ? '*' : '';
+    }
+    const weekFou = monthToCalculate + weekOne;
+    const universalweekFou = reduceNumberISK(weekFou);
     return this.karmicos.includes(universalweekFou) ? '*' : '';
   }
-}
 
-/*  Función adaptada a Redux 
-calcUniversalMonth(monthToCalculate = null, yearToCalculate = null) {
-  monthToCalculate = monthToCalculate || this.NOW.month() + 1;
-  yearToCalculate = yearToCalculate || this.NOW.year();
-  return this.reduceNumber(this.calcUniversalYear(yearToCalculate) + monthToCalculate);
-}
-
-/* Universal Month Karmico 
-calcUniversalMonthISK(monthToCalculate = null, yearToCalculate = null) {
-  const universalMonth = this.reduceNumberISK(this.calcUniversalYear(yearToCalculate) + monthToCalculate);
-  return this.karmicos.includes(universalMonth) ? '*' : '';
-}
-
-/*  Función adaptada a Redux 
-calcUniversalYear(yearToCalculate = null) {
-  yearToCalculate = yearToCalculate || this.NOW.year();
-  return this.reduceNumber(yearToCalculate);
-}
-
-/* Universal Year Karmico 
-calcUniversalYearISK(yearToCalculate = null) {
-  const universalYear = this.calcUniversalYear(yearToCalculate);
-  return this.karmicos.includes(universalYear) ? '*' : '';
-}
-
-reduceNumberWithOut11(reduceSum) {
-  while (reduceSum > 9 && reduceSum !== 22) {
-    reduceSum = reduceSum.toString().split('').reduce((r, c) => r += parseInt(c), 0);
+  /**
+   * @param {number} month - Month in number format
+   * @param {number} year - Year in number format
+   * @returns {number} - Universal Month
+   */
+  calcUniversalMonth(opts: SplittedDate): number {
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    return reduceNumber(this.calcUniversalYear(yearToCalculate) + monthToCalculate);
   }
-  return reduceSum;
+
+  calcUniversalMonthISK(opts: SplittedDate): string {
+    const universalMonth = reduceNumberISK(this.calcUniversalMonth(opts));
+    return this.karmicos.includes(universalMonth) ? '*' : '';
+  }
 }
 
-reduceNumber(reduceSum) {
-  while (reduceSum > 9 && !(reduceSum === 22 || reduceSum === 11)) {
-    reduceSum = reduceSum.toString().split('').reduce((r, c) => r += parseInt(c), 0);
-  }
-  return reduceSum;
-}
-
-reduceNumberISK(reduceSum) {
-  while (reduceSum > 9 && !this.karmicos.includes(reduceSum)) {
-    reduceSum = reduceSum.toString().toLowerCase().split('').reduce((r, c) => r += parseInt(c), 0);
-  }
-  return parseInt(reduceSum);
-}
-}
 export default Universal;
