@@ -46,8 +46,7 @@ function LoginPage() {
             <img src={Logo} alt="app-logo" className="w-28" />
           </Link>
           <div
-            className="hidden w-full md:block md:w-auto mr-3"
-            id="main-menu"
+            className="main-menu hidden w-full md:block md:w-auto mr-3"
           />
         </div>
       </nav>

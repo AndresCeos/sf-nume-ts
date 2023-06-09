@@ -20,6 +20,7 @@ module.exports = {
         blue: '#056BE2',
         aguamarina: '#31FFFF',
         grayNc: '#e0d8cc',
+        appBackground: '#ebeef7',
       },
       gridTemplateColumns: {
         '14': 'repeat(14, minmax(0, 1fr))',

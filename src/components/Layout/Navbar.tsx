@@ -58,7 +58,7 @@ function Navbar() {
           className="main-menu hidden w-full md:block md:w-auto mr-3"
         >
           <ul className="flex flex-col md:flex-row md:space-x-5 md:mt-0 text-xs font-medium h-full">
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
                 to="/consultante"
@@ -73,7 +73,7 @@ function Navbar() {
                 Datos
               </Link>
             </li>
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
                 to="consultante"
@@ -89,7 +89,7 @@ function Navbar() {
                 Datos
               </Link>
             </li>
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               <button
                 type="button"
                 className="button-nav-bar"
@@ -105,7 +105,7 @@ function Navbar() {
                 Fecha
               </button>
             </li>
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
                 to="/sinastria"
@@ -120,7 +120,7 @@ function Navbar() {
                 de Pareja
               </Link>
             </li>
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
                 to="/group_pinnacle"
@@ -135,7 +135,7 @@ function Navbar() {
                 de Grupo
               </Link>
             </li>
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               <button
                 type="button"
                 className={cx(
@@ -153,7 +153,7 @@ function Navbar() {
               </button>
             </li>
 
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               {isDownloadPDFEnabled
                 ? (
                   <button
@@ -187,7 +187,7 @@ function Navbar() {
                   </button>
                 )}
             </li>
-            <li className="flex-center">
+            <li className="flex items-center justify-center">
               {isDownloadPDFEnabled
                 ? (
                   <button
@@ -221,29 +221,32 @@ function Navbar() {
                   </button>
                 )}
             </li>
-            <li className="flex-center ml-20">
+            <li className="flex items-center justify-center ml-20">
               <a href="https://app.numerologia-cotidiana.com/formulario-de-soporte-arithmax/" target="_blank" rel="noreferrer">
                 <img
                   src={mail}
                   alt="email"
+                  className="w-6 lg:w-8"
                 />
               </a>
             </li>
-            <li className="flex-center ml-7">
+            <li className="flex items-center justify-center ml-7">
               <Notifications />
             </li>
-            <li className="flex-center ml-6">
+            <li className="flex items-center justify-center ml-6">
               <img
                 src="https://www.worldometers.info/img/flags/small/tn_mx-flag.gif"
-                className="flag"
+                className="w-8"
                 alt="country"
               />
             </li>
-            <li className="flex-center mx-4 text-white">|</li>
-            <li className="flex-center text-sm text-white">
-              Hola!
-              {' '}
-              <strong className="ml-2">{`${firstName} ${lastName}`}</strong>
+            <li className="flex items-center justify-center mx-4 text-white">|</li>
+            <li className="flex items-center justify-center text-sm text-white max-w-[110px]">
+              <p>
+                Hola!
+                {' '}
+                <strong className="ml-2">{`${firstName} ${lastName}`}</strong>
+              </p>
             </li>
           </ul>
         </div>

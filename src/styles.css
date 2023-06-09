@@ -20,16 +20,10 @@
     @apply h-[85px] bg-main-700 border-gray-200;
   }
   .app-logo {
-    max-height: 85px;
-    transform: scale(1);
-    object-fit: contain;
+    @apply max-h-[85px] object-cover transform scale-100;
   }
   .app-content {
-    width: 100%;
-    background-color: #ebeef7;
-    overflow-x: auto;
-    background-size: cover;
-    overflow-y: auto;
+    @apply w-full bg-appBackground overflow-auto bg-cover;
   }
   .app-sidebar {
     min-width: 202px;
@@ -46,6 +40,15 @@
   }
   .sidebar-link.active-purple {
     @apply font-medium text-black bg-main-50;
+  }
+  .main-menu{
+    @apply h-[85px] bg-main-700;
+  }
+  .button-nav-bar{
+    @apply flex flex-col justify-center text-center items-center text-white hover:bg-indigo-900 h-full px-3;
+  }
+  .button-nav-bar--disabled {
+    @apply flex flex-col justify-center text-center items-center text-white h-full px-3 opacity-30 cursor-auto;
   }
 }
 
