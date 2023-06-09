@@ -34,7 +34,7 @@ function ConsultantPicker() {
       <img src="/assets/ic-search.svg" className="mx-2 drop-shadow-sm" alt="consultant search" />
       Consultante:
       <Select
-        options={options}
+        options={options as never}
         onChange={handleChange}
         value={formatUserActive()}
         className="px-2 w-72"
