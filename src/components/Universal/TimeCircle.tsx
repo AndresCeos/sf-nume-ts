@@ -1,12 +1,17 @@
-import moment from 'moment';
+import useConsult from '@/hooks/useConsult';
+import Universal from '@/resources/Universal';
 
 function TimeCircle() {
-  const currentMonth = moment().format('M');
+  const { consultationDate } = useConsult();
+
+  const u = new Universal();
+  const currentMonth = consultationDate.format('M');
+  const currentYear = consultationDate.format('YYYY');
 
   return (
     <div className="relative time-circle">
       <img src="/assets/time-circle.png" className="relative" alt="Time Circle" />
-      {currentMonth}
+      {JSON.stringify({ currentMonth, currentYear, u })}
     </div>
   );
 }

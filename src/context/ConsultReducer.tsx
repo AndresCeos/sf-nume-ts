@@ -1,8 +1,8 @@
 export const types = {
-  selectConsultant: 'User/consultant',
+  selectConsultant: 'Consult/consultant',
 };
 
-export const userReducer = (state: any, action: any) => {
+export const consultReducer = (state: any, action: any) => {
   switch (action.type) {
     case types.selectConsultant:
       return {

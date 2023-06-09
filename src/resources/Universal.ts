@@ -211,8 +211,8 @@ export class Universal {
       return this.karmicos.includes(universalWeekThree) ? '*' : '';
     }
     const weekFou = monthToCalculate + weekOne;
-    const universalweekFou = reduceNumberISK(weekFou);
-    return this.karmicos.includes(universalweekFou) ? '*' : '';
+    const universalWeekFou = reduceNumberISK(weekFou);
+    return this.karmicos.includes(universalWeekFou) ? '*' : '';
   }
 
   /**

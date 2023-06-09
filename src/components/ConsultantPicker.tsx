@@ -1,11 +1,11 @@
 import Select, { SingleValue } from 'react-select';
 
 import { useAuth } from '@/context/AuthProvider';
-import useUser from '@/hooks/useUser';
+import useConsult from '@/hooks/useConsult';
 
 function ConsultantPicker() {
   const { user } = useAuth();
-  const { consultant, selectConsultant } = useUser();
+  const { consultant, selectConsultant } = useConsult();
 
   const options = user?.consultants.map(({
     id, names, lastName, scdLastName,
@@ -21,7 +21,7 @@ function ConsultantPicker() {
     selectConsultant(newConsultant);
   };
 
-  const formatUserActive = () => {
+  const formatConsultantActive = () => {
     if (!consultant.id) return null;
     return {
       value: consultant.id,
@@ -36,7 +36,7 @@ function ConsultantPicker() {
       <Select
         options={options as never}
         onChange={handleChange}
-        value={formatUserActive()}
+        value={formatConsultantActive()}
         className="px-2 w-72"
         placeholder="Seleccionar"
         classNamePrefix="bg-transparent border-0 outline-none font-bold"
