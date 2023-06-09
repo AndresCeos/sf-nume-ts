@@ -1,17 +1,6 @@
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 
-import addUser from '@/assets/navbar/add_user.svg';
-import changeDateIcon from '@/assets/navbar/change_date.svg';
-import groupData from '@/assets/navbar/group_data.svg';
-import mail from '@/assets/navbar/mail.svg';
-import notes from '@/assets/navbar/notes.svg';
-import partnerData from '@/assets/navbar/partner_data.svg';
-import printReports from '@/assets/navbar/print_reports.svg';
-import saveReport from '@/assets/navbar/save_report.svg';
-import updateUser from '@/assets/navbar/update_user.svg';
-
-import Logo from '@/assets/logo.png';
 import { useAuth } from '@/context/AuthProvider';
 
 function Notifications() {
@@ -49,7 +38,7 @@ function Navbar() {
       <div className="flex flex-wrap justify-between items-center mx-auto">
         <Link to="/" className="flex">
           <img
-            src={Logo}
+            src="/assets/logo.png"
             className="app-logo"
             alt="app-logo"
           />
@@ -64,7 +53,7 @@ function Navbar() {
                 to="/consultante"
               >
                 <img
-                  src={addUser}
+                  src="/assets/navbar/add_user.svg"
                   alt="add_user"
                   className="mb-1"
                 />
@@ -80,7 +69,7 @@ function Navbar() {
                 onClick={handlerEdit}
               >
                 <img
-                  src={updateUser}
+                  src="/assets/navbar/update_user.svg"
                   className="mb-1"
                   alt="update_user"
                 />
@@ -96,7 +85,7 @@ function Navbar() {
                 onClick={changeDate}
               >
                 <img
-                  src={changeDateIcon}
+                  src="/assets/navbar/change_date.svg"
                   className="mb-1"
                   alt="change_date"
                 />
@@ -111,7 +100,7 @@ function Navbar() {
                 to="/sinastria"
               >
                 <img
-                  src={partnerData}
+                  src="/assets/navbar/partner_data.svg"
                   className="mb-1"
                   alt="partner_data"
                 />
@@ -126,7 +115,7 @@ function Navbar() {
                 to="/group_pinnacle"
               >
                 <img
-                  src={groupData}
+                  src="/assets/navbar/group_data.svg"
                   className="mb-1"
                   alt="group_data"
                 />
@@ -144,7 +133,7 @@ function Navbar() {
                 onClick={handleModal}
               >
                 <img
-                  src={notes}
+                  src="/assets/navbar/notes.svg"
                   alt="notas"
                 />
                 Notas de
@@ -162,7 +151,7 @@ function Navbar() {
                     className="button-nav-bar"
                   >
                     <img
-                      src={saveReport}
+                      src="/assets/navbar/save_report.svg"
                       className="mb-1"
                       alt="save_report"
                     />
@@ -177,7 +166,7 @@ function Navbar() {
                     type="button"
                   >
                     <img
-                      src={saveReport}
+                      src="/assets/navbar/save_report.svg"
                       className="mb-1"
                       alt="save_report"
                     />
@@ -196,7 +185,7 @@ function Navbar() {
                     className="button-nav-bar"
                   >
                     <img
-                      src={printReports}
+                      src="/assets/navbar/print_reports.svg"
                       className="mb-1"
                       alt="printReports"
                     />
@@ -211,7 +200,7 @@ function Navbar() {
                     className="flex flex-col justify-center text-center items-center text-white opacity-30 cursor-auto h-full px-3"
                   >
                     <img
-                      src={printReports}
+                      src="/assets/navbar/print_reports.svg"
                       className="mb-1"
                       alt="printReports"
                     />
@@ -224,7 +213,7 @@ function Navbar() {
             <li className="flex items-center justify-center ml-20">
               <a href="https://app.numerologia-cotidiana.com/formulario-de-soporte-arithmax/" target="_blank" rel="noreferrer">
                 <img
-                  src={mail}
+                  src="/assets/navbar/mail.svg"
                   alt="email"
                   className="w-6 lg:w-8"
                 />

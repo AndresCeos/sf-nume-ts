@@ -4,9 +4,6 @@ import { t } from 'i18next';
 import { CgSpinnerTwo } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 
-import Logo from '@/assets/logo_login.png';
-import welcome from '@/assets/welcome.png';
-
 import { useAuth } from '@/context/AuthProvider';
 import useForm from '@/hooks/useForm';
 
@@ -43,7 +40,7 @@ function LoginPage() {
       <nav className="bg-white border-gray-200 max-h-[85px] h-[85px]">
         <div className="flex flex-wrap justify-between items-center mx-auto">
           <Link to="/" className="flex">
-            <img src={Logo} alt="app-logo" className="w-28" />
+            <img src="/assets/logo_login.png" alt="app-logo" className="w-28" />
           </Link>
           <div
             className="main-menu hidden w-full md:block md:w-auto mr-3"
@@ -61,7 +58,7 @@ function LoginPage() {
           </div>
           <div className="col-span-5 h-full flex flex-col items-center justify-center bg-white bg-opacity-50">
             <div className="w-full flex flex-col items-center justify-center">
-              <img src={welcome} className="w-32" alt="welcome" />
+              <img src="/assets/welcome.png" className="w-32" alt="welcome" />
               <h2>Iniciar Sesión</h2>
               <form onSubmit={handleOnSubmit} className="w-full m-5 flex flex-col items-center">
                 <input

@@ -7,22 +7,6 @@ import {
 import { VscCircleFilled } from 'react-icons/vsc';
 import { NavLink } from 'react-router-dom';
 
-import ic_consultant from '@/assets/sidebar/consultant.svg';
-import ic_group from '@/assets/sidebar/group.svg';
-import ic_home from '@/assets/sidebar/home.svg';
-import ic_partner from '@/assets/sidebar/partner.svg';
-import ic_personal from '@/assets/sidebar/personal.svg';
-
-import ic_annual_return from '@/assets/sidebar/annual_return.svg';
-import ic_calendar from '@/assets/sidebar/calendar.svg';
-import ic_circle_time from '@/assets/sidebar/circle_time.svg';
-import ic_compatibility_table from '@/assets/sidebar/compatibility_table.svg';
-import ic_create_name from '@/assets/sidebar/create_name.svg';
-import ic_destiny_table from '@/assets/sidebar/destiny_table.svg';
-import ic_life_path from '@/assets/sidebar/life_path.svg';
-import ic_name from '@/assets/sidebar/name.svg';
-import ic_pinnacle from '@/assets/sidebar/pinnacle.svg';
-import ic_vibration_time from '@/assets/sidebar/vibration_time.svg';
 import { useAuth } from '@/context/AuthProvider';
 
 function Sidebar() {
@@ -55,7 +39,7 @@ function Sidebar() {
                 aria-current="page"
                 onClick={() => setCurrentPage('')}
               >
-                <img src={ic_home} className="w-6 h-4 object-center" alt="ic_home" />
+                <img src="/assets/sidebar/home.svg" className="w-6 h-4 object-center" alt="'/assets/sidebar/home.svg'" />
                 <label className="ml-2">Inicio</label>
               </NavLink>
             </li>
@@ -67,7 +51,7 @@ function Sidebar() {
                 aria-current="page"
                 onClick={() => setCurrentPage('')}
               >
-                <img src={ic_consultant} className="w-6 h-4 object-center" alt="img" />
+                <img src="/assets/sidebar/consultant.svg" className="w-6 h-4 object-center" alt="img" />
                 <label className="ml-2">Consultante</label>
               </NavLink>
             </li>
@@ -78,7 +62,7 @@ function Sidebar() {
                 aria-current="page"
                 onClick={() => setCurrentPage('personal')}
               >
-                <img src={ic_personal} className="w-6 h-4 object-center" alt="ic_personal" />
+                <img src="/assets/sidebar/personal.svg" className="w-6 h-4 object-center" alt="ic_personal" />
                 <label className="ml-2">Numerología Personal</label>
               </button>
             </li>
@@ -89,7 +73,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_pinnacle} className="w-6 h-4 object-center" alt="ic_pinnacle" />
+                <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">Pináculo</label>
               </NavLink>
             </li>
@@ -100,7 +84,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_life_path} className="w-6 h-4 object-center" alt="ic_life_path" />
+                <img src="/assets/sidebar/life_path.svg" className="w-6 h-4 object-center" alt="ic_life_path" />
                 <label className="ml-2">Camino de Vida</label>
               </NavLink>
             </li>
@@ -111,7 +95,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_name} className="w-6 h-4 object-center" alt="ic_name" />
+                <img src="/assets/sidebar/name.svg" className="w-6 h-4 object-center" alt="ic_name" />
                 <label className="ml-2">Nombre</label>
               </NavLink>
             </li>
@@ -122,7 +106,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_create_name} className="w-6 h-4 object-center" alt="ic_create_name" />
+                <img src="/assets/sidebar/create_name.svg" className="w-6 h-4 object-center" alt="ic_create_name" />
                 <label className="ml-2">Crear Nombre</label>
               </NavLink>
             </li>
@@ -133,7 +117,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_destiny_table} className="w-6 h-4 object-center" alt="ic_destiny_table" />
+                <img src="/assets/sidebar/destiny_table.svg" className="w-6 h-4 object-center" alt="ic_destiny_table" />
                 <label className="ml-2">Tabla del Destino</label>
               </NavLink>
             </li>
@@ -144,7 +128,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_vibration_time} className="w-6 h-4 object-center" alt="ic_vibration_time" />
+                <img src="/assets/sidebar/vibration_time.svg" className="w-6 h-4 object-center" alt="ic_vibration_time" />
                 <label className="ml-2">Vibración de Tiempo</label>
               </NavLink>
             </li>
@@ -155,7 +139,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_annual_return} className="w-6 h-4 object-center" alt="ic_annual_return" />
+                <img src="/assets/sidebar/annual_return.svg" className="w-6 h-4 object-center" alt="ic_annual_return" />
                 <label className="ml-2">Retornos Anuales</label>
               </NavLink>
             </li>
@@ -166,7 +150,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_circle_time} className="w-6 h-4 object-center" alt="ic_circle_time" />
+                <img src="/assets/sidebar/circle_time.svg" className="w-6 h-4 object-center" alt="ic_circle_time" />
                 <label className="ml-2">Circulo del Tiempo</label>
               </NavLink>
             </li>
@@ -177,7 +161,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_calendar} className="w-6 h-4 object-center" alt="ic_calendar" />
+                <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
                 <label className="ml-2">Calendario Anual</label>
               </NavLink>
             </li>
@@ -188,7 +172,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_calendar} className="w-6 h-4 object-center" alt="ic_calendar" />
+                <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
                 <label className="ml-2">Calendario Mensual</label>
               </NavLink>
             </li>
@@ -199,7 +183,7 @@ function Sidebar() {
                 aria-current="page"
                 onClick={() => setCurrentPage('partner')}
               >
-                <img src={ic_partner} className="w-6 h-4 object-center" alt="ic_partner" />
+                <img src="/assets/sidebar/partner.svg" className="w-6 h-4 object-center" alt="ic_partner" />
                 <label className="ml-2">Numerología de Pareja</label>
               </button>
             </li>
@@ -210,7 +194,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_pinnacle} className="w-6 h-4 object-center" alt="ic_pinnacle" />
+                <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">Análisis</label>
               </NavLink>
             </li>
@@ -221,7 +205,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_vibration_time} className="w-6 h-4 object-center" alt="ic_vibration_time" />
+                <img src="/assets/sidebar/vibration_time.svg" className="w-6 h-4 object-center" alt="ic_vibration_time" />
                 <label className="ml-2">Vibración de Tiempo</label>
               </NavLink>
             </li>
@@ -232,7 +216,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_annual_return} className="w-6 h-4 object-center" alt="ic_annual_return" />
+                <img src="/assets/sidebar/annual_return.svg" className="w-6 h-4 object-center" alt="ic_annual_return" />
                 <label className="ml-2">Retornos Anuales</label>
               </NavLink>
             </li>
@@ -243,7 +227,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_destiny_table} className="w-6 h-4 object-center" alt="ic_destiny_table" />
+                <img src="/assets/sidebar/destiny_table.svg" className="w-6 h-4 object-center" alt="ic_destiny_table" />
                 <label className="ml-2">Tabla del Destino P.</label>
               </NavLink>
             </li>
@@ -254,7 +238,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_compatibility_table} className="w-6 h-4 object-center" alt="ic_pinnacle" />
+                <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">Tabla Compatibilidad</label>
               </NavLink>
             </li>
@@ -265,7 +249,7 @@ function Sidebar() {
                 aria-current="page"
                 onClick={() => setCurrentPage('group')}
               >
-                <img src={ic_group} className="w-6 h-4 object-center" alt="ic_partner" />
+                <img src="/assets/sidebar/group.svg" className="w-6 h-4 object-center" alt="ic_partner" />
                 <label className="ml-2">Numerología de Grupo</label>
               </button>
             </li>
@@ -276,7 +260,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_pinnacle} className="w-6 h-4 object-center" alt="ic_pinnacle" />
+                <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">Pináculo</label>
               </NavLink>
             </li>
@@ -287,7 +271,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_vibration_time} className="w-6 h-4 object-center" alt="ic_vibration_time" />
+                <img src="/assets/sidebar/vibration_time.svg" className="w-6 h-4 object-center" alt="ic_vibration_time" />
                 <label className="ml-2">Vibración de Tiempo</label>
               </NavLink>
             </li>
@@ -298,7 +282,7 @@ function Sidebar() {
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src={ic_annual_return} className="w-6 h-4 object-center" alt="ic_annual_return" />
+                <img src="/assets/sidebar/annual_return.svg" className="w-6 h-4 object-center" alt="ic_annual_return" />
                 <label className="ml-2">Retornos Anuales</label>
               </NavLink>
             </li>
