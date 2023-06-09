@@ -85,7 +85,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/pinaculo"
+                to="/personal/pinaculo"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -96,7 +96,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/camino"
+                to="/personal/camino"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -107,7 +107,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/nombre"
+                to="/personal/nombre"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -118,7 +118,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/crear_nombre"
+                to="/personal/crear-nombre"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -129,7 +129,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/destino"
+                to="/personal/destino"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -140,7 +140,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/tiempo"
+                to="/personal/tiempo"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -151,7 +151,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/retornos"
+                to="/personal/retornos"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -162,7 +162,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/circulo_tiempo"
+                to="/personal/circulo-tiempo"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -173,7 +173,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/calendario"
+                to="/personal/calendario"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -184,7 +184,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/calendarioMensual"
+                to="/personal/calendario-mensual"
                 className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
