@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
+import ConsultantPicker from '@/components/ConsultantPicker';
 import MainLayout from '@/components/Layout/MainLayout';
 import Spinner from '@/components/Spinner';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
@@ -16,6 +17,7 @@ function App() {
           </div>
         )}
       >
+        <ConsultantPicker />
         <Outlet />
       </Suspense>
     </MainLayout>
