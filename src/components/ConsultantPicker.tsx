@@ -22,7 +22,7 @@ function ConsultantPicker() {
   };
 
   const formatUserActive = () => {
-    if (!consultant) return null;
+    if (!consultant.id) return null;
     return {
       value: consultant.id,
       label: `${consultant.names} ${consultant.lastName} ${consultant.scdLastName}`,
