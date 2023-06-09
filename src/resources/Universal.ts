@@ -227,7 +227,9 @@ export class Universal {
   }
 
   calcUniversalMonthISK(opts: SplittedDate): string {
-    const universalMonth = reduceNumberISK(this.calcUniversalMonth(opts));
+    const monthToCalculate: number = _.isNil(opts?.month) ? Number(this.NOW.format('M')) : opts.month;
+    const yearToCalculate = _.isNil(opts?.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const universalMonth = reduceNumberISK(this.calcUniversalYear(yearToCalculate) + monthToCalculate);
     return this.karmicos.includes(universalMonth) ? '*' : '';
   }
 }

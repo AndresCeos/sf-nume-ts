@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import TimeCircle from '@/components/Universal/TimeCircle';
+import TimeCircle from '@/components/Universal/timeCircle/TimeCircle';
 import { useAuth } from '@/context/AuthProvider';
 
 function HomePage() {
