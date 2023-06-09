@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import Select, { SingleValue } from 'react-select';
 
 import { useAuth } from '@/context/AuthProvider';
+import useUser from '@/hooks/useUser';
 
 function ConsultantPicker() {
   const { user } = useAuth();
-  const [userActive, setUserActive] = useState<Api.Consultant>();
+  const { consultant, selectConsultant } = useUser();
 
   const options = user?.consultants.map(({
     id, names, lastName, scdLastName,
@@ -14,20 +14,19 @@ function ConsultantPicker() {
     label: `${names} ${lastName} ${scdLastName}`,
   }));
 
-  const handleChange = (selectedOption: SingleValue<{ value: string, label: string }>) => {
-    console.log({ selectedOption });
-    setUserActive(user?.consultants.find((consultant) => consultant.id === selectedOption?.value));
+  const handleChange = (selectedOption: SingleValue<{ value: string | undefined, label: string }>) => {
+    if (selectedOption?.value === undefined) return;
+    const newConsultant = user?.consultants.find((c) => c.id === selectedOption?.value);
+    if (!newConsultant) return;
+    selectConsultant(newConsultant);
   };
 
   const formatUserActive = () => {
-    if (!userActive) return null;
-    if (userActive.id) {
-      return {
-        value: userActive.id,
-        label: `${userActive.names} ${userActive.lastName} ${userActive.scdLastName}`,
-      };
-    }
-    return null;
+    if (!consultant) return null;
+    return {
+      value: consultant.id,
+      label: `${consultant.names} ${consultant.lastName} ${consultant.scdLastName}`,
+    };
   };
 
   return (
@@ -36,7 +35,7 @@ function ConsultantPicker() {
       Consultante:
       <Select
         options={options}
-        onChange={(newValue) => handleChange(newValue)}
+        onChange={handleChange}
         value={formatUserActive()}
         className="px-2 w-72"
         placeholder="Seleccionar"

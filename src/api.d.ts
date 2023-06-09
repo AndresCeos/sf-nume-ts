@@ -15,18 +15,18 @@ declare namespace Api {
   }
 
   interface Consultant {
-    company: string;
-    date: Date;
-    email: string;
-    gender: string;
-    group: unknown[];
-    id: string;
-    lastName: string;
-    names: string;
-    nationality: string;
-    partner: unknown[];
-    phone: string;
-    scdLastName: string;
+    company?: string;
+    date?: Date;
+    email?: string;
+    gender?: string;
+    group?: unknown[];
+    id?: string;
+    lastName?: string;
+    names?: string;
+    nationality?: string;
+    partner?: unknown[];
+    phone?: string;
+    scdLastName?: string;
   }
   interface User {
     avatar: string;

@@ -4,23 +4,26 @@ import { Navigate, Outlet } from 'react-router-dom';
 import ConsultantPicker from '@/components/ConsultantPicker';
 import MainLayout from '@/components/Layout/MainLayout';
 import Spinner from '@/components/Spinner';
+import UserProvider from '@/context/UserProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 
 function App() {
   return (
-    <MainLayout>
-      <Suspense
-        fallback={(
-          <div className="h-full w-full flex items-center justify-center">
-            <Spinner size="xl" />
-          </div>
-        )}
-      >
-        <ConsultantPicker />
-        <Outlet />
-      </Suspense>
-    </MainLayout>
+    <UserProvider>
+      <MainLayout>
+        <Suspense
+          fallback={(
+            <div className="h-full w-full flex items-center justify-center">
+              <Spinner size="xl" />
+            </div>
+          )}
+        >
+          <ConsultantPicker />
+          <Outlet />
+        </Suspense>
+      </MainLayout>
+    </UserProvider>
   );
 }
 
