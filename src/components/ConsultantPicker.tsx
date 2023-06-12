@@ -30,7 +30,7 @@ function ConsultantPicker() {
   };
 
   return (
-    <div className="selectConsultant flex items-center bg-white">
+    <div className="selectConsultant flex items-center">
       <img src="/assets/ic-search.svg" className="mx-2 drop-shadow-sm" alt="consultant search" />
       Consultante:
       <Select

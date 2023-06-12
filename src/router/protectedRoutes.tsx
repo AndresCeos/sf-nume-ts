@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import ConsultantPicker from '@/components/ConsultantPicker';
 import MainLayout from '@/components/Layout/MainLayout';
 import Spinner from '@/components/Spinner';
+import StatusBar from '@/components/StatusBar';
 import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
@@ -19,7 +19,7 @@ function App() {
             </div>
           )}
         >
-          <ConsultantPicker />
+          <StatusBar />
           <Outlet />
         </Suspense>
       </MainLayout>

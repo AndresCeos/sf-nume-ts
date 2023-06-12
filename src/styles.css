@@ -32,6 +32,12 @@
     height: calc(100vh - 85px);
     @apply flex flex-col justify-between shrink-0 text-gray-500;
   }
+  .app-statusbar{
+    @apply flex items-center justify-between fixed w-full z-50 bg-white;
+    @apply h-[41px] text-[13px];
+    max-width: calc(100% - 202px);
+    padding-right: 15px;
+  }
   .sidebar-link{
     @apply text-[13px] pl-3 pr-1 py-2 flex items-center border-b border-grayNc;
   }
