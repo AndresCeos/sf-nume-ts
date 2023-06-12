@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { TiPlus } from 'react-icons/ti';
 
 import useConsult from '@/hooks/useConsult';
+import Person from '@/resources/Person';
 
 export type EnergyPersonProps = {
   id?: string;
@@ -23,7 +24,7 @@ function UniversalEnergyPerson({
   const { calculationDate, calculationYear } = useConsult();
   const { name, date } = person;
 
-  const energy = {} as any;
+  const energy = new Person({ name, birthDate: new Date(date).toDateString() });
 
   const handleModalGuest = () => {
     addGuest({ name, date });

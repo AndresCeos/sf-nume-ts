@@ -9,7 +9,8 @@ function UniversalEnergy() {
   const [people, setPeople] = useState<EnergyPersonProps[]>([]);
 
   useEffect(() => {
-    people.push({
+    const peopleToSet: EnergyPersonProps[] = [];
+    peopleToSet.push({
       id: uuidv4(),
       name: `${userAuth?.user?.firstName} ${userAuth?.user?.lastName}`,
       date: userAuth?.user?.birthDate as never,
@@ -17,13 +18,15 @@ function UniversalEnergy() {
     });
 
     userAuth?.guests?.forEach((guest) => {
-      people.push({
+      peopleToSet.push({
         id: uuidv4(),
         name: guest.name,
         date: guest.date,
         active: false,
       });
     });
+
+    setPeople(peopleToSet);
   }, []);
 
   const handleAddGuest = ({ name, date }: { name: string, date: Date }) => {
@@ -47,10 +50,9 @@ function UniversalEnergy() {
 
   return (
     <div className="grid grid-cols-4 mt-24">
-      {JSON.stringify(people)}
-      x
       {people.map((person) => (
         <UniversalEnergyPerson
+          key={person.id}
           person={person}
           addGuest={handleAddGuest}
           setActive={() => handleSetActive(person.id as string)}
