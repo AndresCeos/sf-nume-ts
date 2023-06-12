@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 import useConsult from '@/hooks/useConsult';
 
 function TimeCirclePastMonths() {
@@ -9,7 +11,9 @@ function TimeCirclePastMonths() {
   for (let i = 1; i <= 12; i++) {
     if (currentMonth !== i && currentMonth > i) {
       circleImages.push(
-        <img className={`circle-time-pos-${i}`} src="/assets/time-circle-past-indicator.png" alt="" />,
+        <Fragment key={`${currentMonth}-${i}`}>
+          <img className={`circle-time-pos-${i}`} src="/assets/time-circle-past-indicator.png" alt="" />
+        </Fragment>,
       );
     }
   }

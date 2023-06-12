@@ -4,30 +4,40 @@ import { TiPlus } from 'react-icons/ti';
 
 import useConsult from '@/hooks/useConsult';
 
+export type EnergyPersonProps = {
+  id?: string;
+  name: string;
+  date: Date;
+  active?: boolean;
+};
+
 type UniversalEnergyPersonProps = {
-  person: Api.Guest;
-  active: boolean;
+  person: EnergyPersonProps;
   setActive: () => void;
-  addGuest: () => void;
+  addGuest: ({ name, date }: { name: string; date: Date; }) => void;
 };
 
 function UniversalEnergyPerson({
-  person, active, setActive, addGuest,
+  person, setActive, addGuest,
 }: UniversalEnergyPersonProps) {
   const { calculationDate, calculationYear } = useConsult();
   const { name, date } = person;
 
   const energy = {} as any;
 
+  const handleModalGuest = () => {
+    addGuest({ name, date });
+  };
+
   return (
-    <ul className={cx('flex flex-col items-center', { 'opacity-25': active })}>
+    <ul className={cx('flex flex-col items-center', { 'opacity-25': person.active })}>
       <li className="mb-2">
         <img src="/assets/ic-universal.svg" alt="personal_disabled" />
       </li>
       <li
         className={cx('text-center cursor-pointer', {
-          'text-main-700': active,
-          'text-black': !active,
+          'text-main-700': person.active,
+          'text-black': !person.active,
         })}
       >
         <button type="button" onClick={setActive}>
@@ -37,7 +47,7 @@ function UniversalEnergyPerson({
         <div className="font-black">PERSONAL</div>
       </li>
       <li className={cx('rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 text-13 inner-shadow mt-3 mb-6 font-black')}>
-        <button onClick={addGuest} type="button">
+        <button onClick={handleModalGuest} type="button">
           {person?.name ? person?.name : <TiPlus />}
         </button>
       </li>

@@ -65,7 +65,7 @@ function TimeCircleWeeks() {
     // TODO: uncomment when are ready {consultant.calcSelectPersonalWeek(1, 1, currentYear)}
     // TODO: uncomment when are ready {consultant.calcSelectPersonalWeekISK(1, 1, currentYear)}
     numbers.push(
-      <span className={layer.className}>
+      <span className={layer.className} key={`${month}-${week}`}>
         {`${month}/${week}`}
       </span>,
     );
@@ -77,7 +77,7 @@ function TimeCircleWeeks() {
     // TODO: uncomment when are ready {consultant.getQuaterMonth(i, year)}
     // TODO: uncomment when are ready {consultant.getQuaterMonthISK(i, year)}
     numbers.push(
-      <span className={`${layerMonths.className}${i}`}>
+      <span className={`${layerMonths.className}${i}`} key={`${year}-${i}`}>
         {i}
         /
         {u.calcUniversalMonth({ month: i, year })}
@@ -92,7 +92,7 @@ function TimeCircleWeeks() {
     // TODO: uncomment when are ready {consultant.getQuaterMonth(i, currentYear)}
     // TODO: uncomment when are ready {consultant.getQuaterMonthISK(i, currentYear)}
     numbers.push(
-      <span className={`${layerQuarters.className}${i}`}>
+      <span className={`${layerQuarters.className}${i}`} key={`q-${i}`}>
         {i}
       </span>,
     );
