@@ -1,5 +1,5 @@
-import TimeCirclePastMonths from './timeCircle/TimeCirclePastMonths';
-import TimeCircleWeeks from './timeCircle/TimeCircleWeeks';
+import TimeCirclePastMonths from './TimeCirclePastMonths';
+import TimeCircleWeeks from './TimeCircleWeeks';
 
 function TimeCircle() {
   return (
