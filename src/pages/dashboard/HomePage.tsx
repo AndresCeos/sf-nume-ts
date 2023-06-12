@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import TimeCircle from '@/components/Universal/timeCircle/TimeCircle';
+import UniversalEnergy from '@/components/home/UniversalEnergy';
 import { useAuth } from '@/context/AuthProvider';
 
 function HomePage() {
@@ -23,6 +24,8 @@ function HomePage() {
         <div className="row-span-2 flex justify-center items-center">
           {moment(birthDate).isValid() ? <TimeCircle /> : null}
         </div>
+
+        <UniversalEnergy />
 
       </div>
     </>
