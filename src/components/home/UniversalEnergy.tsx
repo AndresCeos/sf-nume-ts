@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useAuth } from '@/context/AuthProvider';
 import UniversalEnergyPerson, { EnergyPersonProps } from '../Universal/universalEnergy/UniversalEnergyPerson';
+import UniversalEnergyValues from '../Universal/universalEnergy/UniversalEnergyValues';
 
 function UniversalEnergy() {
   const { user: userAuth } = useAuth();
@@ -50,6 +51,7 @@ function UniversalEnergy() {
 
   return (
     <div className="grid grid-cols-4 mt-24">
+      <UniversalEnergyValues />
       {people.map((person) => (
         <UniversalEnergyPerson
           key={person.id}
