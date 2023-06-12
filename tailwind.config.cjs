@@ -30,9 +30,9 @@ module.exports = {
         '24': 'repeat(24, minmax(0, 1fr))',
       },
       backgroundImage: {
-        'app': "url('/src/assets/app_background.jpg')",
-        'login-numbers': "url('/src/assets/login_numbers.jpg')",
-        'login-shape': "url('/src/assets/login_shape.png')",
+        'app': "url('/assets/app_background.jpg')",
+        'login-numbers': "url('/assets/login_numbers.jpg')",
+        'login-shape': "url('/assets/login_shape.png')",
       },
     },
   },
