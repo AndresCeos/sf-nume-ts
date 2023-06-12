@@ -10,7 +10,7 @@ function HomePage() {
   const names = `${firstName} ${lastName}`;
 
   return (
-    <>
+    <div className="bg-home-background bg-cover">
       <div />
       <div className="grid grid-cols-2">
         <div className="mt-20 pl-14 pt-11 pb-7 bg-white bg-opacity-50 w-full relative rounded-tr-3xl rounded-br-3xl">
@@ -28,7 +28,7 @@ function HomePage() {
         <UniversalEnergy />
 
       </div>
-    </>
+    </div>
   );
 }
 

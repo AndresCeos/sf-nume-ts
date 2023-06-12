@@ -24,7 +24,7 @@ function UniversalEnergy() {
         active: false,
       });
     });
-  }, [userAuth]);
+  }, []);
 
   const handleAddGuest = ({ name, date }: { name: string, date: Date }) => {
     setPeople((prev) => [
@@ -47,6 +47,8 @@ function UniversalEnergy() {
 
   return (
     <div className="grid grid-cols-4 mt-24">
+      {JSON.stringify(people)}
+      x
       {people.map((person) => (
         <UniversalEnergyPerson
           person={person}
