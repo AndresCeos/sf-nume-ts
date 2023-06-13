@@ -11,6 +11,7 @@ export type EnergyPersonProps = {
   name: string | false;
   date: Date | false | string;
   active?: boolean;
+  order?: number;
 };
 
 type UniversalEnergyPersonProps = {
@@ -24,7 +25,7 @@ function UniversalEnergyPerson({
 }: UniversalEnergyPersonProps) {
   const { calculationDate, calculationYear } = useConsult();
   const {
-    id, name, date, active,
+    id, name, date, active, order,
   } = person;
 
   let energy;
@@ -33,7 +34,12 @@ function UniversalEnergyPerson({
   }
 
   return (
-    <ul className={cx('flex flex-col items-center', { 'opacity-25': active })}>
+    <ul className={cx(
+      'flex flex-col items-center',
+      { 'opacity-25': !name },
+      `order-${order}`,
+    )}
+    >
       <li className="mb-2">
         <img src="/assets/ic-universal.svg" alt="personal_disabled" />
       </li>
