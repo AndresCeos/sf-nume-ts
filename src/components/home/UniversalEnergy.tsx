@@ -50,7 +50,7 @@ function UniversalEnergy() {
   };
 
   return (
-    <div className="grid grid-cols-4 mt-24">
+    <div className="grid grid-cols-4 mt-14">
       <UniversalEnergyValues />
       {people.map((person) => (
         <UniversalEnergyPerson

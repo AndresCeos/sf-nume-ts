@@ -38,6 +38,10 @@
     max-width: calc(100% - 202px);
     padding-right: 15px;
   }
+  .page-content{
+    min-height: calc(100vh - 85px);
+    padding-top: 41px;
+  }
   .sidebar-link{
     @apply text-[13px] pl-3 pr-1 py-2 flex items-center border-b border-grayNc;
   }
