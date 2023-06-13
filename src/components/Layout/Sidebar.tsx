@@ -70,7 +70,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/pinaculo"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
@@ -81,7 +81,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/camino"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/life_path.svg" className="w-6 h-4 object-center" alt="ic_life_path" />
@@ -92,7 +92,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/nombre"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/name.svg" className="w-6 h-4 object-center" alt="ic_name" />
@@ -103,7 +103,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/crear-nombre"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/create_name.svg" className="w-6 h-4 object-center" alt="ic_create_name" />
@@ -114,7 +114,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/destino"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/destiny_table.svg" className="w-6 h-4 object-center" alt="ic_destiny_table" />
@@ -125,7 +125,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/tiempo"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/vibration_time.svg" className="w-6 h-4 object-center" alt="ic_vibration_time" />
@@ -136,7 +136,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/retornos"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/annual_return.svg" className="w-6 h-4 object-center" alt="ic_annual_return" />
@@ -147,7 +147,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/circulo-tiempo"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/circle_time.svg" className="w-6 h-4 object-center" alt="ic_circle_time" />
@@ -158,7 +158,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/calendario"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
@@ -169,7 +169,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/personal/calendario-mensual"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
@@ -191,7 +191,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/sinastria"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
@@ -202,7 +202,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/sinastria_vibracion"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/vibration_time.svg" className="w-6 h-4 object-center" alt="ic_vibration_time" />
@@ -213,7 +213,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/sinastria_retornos"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/annual_return.svg" className="w-6 h-4 object-center" alt="ic_annual_return" />
@@ -224,7 +224,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/sinastria_destino"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/destiny_table.svg" className="w-6 h-4 object-center" alt="ic_destiny_table" />
@@ -235,7 +235,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/sinastria_compatibilidad"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
@@ -257,7 +257,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/group_pinnacle"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
@@ -268,7 +268,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/group_vibracion"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/vibration_time.svg" className="w-6 h-4 object-center" alt="ic_vibration_time" />
@@ -279,7 +279,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/group_retornos"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
                 <img src="/assets/sidebar/annual_return.svg" className="w-6 h-4 object-center" alt="ic_annual_return" />
@@ -290,7 +290,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/config"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -303,7 +303,7 @@ function Sidebar() {
               <NavLink
                 end
                 to="/soporte"
-                className="sidebar-link text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -316,7 +316,7 @@ function Sidebar() {
               <button
                 type="button"
                 onClick={() => logout()}
-                className="sidebar-link w-full text-13 sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
+                className="sidebar-link w-full text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -348,7 +348,7 @@ function Sidebar() {
             <NavLink
               end
               to="/manual"
-              className="sidebar-link text-13"
+              className="sidebar-link text-[13px]"
               aria-current="page"
             >
               Manual de Usuario
@@ -358,7 +358,7 @@ function Sidebar() {
             <NavLink
               end
               to="/politicas"
-              className="sidebar-link text-13"
+              className="sidebar-link text-[13px]"
               aria-current="page"
             >
               Políticas y Privacidad
@@ -368,7 +368,7 @@ function Sidebar() {
             <a
               href="https://app.numerologia-cotidiana.com/formulario-de-soporte-arithmax/"
               target="_blank"
-              className="sidebar-link text-13"
+              className="sidebar-link text-[13px]"
               aria-current="page"
               rel="noreferrer"
             >

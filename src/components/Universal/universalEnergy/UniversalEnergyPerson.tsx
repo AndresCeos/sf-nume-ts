@@ -47,7 +47,7 @@ function UniversalEnergyPerson({
         <br />
         <div className="font-black">PERSONAL</div>
       </li>
-      <li className={cx('rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 text-13 inner-shadow mt-3 mb-6 font-black')}>
+      <li className={cx('rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 text-[13px] inner-shadow mt-3 mb-6 font-black')}>
         <button onClick={handleModalGuest} type="button">
           {person?.name ? person?.name : <TiPlus />}
         </button>

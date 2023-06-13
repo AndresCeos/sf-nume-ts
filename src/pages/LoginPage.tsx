@@ -68,7 +68,7 @@ function LoginPage() {
                   name="email"
                   id="email"
                   onChange={(e) => handleInputChange(e.target)}
-                  className="w-4/6 h-8 border border-gray-400 rounded-md text-13 text-center mb-5 outline-none"
+                  className="w-4/6 h-8 border border-gray-400 rounded-md text-[13px] text-center mb-5 outline-none"
                   required
                 />
                 <input
@@ -78,7 +78,7 @@ function LoginPage() {
                   name="password"
                   id="password"
                   onChange={(e) => handleInputChange(e.target)}
-                  className="w-4/6 h-8 border border-gray-400 rounded-md text-13 text-center mb-5 outline-none"
+                  className="w-4/6 h-8 border border-gray-400 rounded-md text-[13px] text-center mb-5 outline-none"
                   required
                 />
                 <button
