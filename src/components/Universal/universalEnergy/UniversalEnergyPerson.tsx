@@ -30,7 +30,9 @@ function UniversalEnergyPerson({
 
   let energy;
   if (name && date) {
-    energy = new Person({ name, birthDate: new Date(date).toDateString() });
+    energy = new Person({
+      id: id ?? '', name, lastName: '', scdLastName: '', birthDate: new Date(date).toDateString(),
+    });
   }
 
   return (

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-import TimeCircle from '@/components/Universal/timeCircle/TimeCircle';
 import UniversalEnergy from '@/components/home/UniversalEnergy';
+import TimeCircle from '@/components/personal/timeCircle/TimeCircle';
 import { useAuth } from '@/context/AuthProvider';
 
 function HomePage() {

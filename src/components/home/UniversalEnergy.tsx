@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useAuth } from '@/context/AuthProvider';
-import UniversalEnergyPerson, { EnergyPersonProps } from '../Universal/universalEnergy/UniversalEnergyPerson';
-import UniversalEnergyValues from '../Universal/universalEnergy/UniversalEnergyValues';
+import UniversalEnergyPerson, { EnergyPersonProps } from '../universal/universalEnergy/UniversalEnergyPerson';
+import UniversalEnergyValues from '../universal/universalEnergy/UniversalEnergyValues';
 
 function UniversalEnergy() {
   const { user: userAuth } = useAuth();

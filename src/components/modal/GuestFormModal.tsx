@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import MyModal from '@/components/MyModal';
 import useForm from '@/hooks/useForm';
-import { EnergyPersonProps } from '../Universal/universalEnergy/UniversalEnergyPerson';
+import { EnergyPersonProps } from '../universal/universalEnergy/UniversalEnergyPerson';
 
 type GuestFormModalProps = {
   guest?: EnergyPersonProps;
