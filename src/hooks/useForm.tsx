@@ -4,7 +4,7 @@ const useForm = <T extends Object>(initialState: T) => {
   const [values, setValues] = useState(initialState);
   const [formError, setFormError] = useState('');
 
-  const handleInputChange = (target: EventTarget & HTMLInputElement | EventTarget & HTMLSelectElement | EventTarget & HTMLTextAreaElement) => {
+  const handleInputChange = (target: EventTarget & HTMLInputElement | EventTarget & HTMLSelectElement | EventTarget & HTMLTextAreaElement | { name: string, value: unknown }) => {
     setValues({
       ...values,
       [target.name]: target.value,

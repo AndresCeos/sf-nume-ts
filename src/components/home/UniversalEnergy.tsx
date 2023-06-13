@@ -30,7 +30,7 @@ function UniversalEnergy() {
     setPeople(peopleToSet);
   }, []);
 
-  const handleAddGuest = ({ name, date }: { name: string, date: Date }) => {
+  const handleUpdateGuest = ({ name, date }: { name: string, date: Date }) => {
     setPeople((prev) => [
       ...prev,
       {
@@ -56,7 +56,7 @@ function UniversalEnergy() {
         <UniversalEnergyPerson
           key={person.id}
           person={person}
-          addGuest={handleAddGuest}
+          handleUpdateGuest={handleUpdateGuest}
           setActive={() => handleSetActive(person.id as string)}
         />
       ))}
