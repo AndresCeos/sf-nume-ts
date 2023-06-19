@@ -1,21 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useAuth } from '@/context/AuthProvider';
-import UniversalEnergyPerson, { EnergyPersonProps } from '../universal/universalEnergy/UniversalEnergyPerson';
+import { Consultant } from '@/context/EnergyContext';
+import useEnergy from '../../hooks/useEnergy';
+import UniversalEnergyPerson from '../universal/universalEnergy/UniversalEnergyPerson';
 import UniversalEnergyValues from '../universal/universalEnergy/UniversalEnergyValues';
 
 function UniversalEnergy() {
   const { user: userAuth } = useAuth();
-  const [people, setPeople] = useState<EnergyPersonProps[]>([]);
+  const {
+    consultants, setConsultants, selectConsultant, updateConsultant,
+  } = useEnergy();
 
   useEffect(() => {
-    const peopleToSet: EnergyPersonProps[] = [];
+    const peopleToSet: Consultant[] = [];
     peopleToSet.push({
       id: uuidv4(),
       name: `${userAuth?.user?.firstName} ${userAuth?.user?.lastName}`,
       date: userAuth?.user?.birthDate as never,
-      active: true,
+      selected: true,
       order: 1,
     });
 
@@ -24,53 +28,29 @@ function UniversalEnergy() {
         id: uuidv4(),
         name: guest.name,
         date: guest.date,
-        active: false,
+        selected: false,
         order: index + 2,
       });
     });
 
-    setPeople(peopleToSet);
+    setConsultants(peopleToSet);
   }, []);
 
-  const handleUpdateGuest = ({ id, name, date }: { id?: string, name: string, date: Date }) => {
-    const peopleToSet: EnergyPersonProps[] = people.map((person) => ({ ...person, active: false }));
-    if (id) {
-      const personToUpdate = peopleToSet.find((person) => person.id === id);
-      if (personToUpdate) {
-        personToUpdate.name = name;
-        personToUpdate.date = date;
-        personToUpdate.active = true;
-      }
-    } else {
-      peopleToSet.push({
-        id: uuidv4(),
-        name,
-        date,
-        active: true,
-      });
-    }
-    setPeople(peopleToSet);
-  };
-
-  const handleSetActive = (id: string) => {
-    const peopleInactive: EnergyPersonProps[] = people.filter((person) => person.id !== id).map((person) => ({ ...person, active: false }));
-    const personActive = people.find((person) => person.id === id) as EnergyPersonProps;
-
-    setPeople([...peopleInactive, { ...personActive, active: true }]);
-  };
-
   return (
-    <div className="grid grid-cols-4 mt-14">
-      <UniversalEnergyValues />
-      {people.sort((a, b) => a?.order ?? 0 - Number(b?.order ?? 1)).map((person) => (
-        <UniversalEnergyPerson
-          key={person.id}
-          person={person}
-          handleUpdateGuest={handleUpdateGuest}
-          setActive={() => handleSetActive(person.id as string)}
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-4 mt-14">
+        <UniversalEnergyValues />
+        {consultants.sort((a, b) => a?.order ?? 0 - Number(b?.order ?? 1)).map((person) => (
+          <UniversalEnergyPerson
+            key={person.id}
+            person={person}
+            handleUpdateGuest={updateConsultant}
+            setActive={() => selectConsultant(person.id as string)}
+          />
+        ))}
+      </div>
+      {JSON.stringify(consultants.filter((consultant) => consultant.selected === true))}
+    </>
   );
 }
 

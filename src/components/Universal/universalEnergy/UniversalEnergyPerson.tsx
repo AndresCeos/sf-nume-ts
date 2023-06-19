@@ -3,19 +3,12 @@ import cx from 'classnames';
 import { TiPlus } from 'react-icons/ti';
 
 import GuestFormModal from '@/components/modal/GuestFormModal';
+import { Consultant } from '@/context/EnergyContext';
 import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
 
-export type EnergyPersonProps = {
-  id?: string;
-  name: string | false;
-  date: Date | false | string;
-  active?: boolean;
-  order?: number;
-};
-
 type UniversalEnergyPersonProps = {
-  person: EnergyPersonProps;
+  person: Consultant;
   setActive: () => void;
   handleUpdateGuest: ({ name, date }: { name: string; date: Date; }) => void;
 };
@@ -25,7 +18,7 @@ function UniversalEnergyPerson({
 }: UniversalEnergyPersonProps) {
   const { calculationDate, calculationYear } = useConsult();
   const {
-    id, name, date, active, order,
+    id, name, date, selected, order,
   } = person;
 
   let energy;
@@ -47,15 +40,15 @@ function UniversalEnergyPerson({
       </li>
       <li
         className={cx('text-center cursor-pointer', {
-          'text-main-700': active,
-          'text-black': !active,
+          'text-main-700': selected,
+          'text-black': !selected,
         })}
       >
         <button type="button" onClick={setActive}>
           ENERGÍA
+          <br />
+          <div className="font-black">PERSONAL</div>
         </button>
-        <br />
-        <div className="font-black">PERSONAL</div>
       </li>
       <li className={cx('rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 text-[13px] inner-shadow mt-3 mb-6 font-black')}>
         {(!name && !date) && (

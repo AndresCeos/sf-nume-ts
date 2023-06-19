@@ -3,6 +3,7 @@ import moment from 'moment';
 import UniversalEnergy from '@/components/home/UniversalEnergy';
 import TimeCircle from '@/components/personal/timeCircle/TimeCircle';
 import { useAuth } from '@/context/AuthProvider';
+import EnergyProvider from '@/context/EnergyProvider';
 
 function HomePage() {
   const { user: userAuth } = useAuth();
@@ -18,10 +19,12 @@ function HomePage() {
         <h2 className="text-main-700 text-2xl">a tu Software de Numerología</h2>
         <img src="/assets/welcome.png" className="welcomeLogo" alt="welcome" />
       </div>
-      <div className="row-span-2 flex justify-center items-center">
-        {moment(birthDate).isValid() ? <TimeCircle /> : null}
-      </div>
-      <UniversalEnergy />
+      <EnergyProvider>
+        <div className="row-span-2 flex justify-center items-center">
+          {moment(birthDate).isValid() ? <TimeCircle /> : null}
+        </div>
+        <UniversalEnergy />
+      </EnergyProvider>
     </div>
   );
 }
