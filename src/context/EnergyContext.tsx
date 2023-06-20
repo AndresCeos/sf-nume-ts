@@ -3,21 +3,23 @@ import { createContext } from 'react';
 export interface Consultant {
   id?: string;
   name: string;
-  date: Date;
+  date: string;
   selected?: boolean;
   order?: number;
 }
 
 export interface EnergyContextInterface {
   consultants: Consultant[];
-  setConsultants: (consultants: Consultant[]) => void;
+  fillConsultants: (consultants: Consultant[]) => void;
+  consultantSelected?: Consultant;
   selectConsultant: (consultantId: string) => void;
-  updateConsultant: (consultant: Consultant) => void;
+  updateConsultant: (consultant: Partial<Consultant>) => void;
 }
 
 export const energyContextDefaults: EnergyContextInterface = {
   consultants: [],
-  setConsultants: () => { },
+  consultantSelected: undefined,
+  fillConsultants: () => { },
   selectConsultant: () => { },
   updateConsultant: () => { },
 };

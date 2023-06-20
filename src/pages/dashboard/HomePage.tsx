@@ -1,13 +1,11 @@
-import moment from 'moment';
-
+import EnergyTimeCircle from '@/components/home/EnergyTimeCircle';
 import UniversalEnergy from '@/components/home/UniversalEnergy';
-import TimeCircle from '@/components/personal/timeCircle/TimeCircle';
 import { useAuth } from '@/context/AuthProvider';
 import EnergyProvider from '@/context/EnergyProvider';
 
 function HomePage() {
   const { user: userAuth } = useAuth();
-  const { firstName, lastName, birthDate } = userAuth?.user ?? {};
+  const { firstName, lastName } = userAuth?.user ?? {};
   const names = `${firstName} ${lastName}`;
 
   return (
@@ -20,9 +18,7 @@ function HomePage() {
         <img src="/assets/welcome.png" className="welcomeLogo" alt="welcome" />
       </div>
       <EnergyProvider>
-        <div className="row-span-2 flex justify-center items-center">
-          {moment(birthDate).isValid() ? <TimeCircle /> : null}
-        </div>
+        <EnergyTimeCircle />
         <UniversalEnergy />
       </EnergyProvider>
     </div>

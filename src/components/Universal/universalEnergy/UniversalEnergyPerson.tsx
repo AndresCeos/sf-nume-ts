@@ -10,7 +10,7 @@ import Person from '@/resources/Person';
 type UniversalEnergyPersonProps = {
   person: Consultant;
   setActive: () => void;
-  handleUpdateGuest: ({ name, date }: { name: string; date: Date; }) => void;
+  handleUpdateGuest: (consultant: Partial<Consultant>) => void;
 };
 
 function UniversalEnergyPerson({
@@ -40,8 +40,8 @@ function UniversalEnergyPerson({
       </li>
       <li
         className={cx('text-center cursor-pointer', {
-          'text-main-700': selected,
-          'text-black': !selected,
+          'text-main-700': !selected,
+          'text-black': selected,
         })}
       >
         <button type="button" onClick={setActive}>

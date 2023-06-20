@@ -2,12 +2,12 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 import MyModal from '@/components/MyModal';
+import { Consultant } from '@/context/EnergyContext';
 import useForm from '@/hooks/useForm';
-import { EnergyPersonProps } from '../universal/universalEnergy/UniversalEnergyPerson';
 
 type GuestFormModalProps = {
-  guest?: EnergyPersonProps;
-  callback: ({ name, date }: { name: string; date: Date; }) => void;
+  guest?: Consultant;
+  callback: (consultant: Partial<Consultant>) => void;
   children: React.ReactNode;
 };
 
@@ -20,8 +20,6 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
     date: guest?.date || '',
   };
 
-  console.log({ initialForm });
-
   const {
     name, date, handleInputChange,
   } = useForm(initialForm);
@@ -31,7 +29,7 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isFormValid) return;
-    callback({ ...guest?.id && { id: guest.id }, name, date: new Date(date) });
+    callback({ ...guest?.id && { id: guest.id }, name, date: new Date(date).toDateString() });
     setIsOpen(false);
   };
 

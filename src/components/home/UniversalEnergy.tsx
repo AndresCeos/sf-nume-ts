@@ -10,7 +10,7 @@ import UniversalEnergyValues from '../universal/universalEnergy/UniversalEnergyV
 function UniversalEnergy() {
   const { user: userAuth } = useAuth();
   const {
-    consultants, setConsultants, selectConsultant, updateConsultant,
+    consultants, fillConsultants, selectConsultant, updateConsultant,
   } = useEnergy();
 
   useEffect(() => {
@@ -24,33 +24,31 @@ function UniversalEnergy() {
     });
 
     userAuth?.guests?.forEach((guest, index) => {
+      console.log(guest.date);
       peopleToSet.push({
         id: uuidv4(),
         name: guest.name,
-        date: guest.date,
+        date: guest.date.toString(),
         selected: false,
         order: index + 2,
       });
     });
 
-    setConsultants(peopleToSet);
+    fillConsultants(peopleToSet);
   }, []);
 
   return (
-    <>
-      <div className="grid grid-cols-4 mt-14">
-        <UniversalEnergyValues />
-        {consultants.sort((a, b) => a?.order ?? 0 - Number(b?.order ?? 1)).map((person) => (
-          <UniversalEnergyPerson
-            key={person.id}
-            person={person}
-            handleUpdateGuest={updateConsultant}
-            setActive={() => selectConsultant(person.id as string)}
-          />
-        ))}
-      </div>
-      {JSON.stringify(consultants.filter((consultant) => consultant.selected === true))}
-    </>
+    <div className="grid grid-cols-4 mt-14">
+      <UniversalEnergyValues />
+      {consultants.sort((a, b) => a?.order ?? 0 - Number(b?.order ?? 1)).map((person) => (
+        <UniversalEnergyPerson
+          key={person.id}
+          person={person}
+          handleUpdateGuest={updateConsultant}
+          setActive={() => selectConsultant(person.id as string)}
+        />
+      ))}
+    </div>
   );
 }
 

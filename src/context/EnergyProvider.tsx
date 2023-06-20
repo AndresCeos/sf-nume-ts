@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { Consultant, EnergyContext } from './EnergyContext';
+import { Consultant, EnergyContext, EnergyContextInterface } from './EnergyContext';
 
 function EnergyProvider({ children }: any) {
   const [consultants, setConsultants] = useState<Consultant[]>([]);
+  const [consultantSelected, setConsultantSelected] = useState<Consultant | undefined>(undefined);
+
+  const fillConsultants = (consultantsToSet: Consultant[]) => {
+    setConsultants(consultantsToSet);
+    setConsultantSelected(consultantsToSet[0]);
+  };
 
   const selectConsultant = (consultantId: string) => {
     const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
@@ -11,6 +17,7 @@ function EnergyProvider({ children }: any) {
       consultantToSet.selected = true;
     }
     setConsultants(consultantsToSet);
+    setConsultantSelected(consultantToSet);
   };
 
   const updateConsultant = (consultant: Consultant) => {
@@ -25,9 +32,10 @@ function EnergyProvider({ children }: any) {
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const value = {
+  const value: EnergyContextInterface = {
     consultants,
-    setConsultants,
+    consultantSelected,
+    fillConsultants,
     selectConsultant,
     updateConsultant,
   };
