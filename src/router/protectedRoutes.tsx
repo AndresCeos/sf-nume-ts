@@ -7,6 +7,7 @@ import StatusBar from '@/components/StatusBar';
 import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
+import PinnaclePage from '@/pages/personal/PinnaclePage';
 
 function App() {
   return (
@@ -32,7 +33,7 @@ const protectedRoutes = [
     path: '/',
     element: <App />,
     children: [
-      { path: '/personal/pinaculo', element: <HomePage /> },
+      { path: '/personal/pinaculo', element: <PinnaclePage /> },
       { path: '/personal/camino', element: <HomePage /> },
       { path: '/personal/nombre', element: <HomePage /> },
       { path: '/personal/crear-nombre', element: <HomePage /> },

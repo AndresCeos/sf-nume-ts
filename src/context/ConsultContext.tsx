@@ -2,7 +2,7 @@ import moment from 'moment';
 import { createContext } from 'react';
 
 export interface ConsultContextInterface {
-  consultant: Api.Consultant;
+  consultant: Api.Consultant | null;
   selectConsultant: (consultant: Api.Consultant) => void;
   consultationDate: moment.Moment;
   selectConsultationDate: (consultationDate: moment.Moment) => void;
@@ -11,7 +11,7 @@ export interface ConsultContextInterface {
 }
 
 export const authContextDefaults: ConsultContextInterface = {
-  consultant: {},
+  consultant: null,
   selectConsultant: () => { },
   consultationDate: moment(),
   selectConsultationDate: () => { },

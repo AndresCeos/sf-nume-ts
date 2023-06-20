@@ -5,7 +5,7 @@ import ConsultantPicker from './ConsultantPicker';
 function StatusBarConsultantDetails() {
   const { consultant } = useConsult();
 
-  if (!consultant.date) return null;
+  if (!consultant || !consultant.date) return null;
 
   return (
     <>

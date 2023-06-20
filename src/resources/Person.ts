@@ -127,6 +127,7 @@ class Person {
    * @returns {Number}
    */
   calcKarma(): number {
+    console.log(reduceNumber(this.birthDate.month() + 1));
     return reduceNumber(this.birthDate.month() + 1);
   }
 

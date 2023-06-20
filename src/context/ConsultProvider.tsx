@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 
 function ConsultProvider({ children }: any) {
   const [consultState, dispatch] = useReducer(consultReducer, INITIAL_STATE);
-  const [consultant, setConsultant] = useState<Api.Consultant>({});
+  const [consultant, setConsultant] = useState<Api.Consultant | null>(null);
   const [consultationDate, setConsultationDate] = useState<moment.Moment>(moment());
 
   const [calculationDate, setCalculationDate] = useState({

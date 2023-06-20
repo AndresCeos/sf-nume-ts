@@ -20,12 +20,12 @@ function EnergyProvider({ children }: any) {
     setConsultantSelected(consultantToSet);
   };
 
-  const updateConsultant = (consultant: Consultant) => {
+  const updateConsultant = (consultant: Partial<Consultant>) => {
     const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
     const consultantToSet = consultantsToSet.find((consultantToFind) => consultantToFind.id === consultant.id);
     if (consultantToSet) {
-      consultantToSet.name = consultant.name;
-      consultantToSet.date = consultant.date;
+      consultantToSet.name = consultant?.name || '';
+      consultantToSet.date = consultant.date || '';
       consultantToSet.selected = true;
     }
     setConsultants(consultantsToSet);
