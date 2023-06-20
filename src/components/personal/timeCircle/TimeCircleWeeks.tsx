@@ -1,15 +1,17 @@
+/* eslint-disable no-plusplus */
 import useConsult from '@/hooks/useConsult';
+import Person from '@/resources/Person';
 import Universal from '@/resources/Universal';
 
-function TimeCircleWeeks() {
-  const { consultationDate } = useConsult();
+function TimeCircleWeeks({ consultant }: { consultant?: Person }) {
+  const { consultationDate, calculationDate } = useConsult();
 
   const u = new Universal();
   const year = Number(consultationDate.format('YYYY'));
 
   const numbers: JSX.Element[] = [];
 
-  const layerWeeks = [
+  const layerWeeks: { className: string, month: number, week: 1 | 2 | 3 | 4 }[] = [
     { className: 'time-circle-w w-1', month: 1, week: 1 },
     { className: 'time-circle-w w-2', month: 1, week: 2 },
     { className: 'time-circle-w w-3', month: 1, week: 3 },
@@ -62,23 +64,20 @@ function TimeCircleWeeks() {
 
   layerWeeks.forEach((layer) => {
     const { month, week } = layer;
-    // TODO: uncomment when are ready {consultant.calcSelectPersonalWeek(1, 1, currentYear)}
-    // TODO: uncomment when are ready {consultant.calcSelectPersonalWeekISK(1, 1, currentYear)}
     numbers.push(
       <span className={layer.className} key={`${month}-${week}`}>
-        {`${month}/${week}`}
+        {consultant?.calcSelectPersonalWeek(week, { month, year: calculationDate.year })}
+        {consultant?.calcSelectPersonalWeekISK(week, { month, year: calculationDate.year })}
       </span>,
     );
   });
 
   const layerMonths = { className: 'time-circle-pm m-' };
-  // eslint-disable-next-line no-plusplus
   for (let i = 1; i <= 12; i++) {
-    // TODO: uncomment when are ready {consultant.getQuaterMonth(i, year)}
-    // TODO: uncomment when are ready {consultant.getQuaterMonthISK(i, year)}
     numbers.push(
       <span className={`${layerMonths.className}${i}`} key={`${year}-${i}`}>
-        {i}
+        {consultant?.calcPersonalMonth({ month: i, year: calculationDate.year })}
+        {consultant?.calcPersonalMonthISK({ month: i, year: calculationDate.year })}
         /
         {u.calcUniversalMonth({ month: i, year })}
         {u.calcUniversalMonthISK({ month: i, year })}
@@ -87,13 +86,11 @@ function TimeCircleWeeks() {
   }
 
   const layerQuarters = { className: 'time-quarter q-' };
-  // eslint-disable-next-line no-plusplus
   for (let i = 1; i <= 12; i++) {
-    // TODO: uncomment when are ready {consultant.getQuaterMonth(i, currentYear)}
-    // TODO: uncomment when are ready {consultant.getQuaterMonthISK(i, currentYear)}
     numbers.push(
       <span className={`${layerQuarters.className}${i}`} key={`q-${i}`}>
-        {i}
+        {consultant?.getQuarterMonth(i, calculationDate.year)}
+        {consultant?.getQuarterMonthISK(i, calculationDate.year)}
       </span>,
     );
   }
@@ -101,5 +98,9 @@ function TimeCircleWeeks() {
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{numbers}</>;
 }
+
+TimeCircleWeeks.defaultProps = {
+  consultant: undefined,
+};
 
 export default TimeCircleWeeks;

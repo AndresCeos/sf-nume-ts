@@ -9,7 +9,7 @@ function TimeCircle({ consultant }: { consultant?: Person }) {
       <img className="circle-tempo-arrow" src="/assets/time-circle-arrow.png" alt="" />
       <TimeCirclePastMonths />
       <span className="time-circle-year">{consultant?.calcPersonalYear()}</span>
-      <TimeCircleWeeks />
+      <TimeCircleWeeks consultant={consultant} />
     </div>
   );
 }
