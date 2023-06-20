@@ -2,6 +2,7 @@ import cx from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '@/context/AuthProvider';
+import ConsultationDateModal from '../modal/ConsultationDateModal';
 
 function Notifications() {
   return null;
@@ -13,10 +14,6 @@ function Navbar() {
 
   const handlerEdit = () => {
     console.log('handlerEdit');
-  };
-
-  const changeDate = () => {
-    console.log('changeDate');
   };
 
   const printSingleReport = () => {
@@ -79,20 +76,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="flex items-center justify-center">
-              <button
-                type="button"
-                className="button-nav-bar"
-                onClick={changeDate}
-              >
-                <img
-                  src="/assets/navbar/change_date.svg"
-                  className="mb-1"
-                  alt="change_date"
-                />
-                Cambiar
-                <br />
-                Fecha
-              </button>
+              <ConsultationDateModal />
             </li>
             <li className="flex items-center justify-center">
               <Link
