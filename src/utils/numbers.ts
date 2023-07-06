@@ -47,6 +47,13 @@ export function sumNumbers(sumNumber: number): number {
   return sumNumber;
 }
 
+export function reduceMonth(reduceSum:number):number {
+  if (!(reduceSum === 11 || reduceSum === 12)) {
+    reduceSum = reduceSum.toString().split('').reduce((r, c) => r += Number(c), 0);
+  }
+  return reduceSum;
+}
+
 /**
    * Get a value of a vowel
    * @param c
@@ -289,4 +296,10 @@ export function getResBridge(a: number, b: number): number {
   if (b === 22) { n2 = 4; } else { n2 = b; }
   const result = reduceNumber(n1 - n2);
   return Math.abs(result !== 0 ? result : n1);
+}
+
+export function getMonthName(date: string): string {
+  return new Intl.DateTimeFormat('es', {
+    month: 'long',
+  }).format(new Date(date));
 }

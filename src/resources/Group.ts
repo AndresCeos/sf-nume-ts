@@ -1,0 +1,1023 @@
+/* eslint-disable no-plusplus */
+import _, { capitalize } from 'lodash';
+import moment from 'moment';
+import Person from './Person';
+
+import {
+  getAllMonths,
+  getMonthName,
+  reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
+} from '@/utils/numbers';
+
+type AnnualReturn = {
+  yearToCalculate: number,
+  age: number,
+  A: number,
+  B: number,
+  C: number,
+  D: number,
+  E: number,
+  F: number,
+  G: number,
+  H: number
+};
+
+class Group {
+  group:Person[];
+
+  groupDate:number;
+
+  NOW:moment.Moment;
+
+  karmic:number[];
+
+  constructor(group:Person[], groupDate:moment.Moment) {
+    this.group = group;
+    this.groupDate = groupDate.year();
+    this.NOW = moment();
+    this.karmic = [13, 14, 16, 19];
+  }
+
+  getMonthOfBirth() :number {
+    let sumBirthDates = 0;
+    this.group.forEach((birthDate) => {
+      const birth = birthDate.getBirthDate();
+      sumBirthDates += birth.month() + 1;
+    });
+    let reduce;
+    if (sumBirthDates === 19) {
+      reduce = 10;
+    } else {
+      reduce = reduceMonth(sumBirthDates);
+    }
+    return reduce;
+  }
+
+  getYearTimeCurve():number {
+    return this.groupDate;
+  }
+
+  getYearsOld(year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    return yearToCalculate - this.groupDate;
+  }
+
+  getA():number {
+    const partnerGroup = this.group;
+    let A = 0;
+    partnerGroup.forEach((pinnacleA) => {
+      const birthDate = pinnacleA.getBirthDate();
+      A += birthDate.month() + 1;
+    });
+    return reduceNumber(A);
+  }
+
+  getAs():number {
+    const partnerGroup = this.group;
+    let A = 0;
+    partnerGroup.forEach((pinnacleAs) => {
+      const birthDate = pinnacleAs.getBirthDate();
+      A += birthDate.month() + 1;
+    });
+    return reduceNumberForSub(A);
+  }
+
+  getAWOR():number {
+    const partnerGroup = this.group;
+    let A = 0;
+    partnerGroup.forEach((pinnacleA) => {
+      const birthDate = pinnacleA.getBirthDate();
+      A += birthDate.month() + 1;
+    });
+    return A;
+  }
+
+  getAISK():string {
+    const partnerGroup = this.group;
+    let A = 0;
+    partnerGroup.forEach((pinnacleA) => {
+      const birthDate = pinnacleA.getBirthDate();
+      A += birthDate.month() + 1;
+    });
+    const reduceISK = reduceNumberISK(A);
+    return this.karmic.includes(reduceISK) ? '*' : '';
+  }
+
+  getB():number {
+    const partnerGroup = this.group;
+    let B = 0;
+    partnerGroup.forEach((pinnacleB) => {
+      const birthDate = pinnacleB.getBirthDate();
+      B += birthDate.date();
+    });
+    return reduceNumber(B);
+  }
+
+  getBs():number {
+    const partnerGroup = this.group;
+    let B = 0;
+    partnerGroup.forEach((pinnacleB) => {
+      const birthDate = pinnacleB.getBirthDate();
+      B += birthDate.date();
+    });
+    return reduceNumberForSub(B);
+  }
+
+  getBWOR():number {
+    const partnerGroup = this.group;
+    let B = 0;
+    partnerGroup.forEach((pinnacleB) => {
+      const birthDate = pinnacleB.getBirthDate();
+      B += birthDate.date();
+    });
+    return B;
+  }
+
+  getBISK():string {
+    const partnerGroup = this.group;
+    let B = 0;
+    partnerGroup.forEach((pinnacleB) => {
+      const birthDate = pinnacleB.getBirthDate();
+      B += birthDate.date();
+    });
+    const reduceISK = reduceNumberISK(B);
+    return this.karmic.includes(reduceISK) ? '*' : '';
+  }
+
+  getC():number {
+    const partnerGroup = this.group;
+    let C = 0;
+    partnerGroup.forEach((pinnacleC) => {
+      const birthDate = pinnacleC.getBirthDate();
+      C += birthDate.year();
+    });
+    return reduceNumber(C);
+  }
+
+  getCs():number {
+    const partnerGroup = this.group;
+    let C = 0;
+    partnerGroup.forEach((pinnacleC) => {
+      const birthDate = pinnacleC.getBirthDate();
+      C += birthDate.year();
+    });
+    return reduceNumberForSub(C);
+  }
+
+  getCWOR():number {
+    const partnerGroup = this.group;
+    let C = 0;
+    partnerGroup.forEach((pinnacleC) => {
+      const birthDate = pinnacleC.getBirthDate();
+      C += birthDate.year();
+    });
+    return C;
+  }
+
+  getCISK():string {
+    const partnerGroup = this.group;
+    let C = 0;
+    partnerGroup.forEach((pinnacleC) => {
+      const birthDate = pinnacleC.getBirthDate();
+      C += birthDate.year();
+    });
+    const reduceISK = reduceNumberISK(C);
+    return this.karmic.includes(reduceISK) ? '*' : '';
+  }
+
+  getD():number {
+    return reduceNumber(
+      this.getA()
+      + this.getB()
+      + this.getC(),
+    );
+  }
+
+  getDISK():string {
+    const D = reduceNumberISK(
+      this.getA()
+      + this.getB()
+      + this.getC(),
+    );
+    return this.karmic.includes(D) ? '*' : '';
+  }
+
+  getDISKCheck() :string {
+    const D = reduceNumberISK(
+      this.getA()
+      + this.getB()
+      + this.getC(),
+    );
+    return this.karmic.includes(D) ? '*' : '';
+  }
+
+  getDCheck():number {
+    const A = reduceNumber(this.getA());
+    const B = reduceNumber(this.getB());
+    const C = reduceNumber(this.getC());
+    return reduceNumber(A + B + C);
+  }
+
+  getE():number {
+    return reduceNumber(
+      this.getA()
+      + this.getB(),
+    );
+  }
+
+  getEISK():string {
+    const E = reduceNumberISK(
+      this.getA()
+      + this.getB(),
+    );
+    return this.karmic.includes(E) ? '*' : '';
+  }
+
+  getEISKCheck():string {
+    const E = reduceNumberISK(
+      this.getA()
+      + this.getB(),
+    );
+    return this.karmic.includes(E) ? '*' : '';
+  }
+
+  getF():number {
+    return reduceNumber(
+      this.getC()
+      + this.getB(),
+    );
+  }
+
+  getFISK():string {
+    const F = reduceNumberISK(
+      this.getC()
+      + this.getB(),
+    );
+    return this.karmic.includes(F) ? '*' : '';
+  }
+
+  getFISKCheck():string {
+    const F = reduceNumberISK(
+      this.getC()
+      + this.getB(),
+    );
+    return this.karmic.includes(F) ? '*' : '';
+  }
+
+  getG():number {
+    return reduceNumber(
+      this.getE()
+      + this.getF(),
+    );
+  }
+
+  getGISK():string {
+    const G = reduceNumberISK(
+      this.getE()
+      + this.getF(),
+    );
+    return this.karmic.includes(G) ? '*' : '';
+  }
+
+  getH():number {
+    return reduceNumber(
+      this.getA()
+      + this.getC(),
+    );
+  }
+
+  getHISK():string {
+    const H = reduceNumberISK(
+      this.getA()
+      + this.getC(),
+    );
+    return this.karmic.includes(H) ? '*' : '';
+  }
+
+  getHCheck():number {
+    return reduceNumber(
+      this.getA()
+      + this.getC(),
+    );
+  }
+
+  getHISKCheck():string {
+    const H = reduceNumberISK(
+      this.getA()
+      + this.getC(),
+    );
+    return this.karmic.includes(H) ? '*' : '';
+  }
+
+  getI():number {
+    return reduceNumber(
+      this.getE()
+      + this.getF()
+      + this.getG(),
+    );
+  }
+
+  getIISK():string {
+    const I = reduceNumberISK(
+      this.getE()
+      + this.getF()
+      + this.getG(),
+    );
+    return this.karmic.includes(I) ? '*' : '';
+  }
+
+  getJ() :number {
+    return reduceNumber(
+      this.getH()
+      + this.getD(),
+    );
+  }
+
+  getJISK():string {
+    const J = reduceNumberISK(
+      this.getH()
+      + this.getD(),
+    );
+    return this.karmic.includes(J) ? '*' : '';
+  }
+
+  getK():number {
+    return Math.abs(reduceNumber(
+      this.getAs()
+      - this.getBs(),
+    ));
+  }
+
+  getL() :number {
+    return Math.abs(reduceNumber(
+      this.getBs()
+      - this.getCs(),
+    ));
+  }
+
+  getM():number {
+    return Math.abs(reduceNumber(
+      this.getK()
+      - this.getL(),
+    ));
+  }
+
+  getN() :number {
+    return Math.abs(reduceNumber(
+      this.getAs()
+      - this.getCs(),
+    ));
+  }
+
+  getO():number {
+    return reduceNumber(
+      this.getM()
+      + this.getK()
+      + this.getL(),
+    );
+  }
+
+  getP():number {
+    return reduceNumber(
+      this.getD()
+      + this.getO(),
+    );
+  }
+
+  getQ():number {
+    return reduceNumber(
+      this.getM()
+      + this.getK(),
+    );
+  }
+
+  getR() :number {
+    return reduceNumber(
+      this.getM()
+      + this.getL(),
+    );
+  }
+
+  getS():number {
+    return reduceNumber(
+      this.getQ()
+      + this.getR(),
+    );
+  }
+
+  getW():string {
+    const appearances = [
+      this.getK(),
+      this.getO(),
+      this.getL(),
+      this.getM(),
+      this.getN(),
+      this.getQ(),
+      this.getR(),
+      this.getS(),
+      this.getP(),
+    ];
+    const occurrences :Record<number, number> = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const num of appearances) {
+      occurrences[num] = occurrences[num] ? occurrences[num] + 1 : 1;
+    }
+    Object.entries(occurrences).forEach((occurrence) => {
+      if (occurrence[1] === 3) {
+        occurrences[occurrence[1]] += 1;
+      }
+    });
+    return Object.entries(occurrences).filter((e) => e[1] === 3).map((e) => reduceNumber(Number(e[0]) * 3)).join(', ');
+  }
+
+  calcName():number {
+    const partnerGroup = this.group;
+    let resultCalcName = 0;
+    partnerGroup.forEach((g) => {
+      resultCalcName += g.calcName();
+    });
+    return reduceNumber(resultCalcName);
+  }
+
+  calcNameISK():string {
+    const partnerGroup = this.group;
+    let resultCalcName = 0;
+    partnerGroup.forEach((g) => {
+      resultCalcName += g.calcName();
+    });
+    const resultISK = reduceNumberISK(resultCalcName);
+    return this.karmic.includes(resultISK) ? '*' : '';
+  }
+
+  calcSoulNumber():number {
+    const partnerGroup = this.group;
+    let soul = 0;
+    partnerGroup.forEach((g) => {
+      soul += g.calcSoulNumber();
+    });
+    return reduceNumber(soul);
+  }
+
+  calcSoulNumberISK() :string {
+    const partnerGroup = this.group;
+    let soul = 0;
+    partnerGroup.forEach((g) => {
+      soul += g.calcSoulNumber();
+    });
+    const soulISK = reduceNumberISK(soul);
+    return this.karmic.includes(soulISK) ? '*' : '';
+  }
+
+  calcSoulExpression():number {
+    const partnerGroup = this.group;
+    let soul = 0;
+    partnerGroup.forEach((g) => {
+      soul += g.calcSoulExpression();
+    });
+    return reduceNumber(soul);
+  }
+
+  calcSoulExpressionISK():string {
+    const partnerGroup = this.group;
+    let soul = 0;
+    partnerGroup.forEach((g) => {
+      soul += g.calcSoulExpression();
+    });
+    const soulISK = reduceNumberISK(soul);
+    return this.karmic.includes(soulISK) ? '*' : '';
+  }
+
+  calcMaturity():number {
+    const partnerGroup = this.group;
+    let soul = 0;
+    partnerGroup.forEach((g) => {
+      soul += g.calcMaturity();
+    });
+    return reduceNumber(soul);
+  }
+
+  calcMaturityISK():string {
+    const partnerGroup = this.group;
+    let soul = 0;
+    partnerGroup.forEach((g) => {
+      soul += g.calcMaturity();
+    });
+    const soulISK = reduceNumberISK(soul);
+    return this.karmic.includes(soulISK) ? '*' : '';
+  }
+
+  calcPersonalYear(year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    return reduceNumber(
+      this.getA()
+      + this.getB()
+      + yearToCalculate,
+    );
+  }
+
+  calcPersonalYearISK(year:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const personalYear = reduceNumberISK(this.getA() + this.getB() + yearToCalculate);
+    return this.karmic.includes(personalYear) ? '*' : '';
+  }
+
+  /**
+   * calculate personal month
+   * @returns {Number} sumPersonalMonth
+   */
+  calcPersonalMonth(month:number, year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+    const personalYear = this.calcPersonalYear(yearToCalculate);
+    const personalMonth = reduceNumber(personalYear + monthToCalculate);
+    return personalMonth;
+  }
+
+  calcPersonalMonthISK(year:number, month:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+    const personalYear = this.calcPersonalYear(yearToCalculate);
+    const personalMonth = reduceNumberISK(personalYear + monthToCalculate);
+    return this.karmic.includes(personalMonth) ? '*' : '';
+  }
+
+  /**
+   * calculate personal week
+   * @returns {Number} sumPersonalWeek
+   */
+  calcPersonalWeek(year:number, month:number, day:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+    const dayToCalculate = _.isNil(day) ? this.NOW.date() : day;
+    const sumPersonalWeekOne = reduceNumber(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
+    if (dayToCalculate >= 1 && dayToCalculate <= 7) {
+      return sumPersonalWeekOne;
+    }
+    const sumPersonalWeekTwo = reduceNumber(this.calcPersonalYear(yearToCalculate) + sumPersonalWeekOne);
+    if (dayToCalculate >= 8 && dayToCalculate <= 14) {
+      return sumPersonalWeekTwo;
+    }
+
+    const sumPersonalWeekThree = reduceNumber(sumPersonalWeekTwo + sumPersonalWeekOne);
+    if ((dayToCalculate) >= 15 && dayToCalculate <= 21) {
+      return sumPersonalWeekThree;
+    }
+
+    const sumPersonalWeekFour = reduceNumber(monthToCalculate + sumPersonalWeekOne);
+    if (dayToCalculate >= 22) {
+      return sumPersonalWeekFour;
+    }
+    return 0;
+  }
+
+  calcPersonalWeekISK(year:number, month:number, day:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+    const dayToCalculate = _.isNil(day) ? this.NOW.date() : day;
+    const sumPersonalWeekOne = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
+    if (dayToCalculate >= 1 && dayToCalculate <= 7) {
+      return this.karmic.includes(sumPersonalWeekOne) ? '*' : '';
+    }
+    const sumPersonalWeekTwo = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + sumPersonalWeekOne);
+    if (dayToCalculate >= 8 && dayToCalculate <= 14) {
+      return this.karmic.includes(sumPersonalWeekTwo) ? '*' : '';
+    }
+
+    const sumPersonalWeekThree = reduceNumberISK(sumPersonalWeekTwo + sumPersonalWeekOne);
+    if ((dayToCalculate) >= 15 && dayToCalculate <= 21) {
+      return this.karmic.includes(sumPersonalWeekThree) ? '*' : '';
+    }
+
+    const sumPersonalWeekFour = reduceNumberISK(monthToCalculate + sumPersonalWeekOne);
+    if (dayToCalculate >= 22) {
+      return this.karmic.includes(sumPersonalWeekFour) ? '*' : '';
+    }
+    return '';
+  }
+
+  calcPersonalDay(year:number, month:number, day:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+    const dayToCalculate = _.isNil(day) ? this.NOW.date() : day;
+    return reduceNumber(
+      this.calcPersonalYear(yearToCalculate)
+      + monthToCalculate
+      + dayToCalculate,
+    );
+  }
+
+  calcPersonalDayISK(year:number, month:number, day:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+    const dayToCalculate = _.isNil(day) ? this.NOW.date() : day;
+    const personalDay = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + monthToCalculate + dayToCalculate);
+    return this.karmic.includes(personalDay) ? '*' : '';
+  }
+
+  getLifeStage(year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const start = this.groupDate;
+    const duration = 9 - this.calcPersonalYear(start);
+    let stageOneEnd = start + duration;
+    if (duration === 0) {
+      stageOneEnd += 9;
+    }
+    const stageOne = this.getE();
+    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
+      return stageOne;
+    }
+
+    const stageTwo = this.getF();
+    const stageTwoEnd = stageOneEnd + 9;
+    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
+      return stageTwo;
+    }
+
+    const stageThr = this.getG();
+    const stageThrEnd = stageTwoEnd + 9;
+    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
+      return stageThr;
+    }
+
+    const stageFou = this.getH();
+    const stageFouEnd = stageThrEnd + 9;
+    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
+      return stageFou;
+    }
+
+    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
+      return stageThr;
+    }
+    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
+      return stageTwo;
+    }
+    if ((stageFouEnd + 18) <= yearToCalculate) {
+      return stageOne;
+    }
+    return 0;
+  }
+
+  getLifeStageISK(year:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const start = this.groupDate;
+    const duration = 9 - this.calcPersonalYear(start);
+    let stageOneEnd = start + duration;
+    if (duration === 0) {
+      stageOneEnd += 9;
+    }
+    const stageOne = reduceNumberISK(this.getA() + this.getB());
+    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
+      return this.karmic.includes(stageOne) ? '*' : '';
+    }
+
+    const stageTwo = reduceNumberISK(this.getC() + this.getB());
+    const stageTwoEnd = stageOneEnd + 9;
+    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
+      return this.karmic.includes(stageTwo) ? '*' : '';
+    }
+
+    const stageThr = reduceNumberISK(this.getE() + this.getF());
+    const stageThrEnd = stageTwoEnd + 9;
+    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
+      return this.karmic.includes(stageThr) ? '*' : '';
+    }
+
+    const stageFou = reduceNumberISK(this.getA() + this.getC());
+    const stageFouEnd = stageThrEnd + 9;
+    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
+      return this.karmic.includes(stageFou) ? '*' : '';
+    }
+
+    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
+      return this.karmic.includes(stageThr) ? '*' : '';
+    }
+    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
+      return this.karmic.includes(stageTwo) ? '*' : '';
+    }
+    if ((stageFouEnd + 18) <= yearToCalculate) {
+      return this.karmic.includes(stageOne) ? '*' : '';
+    }
+    return '';
+  }
+
+  getQuarterOne():number {
+    return this.getC();
+  }
+
+  getQuarterOneISK():string {
+    return this.getCISK();
+  }
+
+  getQuarterTwo(year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    return reduceNumber(yearToCalculate - this.getD());
+  }
+
+  getQuarterTwoISK(year:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const quarterTwo = reduceNumberISK(yearToCalculate - this.getD());
+    return this.karmic.includes(quarterTwo) ? '*' : '';
+  }
+
+  /**
+   * calculate third quater
+   * @returns {Number} quater three
+   */
+  getQuarterThree(year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    return reduceNumber(this.getQuarterOne() + this.getQuarterTwo(yearToCalculate));
+  }
+
+  getQuarterThreeISK(year:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const quarterThr = reduceNumberISK(this.getQuarterOne() + this.getQuarterTwo(yearToCalculate));
+    return this.karmic.includes(quarterThr) ? '*' : '';
+  }
+
+  calcCurrentQuarter(month:moment.Moment, year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW : month;
+    const listOfMonths = this.getCustomMonths();
+    const actualMonth = getMonthName(monthToCalculate.toString());
+    const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
+    const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
+    if (index < 5) { return this.getQuarterOne(); }
+    if (index > 4 && index < 9) {
+      if (indexEnero === 0) { return this.getQuarterTwo(yearToCalculate); }
+      if (index > indexEnero) {
+        return this.getQuarterTwo(yearToCalculate - 1);
+      }
+      return this.getQuarterTwo(yearToCalculate);
+    }
+    if (index > 8) {
+      if (indexEnero === 0) { return this.getQuarterThree(yearToCalculate); }
+      if (index > indexEnero) {
+        return this.getQuarterThree(yearToCalculate - 1);
+      }
+      return this.getQuarterThree(yearToCalculate);
+    }
+    return 0;
+  }
+
+  calcCurrentQuarterISK(month:moment.Moment, year:number):string {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const monthToCalculate = _.isNil(month) ? this.NOW : month;
+    const listOfMonths = this.getCustomMonths();
+    const actualMonth = monthToCalculate.format('MMMM');
+    const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
+    const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
+    if (index < 5) { return this.getQuarterOneISK(); }
+    if (index > 4 && index < 9) {
+      if (index > indexEnero) {
+        return this.getQuarterTwoISK(yearToCalculate - 1);
+      }
+      return this.getQuarterTwoISK(yearToCalculate);
+    }
+    if (index > 8) {
+      if (index > indexEnero) {
+        return this.getQuarterThreeISK(yearToCalculate - 1);
+      }
+      return this.getQuarterThreeISK(yearToCalculate);
+    }
+    return '';
+  }
+
+  getCustomMonths():string[] {
+    let sumBirthDates = 0;
+    this.group.forEach((m) => {
+      const birth = m.getBirthDate();
+      sumBirthDates += birth.month() + 1;
+    });
+    let reduce;
+    if (sumBirthDates === 19) {
+      reduce = 10;
+    } else {
+      reduce = reduceMonth(sumBirthDates);
+    }
+    let reduceIndex = reduce - 1;
+    const months = getAllMonths();
+    const listOfMonths = [];
+    for (let index = 0; index < 13; index++) {
+      if (reduceIndex > 11) {
+        reduceIndex = 0;
+      }
+      listOfMonths.push(months[reduceIndex]);
+      reduceIndex++;
+    }
+    return listOfMonths;
+  }
+
+  /**
+   * calculate current stage name
+   * @returns {Number} stage
+   */
+
+  getLifeStageNumber(year:number):number {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const start = this.groupDate;
+    const duration = 9 - reduceNumberForSub(
+      this.getA() + this.getB() + start,
+    );
+    let stageOneEnd = start + duration;
+    console.log(`${stageOneEnd}stage-1`);
+    if (duration === 0) {
+      stageOneEnd += 9;
+    }
+    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
+      return 1;
+    }
+    const stageTwoEnd = stageOneEnd + 9;
+    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
+      return 2;
+    }
+
+    const stageThrEnd = stageTwoEnd + 9;
+    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
+      return 3;
+    }
+
+    const stageFouEnd = stageThrEnd + 9;
+    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
+      return 4;
+    }
+
+    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
+      return 5;
+    }
+    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
+      return 6;
+    }
+    if ((stageFouEnd + 18) <= yearToCalculate) {
+      return 7;
+    }
+    return 0;
+  }
+
+  /**
+   * calculate life stages
+   * AKA: 1 => E
+   * AKA: 2 => F
+   * AKA: 3 => G
+   * AKA: 4 => H
+   * @returns {Number}
+   */
+  calcLifeStage(stage:1 | 2 | 3 | 4 | 5 | 6 | 7):number {
+    const stageOne = this.getE();
+    if (stage === 1) return stageOne;
+
+    const stageTwo = this.getF();
+    if (stage === 2) return stageTwo;
+
+    const stageThr = this.getG();
+    if (stage === 3) return stageThr;
+
+    const stageFou = this.getH();
+    if (stage === 4) return stageFou;
+
+    if (stage === 5) return stageThr;
+    if (stage === 6) return stageTwo;
+    if (stage === 7) return stageOne;
+    return stageOne;
+  }
+
+  calcLifeStageISK(stage:1 | 2 | 3 | 4 | 5 | 6 | 7) :string {
+    const stageOne = reduceNumberISK(this.getA() + this.getB());
+    if (stage === 1) return this.karmic.includes(stageOne) ? '*' : '';
+
+    const stageTwo = reduceNumberISK(this.getC() + this.getB());
+    if (stage === 2) return this.karmic.includes(stageTwo) ? '*' : '';
+
+    const stageThr = reduceNumberISK(this.getE() + this.getF());
+    if (stage === 3) return this.karmic.includes(stageThr) ? '*' : '';
+
+    const stageFou = reduceNumberISK(this.getA() + this.getC());
+    if (stage === 4) return this.karmic.includes(stageFou) ? '*' : '';
+
+    if (stage === 5) return this.karmic.includes(stageThr) ? '*' : '';
+    if (stage === 6) return this.karmic.includes(stageTwo) ? '*' : '';
+    if (stage === 7) return this.karmic.includes(stageOne) ? '*' : '';
+    return '';
+  }
+
+  calcLifeStageDuration(stage:1 | 2 | 3 | 4 | 5 | 6 | 7):number {
+    const start = this.groupDate;
+    const stageOne = 9 - reduceNumberForSub(
+      this.getA() + this.getB() + start,
+    );
+    console.log(stageOne);
+    let stageOneEnd = start + stageOne;
+    if (stageOne === 0) {
+      stageOneEnd += 9;
+    }
+
+    if (stage === 1) {
+      return stageOneEnd;
+    }
+    if (stage < 8) {
+      const stageEnd = stageOneEnd + Math.abs((stage - 1) * 9);
+      return stageEnd;
+    }
+
+    return 0;
+  }
+
+  /**
+ * get nine year cycle
+ * @returns {Number} nineYearCycle
+ */
+  getNineYearCycleStage(year:number):number[] {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    let firstValue = false;
+    let firstYear:number = 0;
+    const nineYearCycle = [];
+    for (let index = 0; index <= 9; index++) {
+      const personalYear = this.calcPersonalYear(yearToCalculate - index);
+      if (personalYear === 9 && firstValue === false) {
+        nineYearCycle.push(yearToCalculate - index);
+        firstYear = yearToCalculate - index;
+        firstValue = true;
+      }
+    }
+    for (let index = 1; index <= 9; index++) {
+      nineYearCycle[index] = firstYear + index;
+    }
+    return nineYearCycle;
+  }
+
+  /**
+   * get nine year cycle
+   * @returns {Number} nineYearCycle
+   */
+  getNineYearCycle(year:number):number[] {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const nineYearCycle = [
+      yearToCalculate - 4,
+      yearToCalculate - 3,
+      yearToCalculate - 2,
+      yearToCalculate - 1,
+      yearToCalculate,
+      yearToCalculate + 1,
+      yearToCalculate + 2,
+      yearToCalculate + 3,
+      yearToCalculate + 4,
+    ];
+    return nineYearCycle;
+  }
+
+  annualReturn(year:number):AnnualReturn {
+    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const age = yearToCalculate - this.groupDate;
+    const A = reduceNumber(yearToCalculate);
+    const B = reduceNumber(
+      yearToCalculate
+      + this.getAWOR()
+      + this.getBWOR(),
+    );
+    const C = reduceNumber(this.getCWOR() - yearToCalculate);
+    const D = reduceNumber(A + B);
+    const E = reduceNumber(B + C);
+    const F = reduceNumber(D + E);
+    const G = reduceNumber(D + E + F);
+    const H = reduceNumber(A + C);
+
+    return {
+      yearToCalculate, age, A, B, C, D, E, F, G, H,
+    };
+  }
+
+  getAbsences():string {
+    const appearances:number[] = [
+      this.getA(),
+      this.getB(),
+      this.getC(),
+      this.getD(),
+      this.getE(),
+      this.getF(),
+      this.getG(),
+      this.getH(),
+      this.getI(),
+      this.getJ(),
+      this.getK(),
+      this.getL(),
+      this.getM(),
+      this.getN(),
+      this.getO(),
+      this.getP(),
+      this.getQ(),
+      this.getR(),
+      this.getS(),
+      Number(this.getW()),
+    ];
+
+    const occurrences = appearances.filter((a) => a > 0).reduce((count: { [key: number]: number }, value: number) => {
+      const newCount = count;
+      newCount[value] = (newCount[value] || 0) + 1;
+      return newCount;
+    }, {});
+
+    const base = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const intersection = base.filter((x) => !Object.keys(occurrences).includes(x));
+    return intersection.join(' ');
+  }
+}
+export default Group;
