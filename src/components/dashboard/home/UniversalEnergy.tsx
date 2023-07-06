@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import UniversalEnergyPerson from '@/components/Universal/universalEnergy/UniversalEnergyPerson';
+import UniversalEnergyValues from '@/components/Universal/universalEnergy/UniversalEnergyValues';
 import { useAuth } from '@/context/AuthProvider';
 import { Consultant } from '@/context/EnergyContext';
-import useEnergy from '../../hooks/useEnergy';
-import UniversalEnergyPerson from '../universal/universalEnergy/UniversalEnergyPerson';
-import UniversalEnergyValues from '../universal/universalEnergy/UniversalEnergyValues';
+import useEnergy from '@/hooks/useEnergy';
 
 function UniversalEnergy() {
   const { user: userAuth } = useAuth();

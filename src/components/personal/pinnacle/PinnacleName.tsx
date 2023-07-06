@@ -33,7 +33,7 @@ export function PinnacleName({ isVerificationActive }: { isVerificationActive: b
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
         <label className="text-10 mt-3">Expresión</label>
         <CircleNumber size="sm" appearance="blue-30" border="blue">
-          {(!isVerificationActive) ? `${person.calcSoulExpresion()}${person.calcSoulExpresionISK()}` : `${person.getExpressionSoulCheck()}${person.calcSoulExpresionISK()}`}
+          {(!isVerificationActive) ? `${person.calcSoulExpression()}${person.calcSoulExpressionISK()}` : `${person.getExpressionSoulCheck()}${person.calcSoulExpressionISK()}`}
         </CircleNumber>
       </div>
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">

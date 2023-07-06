@@ -1,5 +1,5 @@
-import EnergyTimeCircle from '@/components/home/EnergyTimeCircle';
-import UniversalEnergy from '@/components/home/UniversalEnergy';
+import EnergyTimeCircle from '@/components/dashboard/home/EnergyTimeCircle';
+import UniversalEnergy from '@/components/dashboard/home/UniversalEnergy';
 import { useAuth } from '@/context/AuthProvider';
 import EnergyProvider from '@/context/EnergyProvider';
 

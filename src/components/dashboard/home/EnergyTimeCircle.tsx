@@ -1,6 +1,6 @@
 import useEnergy from '@/hooks/useEnergy';
 import Person from '@/resources/Person';
-import TimeCircle from '../personal/timeCircle/TimeCircle';
+import TimeCircle from '../../personal/timeCircle/TimeCircle';
 
 function EnergyTimeCircle() {
   const { consultantSelected } = useEnergy();

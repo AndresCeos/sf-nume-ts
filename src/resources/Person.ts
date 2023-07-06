@@ -86,7 +86,7 @@ class Person {
 
   karmic: number[];
 
-  yearMet?:number;
+  yearMet?: number;
 
   constructor({
     id, name, lastName, scdLastName, birthDate, yearMet,
@@ -1691,7 +1691,7 @@ class Person {
     return this.karmic.includes(soulNumber) ? '*' : '';
   }
 
-  calcSoulExpresionISK(): string {
+  calcSoulExpressionISK(): string {
     const nameConsonants = this.name.toString().toLowerCase().toLowerCase().split('');
     let nameConsonantsValue = 0;
     nameConsonants.forEach((element) => {
