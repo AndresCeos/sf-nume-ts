@@ -115,6 +115,12 @@
       "oct": "Oct",
       "nov": "Nov",
       "dec": "Dic"
+    },
+    "frequency": {
+      "frequency": "Frecuencia",
+      "reaction": "Reacción",
+      "synthesis": "Síntesis",
+      "gift": "Regalo"
     }
   }
 }

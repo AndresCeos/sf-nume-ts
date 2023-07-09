@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
+import AnnualReturn from '@/components/personal/pinnacle/AnnualReturn';
 import Bridge from '@/components/personal/pinnacle/Bridge';
 import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
+import PinnacleFrequency from '@/components/personal/pinnacle/PinnacleFrequency';
 import PinnacleName from '@/components/personal/pinnacle/PinnacleName';
 import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
-import AnnualReturn from './AnnualReturn';
 
 function PinnaclePage() {
   const { consultant, calculationDate } = useConsult();
@@ -131,6 +132,13 @@ function PinnaclePage() {
             <div className="px-5 py-8">
               <AnnualReturn size="xs" annualReturn={annualReturnNextYear} />
             </div>
+          </div>
+        </div>
+
+        <div className="col-span-1 row-span-2 col-start-4 row-start-4">
+          <SectionTitle title={t('pinnacle.frequency.frequency')} />
+          <div className="section-wrap grid grid-cols-1 p-4">
+            <PinnacleFrequency />
           </div>
         </div>
 
