@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 function CircleNumber(props: any) {
-  const borderWithClass = props.borderwidth ? 'border' : `border-${props.borderwidth}`;
+  const borderWithClass = props.borderWidth ? 'border' : `border-${props.borderWidth}`;
   const radiantClass = props.radiant ? 'inner-shadow-gold' : '';
 
   const size = () => {

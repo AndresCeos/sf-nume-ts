@@ -54,7 +54,7 @@ type UngroupName = {
   c: number,
 };
 
-type AnnualReturn = {
+export type AnnualReturn = {
   yearToCalculate: number,
   age: number,
   A: string,

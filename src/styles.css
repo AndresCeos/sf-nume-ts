@@ -1259,10 +1259,10 @@ body * {
   font-size: 10px;
   color: #333;
 }
-[descrt]:after {
+[descriptionTop]:after {
   width: 16px;
   text-align: center;
-  content: attr(descrt);
+  content: attr(descriptionTop);
   font-size: 13px;
   color: #7e7e7e;
   right: -15px;
@@ -1270,10 +1270,10 @@ body * {
   position: absolute
 }
 
-[descrb]:after {
+[descriptionBottom]:after {
   width: 16px;
   text-align: center;
-  content: attr(descrb);
+  content: attr(descriptionBottom);
   font-size: 13px;
   color: #7e7e7e;
   right: -15px;
@@ -1281,10 +1281,10 @@ body * {
   position: absolute
 }
 
-[descb]:after {
+[descriptionBottom]:after {
   width: 16px;
   text-align: center;
-  content: attr(descb);
+  content: attr(descriptionBottom);
   font-size: 13px;
   color: #7e7e7e;
   left: 15px;
@@ -1292,10 +1292,10 @@ body * {
   position: absolute
 }
 
-[descrr]:after {
+[descriptionRight]:after {
   width: 16px;
   text-align: center;
-  content: attr(descrr);
+  content: attr(descriptionRight);
   font-size: 13px;
   color: #7e7e7e;
   right: 8px;
@@ -1303,13 +1303,90 @@ body * {
   position: absolute
 }
 
-[descrl]:after {
+[descriptionLeft]:after {
   width: 16px;
   text-align: center;
-  content: attr(descrl);
+  content: attr(descriptionLeft);
   font-size: 13px;
   color: #7e7e7e;
   right: 8px;
   top: 30px;
   position: absolute
+}
+.annual-grid {
+    max-width: 220px;
+}
+.arrow-annual-return {
+  height: 1px;
+  width: 90%;
+  background-color: rgb(0, 0, 0, .5);
+  margin-top: 27%;
+  position: relative;
+}
+.arrow-annual-return:after {
+  content: '';
+  border: solid rgb(0, 0, 0, .5);
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 2px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  position: absolute;
+  right: -1px;
+  top: -2px;
+}
+.box-v {
+  margin-bottom: 12px;
+}
+
+.box-vf {
+  grid-row-start: 1;
+  grid-column-start: 3;
+}
+
+.box-vd {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+.box-vg {
+  grid-row-start: 2;
+  grid-column-start: 3;
+}
+
+.box-ve {
+  grid-row-start: 2;
+  grid-column-start: 4;
+}
+
+.box-va {
+  grid-row-start: 3;
+  grid-column-start: 1;
+}
+
+.box-vb {
+  grid-row-start: 3;
+  grid-column-start: 3;
+}
+
+.box-vc {
+  grid-row-start: 3;
+  grid-column-start: 5;
+}
+
+.box-vh {
+  grid-row-start: 5;
+  grid-column-start: 3;
+}
+
+.box-vy {
+  grid-row-start: 1;
+  grid-column-start: 4;
+  grid-column-end: 6;
+}
+
+.box-vyo {
+  grid-row-start: 5;
+  grid-column-start: 4;
+  grid-column-end: 6;
 }

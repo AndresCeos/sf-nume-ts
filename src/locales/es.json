@@ -96,6 +96,25 @@
       "title": "Puentes por etapa",
       "bridgeX": "Puente {{stage}}",
       "duration": "{{amount}} años"
+    },
+    "annualReturns": {
+      "annualReturns": "Retornos Anuales",
+      "personalYear": "Año Personal",
+      "year": "Año",
+      "years": "Años",
+      "age": "Edad",
+      "jan": "Ene",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Abr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ago",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dic"
     }
   }
 }

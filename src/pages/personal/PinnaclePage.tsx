@@ -8,6 +8,7 @@ import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import PinnacleName from '@/components/personal/pinnacle/PinnacleName';
 import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
+import AnnualReturn from './AnnualReturn';
 
 function PinnaclePage() {
   const { consultant, calculationDate } = useConsult();
@@ -36,6 +37,10 @@ function PinnaclePage() {
   const handlePinnacleNameVerification = () => { // TODO: implement
     console.log('not implemented');
   };
+
+  const annualReturnCurrent = person.annualReturn(calculationDate);
+  const annualReturnLastYear = person.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
+  const annualReturnNextYear = person.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
     <div className="page-content bg-home-background bg-cover">
@@ -70,7 +75,7 @@ function PinnaclePage() {
 
         <div className="col-span-6 row-span-2">
           <SectionTitle title={t('pinnacle.bridge.bridge')} color="bg-green-s" />
-          <div className="section-wrap pinnacle-wrap grid grid-cols-4">
+          <div className="section-wrap grid grid-cols-4">
             <div className={cx(
               'py-3 px-2 border-b border-solid border-gray-300',
               (activeStage === 1 || activeStage === 7) || (secondStage && (activeScdStage === 1 || activeScdStage === 7)) ? 'bg-active-radial' : 'border-r border-gray-200',
@@ -113,6 +118,22 @@ function PinnaclePage() {
             </div>
           </div>
         </div>
+
+        <div className="col-span-6 col-start-5 row-span-4">
+          <SectionTitle title={t('pinnacle.annualReturns.annualReturns')} />
+          <div className="section-wrap grid grid-cols-3">
+            <div className="px-5 py-8 border-b border-solid border-gray-300">
+              <AnnualReturn size="xs" annualReturn={annualReturnLastYear} />
+            </div>
+            <div className="px-5 py-8 border-b border-solid border-gray-300 bg-active-radial bg-opacity-15">
+              <AnnualReturn size="xs" annualReturn={annualReturnCurrent} current />
+            </div>
+            <div className="px-5 py-8">
+              <AnnualReturn size="xs" annualReturn={annualReturnNextYear} />
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
