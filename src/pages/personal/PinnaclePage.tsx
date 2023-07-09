@@ -1,13 +1,29 @@
+import cx from 'classnames';
+
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
+import Bridge from '@/components/personal/pinnacle/Bridge';
 import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import PinnacleName from '@/components/personal/pinnacle/PinnacleName';
 import useConsult from '@/hooks/useConsult';
+import Person from '@/resources/Person';
 
 function PinnaclePage() {
-  const { consultant } = useConsult();
+  const { consultant, calculationDate } = useConsult();
 
   if (!consultant) return (<NoConsultantSelected />);
+
+  const person = new Person({
+    id: consultant.id || '',
+    name: consultant.names || '',
+    lastName: consultant.lastName || '',
+    scdLastName: consultant.scdLastName || '',
+    birthDate: consultant.date?.toString() || '',
+  });
+
+  const activeStage = person.getLifeStageNumber(calculationDate);
+  const activeScdStage = person.getDoubleLifeStageNumber(calculationDate);
+  const secondStage = person.hasDoubleStage();
 
   const isPinnacleVerificationActive = false; // TODO: implement
   const handlePinnacleVerification = () => { // TODO: implement
@@ -47,6 +63,52 @@ function PinnaclePage() {
           />
           <div className="section-wrap p-4">
             <PinnacleName isVerificationActive={isPinnacleNameVerificationActive} />
+          </div>
+        </div>
+
+        <div className="col-span-6 row-span-2">
+          <SectionTitle title="Puentes por etapa" color="bg-green-s" />
+          <div className="section-wrap pinnacle-wrap grid grid-cols-4">
+            <div className={cx(
+              'py-3 px-2 border-b border-solid border-gray-300',
+              (activeStage === 1 || activeStage === 7) || (secondStage && (activeScdStage === 1 || activeScdStage === 7)) ? 'bg-active-radial' : 'border-r border-gray-200',
+            )}
+            >
+              <h2 className="text-xs font-bold text-center">
+                Puente 1
+              </h2>
+              <Bridge stage={1} />
+            </div>
+            <div className={cx(
+              'py-3 px-2 border-b border-solid border-gray-300',
+              (activeStage === 2 || activeStage === 6) || (secondStage && (activeScdStage === 2 || activeScdStage === 6)) ? 'bg-active-radial' : 'border-r border-gray-200',
+            )}
+            >
+              <h2 className="text-xs font-bold text-center">
+                Puente 2
+              </h2>
+              <Bridge stage={2} />
+            </div>
+            <div className={cx(
+              'py-3 px-2 border-b border-solid border-gray-300',
+              (activeStage === 3 || activeStage === 5) || (secondStage && (activeScdStage === 3 || activeScdStage === 5)) ? 'bg-active-radial' : 'border-r border-gray-200',
+            )}
+            >
+              <h2 className="text-xs font-bold text-center">
+                Puente 3
+              </h2>
+              <Bridge stage={3} />
+            </div>
+            <div className={cx(
+              'py-3 px-2 border-b border-solid border-gray-300',
+              activeStage === 4 || (secondStage && activeScdStage === 4) ? 'bg-active-radial' : null,
+            )}
+            >
+              <h2 className="text-xs font-bold text-center">
+                Puente 4
+              </h2>
+              <Bridge stage={4} />
+            </div>
           </div>
         </div>
       </div>

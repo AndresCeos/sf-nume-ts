@@ -4,7 +4,7 @@ import { TiPlus } from 'react-icons/ti';
 type SectionTitleProps = {
   title: string;
   color?: string;
-  button: {
+  button?: {
     isActive: boolean;
     text: string;
     handle: () => void;
@@ -36,6 +36,7 @@ function SectionTitle({ title, color, button }: SectionTitleProps) {
 
 SectionTitle.defaultProps = {
   color: 'bg-main-700',
+  button: undefined,
 };
 
 export default SectionTitle;
