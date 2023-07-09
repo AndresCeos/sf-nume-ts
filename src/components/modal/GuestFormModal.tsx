@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import MyModal from '@/components/MyModal';
 import { Consultant } from '@/context/EnergyContext';
@@ -14,6 +15,7 @@ type GuestFormModalProps = {
 function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(true);
+  const { t } = useTranslation();
 
   const initialForm = {
     name: guest?.name || '',
@@ -52,14 +54,14 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
       </button>
       <MyModal
         size="small"
-        title="Energ&iacute;a personal"
+        title={t('modal.guest.title') as string}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         isLoading={false}
       >
         <form className="flex flex-col gap-2" onSubmit={handleOnSubmit}>
           <label htmlFor="name">
-            Nombre
+            {t('modal.guest.name')}
             <input
               type="text"
               className="w-full border border-gray-500 p-1 rounded-md"
@@ -70,7 +72,7 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
             />
           </label>
           <label htmlFor="date">
-            Fecha de Nacimiento
+            {t('modal.guest.birthDate')}
             <input
               type="date"
               className="w-full border border-gray-500 p-1 rounded-md"
@@ -81,7 +83,9 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
             />
           </label>
           <div className="grid place-items-center mt-3">
-            <button className="btn" type="submit" disabled={!isFormValid}>Guardar</button>
+            <button className="btn" type="submit" disabled={!isFormValid}>
+              {t('modal.guest.save')}
+            </button>
           </div>
         </form>
       </MyModal>

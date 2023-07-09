@@ -1,3 +1,101 @@
 {
-  "login": "Inicio de sesión"
+  "login": "Inicio de sesión",
+  "consultant": "Consultante",
+  "select": "Seleccionar",
+  "noOptions": "No hay coincidencias",
+  "somethingWentWrong": "Ooops, algo salió mal :(",
+  "tryAgain": "Reintentar",
+  "loading": "Cargando...",
+  "selectConsultantToContinue": "Selecciona un consultante para continuar",
+  "birthDate": "Fecha de nacimiento",
+  "age": "Edad",
+  "consultDate": "Fecha de consulta",
+  "navbar": {
+    "enterData": "Ingresar\n datos",
+    "updateData": "Actualizar\n datos",
+    "changeDate": "Cambiar\n fecha",
+    "partnerData": "Datos de\n pareja",
+    "groupData": "Datos de\n grupo",
+    "notes": "Notas de\n Consulta",
+    "saveReport": "Guardar\n reporte",
+    "printReports": "Imprimir\n reportes",
+    "helloMessage": "Hola! <strong>{{name}}</strong>"
+  },
+  "sidebar": {
+    "home": "Inicio",
+    "consultant": "Consultante",
+    "personalNumerology": "Numerología Personal",
+    "pinnacle": "Pináculo",
+    "lifePath": "Camino de Vida",
+    "name": "Nombre",
+    "createName": "Crear Nombre",
+    "destinyTable": "Tabla del Destino",
+    "timeVibration": "Vibración de Tiempo",
+    "annualReturns": "Retornos Anuales",
+    "timeCircle": "Circulo del Tiempo",
+    "annualCalendar": "Calendario Anual",
+    "monthlyCalendar": "Calendario Mensual",
+    "partnerNumerology": "Numerología de Pareja",
+    "analysis": "Análisis",
+    "destinyTableP": "Tabla del Destino P.",
+    "compatibilityTable": "Tabla Compatibilidad",
+    "groupNumerology": "Numerología de Grupo",
+    "settings": "Configuración",
+    "support": "Soporte",
+    "logout": "Salir",
+    "userManual": "Manual de Usuario",
+    "policiesAndPrivacy": "Políticas y Privacidad",
+    "contact": "Contacto"
+  },
+  "modal": {
+    "date": {
+      "title": "Seleccione la fecha que quieras consultar",
+      "select": "Seleccionar",
+      "today": "Hoy",
+      "cancel": "Cancelar"
+    },
+    "guest": {
+      "title": "Energía personal",
+      "name" : "Nombre",
+      "birthDate": "Fecha de nacimiento",
+      "save": "Guardar"
+    }
+  },
+  "loginPage": {
+    "title": "“Si quieres entender el Universo, piensa en energía, frecuencia y vibración”.",
+    "subtitle": "Nikola Tesla",
+    "login": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "enter": "Ingresar",
+    "forgotPassword": "¿Olvidaste tu contraseña?"
+  },
+  "home": {
+    "title": "Bienvenid@ {{name}}",
+    "subtitle": "a tu Software de Numerología",
+    "energy": "Energía",
+    "personal": "Personal",
+    "day": "Día",
+    "week": "Sem",
+    "month": "Mes",
+    "year": "Año"
+  },
+  "pinnacle": {
+    "title": "Pináculo",
+    "pinnacle": {
+      "absences": "Ausencias"
+    },
+    "verification": "Comprobación",
+    "name": {
+      "name": "Nombre",
+      "soul": "Alma",
+      "expression": "Expresión",
+      "maturity": "Madurez"
+    },
+    "bridge": {
+      "title": "Puentes por etapa",
+      "bridgeX": "Puente {{stage}}",
+      "duration": "{{amount}} años"
+    }
+  }
 }

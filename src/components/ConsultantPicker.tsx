@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Select, { SingleValue } from 'react-select';
 
 import { useAuth } from '@/context/AuthProvider';
@@ -6,6 +7,7 @@ import useConsult from '@/hooks/useConsult';
 function ConsultantPicker() {
   const { user } = useAuth();
   const { consultant, selectConsultant } = useConsult();
+  const { t } = useTranslation();
 
   const options = user?.consultants.map(({
     id, names, lastName, scdLastName,
@@ -32,15 +34,16 @@ function ConsultantPicker() {
   return (
     <div className="selectConsultant flex items-center">
       <img src="/assets/ic-search.svg" className="mx-2 drop-shadow-sm" alt="consultant search" />
-      Consultante:
+      {t('consultant')}
+      :
       <Select
         options={options as never}
         onChange={handleChange}
         value={formatConsultantActive()}
         className="px-2 w-72"
-        placeholder="Seleccionar"
+        placeholder={t('select')}
         classNamePrefix="bg-transparent border-0 outline-none font-bold"
-        noOptionsMessage={() => 'No hay coincidencias'}
+        noOptionsMessage={() => t('noOptions')}
       />
     </div>
   );

@@ -1,24 +1,26 @@
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 
 import useConsult from '@/hooks/useConsult';
 
 function ConsultationDateModal() {
   const { consultationDate, selectConsultationDate } = useConsult();
+  const { t } = useTranslation();
 
   const openModal = () => {
     Swal.fire({
-      title: 'Seleccione la fecha que quieras consultar',
+      title: t('modal.date.title') as string,
       icon: 'info',
       html:
         `<input  type="date" id="newDate" class="border border-gray-500 p-1 rounded-md" value="${consultationDate.format('YYYY-MM-DD')}" />`,
       showCloseButton: true,
       showCancelButton: true,
       showDenyButton: true,
-      denyButtonText: 'Seleccionar',
+      denyButtonText: t('modal.date.select') as string,
       focusConfirm: false,
-      confirmButtonText: 'Hoy',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t('modal.date.today') as string,
+      cancelButtonText: t('modal.date.cancel') as string,
       confirmButtonColor: '#693061',
       denyButtonColor: '#9F5D9B',
       cancelButtonColor: '#ff0000',
@@ -44,9 +46,7 @@ function ConsultationDateModal() {
         className="mb-1"
         alt="change_date"
       />
-      Cambiar
-      <br />
-      Fecha
+      {t('navbar.changeDate')}
     </button>
   );
 }

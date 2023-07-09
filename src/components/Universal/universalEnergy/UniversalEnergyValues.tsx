@@ -1,9 +1,13 @@
+import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+
 import useConsult from '@/hooks/useConsult';
 import Universal from '@/resources/Universal';
 import { formatDate } from '@/utils/constants';
 
 function UniversalEnergyValues() {
   const { consultationDate, calculationDate, calculationYear } = useConsult();
+  const { t } = useTranslation();
 
   const u = new Universal();
 
@@ -13,37 +17,39 @@ function UniversalEnergyValues() {
         <img src="/assets/ic-universal.svg" alt="universal" />
       </li>
       <li className="text-center text-main-700">
-        ENERGÍA
+        {_.toUpper(t('home.energy') as string)}
         <br />
-        <div className="font-black">UNIVERSAL</div>
+        <div className="font-black">
+          {_.toUpper(t('home.personal') as string)}
+        </div>
       </li>
       <li className="rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 inner-shadow mt-3 mb-6 font-black text-[13px] text-center">
         {formatDate({ date: consultationDate.toDate(), format: 'short' })}
       </li>
       <li
         className="name-energy rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3"
-        data-name="DÍA"
+        data-name={_.toUpper(t('home.day') as string)}
       >
         {u.calcUniversalDay(calculationDate)}
         {u.calcUniversalDayISK(calculationDate)}
       </li>
       <li
         className="name-energy rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3"
-        data-name="SEM"
+        data-name={_.toUpper(t('home.week') as string)}
       >
         {u.calcCurrentUniversalWeek(calculationDate)}
         {u.calcCurrentUniversalWeekISK(calculationDate)}
       </li>
       <li
         className="name-energy rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3"
-        data-name="MES"
+        data-name={_.toUpper(t('home.month') as string)}
       >
         {u.calcUniversalMonth(calculationDate)}
         {u.calcUniversalMonthISK(calculationDate)}
       </li>
       <li
         className="name-energy rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3"
-        data-name="AÑO"
+        data-name={_.toUpper(t('home.year') as string)}
       >
         {u.calcUniversalYear(calculationYear)}
         {u.calcUniversalYearISK(calculationYear)}

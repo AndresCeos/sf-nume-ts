@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer base {
+  #root {
+    white-space: pre-line;
+  }
   body {
     font-family: 'Open Sans', sans-serif;
     @apply bg-main-700;
@@ -715,23 +718,23 @@ body * {
   text-align: center
 }
 
-#pinaculo {
+#pinnacle {
   /* min-height: 840px; */
   max-width: 525px;
   width: 100%;
   margin: 0 auto;
 }
 
-#pinaculo.small {
+#pinnacle.small {
   font-size: 12px;
 }
 
-#pinaculo-letters {
+#pinnacle-letters {
   max-width: 540px;
   padding-bottom: 166%;
 }
 
-.pinncle-letter {
+.pinnacle-letter {
   position: absolute;
   border-radius: 50%;
   display: flex;
@@ -743,12 +746,12 @@ body * {
   height: 8%;
 }
 
-.pinncle-letter[data-letter="A"] {
+.pinnacle-letter[data-letter="A"] {
   top: 38%;
   left: 1%;
 }
 
-.pinncle-letter[data-letter="B"] {
+.pinnacle-letter[data-letter="B"] {
   font-size: 52px;
   top: 36%;
   left: 29%;
@@ -757,101 +760,101 @@ body * {
 }
 
 @media (max-width: 1430px) {
-  #pinaculo.small .pinncle-letter {
+  #pinnacle.small .pinnacle-letter {
       font-size: 17px;
   }
 
-  #pinaculo.small .pinncle-letter[data-letter="B"] {
+  #pinnacle.small .pinnacle-letter[data-letter="B"] {
       font-size: 27px;
   }
 }
 
-.pinncle-letter[data-letter="C"] {
+.pinnacle-letter[data-letter="C"] {
   top: 38%;
   left: 65%;
 }
 
-.pinncle-letter[data-letter="D"] {
+.pinnacle-letter[data-letter="D"] {
   top: 38%;
   left: 86%;
 }
 
-.pinncle-letter[data-letter="E"] {
+.pinnacle-letter[data-letter="E"] {
   top: 24.2%;
   left: 18.5%;
 }
 
-.pinncle-letter[data-letter="I"] {
+.pinnacle-letter[data-letter="I"] {
   top: 24.2%;
   left: 33%;
 }
 
-.pinncle-letter[data-letter="F"] {
+.pinnacle-letter[data-letter="F"] {
   top: 24.2%;
   left: 48%;
 }
 
-.pinncle-letter[data-letter="J"] {
+.pinnacle-letter[data-letter="J"] {
   top: 24.2%;
   left: 76%;
 }
 
-.pinncle-letter[data-letter="G"] {
+.pinnacle-letter[data-letter="G"] {
   top: 12.2%;
   left: 33%;
 }
 
-.pinncle-letter[data-letter="H"] {
+.pinnacle-letter[data-letter="H"] {
   top: 0%;
   left: 33%;
 }
 
-.pinncle-letter[data-letter="K"] {
+.pinnacle-letter[data-letter="K"] {
   top: 53%;
   left: 18.5%;
 }
 
-.pinncle-letter[data-letter="O"] {
+.pinnacle-letter[data-letter="O"] {
   top: 53%;
   left: 33%;
 }
 
-.pinncle-letter[data-letter="L"] {
+.pinnacle-letter[data-letter="L"] {
   top: 53%;
   left: 48%;
 }
 
-.pinncle-letter[data-letter="M"] {
+.pinnacle-letter[data-letter="M"] {
   top: 64.5%;
   left: 33%;
 }
 
-.pinncle-letter[data-letter="W"] {
+.pinnacle-letter[data-letter="W"] {
   top: 64.5%;
   left: 1%;
 }
 
-.pinncle-letter[data-letter="N"] {
+.pinnacle-letter[data-letter="N"] {
   left: 33%;
   top: 76.6%;
 }
 
-.pinncle-letter[data-letter="P"] {
+.pinnacle-letter[data-letter="P"] {
   top: 76.6%;
   left: 14%;
 }
 
-.pinncle-letter[data-letter="Q"] {
+.pinnacle-letter[data-letter="Q"] {
   top: 88.3%;
   left: 18.5%;
 }
 
-.pinncle-letter[data-letter="R"] {
+.pinnacle-letter[data-letter="R"] {
   top: 88.3%;
   left: 33%;
 }
 
-.pinncle-letter[data-letter="S"] {
+.pinnacle-letter[data-letter="S"] {
   top: 88.3%;
   left: 48%;
 }
@@ -872,7 +875,7 @@ body * {
   text-align: center;
 }
 
-#pinaculo.small .pinnacle-absents {
+#pinnacle.small .pinnacle-absents {
   font-size: 20px;
   line-height: 20px;
   padding: 5px;

@@ -43,7 +43,7 @@ const protectedRoutes = [
       { path: '/personal/circulo-tiempo', element: <HomePage /> },
       { path: '/personal/calendario', element: <HomePage /> },
       { path: '/personal/calendario-mensual', element: <HomePage /> },
-      { path: '/consultante', element: <ConsultantPage /> },
+      { path: '/consultant', element: <ConsultantPage /> },
       { path: '/', element: <HomePage /> },
       { path: '*', element: <Navigate to="." /> },
     ],

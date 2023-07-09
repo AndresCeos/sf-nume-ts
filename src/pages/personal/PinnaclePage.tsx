@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
@@ -10,6 +11,7 @@ import Person from '@/resources/Person';
 
 function PinnaclePage() {
   const { consultant, calculationDate } = useConsult();
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -40,9 +42,9 @@ function PinnaclePage() {
       <div className="grid grid-cols-10 mt-8 mx-14 gap-4">
         <div className="col-span-3 row-span-6">
           <SectionTitle
-            title="Pináculo"
+            title={t('pinnacle.title')}
             button={{
-              text: 'Comprobación',
+              text: t('pinnacle.verification') as string,
               handle: handlePinnacleVerification,
               isActive: isPinnacleVerificationActive,
             }}
@@ -54,7 +56,7 @@ function PinnaclePage() {
 
         <div className="col-span-1 row-span-3">
           <SectionTitle
-            title="Nombre"
+            title={t('pinnacle.name.name')}
             button={{
               text: '',
               handle: handlePinnacleNameVerification,
@@ -67,7 +69,7 @@ function PinnaclePage() {
         </div>
 
         <div className="col-span-6 row-span-2">
-          <SectionTitle title="Puentes por etapa" color="bg-green-s" />
+          <SectionTitle title={t('pinnacle.bridge.bridge')} color="bg-green-s" />
           <div className="section-wrap pinnacle-wrap grid grid-cols-4">
             <div className={cx(
               'py-3 px-2 border-b border-solid border-gray-300',
@@ -75,7 +77,7 @@ function PinnaclePage() {
             )}
             >
               <h2 className="text-xs font-bold text-center">
-                Puente 1
+                {t('pinnacle.bridge.bridgeX', { stage: 1 })}
               </h2>
               <Bridge stage={1} />
             </div>
@@ -85,7 +87,7 @@ function PinnaclePage() {
             )}
             >
               <h2 className="text-xs font-bold text-center">
-                Puente 2
+                {t('pinnacle.bridge.bridgeX', { stage: 2 })}
               </h2>
               <Bridge stage={2} />
             </div>
@@ -95,7 +97,7 @@ function PinnaclePage() {
             )}
             >
               <h2 className="text-xs font-bold text-center">
-                Puente 3
+                {t('pinnacle.bridge.bridgeX', { stage: 3 })}
               </h2>
               <Bridge stage={3} />
             </div>
@@ -105,7 +107,7 @@ function PinnaclePage() {
             )}
             >
               <h2 className="text-xs font-bold text-center">
-                Puente 4
+                {t('pinnacle.bridge.bridgeX', { stage: 4 })}
               </h2>
               <Bridge stage={4} />
             </div>

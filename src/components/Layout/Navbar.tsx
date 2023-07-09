@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '@/context/AuthProvider';
@@ -10,6 +11,7 @@ function Notifications() {
 
 function Navbar() {
   const { user: userAuth } = useAuth();
+  const { t } = useTranslation();
   const { firstName, lastName } = userAuth?.user ?? {};
 
   const handlerEdit = () => {
@@ -47,22 +49,20 @@ function Navbar() {
             <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
-                to="/consultante"
+                to="/consultant"
               >
                 <img
                   src="/assets/navbar/add_user.svg"
                   alt="add_user"
                   className="mb-1"
                 />
-                Ingresar
-                <br />
-                Datos
+                {t('navbar.enterData')}
               </Link>
             </li>
             <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
-                to="consultante"
+                to="consultant"
                 onClick={handlerEdit}
               >
                 <img
@@ -70,9 +70,7 @@ function Navbar() {
                   className="mb-1"
                   alt="update_user"
                 />
-                Actualizar
-                <br />
-                Datos
+                {t('navbar.updateData')}
               </Link>
             </li>
             <li className="flex items-center justify-center">
@@ -88,9 +86,7 @@ function Navbar() {
                   className="mb-1"
                   alt="partner_data"
                 />
-                Datos
-                <br />
-                de Pareja
+                {t('navbar.partnerData')}
               </Link>
             </li>
             <li className="flex items-center justify-center">
@@ -103,9 +99,7 @@ function Navbar() {
                   className="mb-1"
                   alt="group_data"
                 />
-                Datos
-                <br />
-                de Grupo
+                {t('navbar.groupData')}
               </Link>
             </li>
             <li className="flex items-center justify-center">
@@ -120,9 +114,7 @@ function Navbar() {
                   src="/assets/navbar/notes.svg"
                   alt="notas"
                 />
-                Notas de
-                <br />
-                Consulta
+                {t('navbar.notes')}
               </button>
             </li>
 
@@ -139,9 +131,7 @@ function Navbar() {
                       className="mb-1"
                       alt="save_report"
                     />
-                    Guardar
-                    <br />
-                    reporte
+                    {t('navbar.saveReport')}
                   </button>
                 )
                 : (
@@ -154,9 +144,7 @@ function Navbar() {
                       className="mb-1"
                       alt="save_report"
                     />
-                    Guardar
-                    <br />
-                    reporte
+                    {t('navbar.saveReport')}
                   </button>
                 )}
             </li>
@@ -173,9 +161,7 @@ function Navbar() {
                       className="mb-1"
                       alt="printReports"
                     />
-                    Imprimir
-                    <br />
-                    Reportes
+                    {t('navbar.printReports')}
                   </button>
                 )
                 : (
@@ -188,9 +174,7 @@ function Navbar() {
                       className="mb-1"
                       alt="printReports"
                     />
-                    Imprimir
-                    <br />
-                    Reportes
+                    {t('navbar.printReports')}
                   </button>
                 )}
             </li>
@@ -216,9 +200,12 @@ function Navbar() {
             <li className="flex items-center justify-center mx-4 text-white">|</li>
             <li className="flex items-center justify-center text-sm text-white max-w-[110px]">
               <p>
-                Hola!
-                {' '}
-                <strong className="ml-2">{`${firstName} ${lastName}`}</strong>
+                <Trans
+                  i18nKey="navbar.helloMessage"
+                  values={{
+                    name: `${firstName} ${lastName}`,
+                  }}
+                />
               </p>
             </li>
           </ul>

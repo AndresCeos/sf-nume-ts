@@ -26,7 +26,7 @@ function SectionTitle({ title, color, button }: SectionTitleProps) {
           onClick={button.handle}
           className={`float-right ${(button.isActive) ? 'bg-gold' : 'bg-yellow'} font-bold h-6 mb-1 rounded-tl-3xl rounded-bl-3xl flex justify-center items-center ${button.text ? 'px-3' : 'w-6'}`}
         >
-          <img src="/assets/ic-check.svg" alt="comprobacion" className={`${button.text ? 'w-4' : 'w-3'}`} />
+          <img src="/assets/ic-check.svg" alt="verification" className={`${button.text ? 'w-4' : 'w-3'}`} />
           {button.text}
         </button>
       )}

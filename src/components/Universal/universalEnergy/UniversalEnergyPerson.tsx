@@ -1,4 +1,6 @@
 import cx from 'classnames';
+import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import { TiPlus } from 'react-icons/ti';
 
@@ -13,10 +15,9 @@ type UniversalEnergyPersonProps = {
   handleUpdateGuest: (consultant: Partial<Consultant>) => void;
 };
 
-function UniversalEnergyPerson({
-  person, setActive, handleUpdateGuest,
-}: UniversalEnergyPersonProps) {
+function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: UniversalEnergyPersonProps) {
   const { calculationDate, calculationYear } = useConsult();
+  const { t } = useTranslation();
   const {
     id, name, date, selected, order,
   } = person;
@@ -45,9 +46,11 @@ function UniversalEnergyPerson({
         })}
       >
         <button type="button" onClick={setActive}>
-          ENERGÍA
+          {_.toUpper(t('home.energy') as string)}
           <br />
-          <div className="font-black">PERSONAL</div>
+          <div className="font-black">
+            {_.toUpper(t('home.personal') as string)}
+          </div>
         </button>
       </li>
       <li className={cx('rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 text-[13px] inner-shadow mt-3 mb-6 font-black')}>

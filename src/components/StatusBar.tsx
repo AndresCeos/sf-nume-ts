@@ -1,22 +1,26 @@
+import { useTranslation } from 'react-i18next';
+
 import useConsult from '@/hooks/useConsult';
 import { formatDate } from '../utils/constants';
 import ConsultantPicker from './ConsultantPicker';
 
 function StatusBarConsultantDetails() {
   const { consultant } = useConsult();
+  const { t } = useTranslation();
 
   if (!consultant || !consultant.date) return null;
 
   return (
     <>
       <div>
-        Fecha de Nacimiento:
+        {t('birthDate')}
         <strong className="ml-2">
           {formatDate({ date: consultant.date, format: 'long' })}
         </strong>
       </div>
       <div>
-        Edad:
+        {t('age')}
+        :
         <strong className="ml-2">{consultant.date?.toString()}</strong>
       </div>
     </>
@@ -25,13 +29,15 @@ function StatusBarConsultantDetails() {
 
 function StatusBar() {
   const { consultationDate } = useConsult();
+  const { t } = useTranslation();
 
   return (
     <div className="app-statusbar">
       <ConsultantPicker />
       <StatusBarConsultantDetails />
       <div>
-        Fecha de Consulta:
+        {t('consultDate')}
+        :
         <strong className="ml-2">
           {formatDate({ date: consultationDate.toDate(), format: 'long' })}
         </strong>

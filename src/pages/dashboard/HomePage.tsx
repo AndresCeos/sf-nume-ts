@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import EnergyTimeCircle from '@/components/dashboard/home/EnergyTimeCircle';
 import UniversalEnergy from '@/components/dashboard/home/UniversalEnergy';
 import { useAuth } from '@/context/AuthProvider';
@@ -5,6 +7,7 @@ import EnergyProvider from '@/context/EnergyProvider';
 
 function HomePage() {
   const { user: userAuth } = useAuth();
+  const { t } = useTranslation();
   const { firstName, lastName } = userAuth?.user ?? {};
   const names = `${firstName} ${lastName}`;
 
@@ -12,9 +15,11 @@ function HomePage() {
     <div className="page-content bg-home-background bg-cover grid grid-cols-2">
       <div className="h-36 mt-20 pl-14 pt-11 pb-7 bg-white bg-opacity-50 w-full relative rounded-tr-3xl rounded-br-3xl">
         <h2 className="font-black mt-0 mb-2 text-main-700 text-2xl">
-          {`Bienvenid@ ${names}`}
+          {t('home.title', { name: names })}
         </h2>
-        <h2 className="text-main-700 text-2xl">a tu Software de Numerología</h2>
+        <h2 className="text-main-700 text-2xl">
+          {t('home.subtitle')}
+        </h2>
         <img src="/assets/welcome.png" className="welcomeLogo" alt="welcome" />
       </div>
       <EnergyProvider>

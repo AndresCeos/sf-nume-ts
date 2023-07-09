@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from 'react-icons/fa';
 
 import CircleNumber from '@/components/CircleNumber';
@@ -29,6 +31,7 @@ type BridgeProps = {
 
 function Bridge({ stage, showVerification }: BridgeProps) {
   const { consultant } = useConsult();
+  const { t } = useTranslation();
 
   if (!consultant) return null;
 
@@ -47,10 +50,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       bottom: person.getK(),
       left: person.getA(),
       center: getResBridge(person.getE(), person.getK()),
-      stageStart: `0 - ${person.calcLifeStageDuration(1) - person.birthDate.year()} años`,
-      stageEnd: `${person.calcLifeStageDuration(6) - person.birthDate.year()} - ${person.calcLifeStageDuration(7) - person.birthDate.year()} años`,
-      stageDoubleStart: `0 - ${person.calcDoubleLifeStageDuration(1) - person.birthDate.year()} años`,
-      stageDoubleEnd: `${person.calcDoubleLifeStageDuration(6) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(7) - person.birthDate.year()} años`,
+      stageStart: `0 - ${person.calcLifeStageDuration(1) - person.birthDate.year()}`,
+      stageEnd: `${person.calcLifeStageDuration(6) - person.birthDate.year()} - ${person.calcLifeStageDuration(7) - person.birthDate.year()}`,
+      stageDoubleStart: `0 - ${person.calcDoubleLifeStageDuration(1) - person.birthDate.year()}`,
+      stageDoubleEnd: `${person.calcDoubleLifeStageDuration(6) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(7) - person.birthDate.year()}`,
       hasDouble: person.hasDoubleStage(),
       descriptionBottom: 'K',
       descriptionTop: 'E',
@@ -63,10 +66,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       bottom: person.getL(),
       left: `${person.getB()}${person.getBISK()}`,
       center: getResBridge(person.getF(), person.getL()),
-      stageStart: `${person.calcLifeStageDuration(1) - person.birthDate.year()} - ${person.calcLifeStageDuration(2) - person.birthDate.year()} años`,
-      stageEnd: `${person.calcLifeStageDuration(5) - person.birthDate.year()} - ${person.calcLifeStageDuration(6) - person.birthDate.year()} años`,
-      stageDoubleStart: `${person.calcDoubleLifeStageDuration(1) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(2) - person.birthDate.year()} años`,
-      stageDoubleEnd: `${person.calcDoubleLifeStageDuration(5) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(6) - person.birthDate.year()} años`,
+      stageStart: `${person.calcLifeStageDuration(1) - person.birthDate.year()} - ${person.calcLifeStageDuration(2) - person.birthDate.year()}`,
+      stageEnd: `${person.calcLifeStageDuration(5) - person.birthDate.year()} - ${person.calcLifeStageDuration(6) - person.birthDate.year()}`,
+      stageDoubleStart: `${person.calcDoubleLifeStageDuration(1) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(2) - person.birthDate.year()}`,
+      stageDoubleEnd: `${person.calcDoubleLifeStageDuration(5) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(6) - person.birthDate.year()}`,
       hasDouble: person.hasDoubleStage(),
       descriptionTop: 'L',
       descriptionLeft: 'F',
@@ -79,10 +82,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       bottom: person.getM(),
       left: `${person.getE()}${person.getEISK()}`,
       center: getResBridge(person.getG(), person.getM()),
-      stageStart: `${person.calcLifeStageDuration(2) - person.birthDate.year()} - ${person.calcLifeStageDuration(3) - person.birthDate.year()} años`,
-      stageEnd: `${person.calcLifeStageDuration(4) - person.birthDate.year()} - ${person.calcLifeStageDuration(5) - person.birthDate.year()} años`,
-      stageDoubleStart: `${person.calcDoubleLifeStageDuration(2) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(3) - person.birthDate.year()} años`,
-      stageDoubleEnd: `${person.calcDoubleLifeStageDuration(4) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(5) - person.birthDate.year()} años`,
+      stageStart: `${person.calcLifeStageDuration(2) - person.birthDate.year()} - ${person.calcLifeStageDuration(3) - person.birthDate.year()}`,
+      stageEnd: `${person.calcLifeStageDuration(4) - person.birthDate.year()} - ${person.calcLifeStageDuration(5) - person.birthDate.year()}`,
+      stageDoubleStart: `${person.calcDoubleLifeStageDuration(2) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(3) - person.birthDate.year()}`,
+      stageDoubleEnd: `${person.calcDoubleLifeStageDuration(4) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(5) - person.birthDate.year()}`,
       hasDouble: person.hasDoubleStage(),
       descriptionTop: 'M',
       descriptionLeft: 'G',
@@ -95,9 +98,9 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       bottom: person.getN(),
       left: person.getA(),
       center: getResBridge(person.getH(), person.getN()),
-      stageStart: `${person.calcLifeStageDuration(3) - person.birthDate.year()}- ${person.calcLifeStageDuration(4) - person.birthDate.year()} años`,
+      stageStart: `${person.calcLifeStageDuration(3) - person.birthDate.year()}- ${person.calcLifeStageDuration(4) - person.birthDate.year()}`,
       stageEnd: '',
-      stageDoubleStart: `${person.calcDoubleLifeStageDuration(3) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(4) - person.birthDate.year()} años`,
+      stageDoubleStart: `${person.calcDoubleLifeStageDuration(3) - person.birthDate.year()} - ${person.calcDoubleLifeStageDuration(4) - person.birthDate.year()}`,
       stageDoubleEnd: '',
       hasDouble: person.hasDoubleStage(),
       descriptionBottom: 'N',
@@ -130,16 +133,14 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       </div>
       <div className="grid text-xs mt-5 text-13 ml-4">
         <div className="flex gap-1">
-          <FaArrowAltCircleUp color="#51A133" size={14} />
-          {' '}
-          {bridgeState[stage].stageStart}
+          <FaArrowAltCircleUp color="#51A133" size={14} className="mr-1" />
+          {t('pinnacle.bridge.duration', { amount: bridgeState[stage].stageStart })}
         </div>
         {bridgeState[stage].stageEnd
           && (
             <div className="flex gap-1 mt-2">
-              <FaArrowAltCircleDown color="#663366" size={14} />
-              {' '}
-              {bridgeState[stage].stageEnd}
+              <FaArrowAltCircleDown color="#663366" size={14} className="mr-1" />
+              {t('pinnacle.bridge.duration', { amount: bridgeState[stage].stageEnd })}
             </div>
           )}
         {bridgeState[stage].stageStart !== bridgeState[stage].stageDoubleStart && (

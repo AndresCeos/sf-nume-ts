@@ -1,14 +1,16 @@
 import request from 'axios';
 import cx from 'classnames';
-import { t } from 'i18next';
-import { CgSpinnerTwo } from 'react-icons/cg';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+
+import { CgSpinnerTwo } from 'react-icons/cg';
 
 import { useAuth } from '@/context/AuthProvider';
 import useForm from '@/hooks/useForm';
 
 function LoginPage() {
   const { login, isLoggingIn } = useAuth();
+  const { t } = useTranslation();
 
   const initialForm = {
     email: '',
@@ -52,18 +54,22 @@ function LoginPage() {
           <div className="col-span-9 grid grid-cols-9 bg-no-repeat bg-cover bg-login-numbers">
             <div className="col-start-2 col-span-3 bg-contain bg-repeat-y bg-login-shape" />
             <div className="col-span-4 flex flex-col justify-center items-start">
-              <h2 className="text-4xl font-bold text-main-900 mb-7">“Si quieres entender el Universo, piensa en energía, frecuencia y vibración”.</h2>
-              <h2 className="text-4xl text-main-900">Nikola Tesla</h2>
+              <h2 className="text-4xl font-bold text-main-900 mb-7">
+                {t('loginPage.title')}
+              </h2>
+              <h2 className="text-4xl text-main-900">
+                {t('loginPage.subtitle')}
+              </h2>
             </div>
           </div>
           <div className="col-span-5 h-full flex flex-col items-center justify-center bg-white bg-opacity-50">
             <div className="w-full flex flex-col items-center justify-center">
               <img src="/assets/welcome.png" className="w-32" alt="welcome" />
-              <h2>Iniciar Sesión</h2>
+              <h2>{t('loginPage.login')}</h2>
               <form onSubmit={handleOnSubmit} className="w-full m-5 flex flex-col items-center">
                 <input
                   type="email"
-                  placeholder="Correo electrónico"
+                  placeholder={t('loginPage.email') as string}
                   value={email}
                   name="email"
                   id="email"
@@ -73,7 +79,7 @@ function LoginPage() {
                 />
                 <input
                   type="password"
-                  placeholder="Contraseña"
+                  placeholder={t('loginPage.password') as string}
                   value={password}
                   name="password"
                   id="password"
@@ -84,10 +90,10 @@ function LoginPage() {
                 <button
                   type="submit"
                   className={cx('btn w-5/12', { 'btn-icon': isLoggingIn })}
-                  value="Entrar"
+                  value={t('loginPage.enter') as string}
                   disabled={isLoggingIn}
                 >
-                  Entrar
+                  {t('loginPage.enter')}
                   {isLoggingIn && <CgSpinnerTwo className="animate-spin ml-2" />}
                 </button>
                 {formError && (
@@ -99,7 +105,7 @@ function LoginPage() {
                 )}
               </form>
               <a href="https://app.numerologia-cotidiana.com/mi-cuenta/lost-password/" target="_blank" rel="noreferrer">
-                Olvide mi Contraseña
+                {t('loginPage.forgotPassword')}
               </a>
             </div>
           </div>
