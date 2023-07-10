@@ -128,5 +128,13 @@
       "fromBirthToX": "Del nacimiento a los {{age}}",
       "fromNowOn": "En adelante"
     }
+  },
+  "lifePath": {
+    "title": "Camino de Vida",
+    "nineYearsCycle": {
+      "title": "Ciclo de 9 años",
+      "yearX": "Año {{year}}",
+      "plusNineYears": "+9 años"
+    }
   }
 }

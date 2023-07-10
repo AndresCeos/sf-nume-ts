@@ -7,6 +7,7 @@ import StatusBar from '@/components/StatusBar';
 import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
+import LifePathPage from '@/pages/personal/LifePathPage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 
 function App() {
@@ -34,7 +35,7 @@ const protectedRoutes = [
     element: <App />,
     children: [
       { path: '/personal/pinnacle', element: <PinnaclePage /> },
-      { path: '/personal/life-path', element: <HomePage /> },
+      { path: '/personal/life-path', element: <LifePathPage /> },
       { path: '/personal/name', element: <HomePage /> },
       { path: '/personal/create-name', element: <HomePage /> },
       { path: '/personal/destiny-table', element: <HomePage /> },
