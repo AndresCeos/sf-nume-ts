@@ -8,6 +8,7 @@ import Bridge from '@/components/personal/pinnacle/Bridge';
 import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import PinnacleFrequency from '@/components/personal/pinnacle/PinnacleFrequency';
 import PinnacleName from '@/components/personal/pinnacle/PinnacleName';
+import TimeCurve from '@/components/personal/pinnacle/TimeCurve';
 import useConsult from '@/hooks/useConsult';
 
 function PinnaclePage() {
@@ -130,6 +131,13 @@ function PinnaclePage() {
           <SectionTitle title={t('pinnacle.frequency.frequency')} />
           <div className="section-wrap grid grid-cols-1 p-4">
             <PinnacleFrequency />
+          </div>
+        </div>
+
+        <div className="col-span-10 mb-10">
+          <SectionTitle title={t('pinnacle.timeCurve.timeCurve')} />
+          <div className="section-wrap px-8 py-8">
+            <TimeCurve isPartner={false} />
           </div>
         </div>
 

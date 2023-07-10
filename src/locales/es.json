@@ -121,6 +121,11 @@
       "reaction": "Reacción",
       "synthesis": "Síntesis",
       "gift": "Regalo"
+    },
+    "timeCurve": {
+      "timeCurve": "Curva del Tiempo",
+      "fromBirthToX": "Del nacimiento a los {{age}}",
+      "fromNowOn": "En adelante"
     }
   }
 }
