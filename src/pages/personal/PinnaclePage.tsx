@@ -9,7 +9,6 @@ import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import PinnacleFrequency from '@/components/personal/pinnacle/PinnacleFrequency';
 import PinnacleName from '@/components/personal/pinnacle/PinnacleName';
 import useConsult from '@/hooks/useConsult';
-import Person from '@/resources/Person';
 
 function PinnaclePage() {
   const { consultant, calculationDate } = useConsult();
@@ -17,17 +16,9 @@ function PinnaclePage() {
 
   if (!consultant) return (<NoConsultantSelected />);
 
-  const person = new Person({
-    id: consultant.id || '',
-    name: consultant.names || '',
-    lastName: consultant.lastName || '',
-    scdLastName: consultant.scdLastName || '',
-    birthDate: consultant.date?.toString() || '',
-  });
-
-  const activeStage = person.getLifeStageNumber(calculationDate);
-  const activeScdStage = person.getDoubleLifeStageNumber(calculationDate);
-  const secondStage = person.hasDoubleStage();
+  const activeStage = consultant.getLifeStageNumber(calculationDate);
+  const activeScdStage = consultant.getDoubleLifeStageNumber(calculationDate);
+  const secondStage = consultant.hasDoubleStage();
 
   const isPinnacleVerificationActive = false; // TODO: implement
   const handlePinnacleVerification = () => { // TODO: implement
@@ -39,9 +30,9 @@ function PinnaclePage() {
     console.log('not implemented');
   };
 
-  const annualReturnCurrent = person.annualReturn(calculationDate);
-  const annualReturnLastYear = person.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
-  const annualReturnNextYear = person.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
+  const annualReturnCurrent = consultant.annualReturn(calculationDate);
+  const annualReturnLastYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
+  const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
     <div className="page-content bg-home-background bg-cover">

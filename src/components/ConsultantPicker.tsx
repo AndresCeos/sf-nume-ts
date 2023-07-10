@@ -27,7 +27,7 @@ function ConsultantPicker() {
     if (!consultant) return null;
     return {
       value: consultant.id,
-      label: `${consultant.names} ${consultant.lastName} ${consultant.scdLastName}`,
+      label: `${consultant.name} ${consultant.lastName} ${consultant.scdLastName}`,
     };
   };
 

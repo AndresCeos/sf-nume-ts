@@ -3,21 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
-import Person from '@/resources/Person';
 
 function PinnacleFrequency() {
   const { consultant } = useConsult();
   const { t } = useTranslation();
 
   if (!consultant) return null;
-
-  const person = new Person({
-    id: consultant.id || '',
-    name: consultant.names || '',
-    lastName: consultant.lastName || '',
-    scdLastName: consultant.scdLastName || '',
-    birthDate: consultant.date?.toString() || '',
-  });
 
   return (
     <>
@@ -26,8 +17,8 @@ function PinnacleFrequency() {
           {t('pinnacle.frequency.reaction')}
         </label>
         <CircleNumber size="sm" appearance="purple-30" border="purple">
-          {person.calcReaction()}
-          {person.calcReactionISK()}
+          {consultant.calcReaction()}
+          {consultant.calcReactionISK()}
         </CircleNumber>
       </div>
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
@@ -35,8 +26,8 @@ function PinnacleFrequency() {
           {t('pinnacle.frequency.synthesis')}
         </label>
         <CircleNumber size="sm" appearance="purple-30" border="purple">
-          {person.calcSynthesis()}
-          {person.calcSynthesisISK()}
+          {consultant.calcSynthesis()}
+          {consultant.calcSynthesisISK()}
         </CircleNumber>
       </div>
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
@@ -44,8 +35,8 @@ function PinnacleFrequency() {
           {t('pinnacle.frequency.gift')}
         </label>
         <CircleNumber size="sm" appearance="purple-30" border="purple">
-          {person.calcGift()}
-          {person.calcGiftISK()}
+          {consultant.calcGift()}
+          {consultant.calcGiftISK()}
         </CircleNumber>
       </div>
     </>

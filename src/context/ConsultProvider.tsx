@@ -5,8 +5,10 @@ import {
 } from './ConsultContext';
 import { consultReducer, types } from './ConsultReducer';
 
+import Person from '@/resources/Person';
+
 const INITIAL_STATE = {
-  consultant: {},
+  consultant: null,
   consultationDate: new Date(),
   calculationDate: { day: 0, month: 0, year: 0 },
   calculationYear: 0,
@@ -14,7 +16,7 @@ const INITIAL_STATE = {
 
 function ConsultProvider({ children }: any) {
   const [consultState, dispatch] = useReducer(consultReducer, INITIAL_STATE);
-  const [consultant, setConsultant] = useState<Api.Consultant | null>(null);
+  const [consultant, setConsultant] = useState<Person | null>(null);
   const [consultationDate, setConsultationDate] = useState<moment.Moment>(moment());
 
   const [calculationDate, setCalculationDate] = useState({
@@ -26,7 +28,15 @@ function ConsultProvider({ children }: any) {
   const [calculationYear, setCalculationYear] = useState(Number(consultationDate.format('YYYY')));
 
   const selectConsultant = (newConsultant: Api.Consultant) => {
-    setConsultant(newConsultant);
+    if (!newConsultant) throw new Error('consultant is required');
+    const newConsultantPerson = new Person({
+      id: newConsultant.id || '',
+      name: newConsultant.names || '',
+      lastName: newConsultant.lastName || '',
+      scdLastName: newConsultant.scdLastName || '',
+      birthDate: newConsultant.date?.toString() || '',
+    });
+    setConsultant(newConsultantPerson);
     const action = { type: types.selectConsultant, consultant: newConsultant };
     dispatch(action);
   };
