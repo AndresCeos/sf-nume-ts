@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import cx from 'classnames';
 import { TiPlus } from 'react-icons/ti';
 
@@ -18,7 +19,9 @@ function SectionTitle({ title, color, button }: SectionTitleProps) {
         <div className={cx('w-9 h-9 flex justify-center items-center rounded-full -ml-2 p-1', color)}>
           <TiPlus />
         </div>
-        {title}
+        <label className="ml-1">
+          {title}
+        </label>
       </div>
       {button && (
         <button

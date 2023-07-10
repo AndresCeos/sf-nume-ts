@@ -93,7 +93,7 @@
       "maturity": "Madurez"
     },
     "bridge": {
-      "title": "Puentes por etapa",
+      "bridge": "Puentes por etapa",
       "bridgeX": "Puente {{stage}}",
       "duration": "{{amount}} años"
     },
