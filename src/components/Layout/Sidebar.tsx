@@ -27,7 +27,7 @@ function Sidebar() {
             <label className="font-bold text-main-700 text-sm">{`${firstName} ${lastName}`}</label>
             <label className="text-green-600 text-sm flex items-center">
               <VscCircleFilled size={24} className="-ml-2" />
-              {`Licencia ${userAuth?.license?.id}`}
+              {t('sidebar.licenseNumber', { number: userAuth?.license?.id })}
             </label>
           </div>
         </div>
@@ -71,7 +71,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/pinaculo"
+                to="/personal/pinnacle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -82,7 +82,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/camino"
+                to="/personal/life-path"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -93,7 +93,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/nombre"
+                to="/personal/name"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -104,7 +104,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/crear-nombre"
+                to="/personal/create-name"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -115,7 +115,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/destino"
+                to="/personal/destiny-table"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -126,7 +126,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/tiempo"
+                to="/personal/time-vibration"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -137,7 +137,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/retornos"
+                to="/personal/annual-returns"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -148,7 +148,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/circulo-tiempo"
+                to="/personal/time-circle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -159,7 +159,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/calendario"
+                to="/personal/annual-calendar"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -170,7 +170,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/calendario-mensual"
+                to="/personal/monthly-calendar"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >

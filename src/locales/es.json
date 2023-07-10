@@ -23,6 +23,7 @@
   },
   "sidebar": {
     "home": "Inicio",
+    "licenseNumber": "Licencia {{number}}",
     "consultant": "Consultante",
     "personalNumerology": "Numerología Personal",
     "pinnacle": "Pináculo",
