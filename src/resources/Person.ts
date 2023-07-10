@@ -143,7 +143,7 @@ class Person {
     return `${this.birthDate.date()} de ${getMonthName(this.birthDate.toString())} ${this.birthDate.year()}`;
   }
 
-  getYearsOld(number: number): number {
+  getYearsOld(number?: number): number {
     const yearToCalculate = _.isNil(number) ? this.NOW.year() : number;
     let age = yearToCalculate - this.birthDate.year();
     if (age < 1) { age = 0; }

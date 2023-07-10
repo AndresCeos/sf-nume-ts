@@ -8,20 +8,21 @@ function StatusBarConsultantDetails() {
   const { consultant } = useConsult();
   const { t } = useTranslation();
 
-  if (!consultant || !consultant.date) return null;
+  if (!consultant) return null;
 
   return (
     <>
       <div>
         {t('birthDate')}
+        :
         <strong className="ml-2">
-          {formatDate({ date: consultant.date, format: 'long' })}
+          {formatDate({ date: consultant.birthDate.toDate(), format: 'long' })}
         </strong>
       </div>
       <div>
         {t('age')}
         :
-        <strong className="ml-2">{consultant.date?.toString()}</strong>
+        <strong className="ml-2">{consultant.getYearsOld()}</strong>
       </div>
     </>
   );
