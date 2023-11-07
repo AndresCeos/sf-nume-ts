@@ -6,19 +6,23 @@ import Person from '@/resources/Person';
 export interface ConsultContextInterface {
   consultant: Person | null;
   selectConsultant: (consultant: Api.Consultant) => void;
-  consultationDate: moment.Moment;
   selectConsultationDate: (consultationDate: moment.Moment) => void;
-  calculationDate: { day: number; month: number; year: number };
-  calculationYear: number;
+  consultationDate: moment.Moment; // Fecha de Consulta en formato moment
+  calculationDate: { day: number; month: number; year: number }; // Fecha de Consulta en formato { day: number; month: number; year: number }
+  calculationYear: number; // Año de Consulta
+  isEditingConsultant: boolean;
+  handleIsEditingConsultant: (isEditing: boolean) => void;
 }
 
 export const authContextDefaults: ConsultContextInterface = {
   consultant: null,
-  selectConsultant: () => { },
+  selectConsultant: () => null,
   consultationDate: moment(),
-  selectConsultationDate: () => { },
+  selectConsultationDate: () => null,
   calculationDate: { day: 0, month: 0, year: 0 },
   calculationYear: 0,
+  isEditingConsultant: false,
+  handleIsEditingConsultant: () => null,
 };
 
 export const ConsultContext = createContext<ConsultContextInterface>(authContextDefaults);

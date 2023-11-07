@@ -11,8 +11,8 @@ const useForm = <T extends Object>(initialState: T) => {
     });
   };
 
-  const reset = (value: T) => {
-    setValues(value);
+  const reset = () => {
+    setValues(initialState);
   };
 
   return {

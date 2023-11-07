@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { useEffect, useReducer, useState } from 'react';
+
 import {
   ConsultContext, ConsultContextInterface,
 } from './ConsultContext';
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
   consultationDate: new Date(),
   calculationDate: { day: 0, month: 0, year: 0 },
   calculationYear: 0,
+  isEditingConsultant: false,
 };
 
 function ConsultProvider({ children }: any) {
@@ -50,6 +52,10 @@ function ConsultProvider({ children }: any) {
     setCalculationYear(Number(consultationDate.format('YYYY')));
   }, [consultationDate]);
 
+  const handleIsEditingConsultant = (isEditing: boolean) => {
+    dispatch({ type: types.isEditingConsultant, isEditing });
+  };
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value: ConsultContextInterface = {
     ...consultState,
@@ -59,6 +65,7 @@ function ConsultProvider({ children }: any) {
     selectConsultationDate: setConsultationDate,
     calculationDate,
     calculationYear,
+    handleIsEditingConsultant,
   };
 
   return (

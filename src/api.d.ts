@@ -15,12 +15,13 @@ declare namespace Api {
   }
 
   interface Consultant {
+    id: string;
+    notes?: {};
     company?: string;
     date?: Date;
     email?: string;
     gender?: string;
     group?: unknown[];
-    id?: string;
     lastName?: string;
     names?: string;
     nationality?: string;

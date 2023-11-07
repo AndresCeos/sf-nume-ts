@@ -23,7 +23,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>
-            {env.VITE_APP_VERSION !== 'local' && <ReactQueryDevtools />}
+            {env.VITE_APP_VERSION === 'local' && <ReactQueryDevtools />}
             <AuthProvider>
               <Router>{children}</Router>
             </AuthProvider>

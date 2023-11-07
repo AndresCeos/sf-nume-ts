@@ -3,6 +3,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '@/context/AuthProvider';
+import useConsult from '@/hooks/useConsult';
 import ConsultationDateModal from '../modal/ConsultationDateModal';
 
 function Notifications() {
@@ -13,9 +14,12 @@ function Navbar() {
   const { user: userAuth } = useAuth();
   const { t } = useTranslation();
   const { firstName, lastName } = userAuth?.user ?? {};
+  const {
+    handleIsEditingConsultant,
+  } = useConsult();
 
   const handlerEdit = () => {
-    console.log('handlerEdit');
+    handleIsEditingConsultant(true);
   };
 
   const printSingleReport = () => {
@@ -62,7 +66,7 @@ function Navbar() {
             <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
-                to="consultant"
+                to="/consultante"
                 onClick={handlerEdit}
               >
                 <img

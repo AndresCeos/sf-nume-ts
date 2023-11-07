@@ -889,6 +889,14 @@ body * {
   overflow: hidden;
 }
 
+.users-wrap {
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  background-color: #ffffffb3;
+  border: 1px solid rgba(0,0,0,.4);
+  padding: 25px;
+}
+
 
 .text-main {
   color: var(--main-color);

@@ -60,7 +60,7 @@ function Sidebar() {
             <li className="">
               <button
                 type="button"
-                className="sidebar-link w-full"
+                className="sidebar-link "
                 aria-current="page"
                 onClick={() => setCurrentPage('personal')}
               >
