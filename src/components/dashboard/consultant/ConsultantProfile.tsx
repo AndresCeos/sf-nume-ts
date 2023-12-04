@@ -12,9 +12,9 @@ function ConsultantProfile() {
   const [showModal, setShowModal] = useState(false);
   const { user: userAuth } = useAuth();
   const users = userAuth?.consultants;
-  const data = users?.find((element) => element.id === consultant.id);
-  console.log(data);
+
   if (!consultant) return null;
+  const data = users?.find((element) => element.id === consultant.id);
   return (
     <div>
       <div className="flex">

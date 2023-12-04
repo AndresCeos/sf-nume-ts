@@ -1,10 +1,35 @@
+/* eslint-disable import/order */
+import { useEffect, useState } from 'react';
+
+import makeProfile from '@/api/useProfileUpdate';
 import { useAuth } from '@/context/AuthProvider';
 import useForm from '@/hooks/useForm';
+
+type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
+const FORM_STATUS_INITIAL_STATE: FormStatus = { displayValidations: false, isValid: false, validationMsgs: {} };
+
+type ProfileUser = {
+  names?: string;
+  lastName?: string;
+  scdLastName?: string;
+  address?: string;
+  tel?: string;
+  date?: string;
+  company?: string;
+  logoURL?: string;
+  phone?: string;
+  webSite?: string;
+};
 
 function SettingsForm() {
   const { user: userAuth } = useAuth();
   const profile = userAuth?.user;
   const company = userAuth?.company;
+  const updateProfileSync = makeProfile();
+
+  const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
+  const [isLoading, setIsLoading] = useState(false);
+
   // console.log(userAuth);
   const initialForm = {
     firstName: profile?.firstName,
@@ -19,14 +44,69 @@ function SettingsForm() {
     phoneCompany: company?.phone,
     website: company?.website,
   };
-  console.log(initialForm);
   const {
-    firstName, lastName, scdLastName, birthDate, direction, logo, name, phone, phoneCompany, website, handleInputChange, formError, setFormError,
+    firstName, lastName, scdLastName, birthDate, direction, logo, name, phone, phoneCompany, website, email, handleInputChange, formError, setFormError, reset,
   } = useForm(initialForm);
+
+  const isFormValid = () => {
+    let isValid = true;
+    let validationMsgs = {};
+    if (firstName === '') {
+      validationMsgs = { ...validationMsgs, firstName: 'Requerido' };
+      isValid = false;
+    }
+    if (lastName === '') {
+      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
+      isValid = false;
+    }
+    if (scdLastName === '') {
+      validationMsgs = { ...validationMsgs, scdLastName: 'Requerido' };
+      isValid = false;
+    }
+    if (birthDate === ('' || null)) {
+      validationMsgs = { ...validationMsgs, birthDate: 'Requerido' };
+      isValid = false;
+    }
+    setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
+  };
+
+  useEffect(() => {
+    isFormValid();
+  }, [firstName, lastName, scdLastName, birthDate]);
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!formStatus.isValid) {
+      setFormStatus((prevState) => ({ ...prevState, displayValidations: true }));
+      return;
+    }
     setFormError('');
+
+    const newProfile: ProfileUser = {
+      names: firstName,
+      lastName,
+      scdLastName,
+      date: birthDate?.toString(),
+      tel: phone,
+      address: direction,
+      logoURL: logo,
+      company: name,
+      phone: phoneCompany,
+      webSite: website,
+    };
+    console.log(newProfile);
+    setIsLoading(true);
+    updateProfileSync.mutateAsync(newProfile).then((data) => {
+      console.log(data);
+      setFormStatus(FORM_STATUS_INITIAL_STATE);
+      reset();
+    }).catch((err) => {
+      console.log(err);
+      setFormError(err.message);
+    }).finally(() => {
+      setIsLoading(false);
+    });
+
     console.log(e);
   };
   return (
@@ -48,6 +128,7 @@ function SettingsForm() {
                 onChange={(e) => handleInputChange(e.target)}
                 value={firstName}
               />
+              {(formStatus?.displayValidations && formStatus?.validationMsgs?.firstName) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.firstName}</p>}
             </div>
             <div className="form-group w-1/3 mb-5">
               <p className="font-bold mb-1 text-13">
@@ -62,6 +143,7 @@ function SettingsForm() {
                 onChange={(e) => handleInputChange(e.target)}
                 value={lastName}
               />
+              {(formStatus?.displayValidations && formStatus?.validationMsgs?.lastName) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.lastName}</p>}
             </div>
             <div className="form-group w-1/3">
               <p className="font-bold mb-1 text-13">
@@ -76,6 +158,7 @@ function SettingsForm() {
                 onChange={(e) => handleInputChange(e.target)}
                 value={scdLastName}
               />
+              {(formStatus?.displayValidations && formStatus?.validationMsgs?.scdLastName) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.scdLastName}</p>}
             </div>
 
           </div>
@@ -93,12 +176,12 @@ function SettingsForm() {
                 onChange={(e) => handleInputChange(e.target)}
                 value={birthDate?.toString()}
               />
+              {(formStatus?.displayValidations && formStatus?.validationMsgs?.birthDate) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.birthDate}</p>}
             </div>
             <div className="form-group w-1/3">
               <p className="font-bold mb-1 text-13">
                 Teléfono
                 {' '}
-                <span className="text-red-400">*</span>
               </p>
               <input
                 type="tel"
@@ -106,6 +189,20 @@ function SettingsForm() {
                 className="rounded  border-[#C4C4C4]  border w-11/12"
                 onChange={(e) => handleInputChange(e.target)}
                 value={phone}
+              />
+            </div>
+            <div className="form-group w-1/3">
+              <p className="font-bold mb-1 text-13">
+                Email
+                {' '}
+              </p>
+              <input
+                type="email"
+                name="email"
+                className="rounded  border-[#C4C4C4]  border w-11/12"
+                onChange={(e) => handleInputChange(e.target)}
+                value={email}
+                disabled
               />
             </div>
           </div>
@@ -121,7 +218,6 @@ function SettingsForm() {
               <p className="font-bold mb-1 text-13">
                 Empresa
                 {' '}
-                <span className="text-red-400">*</span>
               </p>
               <input
                 type="text"
@@ -136,7 +232,6 @@ function SettingsForm() {
                 <p className="font-bold mb-1 text-13">
                   Dirección
                   {' '}
-                  <span className="text-red-400">*</span>
                 </p>
                 <input
                   type="text"
@@ -150,7 +245,6 @@ function SettingsForm() {
                 <p className="font-bold mb-1 text-13">
                   Teléfono
                   {' '}
-                  <span className="text-red-400">*</span>
                 </p>
                 <input
                   type="tel"
@@ -166,7 +260,6 @@ function SettingsForm() {
                 <p className="font-bold mb-1 text-13">
                   Página Web
                   {' '}
-                  <span className="text-red-400">*</span>
                 </p>
                 <input
                   type="text"
@@ -180,7 +273,6 @@ function SettingsForm() {
                 <p className="font-bold mb-1 text-13">
                   Adjuntar Logo
                   {' '}
-                  <span className="text-red-400">*</span>
                 </p>
                 <input
                   type="file"
@@ -199,7 +291,7 @@ function SettingsForm() {
         </div>
       </div>
       <div className="m-5 mb-2 flex justify-center">
-        <button type="submit" className="btn px-5">Guardar</button>
+        <button type="submit" className="btn px-5" disabled={isLoading}>Guardar</button>
       </div>
     </form>
   );
