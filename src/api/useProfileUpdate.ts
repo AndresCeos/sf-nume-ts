@@ -2,17 +2,16 @@ import axios from '@/api/axios';
 import makeMutation from '@/hooks/makeMutation';
 
 type ProfileUser = {
-  firstName: string;
-  lastName: string;
-  scdLastName: string;
-  email: string;
-  phone: string;
-  birthDate: string;
-  direction: string;
-  logo: string;
-  name: string;
-  phoneCompany: string;
-  website: string;
+  names?: string;
+  lastName?: string;
+  scdLastName?: string;
+  address?: string;
+  tel?: string;
+  date?: string;
+  company?: string;
+  logoURL?: string;
+  phone?: string;
+  webSite?: string;
 };
 
 async function postProfile(userProfile: ProfileUser) { // CRUD

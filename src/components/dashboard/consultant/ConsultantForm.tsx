@@ -6,6 +6,7 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 import makeConsultant from '@/api/useConsultant';
+import { useAuth } from '@/context/AuthProvider';
 import useConsultants from '@/hooks/useConsultants';
 
 type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
@@ -265,17 +266,20 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
 
 function ConsultantFormWrapper() {
   const { isEditingConsultant, consultant } = useConsult();
+  const { user: userAuth } = useAuth();
+  const users = userAuth?.consultants;
+  const consultantData = users?.find((element) => element.id === consultant?.id);
 
   const initialForm = {
-    names: (isEditingConsultant && consultant) ? consultant.names : '',
-    lastName: (isEditingConsultant && consultant) ? consultant.lastName : '',
-    scdLastName: (isEditingConsultant && consultant) ? consultant.scdLastName : '',
-    date: (isEditingConsultant && consultant) ? consultant.date : '',
-    nationality: (isEditingConsultant && consultant) ? consultant.nationality : '',
-    gender: (isEditingConsultant && consultant) ? consultant.gender : '',
-    company: (isEditingConsultant && consultant) ? consultant.company : '',
-    phone: (isEditingConsultant && consultant) ? consultant.phone : '',
-    email: (isEditingConsultant && consultant) ? consultant.email : '',
+    names: (isEditingConsultant && consultant) ? consultantData?.names : '',
+    lastName: (isEditingConsultant && consultant) ? consultantData?.lastName : '',
+    scdLastName: (isEditingConsultant && consultant) ? consultantData?.scdLastName : '',
+    date: (isEditingConsultant && consultant) ? consultantData?.date : '',
+    nationality: (isEditingConsultant && consultant) ? consultantData?.nationality : '',
+    gender: (isEditingConsultant && consultant) ? consultantData?.gender : '',
+    company: (isEditingConsultant && consultant) ? consultantData?.company : '',
+    phone: (isEditingConsultant && consultant) ? consultantData?.phone : '',
+    email: (isEditingConsultant && consultant) ? consultantData?.email : '',
   };
 
   return <ConsultantForm initialForm={initialForm} key={`${consultant?.id}_${isEditingConsultant}`} />;

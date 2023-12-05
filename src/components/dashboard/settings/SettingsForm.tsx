@@ -74,6 +74,7 @@ function SettingsForm() {
     isFormValid();
   }, [firstName, lastName, scdLastName, birthDate]);
 
+  useEffect(() => {}, [isLoading]);
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formStatus.isValid) {
@@ -96,18 +97,15 @@ function SettingsForm() {
     };
     console.log(newProfile);
     setIsLoading(true);
-    updateProfileSync.mutateAsync(newProfile).then((data) => {
-      console.log(data);
+    updateProfileSync.mutateAsync(newProfile).then(() => {
       setFormStatus(FORM_STATUS_INITIAL_STATE);
+      setIsLoading(false);
       reset();
     }).catch((err) => {
-      console.log(err);
       setFormError(err.message);
     }).finally(() => {
       setIsLoading(false);
     });
-
-    console.log(e);
   };
   return (
     <form action="" onSubmit={handleOnSubmit}>
