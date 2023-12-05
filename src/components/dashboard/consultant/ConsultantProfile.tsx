@@ -14,30 +14,30 @@ function ConsultantProfile() {
   const users = userAuth?.consultants;
 
   if (!consultant) return null;
-  const data = users?.find((element) => element.id === consultant.id);
+  const consultantInfo = users?.find((element) => element.id === consultant.id);
   return (
     <div>
       <div className="flex">
         <div className="p-7 text-main text-2xl">
-          <strong>{data?.names || ''}</strong>
+          <strong>{consultantInfo?.names || ''}</strong>
           {' '}
           <br />
-          {data?.lastName || ''}
+          {consultantInfo?.lastName || ''}
           {' '}
-          {data?.scdLastName || ''}
+          {consultantInfo?.scdLastName || ''}
         </div>
       </div>
       <div className=" px-7 text-13 leading-7">
         Fecha de nacimiento:
-        <strong>{(data?.date) ? formatDate({ date: new Date(`${data?.date}`), format: 'long' }) : '-'}</strong>
+        <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long' }) : '-'}</strong>
         <div className="flex justify-between mb-1">
           <div className="text-13 leading-7">
             Nacionalidad:
-            <strong>{data?.nationality || '-'}</strong>
+            <strong>{consultantInfo?.nationality || '-'}</strong>
           </div>
           <div className="text-13 leading-7">
             Sexo:
-            <strong>{data?.gender || '-'}</strong>
+            <strong>{consultantInfo?.gender || '-'}</strong>
           </div>
         </div>
       </div>
@@ -51,11 +51,11 @@ function ConsultantProfile() {
         <div className="text-13">
           <li>
             <strong>Empresa: </strong>
-            {data?.company || '-'}
+            {consultantInfo?.company || '-'}
           </li>
         </div>
         <div className="py-3 border-t-2 border-t-gray-300">
-          {data?.notes
+          {consultantInfo?.notes
                       && (
                       <button
                         type="button"
@@ -74,11 +74,11 @@ function ConsultantProfile() {
           </div>
           <div className="text-13 leading-7">
             <strong>Teléfono: </strong>
-            {data?.phone || '-'}
+            {consultantInfo?.phone || '-'}
           </div>
           <div className="text-13 leading-7">
             <strong>Correo Electrónico: </strong>
-            {data?.email || '-'}
+            {consultantInfo?.email || '-'}
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@ function ConsultantProfile() {
         {showModal
         && (
         <MyModal size="large" title="Historial de Notas" isOpen={showModal} setIsOpen={setShowModal} icon isLoading={false}>
-          <ConsultantModalNotes item={data.notes} />
+          <ConsultantModalNotes item={consultantInfo.notes} />
         </MyModal>
         )}
       </div>

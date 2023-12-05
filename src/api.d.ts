@@ -75,4 +75,17 @@ declare namespace Api {
     user: User;
   }
 
+  interface ProfileUser {
+    names?: string;
+    lastName?: string;
+    scdLastName?: string;
+    address?: string;
+    tel?: string;
+    date?: string;
+    company?: string;
+    logoURL?: string;
+    phone?: string;
+    webSite?: string;
+  }
+
 }

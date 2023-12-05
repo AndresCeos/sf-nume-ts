@@ -48,7 +48,7 @@ function Sidebar() {
             <li className="">
               <NavLink
                 end
-                to="/consultante"
+                to="/consultant"
                 className="sidebar-link"
                 aria-current="page"
                 onClick={() => setCurrentPage('')}
@@ -71,7 +71,7 @@ function Sidebar() {
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/personal/pinaculo"
+                to="/personal/pinnacle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >

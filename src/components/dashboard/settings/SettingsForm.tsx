@@ -8,19 +8,6 @@ import useForm from '@/hooks/useForm';
 type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
 const FORM_STATUS_INITIAL_STATE: FormStatus = { displayValidations: false, isValid: false, validationMsgs: {} };
 
-type ProfileUser = {
-  names?: string;
-  lastName?: string;
-  scdLastName?: string;
-  address?: string;
-  tel?: string;
-  date?: string;
-  company?: string;
-  logoURL?: string;
-  phone?: string;
-  webSite?: string;
-};
-
 function SettingsForm() {
   const { user: userAuth } = useAuth();
   const profile = userAuth?.user;
@@ -83,7 +70,7 @@ function SettingsForm() {
     }
     setFormError('');
 
-    const newProfile: ProfileUser = {
+    const newProfile: Api.ProfileUser = {
       names: firstName,
       lastName,
       scdLastName,
