@@ -1,5 +1,6 @@
 /* eslint-disable import/order */
 import MyModal from '@/components/MyModal';
+import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import { formatDate } from '@/utils/constants';
 import { useState } from 'react';
@@ -9,30 +10,34 @@ import LastConsult from './LastConsult';
 function ConsultantProfile() {
   const { consultant } = useConsult();
   const [showModal, setShowModal] = useState(false);
+  const { user: userAuth } = useAuth();
+  const users = userAuth?.consultants;
+
   if (!consultant) return null;
+  const consultantInfo = users?.find((element) => element.id === consultant.id);
   return (
     <div>
       <div className="flex">
         <div className="p-7 text-main text-2xl">
-          <strong>{consultant?.names || ''}</strong>
+          <strong>{consultantInfo?.names || ''}</strong>
           {' '}
           <br />
-          {consultant?.lastName || ''}
+          {consultantInfo?.lastName || ''}
           {' '}
-          {consultant?.scdLastName || ''}
+          {consultantInfo?.scdLastName || ''}
         </div>
       </div>
       <div className=" px-7 text-13 leading-7">
         Fecha de nacimiento:
-        <strong>{(consultant?.date) ? formatDate({ date: new Date(`${consultant?.date}`), format: 'long' }) : '-'}</strong>
+        <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long' }) : '-'}</strong>
         <div className="flex justify-between mb-1">
           <div className="text-13 leading-7">
             Nacionalidad:
-            <strong>{consultant?.nationality || '-'}</strong>
+            <strong>{consultantInfo?.nationality || '-'}</strong>
           </div>
           <div className="text-13 leading-7">
             Sexo:
-            <strong>{consultant?.gender || '-'}</strong>
+            <strong>{consultantInfo?.gender || '-'}</strong>
           </div>
         </div>
       </div>
@@ -46,11 +51,11 @@ function ConsultantProfile() {
         <div className="text-13">
           <li>
             <strong>Empresa: </strong>
-            {consultant?.company || '-'}
+            {consultantInfo?.company || '-'}
           </li>
         </div>
         <div className="py-3 border-t-2 border-t-gray-300">
-          {consultant?.notes
+          {consultantInfo?.notes
                       && (
                       <button
                         type="button"
@@ -69,11 +74,11 @@ function ConsultantProfile() {
           </div>
           <div className="text-13 leading-7">
             <strong>Teléfono: </strong>
-            {consultant?.phone || '-'}
+            {consultantInfo?.phone || '-'}
           </div>
           <div className="text-13 leading-7">
             <strong>Correo Electrónico: </strong>
-            {consultant?.email || '-'}
+            {consultantInfo?.email || '-'}
           </div>
         </div>
       </div>
@@ -81,7 +86,7 @@ function ConsultantProfile() {
         {showModal
         && (
         <MyModal size="large" title="Historial de Notas" isOpen={showModal} setIsOpen={setShowModal} icon isLoading={false}>
-          <ConsultantModalNotes item={consultant.notes} />
+          <ConsultantModalNotes item={consultantInfo.notes} />
         </MyModal>
         )}
       </div>

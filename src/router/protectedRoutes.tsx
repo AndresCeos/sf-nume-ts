@@ -8,6 +8,7 @@ import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
+import LifePathPage from '@/pages/personal/LifePathPage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 
 function App() {
@@ -34,17 +35,17 @@ const protectedRoutes = [
     path: '/',
     element: <App />,
     children: [
-      { path: '/personal/pinaculo', element: <PinnaclePage /> },
-      { path: '/personal/camino', element: <HomePage /> },
-      { path: '/personal/nombre', element: <HomePage /> },
-      { path: '/personal/crear-nombre', element: <HomePage /> },
-      { path: '/personal/destino', element: <HomePage /> },
-      { path: '/personal/tiempo', element: <HomePage /> },
-      { path: '/personal/retornos', element: <HomePage /> },
-      { path: '/personal/circulo-tiempo', element: <HomePage /> },
-      { path: '/personal/calendario', element: <HomePage /> },
-      { path: '/personal/calendario-mensual', element: <HomePage /> },
-      { path: '/consultante', element: <ConsultantPage /> },
+      { path: '/personal/pinnacle', element: <PinnaclePage /> },
+      { path: '/personal/life-path', element: <LifePathPage /> },
+      { path: '/personal/name', element: <HomePage /> },
+      { path: '/personal/create-name', element: <HomePage /> },
+      { path: '/personal/destiny-table', element: <HomePage /> },
+      { path: '/personal/time-vibration', element: <HomePage /> },
+      { path: '/personal/annual-returns', element: <HomePage /> },
+      { path: '/personal/time-circle', element: <HomePage /> },
+      { path: '/personal/annual-calendar', element: <HomePage /> },
+      { path: '/personal/monthly-calendar', element: <HomePage /> },
+      { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },
       { path: '/', element: <HomePage /> },
       { path: '*', element: <Navigate to="." /> },
