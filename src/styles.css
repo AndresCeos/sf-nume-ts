@@ -1430,6 +1430,10 @@ body * {
   grid-column-start: 18;
 }
 
+.row-end-9 {
+  grid-row-end: 9;
+}
+
 .row-end-10 {
   grid-row-end: 10;
 }
