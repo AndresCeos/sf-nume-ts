@@ -136,5 +136,20 @@
       "yearX": "Año {{year}}",
       "plusNineYears": "+9 años"
     }
+  },
+  "vibrationTime":{
+    "title":"Vibración del tiempo",
+    "energy":{
+      "energy":"Energías Activas",
+      "stage":"Etapa Actual",
+      "year":"Año Personal",
+      "quarter":"Cuatrimestre",
+      "month":"Mes Pesonal",
+      "week": "Sem Personal",
+      "day":"Día Personal"
+    },
+    "quarterMonth":{
+      "quarterMonth":"Cuatrimestres por Meses"
+    }
   }
 }

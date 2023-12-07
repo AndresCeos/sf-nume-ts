@@ -10,6 +10,7 @@ import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
 import LifePathPage from '@/pages/personal/LifePathPage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
+import VibrationTimePage from '@/pages/personal/VibrationTimePage';
 
 function App() {
   return (
@@ -40,7 +41,7 @@ const protectedRoutes = [
       { path: '/personal/name', element: <HomePage /> },
       { path: '/personal/create-name', element: <HomePage /> },
       { path: '/personal/destiny-table', element: <HomePage /> },
-      { path: '/personal/time-vibration', element: <HomePage /> },
+      { path: '/personal/time-vibration', element: <VibrationTimePage /> },
       { path: '/personal/annual-returns', element: <HomePage /> },
       { path: '/personal/time-circle', element: <HomePage /> },
       { path: '/personal/annual-calendar', element: <HomePage /> },
