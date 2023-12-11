@@ -1013,6 +1013,10 @@ body * {
   background-color: var(--blue);
 }
 
+.bg-opacity-15 {
+  --tw-bg-opacity: 0.15;
+}
+
 .text-blue {
   color: var(--blue);
 }

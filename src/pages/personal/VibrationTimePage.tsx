@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
 import ActiveEnergy from '@/components/personal/vibrationTime/ActiveEnergy';
+import QuarterPerMonth from '@/components/personal/vibrationTime/QuarterPerMonth';
 import useConsult from '@/hooks/useConsult';
 
 function VibrationTimePage() {
@@ -20,8 +21,10 @@ function VibrationTimePage() {
           </div>
         </div>
         <div className="col-span-4">
-          <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-green-s" />
-          <div className="section-wrap px-2 py-7" />
+          <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} color="bg-green-s" />
+          <div className="section-wrap px-2 py-7">
+            <QuarterPerMonth />
+          </div>
         </div>
       </div>
     </div>
