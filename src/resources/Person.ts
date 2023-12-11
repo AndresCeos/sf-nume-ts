@@ -1336,8 +1336,8 @@ class Person {
    * get nine year cycle
    * @returns {Number} nineYearCycle2
    */
-  getNineYearCycleStage(opts: SplittedDate): number[] {
-    const yearToCalculate = _.isNil(opts.year) ? this.NOW.year() : opts.year;
+  getNineYearCycleStage(optsYear: number): number[] {
+    const yearToCalculate = _.isNil(optsYear) ? this.NOW.year() : optsYear;
     let firstValue = false;
     let firstYear: number = 0;
     const nineYearCycle = [];

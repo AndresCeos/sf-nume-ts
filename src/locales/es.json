@@ -150,6 +150,10 @@
     },
     "quarterMonth":{
       "quarterMonth":"Cuatrimestres por Meses"
+    },
+    "nineYearsCycle":{
+      "nineYearsCycle":"Ciclo de 9 años",
+      "stage": "Etapa"
     }
   }
 }
