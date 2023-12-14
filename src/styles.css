@@ -958,7 +958,14 @@ body * {
   border: solid 2px #E28A05;
   color: #E28A05
 }
-
+.text-yellow-500 {
+  --tw-text-opacity: 1;
+  color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+.border-yellow-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 224 71 / var(--tw-border-opacity));
+}
 .btn-blue {
   border: solid 2px #5DC4FE;
   color: #5DC4FE
@@ -1421,6 +1428,15 @@ body * {
 .row-start-12 {
   grid-row-start: 12;
 }
+.row-start-13 {
+  grid-row-start: 13;
+}
+.row-start-14 {
+  grid-row-start: 14;
+}
+.row-start-15 {
+  grid-row-start: 15;
+}
 
 .col-start-15 {
   grid-column-start: 15;
@@ -1468,6 +1484,9 @@ body * {
 
 .col-end-21 {
   grid-column-end: 21;
+}
+.grid-rows-14 {
+  grid-template-rows: repeat(14, minmax(0, 1fr));
 }
 
 .centered-axis-x {

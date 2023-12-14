@@ -311,3 +311,6 @@ export function sliceIntoChunks(arr:number[], chunkSize:number) {
   }
   return res;
 }
+export function generateUniqueKey(): string {
+  return `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+}

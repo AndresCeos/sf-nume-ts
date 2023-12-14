@@ -3,14 +3,19 @@ import { useTranslation } from 'react-i18next';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
 import ActiveEnergy from '@/components/personal/vibrationTime/ActiveEnergy';
+import AnnualReturn from '@/components/personal/vibrationTime/AnnualReturn';
+import NineYearsCycle from '@/components/personal/vibrationTime/NineYearsCycle';
 import QuarterPerMonth from '@/components/personal/vibrationTime/QuarterPerMonth';
-import NineYearsCycle from '@/components/personal/vibrationTime/nineYearsCycle';
+import QuarterPerYear from '@/components/personal/vibrationTime/QuarterPerYear';
 import useConsult from '@/hooks/useConsult';
 
 function VibrationTimePage() {
-  const { consultant } = useConsult();
+  const { consultant, calculationDate } = useConsult();
   if (!consultant) return (<NoConsultantSelected />);
   const { t } = useTranslation();
+  const annualReturnCurrent = consultant.annualReturn(calculationDate);
+  const annualReturnLastYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
+  const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
     <div className="page-content bg-home-background bg-cover">
@@ -33,6 +38,23 @@ function VibrationTimePage() {
             <NineYearsCycle />
           </div>
         </div>
+        <div className="col-span-12">
+          <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} color="bg-green-s" />
+          <div className="section-wrap px-2 p-7">
+            <QuarterPerYear />
+          </div>
+        </div>
+        <div className="col-span-12">
+          <SectionTitle title="retornos" color="bg-green-s" />
+          <div className="section-wrap px-2 p-7">
+            <div className="grid grid-cols-3">
+              <div className="col-start-1 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xs" annualReturn={annualReturnLastYear} /></div>
+              <div className="col-start-2 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xs" annualReturn={annualReturnCurrent} current months /></div>
+              <div className="col-start-3 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xs" annualReturn={annualReturnNextYear} /></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

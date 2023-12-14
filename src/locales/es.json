@@ -154,6 +154,10 @@
     "nineYearsCycle":{
       "nineYearsCycle":"Ciclo de 9 años",
       "stage": "Etapa"
+    },
+    "quarterYear":{
+      "quarterYear":"Cuatrimestres por Año",
+      "calendarYear":"Año calendario"
     }
   }
 }

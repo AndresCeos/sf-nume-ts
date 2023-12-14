@@ -2,6 +2,7 @@ import { t } from 'i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
+import { generateUniqueKey } from '@/utils/numbers';
 import StageOne from './StageOne';
 
 function NineYearsCycle() {
@@ -27,7 +28,7 @@ function NineYearsCycle() {
         </CircleNumber>
       </div>
       {nineYearCycle.map((year, i) => (
-        <div key={year} className={`col-start-${i + 1} row-start-2 border-t-2 border-green-700 pt-5`}>
+        <div key={generateUniqueKey()} className={`col-start-${i + 1} row-start-2 border-t-2 border-green-700 pt-5`}>
           <CircleNumber size="sm" appearance={(year === calculationDate.year) ? 'purple-30' : 'white'} border="main">
             {consultant.calcPersonalYear(year)}
             {consultant.calcPersonalYearISK(year)}
