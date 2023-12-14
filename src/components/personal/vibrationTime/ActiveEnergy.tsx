@@ -17,7 +17,7 @@ function ActiveEnergy() {
           {consultant.calcLifeStage(consultant.getLifeStageNumber(calculationDate))}
           {consultant.calcLifeStageISK(consultant.getLifeStageNumber(calculationDate))}
           {hasDouble && `/${consultant.calcLifeStage(consultant.getDoubleLifeStageNumber(calculationDate))}`}
-          {consultant.calcLifeStageISK(consultant.getDoubleLifeStageNumber(calculationDate))}
+          {hasDouble && `${consultant.calcLifeStageISK(consultant.getDoubleLifeStageNumber(calculationDate))}`}
         </CircleNumber>
       </div>
       <b className="col-start-2 row-start-2 text-sm pl-1">{t('vibrationTime.energy.year')}</b>

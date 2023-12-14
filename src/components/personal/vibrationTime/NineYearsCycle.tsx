@@ -11,7 +11,8 @@ function NineYearsCycle() {
 
   const hasDouble = consultant.hasDoubleStage();
   const nineYearCycle = consultant.getNineYearCycleStage(calculationDate.year);
-
+  console.log(nineYearCycle);
+  console.log(consultant.getLifeStageNumber(calculationDate));
   return (
     <div className="pinnacle-wrap grid grid-cols-9 px-4 py-8 w-full">
       <div className="col-start-4 col-end-6 flex justify-between items-center mb-6 row-start-1">
@@ -23,7 +24,7 @@ function NineYearsCycle() {
           {consultant.calcLifeStage(consultant.getLifeStageNumber(calculationDate))}
           {consultant.calcLifeStageISK(consultant.getLifeStageNumber(calculationDate))}
           {hasDouble && `/${consultant.calcLifeStage(consultant.getDoubleLifeStageNumber(calculationDate))}`}
-          {consultant.calcLifeStageISK(consultant.getDoubleLifeStageNumber(calculationDate))}
+          {hasDouble && `${consultant.calcLifeStageISK(consultant.getDoubleLifeStageNumber(calculationDate))}`}
 
         </CircleNumber>
       </div>
@@ -35,16 +36,16 @@ function NineYearsCycle() {
           </CircleNumber>
           {(consultant.getLifeStageNumber(calculationDate) !== 1)
             ? (
-              <b className={`
+              <b className={` aaaa bg-green-300
             ${(year === calculationDate.year) ? 'text-black' : 'text-gray-300'}
             `}
               >
-                {year}
+                {`${year}`}
               </b>
-            ) : null}
+            ) : ''}
         </div>
       ))}
-      {(consultant.getLifeStageNumber(calculationDate) === 1) && <StageOne />}
+      {(consultant.getLifeStageNumber(calculationDate) === 1) ? <StageOne /> : null}
       <div className="col-start-4 border-r-2 row-start-1 border-green-700 h-4 mt-12" />
       <div className="col-start-1  row-start-2 flex justify-start h-4">
         <div className="border-r-2 border-green-700" />

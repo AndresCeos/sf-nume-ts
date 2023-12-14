@@ -9,11 +9,12 @@ function StageOne() {
   const startYear = birthYear;
   const endYear = birthYear + duration;
   const arrayOfYears = Array.from({ length: endYear - startYear + 1 }, (_, index) => startYear + index);
-
+  console.log(arrayOfYears);
   const nineYearCycleOfBirth = consultant.getNineYearCycleStage(birthYear);
+  console.log(nineYearCycleOfBirth);
   nineYearCycleOfBirth.forEach((e) => {
     if (e < birthYear) {
-      arrayOfYears.push();
+      arrayOfYears.push('');
     }
   });
 
@@ -26,7 +27,7 @@ function StageOne() {
   return (
     <>
       {rows.map((years:number[], i) => years.map((year:number, j) => (
-        <b key={generateUniqueKey()} className={`col-start-${j + 1} row-start-${i + 3} ${(year === calculationDate.year) ? 'text-black' : 'text-gray-300'}`}>
+        <b key={generateUniqueKey()} className={` bg-red-600 col-start-${j + 1} row-start-${i + 3} ${(year === calculationDate.year) ? 'text-black' : 'text-gray-300'}`}>
           {' '}
           {year}
         </b>
