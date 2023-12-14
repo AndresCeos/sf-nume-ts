@@ -26,7 +26,7 @@ function VibrationTimePage() {
             <ActiveEnergy />
           </div>
         </div>
-        <div className="col-span-4 row-span-2">
+        <div className="col-span-4 row-span-2 h-full">
           <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} color="bg-green-s" />
           <div className="section-wrap px-2 py-7">
             <QuarterPerMonth />
@@ -38,19 +38,19 @@ function VibrationTimePage() {
             <NineYearsCycle />
           </div>
         </div>
-        <div className="col-span-12">
+        <div className="col-span-full">
           <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} color="bg-green-s" />
           <div className="section-wrap px-2 p-7">
             <QuarterPerYear />
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title="retornos" color="bg-green-s" />
-          <div className="section-wrap px-2 p-7">
+          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-green-s" />
+          <div className="section-wrap px-2">
             <div className="grid grid-cols-3">
-              <div className="col-start-1 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xs" annualReturn={annualReturnLastYear} /></div>
-              <div className="col-start-2 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xs" annualReturn={annualReturnCurrent} current months /></div>
-              <div className="col-start-3 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xs" annualReturn={annualReturnNextYear} /></div>
+              <div className="col-start-1 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xl" annualReturn={annualReturnLastYear} /></div>
+              <div className="col-start-2 border-r border-gray-500 px-4 py-8 bg-active-radial"><AnnualReturn size="xl" annualReturn={annualReturnCurrent} current months /></div>
+              <div className="col-start-3 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xl" annualReturn={annualReturnNextYear} /></div>
             </div>
           </div>
         </div>

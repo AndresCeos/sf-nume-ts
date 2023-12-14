@@ -120,11 +120,11 @@ function AnnualReturn({
               </div>
             </div>
           )}
-        <div className="grid grid-cols-5 gap-2 relative pt-1">
-          <img src="/assets/annual-polygon.svg" className="absolute w-full h-full object-contain top-1" alt="bk" />
+        <div className="grid grid-cols-5 gap-2 relative pt-10">
+          <img src="/assets/annual-polygon.svg" className="absolute w-full h-full object-contain top-5" alt="bk" />
           {current
             ? (
-              <img src="/assets/annual-polygon-active.svg" className="absolute w-full h-full object-contain top-1" alt="bk" />
+              <img src="/assets/annual-polygon-active.svg" className="absolute w-full h-full object-contain top-5" alt="bk" />
             ) : ''}
 
           <CircleNumber size="xs" appearance="white" border="red" position="vf" borderWidth={current ? '4' : '1'}>

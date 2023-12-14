@@ -158,6 +158,9 @@
     "quarterYear":{
       "quarterYear":"Cuatrimestres por Año",
       "calendarYear":"Año calendario"
+    },
+    "annualReturns":{
+      "annualReturns":"Análisis del Tiempo"
     }
   }
 }

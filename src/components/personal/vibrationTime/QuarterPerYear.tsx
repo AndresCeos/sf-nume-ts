@@ -29,12 +29,13 @@ function QuarterPerYear() {
 
           return (
             <React.Fragment key={generateUniqueKey()}>
-              {isJanuaryAndBefore && (
-              <div className={`${rowStart} col-start-1 border-b-4 border-yellow-300 col-span-full z-10`} />
-              )}
+
               <div key={data} className={`${bgClass} col-start-1 col-end-3 row-start-${index + 3} flex justify-start items-center border border-gray-500 p-1`}>
                 {data}
               </div>
+              {isJanuaryAndBefore && (
+              <div className={`col-start-1 ${rowStart}  border-b-4 border-yellow-300 col-span-full`} />
+              )}
             </React.Fragment>
           );
         })}
