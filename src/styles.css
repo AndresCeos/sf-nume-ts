@@ -1516,3 +1516,51 @@ body * {
   border-right: 4px solid transparent;
   border-top: 6px solid #C4C4C4;
 }
+
+/*
+top: 134px;
+  left: 36px;
+*/
+
+.time-circle-sem-1 {
+  top: 20px;
+  position: absolute;
+  left: 250px;
+}
+
+.time-circle-sem-2 {
+  position: absolute;
+  top: 60px;
+  left: 265px;
+}
+
+.time-circle-sem-3 {
+  top: 95px;
+  position: absolute;
+  left: 275px;
+}
+
+.time-circle-sem-4 {
+  top: 135px;
+  position: absolute;
+  left: 280px;
+}
+
+.time-circle-months {
+  position: absolute;
+  top: 100px;
+  left: 170px;
+}
+
+.time-circle-quater {
+  position: absolute;
+  top: 130px;
+  left: 80px;
+}
+
+.time-circle-name-month {
+  position: absolute;
+  top: 115px;
+  left: 100px;
+  transform: rotate(75deg);
+}

@@ -36,7 +36,7 @@ function NineYearsCycle() {
           </CircleNumber>
           {(consultant.getLifeStageNumber(calculationDate) !== 1)
             ? (
-              <b className={` aaaa bg-green-300
+              <b className={`
             ${(year === calculationDate.year) ? 'text-black' : 'text-gray-300'}
             `}
               >
