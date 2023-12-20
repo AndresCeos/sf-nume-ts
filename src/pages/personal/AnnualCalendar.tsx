@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
@@ -16,14 +18,17 @@ function AnnualCalendar() {
     <div className="page-content bg-home-background bg-cover">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
         <div className="col-span-12">
-          <SectionTitle title="calendario anual" />
+          <SectionTitle title={t('annualCalendar.annualCalendar')} color="bg-green-s" />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">
             <div className="col-start-1 row-start-1 col-end-3 flex items-center justify-center">
               <div className="text-xl text-black font-bold px-2">
                 {calculationDate.year}
                 :
               </div>
-              <div className="text-sm text-gray-500 px-2 font-bold">Año Personal</div>
+              <div className="text-sm text-gray-500 px-2 font-bold">
+                {t('annualCalendar.personalYear')}
+                {' '}
+              </div>
               <div className=" px-2">
                 <CircleNumber size="sm" appearance="purple-30" border="main">
                   {consultant.calcPersonalYear(calculationDate.year)}
@@ -37,7 +42,10 @@ function AnnualCalendar() {
                   {u.calcUniversalYearISK(calculationDate.year)}
                 </CircleNumber>
               </div>
-              <div className="text-sm text-gray-500 px-2 font-bold">Año Universal</div>
+              <div className="text-sm text-gray-500 px-2 font-bold">
+                {t('annualCalendar.universalYear')}
+                {' '}
+              </div>
             </div>
             {allMonths.map((month, index) => <SingleMonth month={index + 1} />)}
           </div>

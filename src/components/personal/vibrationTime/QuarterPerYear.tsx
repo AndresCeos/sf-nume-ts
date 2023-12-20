@@ -1,5 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
+import { t } from 'i18next';
+
 import React from 'react';
 
 import useConsult from '@/hooks/useConsult';
@@ -16,8 +18,8 @@ function QuarterPerYear() {
   return (
     <div id="destinityTable" className="flex overflow-x-auto w-full border border-solid border-gray-300">
       <div className="grid grid-cols-11 grid-rows-14 w-full mx-4 my-8 border border-solid border-gray-500 ">
-        <div className="col-start-1 col-end-3 row-start-1  flex justify-start items-center bg-main p-1 text-white font-bold border border-gray-500">Año calendario</div>
-        <div className="col-start-1 col-end-3  row-start-2 flex justify-start items-center p-1 bg-purple-30 font-bold border border-gray-500">Año personal</div>
+        <div className="col-start-1 col-end-3 row-start-1  flex justify-start items-center bg-main p-1 text-white font-bold border border-gray-500">{t('vibrationTime.quarterYear.calendarYear')}</div>
+        <div className="col-start-1 col-end-3  row-start-2 flex justify-start items-center p-1 bg-purple-30 font-bold border border-gray-500">{t('vibrationTime.quarterYear.personlYear')}</div>
         <CurrentQuarterFont />
         {listOfMonths.map((data, index) => {
           const isJanuaryAndBefore = data === 'Enero' && index < 12;

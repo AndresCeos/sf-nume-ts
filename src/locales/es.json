@@ -157,10 +157,24 @@
     },
     "quarterYear":{
       "quarterYear":"Cuatrimestres por Año",
-      "calendarYear":"Año calendario"
+      "calendarYear":"Año calendario",
+      "personlYear":"Año personal"
     },
     "annualReturns":{
       "annualReturns":"Análisis del Tiempo"
     }
+  },
+  "timeCircle":{
+    "consult":"Estas Consultando el:"
+  },
+  "annualCalendar":{
+    "annualCalendar":"Calendario Anual",
+    "personalYear":"Año Personal",
+    "universalYear":"Año Universal",
+    "quarter":"Cuatrimestre",
+    "firstWeek":"1era Sem",
+    "secondWeek":"2da Sem",
+    "thirdWeek":"3era Sem",
+    "quarterWeek":"4ta Sem"
   }
 }

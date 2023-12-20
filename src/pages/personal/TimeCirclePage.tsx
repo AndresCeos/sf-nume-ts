@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import TimeCircle from '@/components/personal/timeCircle/TimeCircle';
 import useConsult from '@/hooks/useConsult';
@@ -46,7 +48,7 @@ function TimeCirclePage() {
           <span className="time-circle-name-month text-white font-bold text-xs">{getMonthName(String(calculationDate.month)).toUpperCase()}</span>
         </div>
         <div className="mt-5 text-center text-2xl">
-          <div>Estas Consultando el:</div>
+          <div>{t('timeCircle.consult')}</div>
           <div className="font-bold">{formatDate({ date: consultationDate.toDate(), format: 'long' })}</div>
         </div>
 

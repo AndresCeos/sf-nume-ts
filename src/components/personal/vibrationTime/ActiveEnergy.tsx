@@ -21,27 +21,27 @@ function ActiveEnergy() {
         </CircleNumber>
       </div>
       <b className="col-start-2 row-start-2 text-sm pl-1">{t('vibrationTime.energy.year')}</b>
-      <div className="col-start-2 row-start-3 row-span-2 cicle- bg-secondary text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
+      <div className="col-start-2 row-start-3 row-span-2  bg-secondary text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
         {consultant.calcPersonalYear(calculationDate.year)}
         {consultant.calcPersonalYearISK(calculationDate.year)}
       </div>
       <b className="col-start-3 row-start-3 text-sm pl-1">{t('vibrationTime.energy.quarter')}</b>
-      <div className="col-start-3 row-start-4 row-span-2 cicle- bg-green-70 text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
+      <div className="col-start-3 row-start-4 row-span-2 bg-green-70 text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
         {consultant.calcCurrentQuarter(calculationDate.month, calculationDate.year)}
         {consultant.calcCurrentQuarterISK(calculationDate.month, calculationDate.year)}
       </div>
       <b className="col-start-4 row-start-4 text-sm pl-1">{t('vibrationTime.energy.month')}</b>
-      <div className="col-start-4 row-start-5 row-span-2 cicle- bg-gold-50 text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
+      <div className="col-start-4 row-start-5 row-span-2  bg-gold-50 text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
         {consultant.calcPersonalMonth(calculationDate)}
         {consultant.calcPersonalMonthISK(calculationDate)}
       </div>
       <b className="col-start-5 row-start-5 text-sm pl-1">{t('vibrationTime.energy.week')}</b>
-      <div className="col-start-5 row-start-6 row-span-2 cicle- bg-ble-week-temp text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
+      <div className="col-start-5 row-start-6 row-span-2  bg-ble-week-temp text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
         {consultant.calcPersonalWeek(calculationDate)}
         {consultant.calcPersonalWeekISK(calculationDate)}
       </div>
       <b className="col-start-6 row-start-6 text-sm pl-1">{t('vibrationTime.energy.day')}</b>
-      <div className="col-start-6 row-start-7 row-span-2 cicle- bg-red-day text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
+      <div className="col-start-6 row-start-7 row-span-2  bg-red-day text-xl font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
         {consultant.calcPersonalDay(calculationDate)}
         {consultant.calcPersonalDayISK(calculationDate)}
       </div>

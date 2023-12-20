@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import { capitalize } from 'lodash';
 
 import useConsult from '@/hooks/useConsult';
@@ -56,7 +58,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
           {u.calcUniversalMonthISK(personalMonth)}
         </div>
         <div className="text-xl col-start-6 col-end-8 flex justify-center bg-purple-50 p-2 text-white">
-          Cuatrimestre:
+          {t('annualCalendar.quarter')}
           {' '}
           {consultant.getQuarterMonth(personalMonth.month, personalMonth.year)}
           {consultant.getQuarterMonthISK(personalMonth.month, personalMonth.year)}
@@ -65,7 +67,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
       <div className="grid">
         <div className="col-start-1 col-end-1 mr-6 mt-12">
           <div className={`${(week.one && currentMonth) ? 'bg-red-80 text-white font-bold' : 'bg-gray-30 text-gray-500'} h-16 border border-black   pl-1 row-start-1`}>
-            1era Sem
+            {t('annualCalendar.firstWeek')}
             <br />
             <span className={`${(week.one && currentMonth) ? 'text-white' : ''}  flex justify-center font-bold text-black`}>
               {consultant.calcSelectPersonalWeek(1, personalMonth)}
@@ -76,7 +78,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
             </span>
           </div>
           <div className={`${(week.two && currentMonth) ? 'bg-red-80 text-white font-bold' : 'bg-gray-30 text-gray-500'} h-16 border border-black  text-gray-500 pl-1 row-start-2`}>
-            2da Sem
+            {t('annualCalendar.secondWeek')}
             <br />
             <span className={` ${(week.two && currentMonth) ? 'text-white' : ''}  flex justify-center font-bold text-black`}>
               {consultant.calcSelectPersonalWeek(2, personalMonth)}
@@ -87,7 +89,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
             </span>
           </div>
           <div className={` ${(week.three && currentMonth) ? 'bg-red-80 text-white font-bold' : 'bg-gray-30 text-gray-500'} h-16 border border-black  text-gray-500 pl-1 row-start-3`}>
-            3era Sem
+            {t('annualCalendar.thirdWeek')}
             <br />
             <span className={` ${(week.three && currentMonth) ? 'text-white' : ''}  flex justify-center font-bold text-black`}>
               {consultant.calcSelectPersonalWeek(3, personalMonth)}
@@ -98,7 +100,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
             </span>
           </div>
           <div className={` ${(week.four && currentMonth) ? 'bg-red-80 text-white font-bold' : 'bg-gray-30 text-gray-500'} h-16 border border-black  text-gray-500 pl-1 row-start-4`}>
-            4ta Sem
+            {t('annualCalendar.quarterWeek')}
             <br />
             <span className={` ${(week.four && currentMonth) ? 'text-white' : ''}  flex justify-center font-bold text-black`}>
               {consultant.calcSelectPersonalWeek(4, personalMonth)}
@@ -110,7 +112,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
           </div>
           {(daysInMonthSingle.length > 28) ? (
             <div className={` ${(week.four && currentMonth) ? 'bg-red-80' : 'bg-gray-30 text-gray-500'} h-16 border border-black  text-gray-500 pl-1 row-start-5`}>
-              4ta Sem
+              {t('annualCalendar.quarterWeek')}
               <br />
               <span className={` ${(week.four && currentMonth) ? 'text-white' : ''}  flex justify-center font-bold text-black`}>
                 {consultant.calcSelectPersonalWeek(4, personalMonth)}
