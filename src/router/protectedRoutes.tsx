@@ -8,6 +8,7 @@ import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
+import AnnualCalendar from '@/pages/personal/AnnualCalendar';
 import LifePathPage from '@/pages/personal/LifePathPage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
@@ -45,7 +46,7 @@ const protectedRoutes = [
       { path: '/personal/time-vibration', element: <VibrationTimePage /> },
       { path: '/personal/annual-returns', element: <HomePage /> },
       { path: '/personal/time-circle', element: <TimeCirclePage /> },
-      { path: '/personal/annual-calendar', element: <HomePage /> },
+      { path: '/personal/annual-calendar', element: <AnnualCalendar /> },
       { path: '/personal/monthly-calendar', element: <HomePage /> },
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },

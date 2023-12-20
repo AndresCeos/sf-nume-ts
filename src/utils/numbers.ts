@@ -204,6 +204,9 @@ export function getAllMonthsEnglish(): string[] {
 export function getDaysOfWeek(): string[] {
   return ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 }
+export function getDaysOfWeekEnglish(): string[] {
+  return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+}
 
 type Compatibility = {
   pn: number[],

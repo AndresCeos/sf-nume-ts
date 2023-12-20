@@ -12,6 +12,7 @@ import {
   consonantValues,
   getAllMonths,
   getDaysOfWeek,
+  getDaysOfWeekEnglish,
   getMonthName,
   inclusionValue,
   letterValue,
@@ -1395,7 +1396,8 @@ class Person {
     const dayInWeek = getDaysOfWeek();
     let firstDay = this.NOW.year(yearToCalculate).month(monthToCalculate - 1).date(daysInMonth[0]).format('ddd');
     firstDay = firstDay.replace(/\./g, '');
-    let dayIndex = getDaysOfWeek().findIndex((i) => i === capitalize(firstDay));
+    let dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
+
     for (let i = 0; i < 7; i++) {
       if (dayIndex > 6) {
         dayIndex = 0;
