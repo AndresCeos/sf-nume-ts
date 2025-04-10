@@ -204,6 +204,9 @@ export function getAllMonthsEnglish(): string[] {
 export function getDaysOfWeek(): string[] {
   return ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 }
+export function getDaysOfWeekEnglish(): string[] {
+  return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+}
 
 type Compatibility = {
   pn: number[],
@@ -302,4 +305,15 @@ export function getMonthName(date: string): string {
   return new Intl.DateTimeFormat('es', {
     month: 'long',
   }).format(new Date(date));
+}
+export function sliceIntoChunks(arr:number[], chunkSize:number) {
+  const res = [];
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    const chunk = arr.slice(i, i + chunkSize);
+    res.push(chunk);
+  }
+  return res;
+}
+export function generateUniqueKey(): string {
+  return `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 }

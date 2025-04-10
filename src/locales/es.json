@@ -136,5 +136,45 @@
       "yearX": "Año {{year}}",
       "plusNineYears": "+9 años"
     }
+  },
+  "vibrationTime":{
+    "title":"Vibración del tiempo",
+    "energy":{
+      "energy":"Energías Activas",
+      "stage":"Etapa Actual",
+      "year":"Año Personal",
+      "quarter":"Cuatrimestre",
+      "month":"Mes Pesonal",
+      "week": "Sem Personal",
+      "day":"Día Personal"
+    },
+    "quarterMonth":{
+      "quarterMonth":"Cuatrimestres por Meses"
+    },
+    "nineYearsCycle":{
+      "nineYearsCycle":"Ciclo de 9 años",
+      "stage": "Etapa"
+    },
+    "quarterYear":{
+      "quarterYear":"Cuatrimestres por Año",
+      "calendarYear":"Año calendario",
+      "personlYear":"Año personal"
+    },
+    "annualReturns":{
+      "annualReturns":"Análisis del Tiempo"
+    }
+  },
+  "timeCircle":{
+    "consult":"Estas Consultando el:"
+  },
+  "annualCalendar":{
+    "annualCalendar":"Calendario Anual",
+    "personalYear":"Año Personal",
+    "universalYear":"Año Universal",
+    "quarter":"Cuatrimestre",
+    "firstWeek":"1era Sem",
+    "secondWeek":"2da Sem",
+    "thirdWeek":"3era Sem",
+    "quarterWeek":"4ta Sem"
   }
 }

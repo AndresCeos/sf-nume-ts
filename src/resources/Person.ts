@@ -12,6 +12,7 @@ import {
   consonantValues,
   getAllMonths,
   getDaysOfWeek,
+  getDaysOfWeekEnglish,
   getMonthName,
   inclusionValue,
   letterValue,
@@ -1336,8 +1337,8 @@ class Person {
    * get nine year cycle
    * @returns {Number} nineYearCycle2
    */
-  getNineYearCycleStage(opts: SplittedDate): number[] {
-    const yearToCalculate = _.isNil(opts.year) ? this.NOW.year() : opts.year;
+  getNineYearCycleStage(optsYear: number): number[] {
+    const yearToCalculate = _.isNil(optsYear) ? this.NOW.year() : optsYear;
     let firstValue = false;
     let firstYear: number = 0;
     const nineYearCycle = [];
@@ -1395,7 +1396,8 @@ class Person {
     const dayInWeek = getDaysOfWeek();
     let firstDay = this.NOW.year(yearToCalculate).month(monthToCalculate - 1).date(daysInMonth[0]).format('ddd');
     firstDay = firstDay.replace(/\./g, '');
-    let dayIndex = getDaysOfWeek().findIndex((i) => i === capitalize(firstDay));
+    let dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
+
     for (let i = 0; i < 7; i++) {
       if (dayIndex > 6) {
         dayIndex = 0;
@@ -1411,11 +1413,11 @@ class Person {
    * @param {Number} yearToCalculate
    * @returns {Number} current quarter
    */
-  calcCurrentQuarter(month: moment.Moment, year: number): number {
-    const monthToCalculate = _.isNil(month) ? this.NOW : month;
+  calcCurrentQuarter(month: number, year: number): number {
+    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
     const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
     const listOfMonths = this.getCustomMonths();
-    const actualMonth = getMonthName(monthToCalculate.toString());
+    const actualMonth = getMonthName(this.NOW.month(monthToCalculate - 1).toString());
     const birthDateMonth = getMonthName(this.birthDate.toString());
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
     const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
@@ -1853,11 +1855,11 @@ class Person {
     return this.karmic.includes(quarterThree) ? '*' : '';
   }
 
-  calcCurrentQuarterISK(month: moment.Moment, year: number): string {
-    const monthToCalculate = _.isNil(month) ? this.NOW : month;
+  calcCurrentQuarterISK(month: number, year: number): string {
+    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
     const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
     const listOfMonths = this.getCustomMonths();
-    const actualMonth = getMonthName(monthToCalculate.toString());
+    const actualMonth = getMonthName(this.NOW.month(monthToCalculate - 1).toString());
     const birthDateMonth = getMonthName(this.birthDate.toString());
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
     const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');

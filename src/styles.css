@@ -958,7 +958,14 @@ body * {
   border: solid 2px #E28A05;
   color: #E28A05
 }
-
+.text-yellow-500 {
+  --tw-text-opacity: 1;
+  color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+.border-yellow-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(253 224 71 / var(--tw-border-opacity));
+}
 .btn-blue {
   border: solid 2px #5DC4FE;
   color: #5DC4FE
@@ -1011,6 +1018,10 @@ body * {
 
 .bg-blue {
   background-color: var(--blue);
+}
+
+.bg-opacity-15 {
+  --tw-bg-opacity: 0.15;
 }
 
 .text-blue {
@@ -1417,6 +1428,15 @@ body * {
 .row-start-12 {
   grid-row-start: 12;
 }
+.row-start-13 {
+  grid-row-start: 13;
+}
+.row-start-14 {
+  grid-row-start: 14;
+}
+.row-start-15 {
+  grid-row-start: 15;
+}
 
 .col-start-15 {
   grid-column-start: 15;
@@ -1428,6 +1448,10 @@ body * {
 
 .col-start-18 {
   grid-column-start: 18;
+}
+
+.row-end-9 {
+  grid-row-end: 9;
 }
 
 .row-end-10 {
@@ -1461,6 +1485,9 @@ body * {
 .col-end-21 {
   grid-column-end: 21;
 }
+.grid-rows-14 {
+  grid-template-rows: repeat(14, minmax(0, 1fr));
+}
 
 .centered-axis-x {
   left: 50%;
@@ -1488,4 +1515,52 @@ body * {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 6px solid #C4C4C4;
+}
+
+/*
+top: 134px;
+  left: 36px;
+*/
+
+.time-circle-sem-1 {
+  top: 20px;
+  position: absolute;
+  left: 250px;
+}
+
+.time-circle-sem-2 {
+  position: absolute;
+  top: 60px;
+  left: 265px;
+}
+
+.time-circle-sem-3 {
+  top: 95px;
+  position: absolute;
+  left: 275px;
+}
+
+.time-circle-sem-4 {
+  top: 135px;
+  position: absolute;
+  left: 280px;
+}
+
+.time-circle-months {
+  position: absolute;
+  top: 100px;
+  left: 170px;
+}
+
+.time-circle-quater {
+  position: absolute;
+  top: 130px;
+  left: 80px;
+}
+
+.time-circle-name-month {
+  position: absolute;
+  top: 115px;
+  left: 100px;
+  transform: rotate(75deg);
 }
