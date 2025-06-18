@@ -9,7 +9,9 @@ import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
 import AnnualCalendar from '@/pages/personal/AnnualCalendar';
+import CreateNamePage from '@/pages/personal/CreateNamePage';
 import LifePathPage from '@/pages/personal/LifePathPage';
+import NamePage from '@/pages/personal/NamePage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
@@ -40,8 +42,8 @@ const protectedRoutes = [
     children: [
       { path: '/personal/pinnacle', element: <PinnaclePage /> },
       { path: '/personal/life-path', element: <LifePathPage /> },
-      { path: '/personal/name', element: <HomePage /> },
-      { path: '/personal/create-name', element: <HomePage /> },
+      { path: '/personal/name', element: <NamePage /> },
+      { path: '/personal/create-name', element: <CreateNamePage /> },
       { path: '/personal/destiny-table', element: <HomePage /> },
       { path: '/personal/time-vibration', element: <VibrationTimePage /> },
       { path: '/personal/annual-returns', element: <HomePage /> },

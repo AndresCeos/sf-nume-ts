@@ -167,6 +167,10 @@ class Person {
     return age;
   }
 
+  calcAgeDigit(): number {
+    return reduceNumber(this.getYearsOld());
+  }
+
   /** ======================Pinnacle Calcs ==================== */
 
   /**

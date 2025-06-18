@@ -146,6 +146,54 @@
       "title": "Línea de Jerarquía del Diálogo Energético"
     }
   },
+  "name": {
+    "title": "Nombre",
+    "numericValues":{
+      "title": "Valores Numéricos del Nombre",
+      "name": "Nombre",
+      "soul": "Alma",
+      "expression": "Expresión"
+    },
+    "potential":{
+      "title": "Potencial Frecuente del Nombre",
+      "letterCycle": "Ciclo de letras",
+      "importantAges": "Edades importantes",
+      "personalYear": "Año Personal",
+      "ageDigit": "Edad Digito",
+      "personalNumber": "Número Personal",
+      "maturity": "Madurez"
+    },
+    "breakdown":{
+      "title": "Desglose del Nombre"
+    },
+    "activeName":{
+      "title": "Nombre Activo",
+      "vowels": "Vocales",
+      "consonants": "Consonantes",
+      "totals": "Totales",
+      "soulNumber": "Número de Alma",
+      "expressionNumber": "Número de Expresión",
+      "powerOfNameNumber": "Número de Poder del Nombre",
+      "absentValues": "Valores Ausentes",
+      "initials": "Iniciales",
+      "activeName": "Nombre Activo"
+    },
+    "nameCycle":{
+      "title": "Ciclo del Nombre"
+    },
+    "balanceExistential":{
+      "title": "Equilibrio de Planos Existenciales",
+      "firstPlace": "1er Lugar",
+      "secondPlace": "2do Lugar",
+      "thirdPlace": "3er Lugar",
+      "fourthPlace": "4to Lugar"
+    },
+    "inclusionTable":{
+      "title": "Tabla de Inclusión",
+      "houses": "Casas",
+      "inhabitants": "Habitantes"
+    }
+  },
   "vibrationTime":{
     "title":"Vibración del tiempo",
     "energy":{
