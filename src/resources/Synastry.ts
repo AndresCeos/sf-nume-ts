@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-plusplus */
 import { getDate, getMonth, getYear } from 'date-fns';
 import _ from 'lodash';
@@ -730,9 +731,8 @@ class Synastry {
     return 0;
   }
 
-  getLifeStage(year:number, date :Date):number {
+  getLifeStage(year:number):number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const dateToCalculate = _.isNil(date) ? this.NOW : date;
     const age = yearToCalculate - Number(this.yearMet);
     const lifeStage = Math.floor(age / 9);
     return lifeStage;
@@ -785,9 +785,8 @@ class Synastry {
    * calculate current stage number
    * @returns {Number} stage
    */
-  getLifeStageNumber(year:number, date :Date):number {
+  getLifeStageNumber(year:number):number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const dateToCalculate = _.isNil(date) ? this.NOW : date;
     const age = yearToCalculate - Number(this.yearMet);
     const lifeStage = Math.floor(age / 9);
     return lifeStage + 1;
@@ -938,17 +937,15 @@ class Synastry {
     return this.karmic.includes(quarterThr) ? '*' : '';
   }
 
-  calcCurrentQuarter(month :Date, year:number):number {
+  calcCurrentQuarter(month :Date):number {
     const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthNumber = getMonth(monthToCalculate) + 1;
     const quarter = Math.ceil(monthNumber / 3);
     return quarter;
   }
 
-  calcCurrentQuarterISK(month :Date, year:number):string {
+  calcCurrentQuarterISK(month :Date):string {
     const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthNumber = getMonth(monthToCalculate) + 1;
     const quarter = Math.ceil(monthNumber / 3);
     return this.karmic.includes(quarter) ? '*' : '';
@@ -1033,9 +1030,7 @@ class Synastry {
   }
 
   getAllDaysInMonth(month: number, year: number): number[] {
-    const date = new Date(year, month - 1, 1);
-    const daysInMonth = new Date(year, month, 0).getDate();
-    return Array.from({ length: daysInMonth }, (_, i) => i + 1);
+    return Array.from({ length: new Date(year, month, 0).getDate() }, (__, i) => i + 1);
   }
 
   getDaysOfWeekCustom(month: number, year: number): string[] {

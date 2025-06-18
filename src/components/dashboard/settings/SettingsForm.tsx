@@ -32,7 +32,7 @@ function SettingsForm() {
     website: company?.website,
   };
   const {
-    firstName, lastName, scdLastName, birthDate, direction, logo, name, phone, phoneCompany, website, email, handleInputChange, formError, setFormError, reset,
+    firstName, lastName, scdLastName, birthDate, direction, logo, name, phone, phoneCompany, website, email, handleInputChange, setFormError, reset,
   } = useForm(initialForm);
 
   const isFormValid = () => {
@@ -50,7 +50,7 @@ function SettingsForm() {
       validationMsgs = { ...validationMsgs, scdLastName: 'Requerido' };
       isValid = false;
     }
-    if (birthDate === ('' || null)) {
+    if (birthDate === null || birthDate === undefined) {
       validationMsgs = { ...validationMsgs, birthDate: 'Requerido' };
       isValid = false;
     }

@@ -4,8 +4,8 @@ import _ from 'lodash';
 import Person from './Person';
 
 import {
-    getAllMonths,
-    reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
+  getAllMonths,
+  reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
 } from '@/utils/numbers';
 
 type AnnualReturn = {
@@ -733,17 +733,15 @@ class Group {
     return this.karmic.includes(quarterThr) ? '*' : '';
   }
 
-  calcCurrentQuarter(month:Date, year:number):number {
+  calcCurrentQuarter(month:Date):number {
     const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthNumber = getMonth(monthToCalculate) + 1;
     const quarter = Math.ceil(monthNumber / 3);
     return quarter;
   }
 
-  calcCurrentQuarterISK(month:Date, year:number):string {
+  calcCurrentQuarterISK(month:Date):string {
     const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthNumber = getMonth(monthToCalculate) + 1;
     const quarter = Math.ceil(monthNumber / 3);
     return this.karmic.includes(quarter) ? '*' : '';
