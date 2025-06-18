@@ -5,9 +5,9 @@ import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import ActiveNameComponents from '@/components/personal/name/ActiveNameComponents';
-import BalanceExistential from '@/components/personal/name/balanceExistential';
+import BalanceExistential from '@/components/personal/name/BalanceExistential';
 import Breakdown from '@/components/personal/name/Breakdown';
-import FrequentNamePotential from '@/components/personal/name/frequentNamePotential';
+import FrequentNamePotential from '@/components/personal/name/FrequentNamePotential';
 import InclusionTable from '@/components/personal/name/InclusionTable';
 import NameCycle from '@/components/personal/name/NameCycle';
 import NumericalValuesOfTheName from '@/components/personal/name/numericalValuesOfTheName';
