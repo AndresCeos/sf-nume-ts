@@ -135,6 +135,15 @@
       "title": "Ciclo de 9 años",
       "yearX": "Año {{year}}",
       "plusNineYears": "+9 años"
+    },
+    "learningStage": {
+      "title": "Etapa de Aprendizaje",
+      "stage": "Etapa",
+      "year": "Año",
+      "quarter": "Cuatrimestre"
+    },
+    "hierarchyLine": {
+      "title": "Línea de Jerarquía del Diálogo Energético"
     }
   },
   "vibrationTime":{

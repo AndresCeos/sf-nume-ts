@@ -12,6 +12,52 @@
     font-family: 'Open Sans', sans-serif;
     @apply bg-main-700;
   }
+  body * {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+#screen {
+    display: none;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99999999;
+    background: #693061;
+    display: none;
+}
+
+#screen-loading {
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 99999999;
+    background: #693061;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+}
+
+img {
+    pointer-events: none
+}
+
   .app {
     display: flex;
     flex-wrap: nowrap;
@@ -1563,4 +1609,311 @@ top: 134px;
   top: 115px;
   left: 100px;
   transform: rotate(75deg);
+}
+
+.quater-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 23px;
+  background: #66AB8E;
+  top: -20px;
+}
+
+.quater-active:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border-top: solid 8px #66AB8E;
+  border-left: solid 6px transparent;
+  border-right: solid 6px transparent;
+}
+
+.quater-active {
+  background-color: #66AB8E;
+}
+
+.path-quarter-des {
+  position: absolute;
+  bottom: -30px;
+  font-size: 12px;
+  color: #7E7E7E;
+  width: 300px;
+  text-align: center;
+}
+
+.path-quarter-des.path-quater-active {
+  color: #66AB8E;
+}
+
+.path-quater-active:before {
+  content: '';
+  position: absolute;
+  bottom: -48px;
+  left: 50%;
+  margin-left: -7px;
+  width: 0;
+  height: 0;
+  border-top: solid 12px #66AB8E;
+  border-left: solid 8px transparent;
+  border-right: solid 8px transparent;
+}
+
+.path-quater-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 40px;
+  background: #66AB8E;
+  bottom: -40px;
+  left: 50%;
+}
+
+.path-personal-year-active:before {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  margin-left: -7px;
+  width: 0;
+  height: 0;
+  border-top: solid 12px var(--secondary-color);
+  border-left: solid 8px transparent;
+  border-right: solid 8px transparent;
+}
+
+.month-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 23px;
+  background: #E7B62C;
+  top: -20px;
+}
+
+.month-active:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border-top: solid 8px #E7B62C;
+  border-left: solid 6px transparent;
+  border-right: solid 6px transparent;
+}
+
+.month-active {
+  background-color: #E7B62C;
+}
+
+.path-month-active {
+  color: #E7B62C;
+}
+
+.path-month-active:before {
+  content: '';
+  position: absolute;
+  bottom: -48px;
+  left: 50%;
+  margin-left: -7px;
+  width: 0;
+  height: 0;
+  border-top: solid 12px #E7B62C;
+  border-left: solid 8px transparent;
+  border-right: solid 8px transparent;
+}
+
+.path-month-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 40px;
+  background: #E7B62C;
+  bottom: -40px;
+  left: 50%;
+}
+
+.path-month-des,
+.path-week-des {
+  position: absolute;
+  bottom: -25px;
+  font-size: 12px;
+  color: #7E7E7E;
+  width: 300px;
+  text-align: center;
+}
+
+.week-active {
+  background-color: #52B8C8;
+}
+
+.week-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 23px;
+  background: #52B8C8;
+  top: -20px;
+}
+
+.week-active:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border-top: solid 8px #52B8C8;
+  border-left: solid 6px transparent;
+  border-right: solid 6px transparent;
+}
+
+.path-week-active {
+  color: #52B8C8;
+}
+
+.w-30 {
+  width: 30px;
+}
+
+.h-30 {
+  height: 30px;
+}
+
+.h-60 {
+  height: 60px;
+}
+.cicle-year {
+  position: relative;
+}
+
+.path-personal-vibration-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 23px;
+  background: var(--secondary-color);
+  top: -24px;
+}
+
+.path-personal-vibration-active:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border-top: solid 8px var(--secondary-color);
+  border-left: solid 6px transparent;
+  border-right: solid 6px transparent;
+}
+
+.path-personal-year-active:after {
+  position: absolute;
+  content: '';
+  width: 2px;
+  height: 35px;
+  background: var(--secondary-color);
+  bottom: -35px;
+  left: 50%;
+}
+
+.path-personal-year-active:before {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  margin-left: -7px;
+  width: 0;
+  height: 0;
+  border-top: solid 12px var(--secondary-color);
+  border-left: solid 8px transparent;
+  border-right: solid 8px transparent;
+}
+
+.hierarchy-lines:after {
+  content: '';
+  border: 1px solid #004AAD;
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  left: 48%;
+  top: 52%;
+  transform: translate(-50%, -50%) rotate(44deg);
+  z-index: 0;
+}
+
+.lines:after {
+  content: '';
+  border: 2px solid var(--yellow);
+  position: absolute;
+  width: 45%;
+  left: 20%;
+  top: 50%;
+  z-index: 0;
+}
+
+.triangle:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 64%;
+  top: 51%;
+  z-index: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid var(--yellow);
+  clear: both;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.w-220 {
+  max-width: 220px;
+}
+
+.arrow-down-line {
+  position: relative;
+}
+
+.arrow-down-line:before {
+  content: '';
+  height: 100%;
+  width: 2px;
+  background: #C4C4C4;
+  position: absolute;
+}
+
+.arrow-down-cicle {
+  position: relative;
+}
+
+.arrow-down-cicle:before {
+  content: '';
+  height: 100%;
+  width: 2px;
+  background: #C4C4C4;
+  position: absolute;
+}
+
+.arrow-down-cicle:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: -2px;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #C4C4C4;
 }
