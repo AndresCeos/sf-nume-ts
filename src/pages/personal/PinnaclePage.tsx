@@ -48,7 +48,7 @@ function PinnaclePage() {
             }}
           />
           <div className="section-wrap px-2 py-7">
-            <Pinnacle size="sm" isVerificationActive={isPinnacleVerificationActive} />
+            <Pinnacle size="lg" isVerificationActive={isPinnacleVerificationActive} />
           </div>
         </div>
 

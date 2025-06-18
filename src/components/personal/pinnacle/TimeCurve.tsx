@@ -101,7 +101,7 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="col-start-1 col-end-7 row-start-7 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
           {(!isPartner)
             ? t('pinnacle.timeCurve.fromBirthToX', {
-              age: consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year(),
+              age: consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth(),
             })
             : `${consultant.getYearTimeCurve()} - ${consultant.calcLifeStageDuration(1)}`}
         </div>
@@ -109,7 +109,7 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
           ? (
             <div className="col-start-1 col-end-7 row-start-8 text-center text-13 h-6  flex items-end justify-center">
               {t('pinnacle.timeCurve.fromBirthToX', {
-                age: consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year(),
+                age: consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth(),
               })}
             </div>
           ) : ''}
@@ -127,15 +127,15 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="col-start-1 col-end-7 row-start-13 m-auto">{consultant.getK()}</div>
 
         <div className="col-start-7 col-end-9 row-start-5 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
-          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.birthDate.year()} - ${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 9}` : `${consultant.calcLifeStageDuration(1)} - ${consultant.calcLifeStageDuration(2)}`}
+          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth()} - ${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 9}` : `${consultant.calcLifeStageDuration(1)} - ${consultant.calcLifeStageDuration(2)}`}
         </div>
 
         {(!isPartner && doubleStage)
           ? (
             <div className="col-start-7 col-end-9 row-start-6 text-center text-13 h-6  flex items-end justify-center">
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year()}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth()}
               {' - '}
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 9}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 9}
             </div>
           ) : ''}
         <div className="col-start-7 col-end-9 row-start-7 text-center text-13 h-6 text-gray font-bold">
@@ -152,14 +152,14 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="col-start-7 col-end-9 row-start-11 m-auto">{consultant.getL()}</div>
 
         <div className="col-start-9 col-end-11 row-start-2 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
-          {(!isPartner) ? ` ${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 9} - ${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 18}` : `${consultant.calcLifeStageDuration(2)} - ${consultant.calcLifeStageDuration(3)}`}
+          {(!isPartner) ? ` ${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 9} - ${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 18}` : `${consultant.calcLifeStageDuration(2)} - ${consultant.calcLifeStageDuration(3)}`}
         </div>
         {(!isPartner && doubleStage)
           ? (
             <div className="col-start-9 col-end-11 row-start-3 text-center text-13 h-6  flex items-end justify-center">
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 9}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 9}
               {' - '}
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 18}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 18}
             </div>
           ) : ''}
         <div className="col-start-9 col-end-11 row-start-4 text-center text-13 h-6 font-bold text-gray">
@@ -177,14 +177,14 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
 
         <div className="col-start-11 col-end-13 row-start-1 row-end-13 border-dashed border-l-2 border-r-2 border-gray-400" />
         <div className="col-start-11 col-end-13 row-start-1 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
-          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 18} - ${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 27}` : `${consultant.calcLifeStageDuration(3)} - ${consultant.calcLifeStageDuration(4)}`}
+          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 18} - ${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 27}` : `${consultant.calcLifeStageDuration(3)} - ${consultant.calcLifeStageDuration(4)}`}
         </div>
         {(!isPartner && doubleStage)
           ? (
             <div className="col-start-11 col-end-13 row-start-2 text-center text-13 h-6  flex items-end justify-center">
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 18}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 18}
               {' - '}
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 27}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 27}
             </div>
           ) : ''}
         <div className="col-start-11 col-end-13 row-start-3 text-center text-13 h-6 font-bold text-gray">
@@ -201,14 +201,14 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="col-start-11 col-end-13 row-start-6 m-auto">{consultant.getN()}</div>
 
         <div className="col-start-13 col-end-15 row-start-2 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
-          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 27} - ${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 36}` : `${consultant.calcLifeStageDuration(4)} - ${consultant.calcLifeStageDuration(5)}`}
+          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 27} - ${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 36}` : `${consultant.calcLifeStageDuration(4)} - ${consultant.calcLifeStageDuration(5)}`}
         </div>
         {(!isPartner && doubleStage)
           ? (
             <div className="col-start-13 col-end-15 row-start-3 text-center text-13 h-6  flex items-end justify-center">
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 27}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 27}
               {' - '}
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 36}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 36}
             </div>
           ) : ''}
         <div className="col-start-13 col-end-15 row-start-4 text-center text-13 h-6 text-gray font-bold">
@@ -225,14 +225,14 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="col-start-13 col-end-15 row-start-8 m-auto">{consultant.getM()}</div>
 
         <div className="col-start-15 col-end-17 row-start-5 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
-          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 36} - ${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 45}` : `${consultant.calcLifeStageDuration(5)} - ${consultant.calcLifeStageDuration(6)}`}
+          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 36} - ${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 45}` : `${consultant.calcLifeStageDuration(5)} - ${consultant.calcLifeStageDuration(6)}`}
         </div>
         {(!isPartner && doubleStage)
           ? (
             <div className="col-start-15 col-end-17 row-start-6 text-center text-13 h-6  flex items-end justify-center">
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 36}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 36}
               {' - '}
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 45}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 45}
             </div>
           ) : ''}
         <div className="col-start-15 col-end-17 row-start-7 text-center text-13 h-6 text-gray font-bold">
@@ -249,12 +249,12 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="col-start-15 col-end-17 row-start-11 m-auto">{consultant.getL()}</div>
 
         <div className="col-start-17 col-end-21 row-start-7 text-center text-13 h-6 border-b-3 border-purple-35 lifePathDuration flex items-end justify-center">
-          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.birthDate.year() + 45} - ...` : `${consultant.calcLifeStageDuration(6)} - ...`}
+          {(!isPartner) ? `${consultant.calcLifeStageDuration(1) - consultant.getYearOfBirth() + 45} - ...` : `${consultant.calcLifeStageDuration(6)} - ...`}
         </div>
         {(!isPartner && doubleStage)
           ? (
             <div className="col-start-17 col-end-21 row-start-8 text-center text-13 h-6  flex items-end justify-center">
-              {consultant.calcDoubleLifeStageDuration(1) - consultant.birthDate.year() + 45}
+              {consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth() + 45}
               {' '}
               - ...
             </div>

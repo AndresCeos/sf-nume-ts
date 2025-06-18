@@ -7,7 +7,7 @@ function TimeCircleWeeks({ consultant }: { consultant?: Person }) {
   const { consultationDate, calculationDate } = useConsult();
 
   const u = new Universal();
-  const year = Number(consultationDate.format('YYYY'));
+  const year = consultationDate.getFullYear();
 
   const numbers: JSX.Element[] = [];
 

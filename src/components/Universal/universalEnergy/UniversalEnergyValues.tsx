@@ -24,7 +24,7 @@ function UniversalEnergyValues() {
         </div>
       </li>
       <li className="rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 inner-shadow mt-3 mb-6 font-black text-[13px] text-center">
-        {formatDate({ date: consultationDate.toDate(), format: 'short' })}
+        {formatDate({ date: consultationDate, format: 'short' })}
       </li>
       <li
         className="name-energy rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3"

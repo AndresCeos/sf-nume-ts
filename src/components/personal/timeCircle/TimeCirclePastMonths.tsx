@@ -4,7 +4,7 @@ import useConsult from '@/hooks/useConsult';
 
 function TimeCirclePastMonths() {
   const { consultationDate } = useConsult();
-  const currentMonth = Number(consultationDate.format('M'));
+  const currentMonth = consultationDate.getMonth() + 1;
 
   const circleImages: JSX.Element[] = [];
   // eslint-disable-next-line no-plusplus

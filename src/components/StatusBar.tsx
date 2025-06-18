@@ -16,7 +16,7 @@ function StatusBarConsultantDetails() {
         {t('birthDate')}
         :
         <strong className="ml-2">
-          {formatDate({ date: consultant.birthDate.toDate(), format: 'long' })}
+          {formatDate({ date: consultant.getBirthDate(), format: 'long' })}
         </strong>
       </div>
       <div>
@@ -40,7 +40,7 @@ function StatusBar() {
         {t('consultDate')}
         :
         <strong className="ml-2">
-          {formatDate({ date: consultationDate.toDate(), format: 'long' })}
+          {formatDate({ date: consultationDate, format: 'long' })}
         </strong>
       </div>
     </div>

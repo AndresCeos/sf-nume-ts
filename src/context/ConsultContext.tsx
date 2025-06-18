@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { createContext } from 'react';
 
 import Person from '@/resources/Person';
@@ -6,8 +5,8 @@ import Person from '@/resources/Person';
 export interface ConsultContextInterface {
   consultant: Person | null;
   selectConsultant: (consultant: Api.Consultant) => void;
-  selectConsultationDate: (consultationDate: moment.Moment) => void;
-  consultationDate: moment.Moment; // Fecha de Consulta en formato moment
+  selectConsultationDate: (consultationDate: Date) => void;
+  consultationDate: Date; // Fecha de Consulta en formato Date
   calculationDate: { day: number; month: number; year: number }; // Fecha de Consulta en formato { day: number; month: number; year: number }
   calculationYear: number; // Año de Consulta
   isEditingConsultant: boolean;
@@ -17,7 +16,7 @@ export interface ConsultContextInterface {
 export const authContextDefaults: ConsultContextInterface = {
   consultant: null,
   selectConsultant: () => null,
-  consultationDate: moment(),
+  consultationDate: new Date(),
   selectConsultationDate: () => null,
   calculationDate: { day: 0, month: 0, year: 0 },
   calculationYear: 0,

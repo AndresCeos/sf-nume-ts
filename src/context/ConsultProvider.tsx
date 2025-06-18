@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import { useEffect, useReducer, useState } from 'react';
 
 import {
@@ -19,15 +19,15 @@ const INITIAL_STATE = {
 function ConsultProvider({ children }: any) {
   const [consultState, dispatch] = useReducer(consultReducer, INITIAL_STATE);
   const [consultant, setConsultant] = useState<Person | null>(null);
-  const [consultationDate, setConsultationDate] = useState<moment.Moment>(moment());
+  const [consultationDate, setConsultationDate] = useState<Date>(new Date());
 
   const [calculationDate, setCalculationDate] = useState({
-    day: Number(consultationDate.format('DD')),
-    month: Number(consultationDate.format('MM')),
-    year: Number(consultationDate.format('YYYY')),
+    day: Number(format(consultationDate, 'dd')),
+    month: Number(format(consultationDate, 'MM')),
+    year: Number(format(consultationDate, 'yyyy')),
   });
 
-  const [calculationYear, setCalculationYear] = useState(Number(consultationDate.format('YYYY')));
+  const [calculationYear, setCalculationYear] = useState(Number(format(consultationDate, 'yyyy')));
 
   const selectConsultant = (newConsultant: Api.Consultant) => {
     if (!newConsultant) throw new Error('consultant is required');
@@ -45,11 +45,11 @@ function ConsultProvider({ children }: any) {
 
   useEffect(() => {
     setCalculationDate({
-      day: Number(consultationDate.format('DD')),
-      month: Number(consultationDate.format('MM')),
-      year: Number(consultationDate.format('YYYY')),
+      day: Number(format(consultationDate, 'dd')),
+      month: Number(format(consultationDate, 'MM')),
+      year: Number(format(consultationDate, 'yyyy')),
     });
-    setCalculationYear(Number(consultationDate.format('YYYY')));
+    setCalculationYear(Number(format(consultationDate, 'yyyy')));
   }, [consultationDate]);
 
   const handleIsEditingConsultant = (isEditing: boolean) => {

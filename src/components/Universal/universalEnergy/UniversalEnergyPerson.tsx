@@ -16,7 +16,7 @@ type UniversalEnergyPersonProps = {
 };
 
 function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: UniversalEnergyPersonProps) {
-  const { calculationDate, calculationYear } = useConsult();
+  const { calculationYear } = useConsult();
   const { t } = useTranslation();
   const {
     id, name, date, selected, order,
@@ -25,9 +25,11 @@ function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: Univers
   let energy;
   if (name && date) {
     energy = new Person({
-      id: id ?? '', name, lastName: '', scdLastName: '', birthDate: new Date(date).toDateString(),
+      id: id ?? '', name, lastName: '', scdLastName: '', birthDate: date,
     });
   }
+  const day = energy?.getDayOfBirth();
+  const month = energy?.getMonthOfBirth();
 
   return (
     <ul className={cx(
@@ -73,13 +75,13 @@ function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: Univers
         )}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalDay(calculationDate)}
+        {energy && energy.calcPersonalDay({ day, month, year: calculationYear })}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalWeek(calculationDate)}
+        {energy && energy.calcPersonalWeek({ day, month, year: calculationYear })}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalMonth(calculationDate)}
+        {energy && energy.calcPersonalMonth({ day, month, year: calculationYear })}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
         {energy && energy.calcPersonalYear(calculationYear)}

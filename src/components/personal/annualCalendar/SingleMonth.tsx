@@ -49,7 +49,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
     <div className="p-6">
       <div className="grid">
         <div className="col-start-1 col-end-6 text-2xl flex justify-center bg-main text-white font-bold p-2">
-          {capitalize(getMonthName(String(personalMonth.month)))}
+          {capitalize(getMonthName(personalMonth.month))}
           {' '}
           {consultant.calcPersonalMonth(personalMonth)}
           {consultant.calcPersonalMonthISK(personalMonth)}

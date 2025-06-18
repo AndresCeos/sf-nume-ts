@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -78,7 +78,7 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
               className="w-full border border-gray-500 p-1 rounded-md"
               id="date"
               name="date"
-              value={moment(date).format('YYYY-MM-DD')}
+              value={format(new Date(date), 'yyyy-MM-dd')}
               onChange={(e) => handleInputChange(e.target)}
             />
           </label>

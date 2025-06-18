@@ -2,7 +2,7 @@
 import useConsult from '@/hooks/useConsult';
 import useForm from '@/hooks/useForm';
 import countries from '@/resources/countries.json';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 
 import makeConsultant from '@/api/useConsultant';
@@ -162,7 +162,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
             name="date"
             className="rounded w-11/12 border-[#C4C4C4]  border "
             onChange={(e) => handleInputChange(e.target)}
-            value={typeof date === 'string' ? date : moment(date).toISOString().split('T')[0]}
+            value={typeof date === 'string' ? date : format(new Date(date), 'yyyy-MM-dd')}
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.date) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.date}</p>}
         </div>
