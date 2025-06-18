@@ -194,6 +194,19 @@
       "inhabitants": "Habitantes"
     }
   },
+  "destinyTable":{
+    "title": "Tabla del Destino",
+    "numericValues": {
+      "title": "Valores Numéricos del Nombre",
+      "letterTotal": "Total de letras",
+      "nameCycles": "Ciclos del Nombre",
+      "nameSubCycles": "Subciclos del Nombre",
+      "personalYear": "Año Personal",
+      "ageDigit": "Edad Digito",
+      "personalNumber": "Número Personal",
+      "maturity": "Madurez"
+    }
+  },
   "vibrationTime":{
     "title":"Vibración del tiempo",
     "energy":{

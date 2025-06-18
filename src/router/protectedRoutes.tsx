@@ -10,6 +10,7 @@ import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
 import AnnualCalendar from '@/pages/personal/AnnualCalendar';
 import CreateNamePage from '@/pages/personal/CreateNamePage';
+import DestinyTablePage from '@/pages/personal/DestinyTablePage';
 import LifePathPage from '@/pages/personal/LifePathPage';
 import NamePage from '@/pages/personal/NamePage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
@@ -44,7 +45,7 @@ const protectedRoutes = [
       { path: '/personal/life-path', element: <LifePathPage /> },
       { path: '/personal/name', element: <NamePage /> },
       { path: '/personal/create-name', element: <CreateNamePage /> },
-      { path: '/personal/destiny-table', element: <HomePage /> },
+      { path: '/personal/destiny-table', element: <DestinyTablePage /> },
       { path: '/personal/time-vibration', element: <VibrationTimePage /> },
       { path: '/personal/annual-returns', element: <HomePage /> },
       { path: '/personal/time-circle', element: <TimeCirclePage /> },
