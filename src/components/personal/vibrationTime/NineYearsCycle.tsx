@@ -11,8 +11,7 @@ function NineYearsCycle() {
 
   const hasDouble = consultant.hasDoubleStage();
   const nineYearCycle = consultant.getNineYearCycleStage(calculationDate.year);
-  console.log(nineYearCycle);
-  console.log(consultant.getLifeStageNumber(calculationDate));
+
   return (
     <div className="pinnacle-wrap grid grid-cols-9 px-4 py-8 w-full">
       <div className="col-start-4 col-end-6 flex justify-between items-center mb-6 row-start-1">

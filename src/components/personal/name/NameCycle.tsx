@@ -6,7 +6,6 @@ export default function NameCycle() {
   if (!consultant) return null;
 
   const table = consultant.getNameSetting();
-  // console.log(table)
   const table1 = table.slice(0, 31);
   const table2 = table.slice(31, 62);
   const table3 = table.slice(62, 93);

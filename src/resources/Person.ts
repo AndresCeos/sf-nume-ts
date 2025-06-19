@@ -462,7 +462,6 @@ class Person {
  * @returns {Number}
  */
   calcGift(): number {
-    console.log(getYear(this.birthDate).toString()[0]);
     let gift: number = reduceNumber(
       Number(getYear(this.birthDate).toString()[2])
       + Number(getYear(this.birthDate).toString()[3]),
@@ -827,7 +826,6 @@ class Person {
    * @returns {Number} sumPersonalDay
    */
   calcPersonalDay(opts: SplittedDate): number {
-    console.log('opts', opts);
     const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
     const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;

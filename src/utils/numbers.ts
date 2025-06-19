@@ -261,7 +261,6 @@ export function compatibilityObject(): CompatibilityTable {
 }
 
 export function capitalize(str: string): string {
-  console.log(str);
   return str.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
 }
 

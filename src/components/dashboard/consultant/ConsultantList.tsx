@@ -54,8 +54,6 @@ function ConsultantList({ searchUser }: Props) {
     });
   };
 
-  console.log(users);
-
   const search = users?.filter((user) => user?.names?.includes(searchUser));
   return (
     <ul>

@@ -9,12 +9,11 @@ function StageOne() {
   const startYear = birthYear;
   const endYear = birthYear + duration;
   const arrayOfYears = Array.from({ length: endYear - startYear + 1 }, (_, index) => startYear + index);
-  console.log(arrayOfYears);
   const nineYearCycleOfBirth = consultant.getNineYearCycleStage(birthYear);
-  console.log(nineYearCycleOfBirth);
+
   nineYearCycleOfBirth.forEach((e) => {
     if (e < birthYear) {
-      arrayOfYears.push('');
+      arrayOfYears.push(0);
     }
   });
 
