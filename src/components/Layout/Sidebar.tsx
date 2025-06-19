@@ -57,7 +57,7 @@ function Sidebar() {
                 <label className="ml-2">{t('sidebar.consultant')}</label>
               </NavLink>
             </li>
-            <li className="">
+            <li className={currentPage === 'personal' ? 'bg-secondary' : ''}>
               <button
                 type="button"
                 className="sidebar-link "
@@ -178,7 +178,7 @@ function Sidebar() {
                 <label className="ml-2">{t('sidebar.monthlyCalendar')}</label>
               </NavLink>
             </li>
-            <li className="">
+            <li className={currentPage === 'partner' ? 'bg-secondary' : ''}>
               <button
                 type="button"
                 className="sidebar-link w-full"
@@ -244,7 +244,7 @@ function Sidebar() {
                 <label className="ml-2">{t('sidebar.compatibilityTable')}</label>
               </NavLink>
             </li>
-            <li className="">
+            <li className={currentPage === 'group' ? 'bg-secondary' : ''}>
               <button
                 type="button"
                 className="sidebar-link w-full"
