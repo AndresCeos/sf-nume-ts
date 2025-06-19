@@ -207,6 +207,9 @@
       "maturity": "Madurez"
     }
   },
+  "annualReturns":{
+    "title": "9 Curva del tiempo"
+  },
   "vibrationTime":{
     "title":"Vibración del tiempo",
     "energy":{

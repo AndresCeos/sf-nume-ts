@@ -9,6 +9,7 @@ import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
 import AnnualCalendar from '@/pages/personal/AnnualCalendar';
+import AnnualReturnsPage from '@/pages/personal/AnnualReturnsPage';
 import CreateNamePage from '@/pages/personal/CreateNamePage';
 import DestinyTablePage from '@/pages/personal/DestinyTablePage';
 import LifePathPage from '@/pages/personal/LifePathPage';
@@ -47,7 +48,7 @@ const protectedRoutes = [
       { path: '/personal/create-name', element: <CreateNamePage /> },
       { path: '/personal/destiny-table', element: <DestinyTablePage /> },
       { path: '/personal/time-vibration', element: <VibrationTimePage /> },
-      { path: '/personal/annual-returns', element: <HomePage /> },
+      { path: '/personal/annual-returns', element: <AnnualReturnsPage /> },
       { path: '/personal/time-circle', element: <TimeCirclePage /> },
       { path: '/personal/annual-calendar', element: <AnnualCalendar /> },
       { path: '/personal/monthly-calendar', element: <HomePage /> },
