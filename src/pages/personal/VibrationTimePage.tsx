@@ -11,15 +11,17 @@ import useConsult from '@/hooks/useConsult';
 
 function VibrationTimePage() {
   const { consultant, calculationDate } = useConsult();
-  if (!consultant) return (<NoConsultantSelected />);
   const { t } = useTranslation();
+
+  if (!consultant) return (<NoConsultantSelected />);
+
   const annualReturnCurrent = consultant.annualReturn(calculationDate);
   const annualReturnLastYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
   const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
     <div className="page-content bg-home-background bg-cover">
-      <div className="grid grid-cols-12 mt-8 mx-14 pb-8 gap-4">
+      <div className="grid grid-cols-11 mt-8 mx-14 gap-6 pb-9 pt-10">
         <div className="col-span-8">
           <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-green-s" />
           <div className="section-wrap px-2 py-7">
@@ -41,7 +43,7 @@ function VibrationTimePage() {
         <div className="col-span-full">
           <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} color="bg-green-s" />
           <div className="section-wrap px-2 p-7">
-            <QuarterPerYear />
+            <QuarterPerYear isGroup={false} isSynastry={false} />
           </div>
         </div>
         <div className="col-span-12">

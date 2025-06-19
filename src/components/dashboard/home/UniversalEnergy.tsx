@@ -24,7 +24,6 @@ function UniversalEnergy() {
     });
 
     userAuth?.guests?.forEach((guest, index) => {
-      console.log(guest.date);
       peopleToSet.push({
         id: uuidv4(),
         name: guest.name,
