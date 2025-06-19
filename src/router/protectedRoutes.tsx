@@ -13,6 +13,7 @@ import AnnualReturnsPage from '@/pages/personal/AnnualReturnsPage';
 import CreateNamePage from '@/pages/personal/CreateNamePage';
 import DestinyTablePage from '@/pages/personal/DestinyTablePage';
 import LifePathPage from '@/pages/personal/LifePathPage';
+import MonthCalendarPage from '@/pages/personal/MonthCalendarPage';
 import NamePage from '@/pages/personal/NamePage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
@@ -51,7 +52,7 @@ const protectedRoutes = [
       { path: '/personal/annual-returns', element: <AnnualReturnsPage /> },
       { path: '/personal/time-circle', element: <TimeCirclePage /> },
       { path: '/personal/annual-calendar', element: <AnnualCalendar /> },
-      { path: '/personal/monthly-calendar', element: <HomePage /> },
+      { path: '/personal/monthly-calendar', element: <MonthCalendarPage /> },
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },
       { path: '/', element: <HomePage /> },

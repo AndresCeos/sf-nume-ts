@@ -310,7 +310,7 @@ export function getMonthName(month: number): string {
   // Los meses en JavaScript son 0-based, por eso restamos 1
   return new Intl.DateTimeFormat('es', {
     month: 'long',
-  }).format(new Date(2025, month, 1));
+  }).format(new Date(2025, month - 1, 1));
 }
 export function sliceIntoChunks(arr:number[], chunkSize:number) {
   const res = [];

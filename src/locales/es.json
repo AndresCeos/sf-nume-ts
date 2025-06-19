@@ -242,6 +242,7 @@
   },
   "annualCalendar":{
     "annualCalendar":"Calendario Anual",
+    "selectMonth":"Mes de interés",
     "personalYear":"Año Personal",
     "universalYear":"Año Universal",
     "quarter":"Cuatrimestre",
@@ -249,5 +250,10 @@
     "secondWeek":"2da Sem",
     "thirdWeek":"3era Sem",
     "quarterWeek":"4ta Sem"
+  },
+  "monthCalendar":{
+    "title":"Calendario Mensual",
+    "personalYear":"Año Personal",
+    "universalYear":"Año Universal"
   }
 }
