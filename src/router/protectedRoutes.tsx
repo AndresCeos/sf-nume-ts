@@ -8,6 +8,7 @@ import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
+import GroupPinnaclePage from '@/pages/group/GroupPinnaclePage';
 import AnnualCalendar from '@/pages/personal/AnnualCalendar';
 import AnnualReturnsPage from '@/pages/personal/AnnualReturnsPage';
 import CreateNamePage from '@/pages/personal/CreateNamePage';
@@ -18,6 +19,7 @@ import NamePage from '@/pages/personal/NamePage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
+import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
 
 function App() {
   return (
@@ -53,8 +55,14 @@ const protectedRoutes = [
       { path: '/personal/time-circle', element: <TimeCirclePage /> },
       { path: '/personal/annual-calendar', element: <AnnualCalendar /> },
       { path: '/personal/monthly-calendar', element: <MonthCalendarPage /> },
+      // Sinastry Pages
+      { path: '/partner/sinastria', element: <SynastryPinnaclePage /> },
+      // Group Pages
+      { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
+      // Dashboard Pages
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },
+      // Home Page
       { path: '/', element: <HomePage /> },
       { path: '*', element: <Navigate to="." /> },
     ],

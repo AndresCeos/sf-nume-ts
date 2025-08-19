@@ -35,6 +35,8 @@ type PersonProps = {
   scdLastName: string;
   birthDate: string;
   yearMet?: number;
+  partner?: Person[];
+  group?: any[];
 };
 type SplittedDate = {
   day?: number,
@@ -1119,7 +1121,8 @@ class Person {
 
   annualReturn(opts: SplittedDate): AnnualReturn {
     const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
-    const age = (yearToCalculate - getYear(this.birthDate));
+    console.log({ yearToCalculate, birthDate: this.birthDate });
+    const age = (yearToCalculate - this.getYearOfBirth());
     const a = reduceNumber(yearToCalculate);
     const aK = reduceNumberISK(yearToCalculate);
     const A = `${a}${this.karmic.includes(aK) ? '*' : ''}`;

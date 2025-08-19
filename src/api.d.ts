@@ -22,10 +22,11 @@ declare namespace Api {
     email?: string;
     gender?: string;
     group?: unknown[];
+    groupData?: GroupData[];
     lastName?: string;
     names?: string;
     nationality?: string;
-    partner?: unknown[];
+    partner?: Partner[];
     phone?: string;
     scdLastName?: string;
   }
@@ -88,4 +89,27 @@ declare namespace Api {
     webSite?: string;
   }
 
+  interface Partner {
+    id: string;
+    names: string;
+    lastName: string;
+    scdLastName: string;
+    date: string;
+    yearMeet: number;
+  }
+  interface GroupData {
+    id: string;
+    name: string;
+    description: string;
+    date: string;
+    members?: GroupMember[];
+  }
+  interface GroupMember {
+    id: string;
+    name: string;
+    lastName: string;
+    scdLastName: string;
+    date: string;
+    dateInit: number;
+  }
 }

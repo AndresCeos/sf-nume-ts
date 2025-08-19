@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
 
+import { parse } from 'date-fns';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 
 import WrapTitle from '@/components/WrapTitle';
@@ -29,7 +30,7 @@ function CreateNamePage() {
 
   // Mover todos los hooks al inicio, antes de cualquier lógica condicional
   const [createName, setCreateName] = useState('');
-  const [createDate, setCreateDate] = useState(new Date());
+  const [createDate, setCreateDate] = useState(new Date('yyyy-MM-dd'));
   const [isEditing, setIsEditing] = useState(false);
   const [checkN, setcheckN] = useState(false);
   const [checkP, setcheckP] = useState(false);
@@ -45,9 +46,11 @@ function CreateNamePage() {
     name: !isEditing ? `${nameConsultant} ${lastName} ${scdLastName}` : createName || '',
     lastName: '',
     scdLastName: '',
-    birthDate: !isEditing ? birthDate.toISOString() : createDate.toISOString(),
+    birthDate: !isEditing ? parse(birthDate.toISOString(), 'yyyy-MM-dd', new Date()) : parse(createDate.toISOString(), 'yyyy-MM-dd', new Date()),
   };
-  const createNameObj = new Person(createNameData);
+
+  console.log({ createNameData, birthDate });
+  const createNameObj = new Person({ ...createNameData, birthDate: createNameData.birthDate.toISOString() });
 
   const ungroupName = createNameObj.getUngroupName(createNameData.name);
   const ungroupNameT = createNameObj.getUngroupNameTotal(createNameData.name);
@@ -72,11 +75,9 @@ function CreateNamePage() {
     tables += 1;
   } while (count < ungroupName.length);
 
-  console.log({ ungroup });
-
-  const annualReturnPastYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
-  const annualReturnCurrent = createNameObj.annualReturn(calculationDate);
-  const annualReturnNextYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
+  const annualReturnPastYear = createNameObj.annualReturn({ year: calculationDate.year - 1 });
+  const annualReturnCurrent = createNameObj.annualReturn({ year: calculationDate.year });
+  const annualReturnNextYear = createNameObj.annualReturn({ year: calculationDate.year + 1 });
 
   const checkName = () => {
     setcheckN(!checkN);
@@ -172,7 +173,7 @@ function CreateNamePage() {
                   <input
                     type="date"
                     name="date"
-                    value={createNameData.birthDate as unknown as string}
+                    value={createNameData.birthDate.toISOString()}
                     onChange={handleChange}
                     className="rounded"
                   />
