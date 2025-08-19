@@ -1,21 +1,30 @@
 import { t } from 'i18next';
 
+import { useState } from 'react';
+
 import { capitalize } from 'lodash';
 
+import { MdEdit } from 'react-icons/md';
+
+import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
 import Universal from '@/resources/Universal';
 import { getMonthName } from '@/utils/numbers';
 
 type SingleMonthsProps = {
-  month:number;
+  month: number;
+  showMonthSelector: boolean;
 };
 
-function SingleMonth({ month }:SingleMonthsProps) {
+function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
   const { consultant, calculationDate } = useConsult();
+  const [selectedMonth, setSelectedMonth] = useState(month);
+
   if (!consultant) return null;
   const u = new Universal();
+  console.log(calculationDate);
 
-  const personalMonth = { ...calculationDate, month };
+  const personalMonth = { ...calculationDate, month: selectedMonth };
 
   const week = {
     one: (calculationDate.day >= 1 && calculationDate.day <= 7),
@@ -24,8 +33,8 @@ function SingleMonth({ month }:SingleMonthsProps) {
     four: (calculationDate.day >= 22),
   };
   const currentMonth = calculationDate.month === personalMonth.month;
-  const daysInMonthSingle = consultant.getAllDaysInMonth(month, calculationDate.year);
-  const daysCustomSingle = consultant.getDaysOfWeekCustom(month, calculationDate.year);
+  const daysInMonthSingle = consultant.getAllDaysInMonth(selectedMonth, calculationDate.year);
+  const daysCustomSingle = consultant.getDaysOfWeekCustom(selectedMonth, calculationDate.year);
 
   const isToday = (day:number) => {
     const style = (day === calculationDate.day && currentMonth) && 'bg-red-80';
@@ -45,11 +54,67 @@ function SingleMonth({ month }:SingleMonthsProps) {
     return evenBg;
   };
 
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMonth(parseInt(event.target.value, 10));
+  };
+
+  console.log(getMonthName(personalMonth.month), 'personalMonth.month', personalMonth.month);
+
   return (
     <div className="p-6">
+      {showMonthSelector && (
+        <div className="grid mb-4">
+          <div className="col-start-1 col-end-6  flex items-center justify-around bg-main p-6">
+            <div className="text-white text-sm font-bold">
+              <MdEdit className="text-xl text-white" />
+              {' '}
+              {t('annualCalendar.selectMonth')}
+            </div>
+            <div>
+              <div className="mb-4">
+                <select
+                  id="month-selector"
+                  value={selectedMonth}
+                  onChange={handleMonthChange}
+                  className="block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-main focus:border-main"
+                >
+                  {Array.from({ length: 12 }, (_, i) => i + 1).map((monthNum) => (
+                    <option key={monthNum} value={monthNum}>
+                      {capitalize(getMonthName(monthNum))}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="text-sm text-white font-bold px-2">{t('monthCalendar.personalYear')}</div>
+            <div className=" px-2">
+              <CircleNumber size="sm" appearance="purple-30" border="main">
+                {consultant.calcPersonalMonth({ month: selectedMonth, year: calculationDate.year })}
+                {consultant.calcPersonalMonthISK({ month: selectedMonth, year: calculationDate.year })}
+              </CircleNumber>
+            </div>
+            <div className="text-white font-bold text-xl px-2"> / </div>
+            <div className=" px-2">
+              <CircleNumber size="sm" appearance="purple-30" border="main">
+                {u.calcUniversalMonth({ month: selectedMonth, year: calculationDate.year })}
+                {u.calcUniversalMonthISK({ month: selectedMonth, year: calculationDate.year })}
+              </CircleNumber>
+            </div>
+            <div className="text-sm text-white font-bold px-2">{t('monthCalendar.universalYear')}</div>
+
+          </div>
+          <div className="text-2xl col-start-6 col-end-8 flex justify-center items-center bg-purple-50 font-bold text-white">
+            {t('annualCalendar.quarter')}
+            {consultant.getQuarterMonth(selectedMonth, calculationDate.year)}
+            {consultant.getQuarterMonthISK(selectedMonth, calculationDate.year)}
+          </div>
+        </div>
+      )}
+
+      {!showMonthSelector && (
       <div className="grid">
         <div className="col-start-1 col-end-6 text-2xl flex justify-center bg-main text-white font-bold p-2">
-          {capitalize(getMonthName(String(personalMonth.month)))}
+          {capitalize(getMonthName(personalMonth.month))}
           {' '}
           {consultant.calcPersonalMonth(personalMonth)}
           {consultant.calcPersonalMonthISK(personalMonth)}
@@ -64,6 +129,7 @@ function SingleMonth({ month }:SingleMonthsProps) {
           {consultant.getQuarterMonthISK(personalMonth.month, personalMonth.year)}
         </div>
       </div>
+      )}
       <div className="grid">
         <div className="col-start-1 col-end-1 mr-6 mt-12">
           <div className={`${(week.one && currentMonth) ? 'bg-red-80 text-white font-bold' : 'bg-gray-30 text-gray-500'} h-16 border border-black   pl-1 row-start-1`}>

@@ -17,26 +17,26 @@ function NineYearsCycle() {
           <img src="/assets/life-path/arrow.svg" alt="arrow_bk" className="w-full" />
         </div>
       </div>
-      <div className="col-start-1 col-span-2 row-start-2">{consultationDate.year()}</div>
+      <div className="col-start-1 col-span-2 row-start-2">{consultationDate.getFullYear()}</div>
       <div className="col-start-1 col-span-2 row-start-3 h-10 bg-red flex justify-center items-center text-black text-xl font-bold rounded-md border-4 border-red">
-        {t('lifePath.nineYearsCycle.yearX', { year: consultant.calcPersonalYear(consultationDate.year()) })}
+        {t('lifePath.nineYearsCycle.yearX', { year: consultant.calcPersonalYear(consultationDate.getFullYear()) })}
       </div>
       <div className="col-start-1 col-span-2 row-start-5 h-9 arrow-down-cycle" />
       <div className="col-start-1 col-span-2 row-start-6 text-13 font-bold">
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][0]}
+        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][0]}
         <br />
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][1]}
+        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][1]}
         <br />
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][2]}
+        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][2]}
       </div>
-      {(consultationDate.year() - 27 > consultant.getYearOfBirth())
+      {(consultationDate.getFullYear() - 27 > consultant.getYearOfBirth())
         && (
           <>
-            <div className="col-start-4 col-span-2 row-start-2 text-13 font-bold">{consultationDate.year() - 27}</div>
+            <div className="col-start-4 col-span-2 row-start-2 text-13 font-bold">{consultationDate.getFullYear() - 27}</div>
             <div className="col-start-4 col-span-2 row-start-3 relative">
               <div className="absolute z-10 centered-axis-x">
                 <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-red border border-red rounded-full inner-shadow">
-                  {consultant.calcPersonalYear(consultationDate.year())}
+                  {consultant.calcPersonalYear(consultationDate.getFullYear())}
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@ function NineYearsCycle() {
             <div className="col-start-4 col-span-2 row-start-6 h-9 arrow-down-cycle" />
             <div className="col-start-4 col-span-2 row-start-7 text-13 font-bold">
               <div className="col-start-7 col-span-2 row-start-6 text-13 font-bold">
-                {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][3]}
+                {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][3]}
               </div>
             </div>
             <div className="col-start-6 row-start-1 text-13 font-medium">
@@ -56,20 +56,20 @@ function NineYearsCycle() {
           </>
         )}
 
-      {(consultationDate.year() - 18 > consultant.getYearOfBirth())
+      {(consultationDate.getFullYear() - 18 > consultant.getYearOfBirth())
         && (
           <>
-            <div className="col-start-7 col-span-2 row-start-2 text-13 font-bold">{consultationDate.year() - 18}</div>
+            <div className="col-start-7 col-span-2 row-start-2 text-13 font-bold">{consultationDate.getFullYear() - 18}</div>
             <div className="col-start-7 col-span-2 row-start-3 relative">
               <div className="absolute z-10 centered-axis-x">
                 <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-red border border-red rounded-full inner-shadow">
-                  {consultant.calcPersonalYear(consultationDate.year())}
+                  {consultant.calcPersonalYear(consultationDate.getFullYear())}
                 </div>
               </div>
             </div>
             <div className="col-start-7 col-span-2 row-start-5 h-9 arrow-down-cycle" />
             <div className="col-start-7 col-span-2 row-start-6 text-13 font-bold">
-              {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][4]}
+              {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][4]}
             </div>
             <div className="col-start-9 row-start-1 text-13 font-medium">
               {t('lifePath.nineYearsCycle.plusNineYears')}
@@ -80,21 +80,21 @@ function NineYearsCycle() {
           </>
         )}
 
-      {(consultationDate.year() - 9 > consultant.getYearOfBirth())
+      {(consultationDate.getFullYear() - 9 > consultant.getYearOfBirth())
         && (
           <>
-            <div className="col-start-10 col-span-2 row-start-2 text-13 font-bold">{consultationDate.year() - 9}</div>
+            <div className="col-start-10 col-span-2 row-start-2 text-13 font-bold">{consultationDate.getFullYear() - 9}</div>
             <div className="col-start-10 col-span-2 row-start-3 relative">
               <div className="absolute z-10 centered-axis-x">
                 <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-red border border-red rounded-full inner-shadow">
-                  {consultant.calcPersonalYear(consultationDate.year())}
+                  {consultant.calcPersonalYear(consultationDate.getFullYear())}
                 </div>
               </div>
             </div>
             <div className="col-start-10 col-span-2 row-start-5 h-9 arrow-down-line" />
             <div className="col-start-10 col-span-2 row-start-6 h-9 arrow-down-cycle" />
             <div className="col-start-10 col-span-2 row-start-7 text-13 font-bold">
-              {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][5]}
+              {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][5]}
             </div>
             <div className="col-start-12 row-start-1 text-13 font-medium">
               {t('lifePath.nineYearsCycle.plusNineYears')}
@@ -105,17 +105,17 @@ function NineYearsCycle() {
           </>
         )}
 
-      <div className="col-start-13 col-span-2 row-start-2 text-13 font-bold z-10">{consultationDate.year()}</div>
+      <div className="col-start-13 col-span-2 row-start-2 text-13 font-bold z-10">{consultationDate.getFullYear()}</div>
       <div className="col-start-13 col-span-2 row-start-3 relative">
         <div className="absolute z-10 centered-axis-x">
           <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-red border border-red rounded-full inner-shadow">
-            {consultant.calcPersonalYear(consultationDate.year())}
+            {consultant.calcPersonalYear(consultationDate.getFullYear())}
           </div>
         </div>
       </div>
       <div className="col-start-13 col-span-2 row-start-5 h-9 arrow-down-cycle" />
       <div className="col-start-13 col-span-2 row-start-6 text-13 font-bold">
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.year())][6]}
+        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][6]}
       </div>
 
     </div>

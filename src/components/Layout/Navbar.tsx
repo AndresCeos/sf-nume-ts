@@ -96,7 +96,7 @@ function Navbar() {
             <li className="flex items-center justify-center">
               <Link
                 className="button-nav-bar"
-                to="/group_pinnacle"
+                to="/group/pinnacle"
               >
                 <img
                   src="/assets/navbar/group_data.svg"

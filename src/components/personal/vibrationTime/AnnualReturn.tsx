@@ -8,7 +8,7 @@ import CircleNumber from '@/components/CircleNumber';
 import { AnnualReturn as AnnualReturnCalc } from '@/resources/Person';
 
 type AnnualReturnProps = {
-  size: 'xs';
+  size: 'xs' | 'xl';
   annualReturn: AnnualReturnCalc;
   current?: boolean;
   months?: boolean;
@@ -22,7 +22,7 @@ function AnnualReturn({
   annualReturn, current, months, group, personalYear, yearsOld, year, size,
 }: AnnualReturnProps) {
   const { t } = useTranslation();
-  const fontSize = { xs: 'xs' };
+  const fontSize = { xs: 'xs', xl: 'xl' };
   const marginBottom = { xs: '4' };
 
   // TODO: refactor this

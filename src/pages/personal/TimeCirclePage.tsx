@@ -45,11 +45,11 @@ function TimeCirclePage() {
             {universal.calcUniversalMonthISK(calculationDate)}
           </span>
           <span className="time-circle-quater">{consultant.getQuarterMonth(calculationDate.month, calculationDate.year)}</span>
-          <span className="time-circle-name-month text-white font-bold text-xs">{getMonthName(String(calculationDate.month)).toUpperCase()}</span>
+          <span className="time-circle-name-month text-white font-bold text-xs">{getMonthName(calculationDate.month)}</span>
         </div>
         <div className="mt-5 text-center text-2xl">
           <div>{t('timeCircle.consult')}</div>
-          <div className="font-bold">{formatDate({ date: consultationDate.toDate(), format: 'long' })}</div>
+          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long' })}</div>
         </div>
 
       </div>

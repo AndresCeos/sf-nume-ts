@@ -135,7 +135,80 @@
       "title": "Ciclo de 9 años",
       "yearX": "Año {{year}}",
       "plusNineYears": "+9 años"
+    },
+    "learningStage": {
+      "title": "Etapa de Aprendizaje",
+      "stage": "Etapa",
+      "year": "Año",
+      "quarter": "Cuatrimestre"
+    },
+    "hierarchyLine": {
+      "title": "Línea de Jerarquía del Diálogo Energético"
     }
+  },
+  "name": {
+    "title": "Nombre",
+    "numericValues":{
+      "title": "Valores Numéricos del Nombre",
+      "name": "Nombre",
+      "soul": "Alma",
+      "expression": "Expresión"
+    },
+    "potential":{
+      "title": "Potencial Frecuente del Nombre",
+      "letterCycle": "Ciclo de letras",
+      "importantAges": "Edades importantes",
+      "personalYear": "Año Personal",
+      "ageDigit": "Edad Digito",
+      "personalNumber": "Número Personal",
+      "maturity": "Madurez"
+    },
+    "breakdown":{
+      "title": "Desglose del Nombre"
+    },
+    "activeName":{
+      "title": "Nombre Activo",
+      "vowels": "Vocales",
+      "consonants": "Consonantes",
+      "totals": "Totales",
+      "soulNumber": "Número de Alma",
+      "expressionNumber": "Número de Expresión",
+      "powerOfNameNumber": "Número de Poder del Nombre",
+      "absentValues": "Valores Ausentes",
+      "initials": "Iniciales",
+      "activeName": "Nombre Activo"
+    },
+    "nameCycle":{
+      "title": "Ciclo del Nombre"
+    },
+    "balanceExistential":{
+      "title": "Equilibrio de Planos Existenciales",
+      "firstPlace": "1er Lugar",
+      "secondPlace": "2do Lugar",
+      "thirdPlace": "3er Lugar",
+      "fourthPlace": "4to Lugar"
+    },
+    "inclusionTable":{
+      "title": "Tabla de Inclusión",
+      "houses": "Casas",
+      "inhabitants": "Habitantes"
+    }
+  },
+  "destinyTable":{
+    "title": "Tabla del Destino",
+    "numericValues": {
+      "title": "Valores Numéricos del Nombre",
+      "letterTotal": "Total de letras",
+      "nameCycles": "Ciclos del Nombre",
+      "nameSubCycles": "Subciclos del Nombre",
+      "personalYear": "Año Personal",
+      "ageDigit": "Edad Digito",
+      "personalNumber": "Número Personal",
+      "maturity": "Madurez"
+    }
+  },
+  "annualReturns":{
+    "title": "9 Curva del tiempo"
   },
   "vibrationTime":{
     "title":"Vibración del tiempo",
@@ -169,6 +242,7 @@
   },
   "annualCalendar":{
     "annualCalendar":"Calendario Anual",
+    "selectMonth":"Mes de interés",
     "personalYear":"Año Personal",
     "universalYear":"Año Universal",
     "quarter":"Cuatrimestre",
@@ -176,5 +250,49 @@
     "secondWeek":"2da Sem",
     "thirdWeek":"3era Sem",
     "quarterWeek":"4ta Sem"
+  },
+  "monthCalendar":{
+    "title":"Calendario Mensual",
+    "personalYear":"Año Personal",
+    "universalYear":"Año Universal"
+  },
+  "group": {
+    "title": "Gestión de Grupos",
+    "management": "Gestión",
+    "createGroup": "Crear Grupo",
+    "editGroup": "Editar Grupo",
+    "name": "Nombre del Grupo",
+    "namePlaceholder": "Ingrese el nombre del grupo",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Ingrese una descripción del grupo",
+    "date": "Fecha de Creación",
+    "created": "Creado",
+    "members": "Miembros",
+    "noGroups": "No hay grupos creados",
+    "noMembers": "No hay miembros en este grupo",
+    "select": "Seleccionar",
+    "selected": "Seleccionado",
+    "selectGroupToView": "Selecciona un grupo para ver su pináculo",
+    "confirmDelete": "¿Está seguro de que desea eliminar este grupo?",
+    "confirmDeleteMember": "¿Está seguro de que desea eliminar este miembro?",
+    "addMember": "Agregar Miembro",
+    "editMember": "Editar Miembro",
+    "memberName": "Nombre",
+    "memberNamePlaceholder": "Ingrese el nombre",
+    "memberLastName": "Apellido",
+    "memberLastNamePlaceholder": "Ingrese el apellido",
+    "memberScdLastName": "Segundo Apellido",
+    "memberScdLastNamePlaceholder": "Ingrese el segundo apellido",
+    "memberBirthDate": "Fecha de Nacimiento",
+    "memberDateInit": "Año de Inicio",
+    "birthDate": "Fecha de Nacimiento"
+  },
+  "common": {
+    "create": "Crear",
+    "update": "Actualizar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "add": "Agregar"
   }
 }
