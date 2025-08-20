@@ -4,7 +4,7 @@ import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
-import add_user_main from '../../assets/icons/add_user_main.svg';
+import add_user_group from '../../assets/icons/add_user_group.svg';
 
 type FormStatus = {
   displayValidations: boolean;
@@ -18,20 +18,20 @@ const FORM_STATUS_INITIAL_STATE: FormStatus = {
   validationMsgs: {},
 };
 
-type PartnerFormProps = {
+type GroupFormProps = {
   activeConsultant: Api.Consultant;
   setIsAddFormActive: (isActive: boolean) => void;
   isEditing?: boolean;
-  partnerToEdit?: Api.Partner;
+  groupToEdit?: Api.GroupData;
 };
 
-export default function PartnerForm({
+export default function GroupForm({
   activeConsultant,
   setIsAddFormActive,
   isEditing,
-  partnerToEdit,
-}: PartnerFormProps): JSX.Element {
-  const { handleIsEditingConsultant, updateConsultantPartners } = useConsult();
+  groupToEdit,
+}: GroupFormProps): JSX.Element {
+  const { handleIsEditingConsultant, updateConsultantGroups } = useConsult();
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
 
@@ -39,19 +39,15 @@ export default function PartnerForm({
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
 
   const initialForm = {
-    names: isEditing && partnerToEdit ? partnerToEdit.names : '',
-    lastName: isEditing && partnerToEdit ? partnerToEdit.lastName : '',
-    scdLastName: isEditing && partnerToEdit ? partnerToEdit.scdLastName : '',
-    date: isEditing && partnerToEdit ? partnerToEdit.date : '',
-    yearMeet: isEditing && partnerToEdit ? partnerToEdit.yearMeet : 0,
+    name: isEditing && groupToEdit ? groupToEdit.name : '',
+    description: isEditing && groupToEdit ? groupToEdit.description : '',
+    date: isEditing && groupToEdit ? groupToEdit.date : new Date().toISOString().split('T')[0],
   };
 
   const {
-    names,
-    lastName,
-    scdLastName,
+    name,
+    description,
     date,
-    yearMeet,
     handleInputChange,
     formError,
     setFormError,
@@ -62,21 +58,18 @@ export default function PartnerForm({
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
 
-    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
-    if (!names) {
-      validationMsgs = { ...validationMsgs, names: 'Requerido' };
+    if (!name) {
+      validationMsgs = { ...validationMsgs, name: 'Requerido' };
       isValid = false;
-    } else if (!names.match(letters)) {
+    } else if (!name.match(letters)) {
       validationMsgs = { ...validationMsgs, name: 'No válido' };
       isValid = false;
     }
 
-    if (!lastName) {
-      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
-      isValid = false;
-    } else if (!lastName.match(letters)) {
-      validationMsgs = { ...validationMsgs, lastName: 'No válido' };
+    if (!description) {
+      validationMsgs = { ...validationMsgs, description: 'Requerido' };
       isValid = false;
     }
 
@@ -85,17 +78,12 @@ export default function PartnerForm({
       isValid = false;
     }
 
-    if (!yearMeet || yearMeet < 1) {
-      validationMsgs = { ...validationMsgs, yearMeet: 'No válido' };
-      isValid = false;
-    }
-
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
   };
 
   useEffect(() => {
     isFormValid();
-  }, [names, lastName, date, yearMeet]);
+  }, [name, description, date]);
 
   const closeForm = () => {
     setIsAddFormActive(false);
@@ -115,31 +103,30 @@ export default function PartnerForm({
     setIsLoading(true);
 
     try {
-      const newPartner: Api.Partner = {
-        id: isEditing && partnerToEdit ? partnerToEdit.id : Math.random().toString(36).substring(2, 9),
-        names,
-        lastName,
-        scdLastName,
+      const newGroup: Api.GroupData = {
+        id: isEditing && groupToEdit ? groupToEdit.id : Math.random().toString(36).substring(2, 9),
+        name,
+        description,
         date: date.toString(),
-        yearMeet: yearMeet || 0,
+        members: isEditing && groupToEdit ? groupToEdit.members || [] : [],
       };
 
       const updatedConsultant: Api.Consultant = {
         ...activeConsultant,
-        partner: isEditing && partnerToEdit
-          ? activeConsultant.partner?.map((p:Api.Partner) => (p.id === partnerToEdit.id ? newPartner : p)) || []
-          : [...(activeConsultant.partner || []), newPartner],
+        groupData: isEditing && groupToEdit
+          ? activeConsultant.groupData?.map((g: Api.GroupData) => (g.id === groupToEdit.id ? newGroup : g)) || []
+          : [...(activeConsultant.groupData || []), newGroup],
       };
 
       const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
       await addConsultantAsync.mutateAsync(consultantsList);
 
       // Actualizar inmediatamente el contexto con el consultor actualizado
-      updateConsultantPartners(updatedConsultant);
+      updateConsultantGroups(updatedConsultant);
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar la pareja');
+      setFormError(err instanceof Error ? err.message : 'Error al guardar el grupo');
     } finally {
       setIsLoading(false);
     }
@@ -150,68 +137,36 @@ export default function PartnerForm({
   return (
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
       <h2 className="flex justify-center items-center text-xl font-bold">
-        <img src={add_user_main} className="mr-3" alt="add_user_main" />
-        {isEditing ? 'Editar Pareja' : 'Asignar Pareja'}
+        <img src={add_user_group} className="mr-3" alt="add_user_group" />
+        {isEditing ? 'Editar Grupo' : 'Crear Grupo'}
       </h2>
 
       <div className="flex w-full mt-6">
-        <div className="form-group w-1/3">
+        <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Nombre(s)
+            Nombre del Grupo
             <span className="text-red-800">*</span>
           </p>
           <input
-            id="partner-names"
+            id="group-name"
             type="text"
-            name="names"
+            name="name"
             className="rounded border-[#C4C4C4] border w-11/12"
             onChange={(e) => handleInputChange(e.target)}
-            value={names}
+            value={name}
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.name) && (
             <span className="form-error">{formStatus.validationMsgs.name}</span>
           )}
         </div>
 
-        <div className="form-group w-1/3">
+        <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Apellido Paterno
+            Fecha de Creación
             <span className="text-red-800">*</span>
           </p>
           <input
-            id="partner-lastName"
-            type="text"
-            name="lastName"
-            className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
-            value={lastName}
-          />
-          {(formStatus?.displayValidations && formStatus?.validationMsgs?.lastName) && (
-            <span className="form-error">{formStatus.validationMsgs.lastName}</span>
-          )}
-        </div>
-
-        <div className="form-group w-1/3">
-          <p className="font-bold mb-1">Apellido Materno</p>
-          <input
-            id="partner-scdLastName"
-            type="text"
-            name="scdLastName"
-            className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
-            value={scdLastName}
-          />
-        </div>
-      </div>
-
-      <div className="flex w-full mt-3">
-        <div className="form-group w-1/3">
-          <p className="font-bold mb-1">
-            Fecha de Nacimiento
-            <span className="text-red-800">*</span>
-          </p>
-          <input
-            id="partner-date"
+            id="group-date"
             type="date"
             name="date"
             className="rounded border-[#C4C4C4] border w-11/12"
@@ -222,22 +177,24 @@ export default function PartnerForm({
             <span className="form-error">{formStatus.validationMsgs.date}</span>
           )}
         </div>
+      </div>
 
-        <div className="form-group w-1/3">
+      <div className="flex w-full mt-3">
+        <div className="form-group w-full">
           <p className="font-bold mb-1">
-            Año del evento
+            Descripción del Grupo
             <span className="text-red-800">*</span>
           </p>
-          <input
-            id="partner-yearMeet"
-            type="number"
-            name="yearMeet"
-            className="rounded border-[#C4C4C4] border w-11/12"
+          <textarea
+            id="group-description"
+            name="description"
+            className="rounded border-[#C4C4C4] border w-full"
             onChange={(e) => handleInputChange(e.target)}
-            value={yearMeet}
+            value={description}
+            rows={3}
           />
-          {(formStatus?.displayValidations && formStatus?.validationMsgs?.yearMeet) && (
-            <span className="form-error">{formStatus.validationMsgs.yearMeet}</span>
+          {(formStatus?.displayValidations && formStatus?.validationMsgs?.description) && (
+            <span className="form-error">{formStatus.validationMsgs.description}</span>
           )}
         </div>
       </div>
@@ -251,16 +208,14 @@ export default function PartnerForm({
           {isLoading ? 'Guardando...' : 'Guardar'}
         </button>
 
-        {isEditing && (
-          <button
-            className="w-32 btn-cancel rounded-full"
-            type="button"
-            onClick={closeForm}
-            disabled={isLoading}
-          >
-            Cancelar
-          </button>
-        )}
+        <button
+          className="w-32 btn-cancel rounded-full"
+          type="button"
+          onClick={closeForm}
+          disabled={isLoading}
+        >
+          Cancelar
+        </button>
       </div>
 
       {formError && (
@@ -273,7 +228,7 @@ export default function PartnerForm({
   );
 }
 
-PartnerForm.defaultProps = {
+GroupForm.defaultProps = {
   isEditing: false,
-  partnerToEdit: undefined,
+  groupToEdit: undefined,
 };

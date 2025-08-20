@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  useContext, useMemo,
+} from 'react';
 import { MdEdit } from 'react-icons/md';
 
 import { ConsultContext } from '@/context/ConsultContext';
@@ -29,20 +31,32 @@ export default function PartnerFormInLine({
     handleIsEditingConsultant,
   } = useContext(ConsultContext);
 
+  // Obtener la versión más actualizada del partner activo
+  const currentActivePartner = useMemo(() => {
+    if (!activePartner) return null;
+
+    // Buscar el partner actualizado en partnersAvailable
+    const updatedPartner = partnersAvailable.find((p) => p.id === activePartner.id);
+    console.log('Debug - activePartner:', activePartner);
+    console.log('Debug - partnersAvailable:', partnersAvailable);
+    console.log('Debug - updatedPartner:', updatedPartner);
+
+    if (!updatedPartner) return activePartner;
+
+    // Crear un nuevo objeto Person con los datos actualizados
+    return new Person({
+      id: updatedPartner.id,
+      name: updatedPartner.names,
+      lastName: updatedPartner.lastName,
+      scdLastName: updatedPartner.scdLastName,
+      birthDate: updatedPartner.date,
+      yearMet: updatedPartner.yearMeet,
+    });
+  }, [activePartner, partnersAvailable]);
+
   if (!activeConsultant) return null;
 
   const hasNoPartners = partnersAvailable.length === 0;
-
-  const [partnerIndex, setPartnerIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (activePartner) {
-      const newIndex = partnersAvailable.findIndex((p) => p.id === activePartner.id);
-      setPartnerIndex(newIndex >= 0 ? newIndex : null);
-    } else {
-      setPartnerIndex(null);
-    }
-  }, [activePartner, partnersAvailable]);
 
   const editPartner = () => {
     setIsAddFormActive(true);
@@ -50,7 +64,6 @@ export default function PartnerFormInLine({
   };
 
   const removeUser = () => { // TODO: Revisar esta función
-    setPartnerIndex(null);
     const emptyPartner: Api.Partner = {
       id: '',
       names: '',
@@ -63,10 +76,11 @@ export default function PartnerFormInLine({
   };
 
   const selectedPartner = (e: React.ChangeEvent<HTMLSelectElement>) => { // TODO: Revisar esta función
-    const index = parseInt(e.target.value, 10);
-    setPartnerIndex(index);
-    const selectedPartnerData = partnersAvailable[index];
-    selectActivePartner(selectedPartnerData);
+    const partnerId = e.target.value;
+    const selectedPartnerData = partnersAvailable.find((p) => p.id === partnerId);
+    if (selectedPartnerData) {
+      selectActivePartner(selectedPartnerData);
+    }
   };
 
   // Función para convertir Person a Api.Partner
@@ -89,7 +103,7 @@ export default function PartnerFormInLine({
         activeConsultant={activeConsultant}
         setIsAddFormActive={setIsAddFormActive}
         isEditing={isEditingConsultant}
-        partnerToEdit={convertPersonToApiPartner(activePartner)}
+        partnerToEdit={convertPersonToApiPartner(currentActivePartner)}
       />
     );
   }
@@ -109,19 +123,19 @@ export default function PartnerFormInLine({
         <select
           onChange={selectedPartner}
           className="border rounded w-full"
-          value={partnerIndex !== null ? partnerIndex : ''}
+          value={currentActivePartner?.id || ''}
         >
-          {!activePartner && (
+          {!currentActivePartner && (
             <option value="">
               Selecciona una pareja
             </option>
           )}
           {partnersAvailable.map(({
             id, names, lastName, scdLastName,
-          }, index) => (
+          }) => (
             <option
               key={id}
-              value={index}
+              value={id}
             >
               {names}
               {' '}
@@ -141,7 +155,7 @@ export default function PartnerFormInLine({
           Fecha de Nacimiento
         </p>
         <input
-          value={activePartner?.getFormBirthDate() || ''}
+          value={currentActivePartner?.getFormBirthDate() || ''}
           type="text"
           className="rounded w-40"
           disabled={hasPartner}
@@ -157,7 +171,7 @@ export default function PartnerFormInLine({
           Edad
         </p>
         <input
-          value={activePartner?.getYearsOld() || ''}
+          value={currentActivePartner?.getYearsOld() || ''}
           type="text"
           className="rounded w-10"
           disabled={hasPartner}
@@ -184,7 +198,7 @@ export default function PartnerFormInLine({
           Se conocieron en el año:
         </p>
         <input
-          value={activePartner?.yearMet || ''}
+          value={currentActivePartner?.yearMet || ''}
           type="text"
           className="rounded w-20 text-center"
           disabled={hasPartner}
