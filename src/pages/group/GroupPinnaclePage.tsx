@@ -166,7 +166,7 @@ export default function GroupPinnaclePage() {
                 {`Pináculo: ${activeGroup.name}`}
               </div>
             </div>
-            <GroupPinnacle main="bg-active-radial" consultant={GroupPerson} size="sm" />
+            <GroupPinnacle main="bg-active-radial" consultant={GroupPerson} size="small" />
             <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5">
               <div className="flex items-center justify-center">
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
@@ -200,7 +200,7 @@ export default function GroupPinnaclePage() {
                   {`Pináculo: ${member.name}`}
                 </div>
               </div>
-              <GroupPinnacle main="bg-white" consultant={member} size="sm" />
+              <GroupPinnacle main="bg-white" consultant={member} size="small" />
               <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
                 <div className="flex items-center justify-center">
                   <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
