@@ -89,7 +89,7 @@ export default function DestinyTable({
           </div>
         </div>
         {table.map((el: DestinyTableValuesProps, i: number) => (
-          <div key={i} className="nameBreakdown">
+          <div className="nameBreakdown">
             <div
               className={`h-6 w-30 text-10  ${bkConfig(
                 i + start,

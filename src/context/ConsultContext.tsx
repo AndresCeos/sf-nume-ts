@@ -30,10 +30,12 @@ export interface ConsultContextInterface {
   selectActiveGroup: (group: Api.GroupData) => void;
   setSelectedGroup: (group: Person[]) => void;
   createGroup: (groupData: Omit<Api.GroupData, 'id' | 'members'>) => void;
+  updateConsultantGroups: (consultant: Api.Consultant) => void;
 
 }
 
-export const authContextDefaults: ConsultContextInterface = {
+// Memoize default values to prevent unnecessary re-creation
+const createDefaultValues = (): ConsultContextInterface => ({
   consultant: null,
   activeConsultant: null,
   selectConsultant: () => null,
@@ -58,6 +60,9 @@ export const authContextDefaults: ConsultContextInterface = {
   activeGroup: null,
   selectActiveGroup: () => null,
   createGroup: () => null,
-};
+  updateConsultantGroups: () => null,
+});
+
+export const authContextDefaults = createDefaultValues();
 
 export const ConsultContext = createContext<ConsultContextInterface>(authContextDefaults);
