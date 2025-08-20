@@ -103,6 +103,7 @@ declare namespace Api {
     description: string;
     date: string;
     members?: GroupMember[];
+    lastInit: number;
   }
   interface GroupMember {
     id: string;

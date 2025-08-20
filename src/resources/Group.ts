@@ -8,7 +8,7 @@ import {
   reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
 } from '@/utils/numbers';
 
-type AnnualReturn = {
+export type AnnualReturn = {
   yearToCalculate: number,
   age: number,
   A: number,
@@ -30,9 +30,9 @@ class Group {
 
   karmic:number[];
 
-  constructor(group:Person[], groupDate:Date) {
+  constructor(group:Person[], groupYear:number) {
     this.group = group;
-    this.groupDate = getYear(groupDate);
+    this.groupDate = groupYear;
     this.NOW = new Date();
     this.karmic = [13, 14, 16, 19];
   }
