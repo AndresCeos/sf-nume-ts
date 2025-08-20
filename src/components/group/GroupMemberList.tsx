@@ -2,7 +2,9 @@ import { useContext, useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import Swal from 'sweetalert2';
 
+import makeConsultant from '@/api/useConsultant';
 import { ConsultContext } from '@/context/ConsultContext';
+import useConsultants from '@/hooks/useConsultants';
 import Person from '@/resources/Person';
 import add_user_group from '../../assets/icons/add_user_group.svg';
 import c_delete from '../../assets/icons/c_delete.svg';
@@ -14,6 +16,8 @@ type GroupMemberListProps = {
 
 export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   const { activeConsultant, updateConsultantGroups, groupsAvailable } = useContext(ConsultContext);
+  const handleConsultants = useConsultants();
+  const addConsultantAsync = makeConsultant();
 
   // Obtener la versión más actualizada del grupo desde el contexto
   const currentActiveGroup = groupsAvailable.find((g) => g.id === activeGroup.id) || activeGroup;
@@ -46,6 +50,16 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
 
     if (result.isConfirmed) {
       try {
+        // Mostrar loading
+        Swal.fire({
+          title: 'Eliminando...',
+          text: 'Por favor espera mientras se elimina el miembro.',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
         const updatedGroup: Api.GroupData = {
           ...currentActiveGroup,
           members: currentActiveGroup.members?.filter((m) => m.id !== memberId) || [],
@@ -56,14 +70,17 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
           groupData: activeConsultant.groupData?.map((g: Api.GroupData) => (g.id === currentActiveGroup.id ? updatedGroup : g)) || [],
         };
 
-        // Aquí deberías hacer la llamada al API para persistir los cambios
-        // Por ahora solo actualizamos el contexto
+        // Persistir cambios en la base de datos
+        const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
+        await addConsultantAsync.mutateAsync(consultantsList);
+
+        // Actualizar el contexto con el consultor actualizado
         updateConsultantGroups(updatedConsultant);
 
-        // Mostrar mensaje de éxito
+        // Cerrar loading y mostrar mensaje de éxito
         Swal.fire(
           '¡Eliminado!',
-          `${memberName} ha sido eliminado del grupo.`,
+          `${memberName} ha sido eliminado del grupo exitosamente.`,
           'success',
         );
       } catch (error) {

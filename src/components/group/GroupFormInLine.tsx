@@ -55,6 +55,7 @@ export default function GroupFormInLine({
       description: '',
       date: new Date('1900-01-01').toISOString(),
       members: [],
+      lastInit: 0,
     };
     selectActiveGroup(emptyGroup);
   };
@@ -183,6 +184,27 @@ export default function GroupFormInLine({
             value={currentActiveGroup?.members?.length || 0}
             type="text"
             className="rounded w-16 text-center"
+            disabled
+            readOnly
+          />
+        </div>
+        <div className="form-group-inline col-span-6 items-center justify-start">
+          <img
+            src={add_user_group}
+            className="mb-3 opacity-0"
+            alt="add_user_group"
+          />
+          <p className="font-bold mb-1 mr-2 text-13 flex">
+            <button type="button" onClick={editGroup}>
+              <MdEdit className="text-xl text-gray-400" />
+            </button>
+            {' '}
+            Último Año de integración:
+          </p>
+          <input
+            value={currentActiveGroup?.lastInit || ''}
+            type="text"
+            className="rounded w-32 text-center"
             disabled
             readOnly
           />

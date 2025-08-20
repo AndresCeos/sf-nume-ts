@@ -127,6 +127,7 @@ export default function GroupMemberForm({
 
       const updatedGroup: Api.GroupData = {
         ...activeGroup,
+        lastInit: dateInit || new Date().getFullYear(),
         members: isEditing && memberToEdit
           ? activeGroup.members?.map((m: Api.GroupMember) => (m.id === memberToEdit.id ? newMember : m)) || []
           : [...(activeGroup.members || []), newMember],
