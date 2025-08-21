@@ -8,6 +8,7 @@ import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
+import GroupAnnualReturnsPage from '@/pages/group/GroupAnnualReturnsPage';
 import GroupPinnaclePage from '@/pages/group/GroupPinnaclePage';
 import AnnualCalendar from '@/pages/personal/AnnualCalendar';
 import AnnualReturnsPage from '@/pages/personal/AnnualReturnsPage';
@@ -59,6 +60,7 @@ const protectedRoutes = [
       { path: '/partner/sinastria', element: <SynastryPinnaclePage /> },
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
+      { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },
       // Dashboard Pages
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },

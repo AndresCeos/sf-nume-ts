@@ -280,7 +280,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group_retornos"
+                to="/group/annual-returns"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
