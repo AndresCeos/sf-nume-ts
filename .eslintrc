@@ -10,6 +10,13 @@
     ".eslintrc",
     "vite.config.ts"
   ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    }
+  },
   "rules": {
     "import/extensions": [
       "error",
