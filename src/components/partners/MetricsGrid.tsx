@@ -11,7 +11,7 @@ interface MetricsGridProps {
   metrics: SynastryMetrics;
 }
 
-export default function MetricsGrid({ metrics }: MetricsGridProps) {
+function MetricsGrid({ metrics }: MetricsGridProps) {
   return (
     <div className="grid grid-cols-4">
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
