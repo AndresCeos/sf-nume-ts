@@ -49,7 +49,6 @@ export default function GroupForm({
     description,
     date,
     handleInputChange,
-    formError,
     setFormError,
     reset,
   } = useForm(initialForm);
@@ -109,6 +108,7 @@ export default function GroupForm({
         description,
         date: date.toString(),
         members: isEditing && groupToEdit ? groupToEdit.members || [] : [],
+        lastInit: new Date().getFullYear(),
       };
 
       const updatedConsultant: Api.Consultant = {
@@ -131,8 +131,6 @@ export default function GroupForm({
       setIsLoading(false);
     }
   };
-
-  const createMarkup = (text: string) => ({ __html: text });
 
   return (
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
@@ -218,12 +216,6 @@ export default function GroupForm({
         </button>
       </div>
 
-      {formError && (
-        <div
-          className="text-red-500 text-center text-sm mt-3"
-          dangerouslySetInnerHTML={createMarkup(formError)}
-        />
-      )}
     </form>
   );
 }

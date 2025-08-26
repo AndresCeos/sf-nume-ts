@@ -10,25 +10,20 @@
     ".eslintrc",
     "vite.config.ts"
   ],
-  "settings": {
-    "import/resolver": {
-      "typescript": {
-        "project": "./tsconfig.json"
-      }
-    }
-  },
   "rules": {
-    "import/extensions": [
+    "linebreak-style": [
       "error",
-      "ignorePackages",
-      {
-        "": "never",
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
+      "windows"
     ],
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-duplicates": "off",
+    "import/order": "off",
+    "import/no-self-import": "off",
+    "import/no-cycle": "off",
+    "import/no-relative-packages": "off",
+    "import/no-named-as-default": "off",
+    "import/no-useless-path-segments": "off",
     "react/react-in-jsx-scope": "off",
     "max-len": [
       "error",

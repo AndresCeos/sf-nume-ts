@@ -4,7 +4,7 @@ import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
-import add_user_group from '../../assets/icons/add_user_group.svg';
+import add_user_main from '../../assets/icons/add_user_main.svg';
 
 type FormStatus = {
   displayValidations: boolean;
@@ -18,22 +18,20 @@ const FORM_STATUS_INITIAL_STATE: FormStatus = {
   validationMsgs: {},
 };
 
-type GroupMemberFormProps = {
+type PartnerDataFormProps = {
   activeConsultant: Api.Consultant;
-  activeGroup: Api.GroupData;
-  setIsAddMemberActive: (isActive: boolean) => void;
+  setIsAddFormActive: (isActive: boolean) => void;
   isEditing?: boolean;
-  memberToEdit?: Api.GroupMember;
+  partnerDataToEdit?: Api.PartnerData;
 };
 
-export default function GroupMemberForm({
+export default function PartnerDataForm({
   activeConsultant,
-  activeGroup,
-  setIsAddMemberActive,
+  setIsAddFormActive,
   isEditing,
-  memberToEdit,
-}: GroupMemberFormProps): JSX.Element {
-  const { updateConsultantGroups } = useConsult();
+  partnerDataToEdit,
+}: PartnerDataFormProps): JSX.Element {
+  const { handleIsEditingConsultant, updateConsultantPartners } = useConsult();
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
 
@@ -41,29 +39,40 @@ export default function GroupMemberForm({
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
 
   const initialForm = {
-    name: isEditing && memberToEdit ? memberToEdit.name : '',
-    lastName: isEditing && memberToEdit ? memberToEdit.lastName : '',
-    scdLastName: isEditing && memberToEdit ? memberToEdit.scdLastName : '',
-    date: isEditing && memberToEdit ? memberToEdit.date : '',
-    dateInit: isEditing && memberToEdit ? memberToEdit.dateInit : new Date().getFullYear(),
+    name: isEditing && partnerDataToEdit ? partnerDataToEdit.name : '',
+    date: isEditing && partnerDataToEdit ? partnerDataToEdit.date : new Date().toISOString().split('T')[0],
+    yearMeet: isEditing && partnerDataToEdit ? partnerDataToEdit.yearMeet : new Date().getFullYear(),
   };
 
   const {
     name,
-    lastName,
-    scdLastName,
     date,
-    dateInit,
+    yearMeet,
     handleInputChange,
     setFormError,
     reset,
+    updateValues,
   } = useForm(initialForm);
+
+  // Actualizar los valores del formulario cuando partnerDataToEdit cambie
+  useEffect(() => {
+    console.log('DEBUG - PartnerDataForm - isEditing:', isEditing);
+    console.log('DEBUG - PartnerDataForm - partnerDataToEdit:', partnerDataToEdit);
+    if (isEditing && partnerDataToEdit) {
+      console.log('DEBUG - PartnerDataForm - Actualizando valores con:', partnerDataToEdit);
+      updateValues({
+        name: partnerDataToEdit.name || '',
+        date: partnerDataToEdit.date || new Date().toISOString().split('T')[0],
+        yearMeet: partnerDataToEdit.yearMeet || new Date().getFullYear(),
+      });
+    }
+  }, [isEditing, partnerDataToEdit]); // Removí updateValues de las dependencias
 
   const isFormValid = () => {
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
 
-    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
     if (!name) {
       validationMsgs = { ...validationMsgs, name: 'Requerido' };
@@ -73,21 +82,13 @@ export default function GroupMemberForm({
       isValid = false;
     }
 
-    if (!lastName) {
-      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
-      isValid = false;
-    } else if (!lastName.match(letters)) {
-      validationMsgs = { ...validationMsgs, lastName: 'No válido' };
-      isValid = false;
-    }
-
     if (!date) {
       validationMsgs = { ...validationMsgs, date: 'Requerido' };
       isValid = false;
     }
 
-    if (!dateInit || dateInit < 1900 || dateInit > new Date().getFullYear()) {
-      validationMsgs = { ...validationMsgs, dateInit: 'Año no válido' };
+    if (!yearMeet || yearMeet < 1900 || yearMeet > new Date().getFullYear()) {
+      validationMsgs = { ...validationMsgs, yearMeet: 'Año no válido' };
       isValid = false;
     }
 
@@ -96,10 +97,11 @@ export default function GroupMemberForm({
 
   useEffect(() => {
     isFormValid();
-  }, [name, lastName, date, dateInit]);
+  }, [name, date, yearMeet]);
 
   const closeForm = () => {
-    setIsAddMemberActive(false);
+    setIsAddFormActive(false);
+    handleIsEditingConsultant(false);
     reset();
   };
 
@@ -115,37 +117,30 @@ export default function GroupMemberForm({
     setIsLoading(true);
 
     try {
-      const newMember: Api.GroupMember = {
-        id: isEditing && memberToEdit ? memberToEdit.id : Math.random().toString(36).substring(2, 9),
+      const newPartnerData: Api.PartnerData = {
+        id: isEditing && partnerDataToEdit ? partnerDataToEdit.id : Math.random().toString(36).substring(2, 9),
         name,
-        lastName,
-        scdLastName,
         date: date.toString(),
-        dateInit: dateInit || new Date().getFullYear(),
-      };
-
-      const updatedGroup: Api.GroupData = {
-        ...activeGroup,
-        lastInit: dateInit || new Date().getFullYear(),
-        members: isEditing && memberToEdit
-          ? activeGroup.members?.map((m: Api.GroupMember) => (m.id === memberToEdit.id ? newMember : m)) || []
-          : [...(activeGroup.members || []), newMember],
+        yearMeet: yearMeet || new Date().getFullYear(),
+        partner: isEditing && partnerDataToEdit ? partnerDataToEdit.partner || [] : [],
       };
 
       const updatedConsultant: Api.Consultant = {
         ...activeConsultant,
-        groupData: activeConsultant.groupData?.map((g: Api.GroupData) => (g.id === activeGroup.id ? updatedGroup : g)) || [],
+        partnerData: isEditing && partnerDataToEdit
+          ? activeConsultant.partnerData?.map((p: Api.PartnerData) => (p.id === partnerDataToEdit.id ? newPartnerData : p)) || []
+          : [...(activeConsultant.partnerData || []), newPartnerData],
       };
 
       const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
       await addConsultantAsync.mutateAsync(consultantsList);
 
       // Actualizar inmediatamente el contexto con el consultor actualizado
-      updateConsultantGroups(updatedConsultant);
+      updateConsultantPartners(updatedConsultant);
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar el miembro');
+      setFormError(err instanceof Error ? err.message : 'Error al guardar el grupo de parejas');
     } finally {
       setIsLoading(false);
     }
@@ -154,73 +149,37 @@ export default function GroupMemberForm({
   return (
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
       <h2 className="flex justify-center items-center text-xl font-bold">
-        <img src={add_user_group} className="mr-3" alt="add_user_group" />
-        {isEditing ? 'Editar Miembro' : 'Agregar Miembro al Grupo'}
+        <img src={add_user_main} className="mr-3" alt="add_user_main" />
+        {isEditing ? 'Editar Grupo de Parejas' : 'Crear Grupo de Parejas'}
       </h2>
-      <p className="text-center text-sm text-gray-600 mt-2">
-        Grupo:
-        {' '}
-        {activeGroup.name}
-      </p>
 
       <div className="flex w-full mt-6">
-        <div className="form-group w-1/3">
+        <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Nombre(s)
+            Nombre del Grupo
             <span className="text-red-800">*</span>
           </p>
           <input
-            id="member-name"
+            id="partnerData-name"
             type="text"
             name="name"
             className="rounded border-[#C4C4C4] border w-11/12"
             onChange={(e) => handleInputChange(e.target)}
             value={name}
+            placeholder="Ej: Pareja Principal, Ex Pareja, etc."
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.name) && (
             <span className="form-error">{formStatus.validationMsgs.name}</span>
           )}
         </div>
 
-        <div className="form-group w-1/3">
-          <p className="font-bold mb-1">
-            Apellido Paterno
-            <span className="text-red-800">*</span>
-          </p>
-          <input
-            id="member-lastName"
-            type="text"
-            name="lastName"
-            className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
-            value={lastName}
-          />
-          {(formStatus?.displayValidations && formStatus?.validationMsgs?.lastName) && (
-            <span className="form-error">{formStatus.validationMsgs.lastName}</span>
-          )}
-        </div>
-
-        <div className="form-group w-1/3">
-          <p className="font-bold mb-1">Apellido Materno</p>
-          <input
-            id="member-scdLastName"
-            type="text"
-            name="scdLastName"
-            className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
-            value={scdLastName}
-          />
-        </div>
-      </div>
-
-      <div className="flex w-full mt-3">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Fecha de Nacimiento
+            Fecha de Creación
             <span className="text-red-800">*</span>
           </p>
           <input
-            id="member-date"
+            id="partnerData-date"
             type="date"
             name="date"
             className="rounded border-[#C4C4C4] border w-11/12"
@@ -231,25 +190,40 @@ export default function GroupMemberForm({
             <span className="form-error">{formStatus.validationMsgs.date}</span>
           )}
         </div>
+      </div>
 
+      <div className="flex w-full mt-3">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Año de Inicio en el Grupo
+            Año en que se conocieron
             <span className="text-red-800">*</span>
           </p>
           <input
-            id="member-dateInit"
+            id="partnerData-yearMeet"
             type="number"
-            name="dateInit"
-            className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
-            value={dateInit}
+            name="yearMeet"
             min="1900"
             max={new Date().getFullYear()}
+            className="rounded border-[#C4C4C4] border w-11/12"
+            onChange={(e) => handleInputChange(e.target)}
+            value={yearMeet}
+            placeholder="Ej: 2020"
           />
-          {(formStatus?.displayValidations && formStatus?.validationMsgs?.dateInit) && (
-            <span className="form-error">{formStatus.validationMsgs.dateInit}</span>
+          {(formStatus?.displayValidations && formStatus?.validationMsgs?.yearMeet) && (
+            <span className="form-error">{formStatus.validationMsgs.yearMeet}</span>
           )}
+        </div>
+      </div>
+
+      <div className="flex w-full mt-6 justify-center">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 w-full max-w-md">
+          <p className="text-sm text-blue-800 font-medium mb-2">
+            💡 Información del Grupo
+          </p>
+          <p className="text-xs text-blue-600">
+            Después de crear el grupo, podrás agregar hasta 2 parejas.
+            Cada grupo representa una relación específica con su propio año de encuentro.
+          </p>
         </div>
       </div>
 
@@ -271,12 +245,11 @@ export default function GroupMemberForm({
           Cancelar
         </button>
       </div>
-
     </form>
   );
 }
 
-GroupMemberForm.defaultProps = {
+PartnerDataForm.defaultProps = {
   isEditing: false,
-  memberToEdit: undefined,
+  partnerDataToEdit: undefined,
 };

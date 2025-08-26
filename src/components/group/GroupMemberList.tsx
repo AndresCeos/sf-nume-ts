@@ -122,88 +122,75 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   }
 
   return (
-    <div className="mt-6">
-      <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
-        <div className="flex items-center pl-5">
-          Miembros del Grupo:
-          {' '}
-          {currentActiveGroup.name}
-        </div>
+    <div className="p-4">
+      {/* Add Member Button */}
+      <div className="flex justify-end mb-4">
         <button
           type="button"
           onClick={() => setIsAddMemberActive(true)}
-          className="w-60 text-sm bg-gold px-4 font-bold h-11 mb-3 rounded-t-3xl rounded-bl-3xl"
+          className="bg-gold text-white px-4 py-2 rounded text-sm font-medium"
         >
           Agregar Miembro
         </button>
       </div>
 
-      <div className="bg-white border border-gray-300 rounded-b-2xl p-4">
-        {currentActiveGroup.members && currentActiveGroup.members.length > 0 ? (
-          <div className="space-y-3">
-            {currentActiveGroup.members.map((member) => {
-              const memberPerson = convertMemberToPerson(member);
-              return (
-                <div key={member.id} className="grid grid-cols-12 items-center border-b border-gray-200 pb-2">
-                  <div className="col-span-3">
-                    <div className="flex items-center">
-                      <img src={add_user_group} className="w-6 h-6 mr-2" alt="member" />
-                      <span className="font-medium">
-                        {memberPerson.fullName}
-                      </span>
+      {/* Members List */}
+      {currentActiveGroup.members && currentActiveGroup.members.length > 0 ? (
+        <div className="space-y-3">
+          {currentActiveGroup.members.map((member) => {
+            const memberPerson = convertMemberToPerson(member);
+            return (
+              <div key={member.id} className="flex items-center justify-between p-4 border-b border-gray-100 last:border-b-0">
+                <div className="flex items-center flex-1">
+                  <div className="w-8 h-8 flex justify-center items-center rounded-full bg-blue-100 mr-3">
+                    <img src={add_user_group} className="w-4 h-4" alt="member" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium">
+                      {memberPerson.name}
+                      {' '}
+                      {memberPerson.lastName}
+                      {' '}
+                      {memberPerson.scdLastName}
                     </div>
-                  </div>
-
-                  <div className="col-span-2">
-                    <span className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600">
                       {memberPerson.getFormBirthDate()}
-                    </span>
-                  </div>
-
-                  <div className="col-span-2">
-                    <span className="text-sm text-gray-600">
+                      {' '}
+                      •
                       {memberPerson.getYearsOld()}
                       {' '}
-                      años
-                    </span>
-                  </div>
-
-                  <div className="col-span-2">
-                    <span className="text-sm text-gray-600">
-                      Inicio:
-                      {' '}
+                      años • Inicio:
                       {member.dateInit}
-                    </span>
-                  </div>
-
-                  <div className="col-span-2 flex justify-end space-x-2">
-                    <button
-                      type="button"
-                      onClick={() => handleEditMember(member)}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      <MdEdit className="text-xl" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveMember(member.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <img src={c_delete} alt="delete" className="w-5 h-5" />
-                    </button>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="text-center py-8 text-gray-500">
-            <img src={add_user_group} className="w-16 h-16 mx-auto mb-4 opacity-50" alt="no members" />
-            <p>No hay miembros en este grupo</p>
-            <p className="text-sm">Haz clic en &quot;Agregar Miembro&quot; para comenzar</p>
-          </div>
-        )}
-      </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={() => handleEditMember(member)}
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    <MdEdit className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveMember(member.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <img src={c_delete} alt="delete" className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="text-center py-8 text-gray-500">
+          <img src={add_user_group} className="w-16 h-16 mx-auto mb-4 opacity-50" alt="no members" />
+          <p>No hay miembros en este grupo</p>
+          <p className="text-sm">Haz clic en &quot;Agregar Miembro&quot; para comenzar</p>
+        </div>
+      )}
     </div>
   );
 }

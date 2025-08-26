@@ -49,6 +49,12 @@ function ConsultProvider({ children }: any) {
   const [isEditingGroup, setIsEditingGroup] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<Person[]>([]);
 
+  // PartnerData management state
+  const [partnerDataAvailable, setPartnerDataAvailable] = useState<Api.PartnerData[]>([]);
+  const [activePartnerData, setActivePartnerData] = useState<Api.PartnerData | null>(null);
+  const [isEditingPartnerData, setIsEditingPartnerData] = useState(false);
+  const [selectedPartnersAsPersons, setSelectedPartnersAsPersons] = useState<Person[]>([]);
+
   // Memoize selectConsultant function
   const selectConsultant = useCallback((newConsultant: Api.Consultant) => {
     if (!newConsultant) throw new Error('consultant is required');
@@ -66,19 +72,31 @@ function ConsultProvider({ children }: any) {
     // Assign partners from the consultant or empty array if none
     setPartnersAvailable(newConsultant.partner as Api.Partner[] || []);
 
+    // Load partnerData from consultant
+    console.log('DEBUG - selectConsultant - newConsultant.partnerData:', newConsultant.partnerData);
+    setPartnerDataAvailable(newConsultant.partnerData || []);
+    setActivePartnerData(null);
+    setSelectedPartnersAsPersons([]);
+
     // Load group data from consultant
     setGroupsAvailable(newConsultant.groupData || []);
     setActiveGroup(null);
 
     const action = { type: types.selectConsultant, consultant: newConsultant };
     dispatch(action);
-  }, []);
+  }, [dispatch]);
 
   // Memoize selectActiveConsultant function
   const selectActiveConsultant = useCallback((newActiveConsultant: Api.Consultant) => {
+    console.log('DEBUG - selectActiveConsultant - newActiveConsultant.partnerData:', newActiveConsultant.partnerData);
     setActiveConsultant(newActiveConsultant);
     // Actualizar también la lista de partners disponibles
     setPartnersAvailable(newActiveConsultant.partner || []);
+    // Load partnerData from consultant
+    setPartnerDataAvailable(newActiveConsultant.partnerData || []);
+    // Clear active partner data when switching consultants
+    setActivePartnerData(null);
+    setSelectedPartnersAsPersons([]);
     // Load group data from consultant
     setGroupsAvailable(newActiveConsultant.groupData || []);
   }, []);
@@ -102,7 +120,7 @@ function ConsultProvider({ children }: any) {
       lastName: updatedPartner.lastName || '',
       scdLastName: updatedPartner.scdLastName || '',
       birthDate: updatedPartner.date?.toString() || '',
-      yearMet: updatedPartner.yearMeet || 0,
+      yearMet: 0, // Api.Partner no tiene yearMeet, se establece en 0
     });
 
     setActivePartner(newPartnerPerson);
@@ -120,12 +138,92 @@ function ConsultProvider({ children }: any) {
     }
   }, [activeConsultant, selectActivePartner]);
 
+  // Memoize selectActivePartnerData function
+  const selectActivePartnerData = useCallback((partnerData: Api.PartnerData) => {
+    if (!partnerData || !partnerData.id) {
+      setActivePartnerData(null);
+      setSelectedPartnersAsPersons([]);
+      return;
+    }
+
+    // Buscar el partnerData actualizado en partnerDataAvailable
+    const updatedPartnerData = partnerDataAvailable.find((p) => p.id === partnerData.id) || partnerData;
+
+    setActivePartnerData(updatedPartnerData);
+
+    // Convertir los partners del grupo a objetos Person
+    if (updatedPartnerData.partner && updatedPartnerData.partner.length > 0) {
+      const partnersAsPersons = updatedPartnerData.partner.map((partner) => new Person({
+        id: partner.id,
+        name: partner.names,
+        lastName: partner.lastName,
+        scdLastName: partner.scdLastName,
+        birthDate: partner.date,
+        yearMet: updatedPartnerData.yearMeet,
+      }));
+      setSelectedPartnersAsPersons(partnersAsPersons);
+
+      // Establecer el primer partner como activePartner
+      if (partnersAsPersons.length > 0) {
+        setActivePartner(partnersAsPersons[0]);
+      }
+    } else {
+      setSelectedPartnersAsPersons([]);
+      setActivePartner(null);
+    }
+  }, [partnerDataAvailable]);
+
+  // Memoize createPartnerData function
+  const createPartnerData = useCallback((partnerDataInput: Omit<Api.PartnerData, 'id' | 'partner'>) => {
+    const newPartnerData: Api.PartnerData = {
+      ...partnerDataInput,
+      id: Math.random().toString(36).substring(2, 9),
+      partner: [],
+    };
+    setPartnerDataAvailable((prevPartnerData) => [...prevPartnerData, newPartnerData]);
+  }, []);
+
+  // Memoize handleIsEditingPartnerData function
+  const handleIsEditingPartnerData = useCallback((isEditing: boolean) => {
+    setIsEditingPartnerData(isEditing);
+  }, []);
+
+  // Memoize handleSetSelectedPartnersAsPersons function
+  const handleSetSelectedPartnersAsPersons = useCallback((partners: Person[]) => {
+    setSelectedPartnersAsPersons(partners);
+  }, []);
+
   // Memoize updateConsultantPartners function
   const updateConsultantPartners = useCallback((updatedConsultant: Api.Consultant) => {
     setActiveConsultant(updatedConsultant);
     setPartnersAvailable(updatedConsultant.partner || []);
+    // También actualizar partnerData disponibles
+    setPartnerDataAvailable(updatedConsultant.partnerData || []);
     // También actualizar grupos disponibles
     setGroupsAvailable(updatedConsultant.groupData || []);
+
+    // Si hay un partnerData activo, actualizarlo también
+    if (activePartnerData) {
+      const updatedActivePartnerData = updatedConsultant.partnerData?.find((p) => p.id === activePartnerData.id);
+      if (updatedActivePartnerData) {
+        setActivePartnerData(updatedActivePartnerData);
+
+        // Actualizar selectedPartnersAsPersons
+        if (updatedActivePartnerData.partner && updatedActivePartnerData.partner.length > 0) {
+          const partnersAsPersons = updatedActivePartnerData.partner.map((partner) => new Person({
+            id: partner.id,
+            name: partner.names,
+            lastName: partner.lastName,
+            scdLastName: partner.scdLastName,
+            birthDate: partner.date,
+            yearMet: updatedActivePartnerData.yearMeet,
+          }));
+          setSelectedPartnersAsPersons(partnersAsPersons);
+        } else {
+          setSelectedPartnersAsPersons([]);
+        }
+      }
+    }
 
     // Si hay un partner activo, actualizarlo también
     if (activePartner) {
@@ -138,13 +236,13 @@ function ConsultProvider({ children }: any) {
           lastName: updatedActivePartner.lastName || '',
           scdLastName: updatedActivePartner.scdLastName || '',
           birthDate: updatedActivePartner.date?.toString() || '',
-          yearMet: updatedActivePartner.yearMeet || 0,
+          yearMet: 0, // Api.Partner no tiene yearMeet, se establece en 0
         });
         console.log('Debug - setting new activePartner:', updatedPartnerPerson);
         setActivePartner(updatedPartnerPerson);
       }
     }
-  }, [activePartner]);
+  }, [activePartner, activePartnerData]);
 
   // Memoize updateConsultantGroups function
   const updateConsultantGroups = useCallback((updatedConsultant: Api.Consultant) => {
@@ -242,6 +340,15 @@ function ConsultProvider({ children }: any) {
     partnersAvailable,
     updateUserPartnerActive,
     updateConsultantPartners,
+    // PartnerData management
+    partnerDataAvailable,
+    activePartnerData,
+    selectActivePartnerData,
+    isEditingPartnerData,
+    handleIsEditingPartnerData,
+    createPartnerData,
+    selectedPartnersAsPersons,
+    setSelectedPartnersAsPersons: handleSetSelectedPartnersAsPersons,
     // Group management
     groupsAvailable,
     activeGroup,
@@ -267,6 +374,16 @@ function ConsultProvider({ children }: any) {
     partnersAvailable,
     updateUserPartnerActive,
     updateConsultantPartners,
+    // PartnerData dependencies
+    partnerDataAvailable,
+    activePartnerData,
+    selectActivePartnerData,
+    isEditingPartnerData,
+    handleIsEditingPartnerData,
+    createPartnerData,
+    selectedPartnersAsPersons,
+    handleSetSelectedPartnersAsPersons,
+    // Group dependencies
     groupsAvailable,
     activeGroup,
     isEditingGroup,
