@@ -32,6 +32,16 @@ export interface ConsultContextInterface {
   createGroup: (groupData: Omit<Api.GroupData, 'id' | 'members'>) => void;
   updateConsultantGroups: (consultant: Api.Consultant) => void;
 
+  // PartnerData management (nuevo - grupos de parejas)
+  activePartnerData: Api.PartnerData | null;
+  selectActivePartnerData: (partnerData: Api.PartnerData) => void;
+  partnerDataAvailable: Api.PartnerData[];
+  isEditingPartnerData: boolean;
+  handleIsEditingPartnerData: (isEditing: boolean) => void;
+  createPartnerData: (partnerData: Omit<Api.PartnerData, 'id' | 'partner'>) => void;
+  // Partners from selected group as Person objects
+  selectedPartnersAsPersons: Person[];
+  setSelectedPartnersAsPersons: (partners: Person[]) => void;
 }
 
 // Memoize default values to prevent unnecessary re-creation
@@ -61,6 +71,16 @@ const createDefaultValues = (): ConsultContextInterface => ({
   selectActiveGroup: () => null,
   createGroup: () => null,
   updateConsultantGroups: () => null,
+  // PartnerData management defaults
+  activePartnerData: null,
+  selectActivePartnerData: () => null,
+  partnerDataAvailable: [],
+  isEditingPartnerData: false,
+  handleIsEditingPartnerData: () => null,
+  createPartnerData: () => null,
+  // Partners from selected group as Person objects
+  selectedPartnersAsPersons: [],
+  setSelectedPartnersAsPersons: () => null,
 });
 
 export const authContextDefaults = createDefaultValues();

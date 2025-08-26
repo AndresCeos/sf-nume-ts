@@ -27,6 +27,7 @@ declare namespace Api {
     names?: string;
     nationality?: string;
     partner?: Partner[];
+    partnerData?: PartnerData[];
     phone?: string;
     scdLastName?: string;
   }
@@ -53,19 +54,6 @@ declare namespace Api {
     status: 0 | 1;
   }
 
-  interface User {
-    avatar: string;
-    birthDate: Date;
-    country: string;
-    email: string;
-    firstName: string;
-    gender: string;
-    id: number;
-    lastName: string;
-    phone: string;
-    scdLastName: string;
-  }
-
   interface UserResponse {
     app_version: string;
     company: Company;
@@ -88,6 +76,13 @@ declare namespace Api {
     phone?: string;
     webSite?: string;
   }
+  interface PartnerData {
+    id: string;
+    name:string;
+    date: string;
+    yearMeet: number;
+    partner?: Partner[];
+  }
 
   interface Partner {
     id: string;
@@ -95,7 +90,6 @@ declare namespace Api {
     lastName: string;
     scdLastName: string;
     date: string;
-    yearMeet: number;
   }
   interface GroupData {
     id: string;

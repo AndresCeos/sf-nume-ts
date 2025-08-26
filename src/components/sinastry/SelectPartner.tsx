@@ -3,29 +3,34 @@ import { MdEdit } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
 
 import { ConsultContext } from '@/context/ConsultContext';
-import UserFormInline from '../UserFormInLine';
 import PartnerFormInLine from './PartnerFormInLine';
 
 export default function SelectPartner() {
   const {
-    partnersAvailable, consultant, isEditingConsultant, handleIsEditingConsultant,
+    partnerDataAvailable, activePartnerData, consultant, isEditingConsultant, handleIsEditingConsultant,
   } = useContext(ConsultContext);
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
 
   useEffect(() => {
-    if (partnersAvailable.length === 0) {
+    // Cambiar la lógica para usar partnerDataAvailable en lugar de partnersAvailable
+    // Agregar verificación de seguridad para evitar errores de undefined
+    const partnerDataArray = partnerDataAvailable || [];
+    if (partnerDataArray.length === 0) {
       setPartnerEmpty(true);
     } else {
       setPartnerEmpty(false);
     }
-  }, [partnersAvailable]);
+  }, [partnerDataAvailable]);
 
   if (!consultant) return null;
 
   const handleEditPartner = () => {
     handleIsEditingConsultant(!isEditingConsultant);
   };
+
+  // Verificar si el grupo activo ya tiene 2 parejas
+  const activeGroupHasMaxPartners = activePartnerData && activePartnerData.partner && activePartnerData.partner.length >= 2;
 
   return (
     <div className="grid mt-8 mx-14 col-span-12 mb-10 ">
@@ -39,7 +44,7 @@ export default function SelectPartner() {
           Datos de Pareja
           <MdEdit className="text-xl text-white" />
         </div>
-        {partnersAvailable.length > 0 ? (
+        {(partnerDataAvailable || []).length > 0 && !activeGroupHasMaxPartners ? (
           <button
             type="button"
             onClick={() => setIsAddFormActive(!isAddFormActive)}
@@ -48,7 +53,6 @@ export default function SelectPartner() {
             } px-4 font-bold h-11 mb-3 rounded-t-3xl rounded-bl-3xl ${
               isEditingConsultant ? 'hidden' : ''
             }`}
-            disabled={partnersAvailable.length === 8}
           >
             {isAddFormActive
               ? 'Cancelar'
@@ -57,11 +61,6 @@ export default function SelectPartner() {
         ) : null}
       </div>
       <div className="pinnacle-wrap px-8 py-8">
-        <UserFormInline
-          name={consultant.fullName}
-          birthDate={consultant.getFormBirthDate()}
-          age={consultant.getYearsOld().toString()}
-        />
         <PartnerFormInLine
           hasPartner={partnerEmpty}
           setIsAddFormActive={setIsAddFormActive}

@@ -27,7 +27,7 @@ export default function SelectGroup() {
   };
 
   return (
-    <div className="grid mt-8 mx-4 col-span-12 mb-10 ">
+    <div className="grid mt-8 mx-14 col-span-12 mb-10 ">
       <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
         <div className="flex items-center">
           <div

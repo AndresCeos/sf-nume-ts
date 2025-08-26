@@ -15,12 +15,20 @@ const useForm = <T extends Object>(initialState: T) => {
     setValues(initialState);
   };
 
+  const updateValues = (newValues: Partial<T>) => {
+    setValues({
+      ...values,
+      ...newValues,
+    });
+  };
+
   return {
     ...values,
     handleInputChange,
     reset,
     formError,
     setFormError,
+    updateValues,
   };
 };
 

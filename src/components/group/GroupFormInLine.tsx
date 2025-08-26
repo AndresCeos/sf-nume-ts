@@ -25,7 +25,6 @@ export default function GroupFormInLine({
     activeGroup,
     selectActiveGroup,
     isEditingConsultant,
-    handleIsEditingConsultant,
     activeConsultant,
   } = useContext(ConsultContext);
 
@@ -82,139 +81,139 @@ export default function GroupFormInLine({
   }
 
   return (
-    <>
-      <div className="grid grid-cols-12">
-        <div className="form-group-inline col-span-10 items-center justify-center">
-          <img src={add_user_group} className="mb-3" alt="add_user_group" />
-          <p className="font-bold mb-1 mr-2 text-13 flex">
-            <button type="button" onClick={() => handleIsEditingConsultant(!isEditingConsultant)}>
-              <MdEdit className="text-xl text-gray-400" />
+    <div className="bg-white rounded-lg shadow-md p-6">
+      {/* Main Group Data Form */}
+      <div className="space-y-4">
+        {/* Group Selection */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center flex-1">
+            <button type="button" onClick={editGroup}>
+              <img src={add_user_group} className="w-6 h-6 mr-3 text-gray-400" alt="add_user_group" />
+              <MdEdit className="text-gray-400 mr-2" />
             </button>
-            {' '}
-            Grupo
-          </p>
-          <select
-            onChange={selectedGroup}
-            className="border rounded w-full"
-            value={currentActiveGroup?.id || ''}
-          >
-            {!currentActiveGroup && (
-            <option value="">
-              Selecciona un grupo
-            </option>
-            )}
-            {groupsAvailable.map((group: Api.GroupData) => (
-              <option key={group.id} value={group.id}>
-                {group.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group-inline col-span-2 items-center justify-center">
-          <button type="button" onClick={removeGroup} className="ml-6">
-            <img src={c_delete} alt="delete" />
+            <p className="font-bold text-sm mr-3">Grupo:</p>
+            <select
+              onChange={selectedGroup}
+              className="border rounded px-3 py-2 flex-1"
+              value={currentActiveGroup?.id || ''}
+            >
+              {!currentActiveGroup && (
+                <option value="">
+                  Selecciona un grupo
+                </option>
+              )}
+              {groupsAvailable.map((group: Api.GroupData) => (
+                <option key={group.id} value={group.id}>
+                  {group.name}
+                  {' '}
+                  (
+                  {group.members?.length || 0}
+                  {' '}
+                  miembros)
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="button" onClick={removeGroup} className="ml-4">
+            <img src={c_delete} alt="delete" className="w-5 h-5" />
           </button>
         </div>
-        <div className="form-group-inline col-span-12 items-center justify-center mt-3">
+
+        {/* Create Group Button */}
+        <div className="flex justify-center">
           <button
             type="button"
             onClick={() => setIsAddFormActive(true)}
-            className="btn-save w-40 text-sm"
+            className="btn-save w-50 text-sm"
           >
             Crear Grupo
           </button>
         </div>
-        <hr className="col-span-12 my-3" />
-        <div className="form-group-inline col-span-12 items-center justify-start">
-          <img
-            src={add_user_group}
-            className="mb-3 opacity-0"
-            alt="add_user_group"
-          />
-          <p className="font-bold mb-1 mr-2 text-13 flex">
-            <button type="button" onClick={editGroup}>
-              <MdEdit className="text-xl text-gray-400" />
-            </button>
-            {' '}
-            Descripción:
-          </p>
-          <input
-            type="text"
-            className="rounded w-full"
-            value={currentActiveGroup?.description || ''}
-            disabled
-            readOnly
-          />
-        </div>
-        <div className="form-group-inline col-span-6 items-center justify-start">
-          <img
-            src={add_user_group}
-            className="mb-3 opacity-0"
-            alt="add_user_group"
-          />
-          <p className="font-bold mb-1 mr-2 text-13 flex">
-            <button type="button" onClick={editGroup}>
-              <MdEdit className="text-xl text-gray-400" />
-            </button>
-            {' '}
-            Fecha de Creación:
-          </p>
-          <input
-            value={currentActiveGroup?.date ? new Date(currentActiveGroup.date).toLocaleDateString() : ''}
-            type="text"
-            className="rounded w-32 text-center"
-            disabled
-            readOnly
-          />
-        </div>
-        <div className="form-group-inline col-span-6 items-center justify-start">
-          <img
-            src={add_user_group}
-            className="mb-3 opacity-0"
-            alt="add_user_group"
-          />
-          <p className="font-bold mb-1 mr-2 text-13 flex">
-            <button type="button" onClick={editGroup}>
-              <MdEdit className="text-xl text-gray-400" />
-            </button>
-            {' '}
-            Miembros:
-          </p>
-          <input
-            value={currentActiveGroup?.members?.length || 0}
-            type="text"
-            className="rounded w-16 text-center"
-            disabled
-            readOnly
-          />
-        </div>
-        <div className="form-group-inline col-span-6 items-center justify-start">
-          <img
-            src={add_user_group}
-            className="mb-3 opacity-0"
-            alt="add_user_group"
-          />
-          <p className="font-bold mb-1 mr-2 text-13 flex">
-            <button type="button" onClick={editGroup}>
-              <MdEdit className="text-xl text-gray-400" />
-            </button>
-            {' '}
-            Último Año de integración:
-          </p>
-          <input
-            value={currentActiveGroup?.lastInit || ''}
-            type="text"
-            className="rounded w-32 text-center"
-            disabled
-            readOnly
-          />
-        </div>
+
+        {/* Group Information */}
+        {currentActiveGroup && (
+          <div className="flex flex-col gap-4 mt-4">
+
+            <div className="flex flex-row gap-4 w-full">
+              <div className="flex items-center w-1/2">
+                <button type="button" onClick={editGroup}>
+                  <MdEdit className="text-gray-400 mr-2" />
+                </button>
+                <p className="font-bold text-sm mr-3">Descripción:</p>
+                <input
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  value={currentActiveGroup?.description || ''}
+                  readOnly
+                />
+              </div>
+
+              <div className="flex items-center w-1/2">
+                <button type="button" onClick={editGroup}>
+                  <MdEdit className="text-gray-400 mr-2" />
+                </button>
+                <p className="font-bold text-sm mr-3">Fecha de Creación:</p>
+                <input
+                  value={currentActiveGroup?.date ? new Date(currentActiveGroup.date).toLocaleDateString() : ''}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+            </div>
+            <div className="flex flex-row gap-4 w-full">
+              <div className="flex items-center w-1/2">
+                <button type="button" onClick={editGroup}>
+                  <MdEdit className="text-gray-400 mr-2" />
+                </button>
+                <p className="font-bold text-sm mr-3">Miembros:</p>
+                <input
+                  value={currentActiveGroup?.members?.length || 0}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+
+              <div className="flex items-center">
+                <button type="button" onClick={editGroup}>
+                  <MdEdit className="text-gray-400 mr-2" />
+                </button>
+                <p className="font-bold text-sm mr-3">Último Año de integración:</p>
+                <input
+                  value={currentActiveGroup?.lastInit || ''}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+
+            </div>
+
+          </div>
+        )}
       </div>
 
-      {/* Mostrar lista de miembros si hay un grupo activo */}
+      {/* Members Section */}
       {currentActiveGroup && currentActiveGroup.id && (
-        <GroupMemberList activeGroup={currentActiveGroup} />
+        <>
+          <hr className="my-6" />
+
+          {/* Members Header */}
+          <div className="bg-black text-white rounded-t-lg px-4 py-3 flex items-center justify-between">
+            <h3 className="font-bold">
+              Miembros del Grupo:
+              {' '}
+              {currentActiveGroup.name}
+            </h3>
+          </div>
+
+          {/* Members List */}
+          <div className="bg-white border border-gray-200 rounded-b-lg">
+            <GroupMemberList activeGroup={currentActiveGroup} />
+          </div>
+        </>
       )}
-    </>
+    </div>
   );
 }

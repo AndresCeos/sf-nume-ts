@@ -31,7 +31,7 @@ export default function PartnerForm({
   isEditing,
   partnerToEdit,
 }: PartnerFormProps): JSX.Element {
-  const { handleIsEditingConsultant, updateConsultantPartners } = useConsult();
+  const { handleIsEditingConsultant, updateConsultantPartners, activePartnerData } = useConsult();
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
 
@@ -43,7 +43,6 @@ export default function PartnerForm({
     lastName: isEditing && partnerToEdit ? partnerToEdit.lastName : '',
     scdLastName: isEditing && partnerToEdit ? partnerToEdit.scdLastName : '',
     date: isEditing && partnerToEdit ? partnerToEdit.date : '',
-    yearMeet: isEditing && partnerToEdit ? partnerToEdit.yearMeet : 0,
   };
 
   const {
@@ -51,9 +50,7 @@ export default function PartnerForm({
     lastName,
     scdLastName,
     date,
-    yearMeet,
     handleInputChange,
-    formError,
     setFormError,
     reset,
   } = useForm(initialForm);
@@ -85,17 +82,12 @@ export default function PartnerForm({
       isValid = false;
     }
 
-    if (!yearMeet || yearMeet < 1) {
-      validationMsgs = { ...validationMsgs, yearMeet: 'No válido' };
-      isValid = false;
-    }
-
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
   };
 
   useEffect(() => {
     isFormValid();
-  }, [names, lastName, date, yearMeet]);
+  }, [names, lastName, date]);
 
   const closeForm = () => {
     setIsAddFormActive(false);
@@ -121,21 +113,42 @@ export default function PartnerForm({
         lastName,
         scdLastName,
         date: date.toString(),
-        yearMeet: yearMeet || 0,
       };
 
-      const updatedConsultant: Api.Consultant = {
-        ...activeConsultant,
-        partner: isEditing && partnerToEdit
-          ? activeConsultant.partner?.map((p:Api.Partner) => (p.id === partnerToEdit.id ? newPartner : p)) || []
-          : [...(activeConsultant.partner || []), newPartner],
-      };
+      // Si hay un PartnerData activo, agregar el partner al grupo
+      if (activePartnerData) {
+        const updatedPartnerData: Api.PartnerData = {
+          ...activePartnerData,
+          partner: isEditing && partnerToEdit
+            ? activePartnerData.partner?.map((p: Api.Partner) => (p.id === partnerToEdit.id ? newPartner : p)) || []
+            : [...(activePartnerData.partner || []), newPartner],
+        };
 
-      const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
-      await addConsultantAsync.mutateAsync(consultantsList);
+        const updatedConsultant: Api.Consultant = {
+          ...activeConsultant,
+          partnerData: activeConsultant.partnerData?.map((p: Api.PartnerData) => (p.id === activePartnerData.id ? updatedPartnerData : p)) || [],
+        };
 
-      // Actualizar inmediatamente el contexto con el consultor actualizado
-      updateConsultantPartners(updatedConsultant);
+        const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
+        await addConsultantAsync.mutateAsync(consultantsList);
+
+        // Actualizar inmediatamente el contexto con el consultor actualizado
+        updateConsultantPartners(updatedConsultant);
+      } else {
+        // Fallback: agregar al array partner del consultor (compatibilidad)
+        const updatedConsultant: Api.Consultant = {
+          ...activeConsultant,
+          partner: isEditing && partnerToEdit
+            ? activeConsultant.partner?.map((p:Api.Partner) => (p.id === partnerToEdit.id ? newPartner : p)) || []
+            : [...(activeConsultant.partner || []), newPartner],
+        };
+
+        const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
+        await addConsultantAsync.mutateAsync(consultantsList);
+
+        // Actualizar inmediatamente el contexto con el consultor actualizado
+        updateConsultantPartners(updatedConsultant);
+      }
 
       closeForm();
     } catch (err) {
@@ -144,8 +157,6 @@ export default function PartnerForm({
       setIsLoading(false);
     }
   };
-
-  const createMarkup = (text: string) => ({ __html: text });
 
   return (
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
@@ -205,7 +216,7 @@ export default function PartnerForm({
       </div>
 
       <div className="flex w-full mt-3">
-        <div className="form-group w-1/3">
+        <div className="form-group w-1/2">
           <p className="font-bold mb-1">
             Fecha de Nacimiento
             <span className="text-red-800">*</span>
@@ -220,24 +231,6 @@ export default function PartnerForm({
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.date) && (
             <span className="form-error">{formStatus.validationMsgs.date}</span>
-          )}
-        </div>
-
-        <div className="form-group w-1/3">
-          <p className="font-bold mb-1">
-            Año del evento
-            <span className="text-red-800">*</span>
-          </p>
-          <input
-            id="partner-yearMeet"
-            type="number"
-            name="yearMeet"
-            className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
-            value={yearMeet}
-          />
-          {(formStatus?.displayValidations && formStatus?.validationMsgs?.yearMeet) && (
-            <span className="form-error">{formStatus.validationMsgs.yearMeet}</span>
           )}
         </div>
       </div>
@@ -262,13 +255,6 @@ export default function PartnerForm({
           </button>
         )}
       </div>
-
-      {formError && (
-        <div
-          className="text-red-500 text-center text-sm mt-3"
-          dangerouslySetInnerHTML={createMarkup(formError)}
-        />
-      )}
     </form>
   );
 }

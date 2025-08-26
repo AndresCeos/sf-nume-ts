@@ -3,208 +3,426 @@ import {
 } from 'react';
 import { MdEdit } from 'react-icons/md';
 
+import makeConsultant from '@/api/useConsultant';
 import { ConsultContext } from '@/context/ConsultContext';
+import useConsultants from '@/hooks/useConsultants';
 import Person from '@/resources/Person';
+import Swal from 'sweetalert2';
 import add_user_main from '../../assets/icons/add_user_main.svg';
 import c_delete from '../../assets/icons/c_delete.svg';
+import PartnerDataForm from './PartnerDataForm';
 import PartnerForm from './PartnerForm';
 
 type PartnerFormInLineProps = {
-  hasPartner: boolean;
   setIsAddFormActive: (isAddFormActive: boolean) => void;
   handleEditPartner: () => void;
   isAddFormActive: boolean;
+  hasPartner: boolean;
 };
 
 export default function PartnerFormInLine({
-  hasPartner,
   setIsAddFormActive,
   handleEditPartner,
   isAddFormActive,
+  hasPartner,
 }: PartnerFormInLineProps) {
   const {
-    partnersAvailable,
-    activePartner,
-    selectActivePartner,
+    partnerDataAvailable,
+    activePartnerData,
+    selectActivePartnerData,
     activeConsultant,
     isEditingConsultant,
-    handleIsEditingConsultant,
+    updateConsultantPartners,
+    isEditingPartnerData,
+    handleIsEditingPartnerData,
   } = useContext(ConsultContext);
+  const handleConsultants = useConsultants();
+  const addConsultantAsync = makeConsultant();
 
-  // Obtener la versión más actualizada del partner activo
-  const currentActivePartner = useMemo(() => {
-    if (!activePartner) return null;
+  // Usar variables del contexto global en lugar de locales
 
-    // Buscar el partner actualizado en partnersAvailable
-    const updatedPartner = partnersAvailable.find((p) => p.id === activePartner.id);
-    console.log('Debug - activePartner:', activePartner);
-    console.log('Debug - partnersAvailable:', partnersAvailable);
-    console.log('Debug - updatedPartner:', updatedPartner);
+  // Obtener la versión más actualizada del partnerData activo
+  const currentActivePartnerData = useMemo(() => {
+    if (!activePartnerData) return null;
 
-    if (!updatedPartner) return activePartner;
+    // Buscar el partnerData actualizado en partnerDataAvailable
+    const updatedPartnerData = (partnerDataAvailable || []).find((p) => p.id === activePartnerData.id);
 
-    // Crear un nuevo objeto Person con los datos actualizados
+    if (!updatedPartnerData) return activePartnerData;
+
+    return updatedPartnerData;
+  }, [activePartnerData, partnerDataAvailable]);
+
+  // Obtener el primer partner del grupo activo para mostrar en la UI
+  /* const currentActivePartner = useMemo(() => {
+    if (!currentActivePartnerData || !currentActivePartnerData.partner || currentActivePartnerData.partner.length === 0) {
+      return null;
+    }
+
+    const firstPartner = currentActivePartnerData.partner[0];
     return new Person({
-      id: updatedPartner.id,
-      name: updatedPartner.names,
-      lastName: updatedPartner.lastName,
-      scdLastName: updatedPartner.scdLastName,
-      birthDate: updatedPartner.date,
-      yearMet: updatedPartner.yearMeet,
+      id: firstPartner.id,
+      name: firstPartner.names,
+      lastName: firstPartner.lastName,
+      scdLastName: firstPartner.scdLastName,
+      birthDate: firstPartner.date,
+      yearMet: currentActivePartnerData.yearMeet,
     });
-  }, [activePartner, partnersAvailable]);
+  }, [currentActivePartnerData]); */
 
   if (!activeConsultant) return null;
 
-  const hasNoPartners = partnersAvailable.length === 0;
+  const hasNoPartners = hasPartner;
 
   const editPartner = () => {
     setIsAddFormActive(true);
     handleEditPartner();
   };
 
+  const editGroup = () => {
+    setIsAddFormActive(true);
+    handleIsEditingPartnerData(true);
+  };
+
   const removeUser = () => { // TODO: Revisar esta función
-    const emptyPartner: Api.Partner = {
+    const emptyPartnerData: Api.PartnerData = {
       id: '',
-      names: '',
-      lastName: '',
-      scdLastName: '',
-      date: new Date('1900-01-01').toISOString(),
+      name: '',
+      date: '',
       yearMeet: 0,
+      partner: [],
     };
-    selectActivePartner(emptyPartner);
+    selectActivePartnerData(emptyPartnerData);
   };
 
   const selectedPartner = (e: React.ChangeEvent<HTMLSelectElement>) => { // TODO: Revisar esta función
-    const partnerId = e.target.value;
-    const selectedPartnerData = partnersAvailable.find((p) => p.id === partnerId);
+    const partnerDataId = e.target.value;
+    const selectedPartnerData = (partnerDataAvailable || []).find((p) => p.id === partnerDataId);
     if (selectedPartnerData) {
-      selectActivePartner(selectedPartnerData);
+      selectActivePartnerData(selectedPartnerData);
     }
   };
 
-  // Función para convertir Person a Api.Partner
-  const convertPersonToApiPartner = (person: Person | null): Api.Partner | undefined => {
-    if (!person) return undefined;
+  // Función para convertir PartnerData a formato compatible con PartnerForm
+  const convertPartnerDataToApiPartner = (partnerData: Api.PartnerData | null): Api.Partner | undefined => {
+    if (!partnerData || !partnerData.partner || partnerData.partner.length === 0) return undefined;
 
+    const firstPartner = partnerData.partner[0];
     return {
-      id: person.id,
-      names: person.name,
-      lastName: person.lastName,
-      scdLastName: person.scdLastName,
-      date: person.birthDate.toISOString().split('T')[0], // Convertir Date a string yyyy-MM-dd
-      yearMeet: person.yearMet || 0,
+      id: firstPartner.id,
+      names: firstPartner.names,
+      lastName: firstPartner.lastName,
+      scdLastName: firstPartner.scdLastName,
+      date: firstPartner.date,
     };
   };
 
-  if (hasNoPartners || isAddFormActive) {
+  // Función para crear nuevo grupo
+  const handleCreateGroup = () => {
+    handleIsEditingPartnerData(false);
+    setIsAddFormActive(true);
+  };
+
+  // Función para agregar pareja a grupo existente
+  const handleAddPartner = () => {
+    handleIsEditingPartnerData(false);
+    setIsAddFormActive(true);
+  };
+  const handleRemovePartner = async (partnerId: string) => {
+    const partnerToRemove = currentActivePartnerData?.partner?.find((p) => p.id === partnerId);
+    const partnerName = partnerToRemove ? `${partnerToRemove.names} ${partnerToRemove.lastName}` : 'este miembro';
+
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Estás seguro de que quieres eliminar a ${partnerName} del grupo?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    });
+    if (result.isConfirmed) {
+      try {
+        Swal.fire({
+          title: 'Eliminando...',
+          text: 'Por favor espera mientras se elimina la pareja.',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        const updatedPartnerData: Api.PartnerData = {
+          id: currentActivePartnerData?.id || '',
+          name: currentActivePartnerData?.name || '',
+          date: currentActivePartnerData?.date || '',
+          yearMeet: currentActivePartnerData?.yearMeet || 0,
+          partner: currentActivePartnerData?.partner?.filter((p: Api.Partner) => p.id !== partnerId) || [],
+        };
+
+        const updatedConsultant: Api.Consultant = {
+          ...activeConsultant,
+          partnerData: activeConsultant.partnerData?.map((p) => (p.id === currentActivePartnerData?.id ? updatedPartnerData : p)) || [],
+        };
+
+        const consultantsList = handleConsultants.updateConsultant(activeConsultant.id, updatedConsultant);
+        await addConsultantAsync.mutateAsync(consultantsList);
+
+        // Actualizar el contexto con el consultor actualizado
+        updateConsultantPartners(updatedConsultant);
+
+        Swal.fire(
+          '¡Eliminado!',
+          `${partnerName} ha sido eliminado del grupo exitosamente.`,
+          'success',
+        );
+      } catch (error) {
+        console.error('Error al eliminar pareja:', error);
+        Swal.fire(
+          'Error',
+          'No se pudo eliminar la pareja. Por favor, inténtalo de nuevo.',
+          'error',
+        );
+      }
+    }
+  };
+
+  // Función para cerrar formularios
+  const handleCloseForm = () => {
+    setIsAddFormActive(false);
+    handleIsEditingPartnerData(false);
+  };
+
+  // Mostrar formulario de creación/edición de grupo
+  if (isAddFormActive && isEditingPartnerData) {
+    console.log('DEBUG - Editando grupo:', currentActivePartnerData);
+    return (
+      <PartnerDataForm
+        activeConsultant={activeConsultant}
+        setIsAddFormActive={handleCloseForm}
+        isEditing
+        partnerDataToEdit={currentActivePartnerData || undefined}
+      />
+    );
+  }
+
+  // Mostrar formulario de agregar pareja
+  if (isAddFormActive && !isEditingPartnerData) {
     return (
       <PartnerForm
         activeConsultant={activeConsultant}
-        setIsAddFormActive={setIsAddFormActive}
+        setIsAddFormActive={handleCloseForm}
         isEditing={isEditingConsultant}
-        partnerToEdit={convertPersonToApiPartner(currentActivePartner)}
+        partnerToEdit={convertPartnerDataToApiPartner(currentActivePartnerData)}
       />
     );
   }
 
   return (
-    <div className="grid grid-cols-12">
-      <div className="form-group-inline col-span-5 items-center justify-center">
-        <img src={add_user_main} className="mb-3" alt="add_user_main" />
-
-        <p className="font-bold mb-1 mr-2 text-13 flex">
-          <button type="button" onClick={() => handleIsEditingConsultant(!isEditingConsultant)}>
-            <MdEdit className="text-xl text-gray-400" />
-          </button>
-          {' '}
-          Nombre
-        </p>
-        <select
-          onChange={selectedPartner}
-          className="border rounded w-full"
-          value={currentActivePartner?.id || ''}
-        >
-          {!currentActivePartner && (
-            <option value="">
-              Selecciona una pareja
-            </option>
-          )}
-          {partnersAvailable.map(({
-            id, names, lastName, scdLastName,
-          }) => (
-            <option
-              key={id}
-              value={id}
+    <div className="bg-white rounded-lg shadow-md p-6">
+      {/* Header Section */}
+      {/* Main Group Data Form */}
+      <div className="space-y-4">
+        {/* Group Selection */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center flex-1">
+            <button type="button" onClick={editGroup} disabled={!currentActivePartnerData}>
+              <img src={add_user_main} className="w-6 h-6 mr-3 text-gray-400" alt="add_user_main" />
+              <MdEdit className="text-gray-400 mr-2" />
+            </button>
+            <p className="font-bold text-sm mr-3">Grupo de Parejas:</p>
+            <select
+              onChange={selectedPartner}
+              className="border rounded px-3 py-2 flex-1"
+              value={currentActivePartnerData?.id || ''}
             >
-              {names}
+              {!currentActivePartnerData && (
+                <option value="">
+                  Selecciona un grupo de parejas
+                </option>
+              )}
+              {(partnerDataAvailable || []).map((partnerData: Api.PartnerData) => (
+                <option key={partnerData.id} value={partnerData.id}>
+                  {partnerData.name}
+                  {' '}
+                  (
+                  {partnerData.partner?.length || 0}
+                  {' '}
+                  parejas)
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="button" onClick={removeUser} className="ml-4">
+            <img src={c_delete} alt="delete" className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Create Group Button */}
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={handleCreateGroup}
+            className="btn-save w-50 text-sm"
+          >
+            Crear Grupo de Parejas
+          </button>
+        </div>
+
+        {/* Group Information */}
+        {currentActivePartnerData && (
+          <div className="flex flex-col gap-4 mt-4">
+            <div className="flex flex-row gap-4 w-full">
+              <div className="flex items-center w-1/2">
+                <MdEdit className="text-gray-400 mr-2" />
+                <p className="font-bold text-sm mr-3">Nombre</p>
+                <input
+                  value={currentActivePartnerData.name}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+
+              <div className="flex items-center w-1/2">
+                <MdEdit className="text-gray-400 mr-2" />
+                <p className="font-bold text-sm mr-3">Fecha de Creación</p>
+                <input
+                  value={currentActivePartnerData.date}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-row gap-4 w-full">
+              <div className="flex items-center w-1/2">
+                <MdEdit className="text-gray-400 mr-2" />
+                <p className="font-bold text-sm mr-3">Parejas:</p>
+                <input
+                  value={currentActivePartnerData.partner?.length || 0}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+
+              <div className="flex items-center w-1/2">
+                <MdEdit className="text-gray-400 mr-2" />
+                <p className="font-bold text-sm mr-3">Año de Encuentro:</p>
+                <input
+                  value={currentActivePartnerData.yearMeet}
+                  type="text"
+                  className="border rounded px-3 py-2 flex-1"
+                  readOnly
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Add Partner Button */}
+        {currentActivePartnerData && currentActivePartnerData.partner && currentActivePartnerData.partner.length < 2 && (
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={handleAddPartner}
+              className="bg-gold text-white px-6 py-2 rounded-lg font-medium"
+            >
+              Agregar Pareja al Grupo
+            </button>
+          </div>
+        )}
+        {hasNoPartners && !currentActivePartnerData && (
+          <div className="text-sm text-gray-600 text-center bg-gray-50 p-3 rounded">
+            Este grupo no tiene parejas
+          </div>
+        )}
+
+        {/* Limit Message */}
+        {currentActivePartnerData && currentActivePartnerData.partner && currentActivePartnerData.partner.length >= 2 && (
+          <div className="text-sm text-gray-600 text-center bg-gray-50 p-3 rounded">
+            Este grupo ya tiene el máximo de 2 parejas permitidas
+          </div>
+        )}
+      </div>
+
+      {/* Partners Section */}
+      {currentActivePartnerData && currentActivePartnerData.partner && currentActivePartnerData.partner.length > 0 && (
+        <>
+          <hr className="my-6" />
+
+          {/* Partners Header */}
+          <div className="bg-black text-white rounded-t-lg px-4 py-3 flex items-center justify-between">
+            <h3 className="font-bold">
+              Parejas del Grupo:
               {' '}
-              {lastName}
-              {' '}
-              {scdLastName}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form-group-inline col-span-4 items-center justify-center">
-        <p className="font-bold mb-1 mr-2 text-13 w-full">
-          <button type="button" onClick={editPartner}>
-            <MdEdit className="text-xl text-gray-400" />
-          </button>
-          {' '}
-          Fecha de Nacimiento
-        </p>
-        <input
-          value={currentActivePartner?.getFormBirthDate() || ''}
-          type="text"
-          className="rounded w-40"
-          disabled={hasPartner}
-          readOnly
-        />
-      </div>
-      <div className="form-group-inline col-span-2 items-center justify-center">
-        <p className="font-bold mb-1 mr-2 text-13">
-          <button type="button" onClick={editPartner}>
-            <MdEdit className="text-xl text-gray-400" />
-          </button>
-          {' '}
-          Edad
-        </p>
-        <input
-          value={currentActivePartner?.getYearsOld() || ''}
-          type="text"
-          className="rounded w-10"
-          disabled={hasPartner}
-          readOnly
-        />
-      </div>
-      <div className="form-group-inline col-span-1 items-center justify-center">
-        <button type="button" onClick={removeUser} className="ml-6">
-          <img src={c_delete} alt="delete" />
-        </button>
-      </div>
-      <hr className="col-span-12 my-3" />
-      <div className="form-group-inline col-span-6 items-center justify-start">
-        <img
-          src={add_user_main}
-          className="mb-3 opacity-0"
-          alt="add_user_main"
-        />
-        <p className="font-bold mb-1 mr-2 text-13 flex">
-          <button type="button" onClick={editPartner}>
-            <MdEdit className="text-xl text-gray-400" />
-          </button>
-          {' '}
-          Se conocieron en el año:
-        </p>
-        <input
-          value={currentActivePartner?.yearMet || ''}
-          type="text"
-          className="rounded w-20 text-center"
-          disabled={hasPartner}
-          readOnly
-        />
-      </div>
+              {currentActivePartnerData.name}
+            </h3>
+            {currentActivePartnerData.partner.length < 2 && (
+              <button
+                type="button"
+                onClick={handleAddPartner}
+                className="bg-gold text-white px-4 py-1 rounded text-sm"
+              >
+                Agregar Pareja
+              </button>
+            )}
+          </div>
+
+          {/* Partners List */}
+          <div className="bg-white border border-gray-200 rounded-b-lg">
+            {currentActivePartnerData.partner.map((partner) => {
+              const partnerPerson = new Person({
+                id: partner.id,
+                name: partner.names,
+                lastName: partner.lastName,
+                scdLastName: partner.scdLastName,
+                birthDate: partner.date,
+                yearMet: currentActivePartnerData.yearMeet,
+              });
+
+              return (
+                <div key={partner.id} className="flex items-center justify-between p-4 border-b border-gray-100 last:border-b-0">
+                  <div className="flex items-center flex-1">
+                    <div className="w-8 h-8 flex justify-center items-center rounded-full bg-blue-100 mr-3">
+                      <img src={add_user_main} className="w-4 h-4" alt="add_user_main" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium">
+                        {partnerPerson.name}
+                        {' '}
+                        {partnerPerson.lastName}
+                        {' '}
+                        {partnerPerson.scdLastName}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        {partnerPerson.getFormBirthDate()}
+                        {' '}
+                        •
+                        {partnerPerson.getYearsOld()}
+                        {' '}
+                        años • Encuentro:
+                        {currentActivePartnerData.yearMeet}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button type="button" onClick={editPartner}>
+                      <MdEdit className="text-gray-400 w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => handleRemovePartner(partner.id)}>
+                      <img src={c_delete} alt="delete" className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
