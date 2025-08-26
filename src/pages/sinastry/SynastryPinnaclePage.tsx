@@ -4,8 +4,9 @@ import {
 } from 'react';
 import { TiPlus } from 'react-icons/ti';
 
-import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
+import MetricsGrid from '@/components/partners/MetricsGrid';
+import PinnacleComponent from '@/components/partners/Pinnacle/Pinnacle';
 import AnnualReturn from '@/components/personal/pinnacle/AnnualReturn';
 import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
@@ -30,61 +31,8 @@ interface SynastryMetrics {
   maturity: string;
 }
 
-// Components
-
-function MetricsGrid({ metrics }: { metrics: SynastryMetrics }) {
-  return (
-    <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
-      <div className="grid grid-cols-4">
-        <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-          <span className="mb-3 text-gray text-13">Nombre</span>
-          <CircleNumber size="sm" appearance="blue-30" border="blue">
-            {metrics.name}
-          </CircleNumber>
-        </div>
-        <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-          <span className="mb-3 text-gray text-13">Alma</span>
-          <CircleNumber size="sm" appearance="blue-30" border="blue" radiant>
-            {metrics.soul}
-          </CircleNumber>
-        </div>
-        <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-          <span className="mb-3 text-gray text-13">Expresión</span>
-          <CircleNumber size="sm" appearance="blue-30" border="blue">
-            {metrics.expression}
-          </CircleNumber>
-        </div>
-        <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-          <span className="mb-3 text-gray text-13">Madurez</span>
-          <CircleNumber size="sm" appearance="aguamarina-30" border="aguamarina">
-            {metrics.maturity}
-          </CircleNumber>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function SynastryPinnaclePage() {
   const { consultant, activePartner, calculationDate } = useContext(ConsultContext);
-
-  if (!consultant) return (<NoConsultantSelected />);
-
-  console.log(activePartner);
-
-  if (!activePartner) {
-    return (
-      <div className="page-content bg-home-background bg-cover pb-10">
-        <SelectPartner />
-        <div className="col-span-12 text-center mt-8">
-          <strong>Agrega/Selecciona una pareja para ver esta información</strong>
-        </div>
-      </div>
-    );
-  }
-  const sinastry = new Synastry(consultant, activePartner);
-
-  console.log(sinastry.calcMaturity());
 
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({
     checkP1: false,
@@ -109,21 +57,38 @@ export default function SynastryPinnaclePage() {
     checkName2: createToggle('checkN2'),
   };
 
-  // Use activePartner directly from context
-  const partner = activePartner;
+  // Early returns
+  if (!consultant) {
+    return <NoConsultantSelected />;
+  }
+
+  if (!activePartner) {
+    return (
+      <div className="page-content bg-home-background bg-cover pb-10">
+        <SelectPartner />
+        <div className="col-span-12 text-center mt-8">
+          <strong>Agrega/Selecciona una pareja para ver esta información</strong>
+        </div>
+      </div>
+    );
+  }
+
+  // TypeScript assertions - at this point we know these are not null
+  const validConsultant = consultant!;
+  const validActivePartner = activePartner!;
 
   // Create synastry instance directly
-  const synastry = consultant && partner ? new Synastry(consultant, partner) : null;
+  const synastry = new Synastry(validConsultant, validActivePartner);
 
   // Calculate annual returns directly
-  const annualReturns = consultant && partner && synastry ? {
-    consultant: consultant.annualReturn(calculationDate),
-    partner: partner.annualReturn(calculationDate),
+  const annualReturns = {
+    consultant: validConsultant.annualReturn(calculationDate),
+    partner: validActivePartner.annualReturn(calculationDate),
     synastry: synastry.annualReturn(calculationDate.year),
-  } : null;
+  };
 
   // Calculate synastry metrics directly
-  const synastryMetrics: SynastryMetrics | null = synastry ? {
+  const synastryMetrics: SynastryMetrics = {
     name: checkboxState.checkN
       ? `${synastry.getNameCheck()}${synastry.calcNameISK()}`
       : `${synastry.calcName()}${synastry.calcNameISK()}`,
@@ -134,56 +99,35 @@ export default function SynastryPinnaclePage() {
       ? `${synastry.getExpressionSoulCheck()}${synastry.calcSoulExpressionISK()}`
       : `${synastry.calcSoulExpression()}${synastry.calcSoulExpressionISK()}`,
     maturity: `${synastry.calcMaturity()}${synastry.calcMaturityISK()}`,
-  } : null;
+  };
 
   // Calculate consultant metrics directly
-  const consultantMetrics: SynastryMetrics | null = consultant ? {
+  const consultantMetrics: SynastryMetrics = {
     name: checkboxState.checkN1
-      ? `${consultant.getNameCheck()}${consultant.calcNameISK()}`
-      : `${consultant.calcName()}${consultant.calcNameISK()}`,
+      ? `${validConsultant.getNameCheck()}${validConsultant.calcNameISK()}`
+      : `${validConsultant.calcName()}${validConsultant.calcNameISK()}`,
     soul: checkboxState.checkN1
-      ? `${consultant.getSoulCheck()}${consultant.calcSoulNumberISK()}`
-      : `${consultant.calcSoulNumber()}${consultant.calcSoulNumberISK()}`,
+      ? `${validConsultant.getSoulCheck()}${validConsultant.calcSoulNumberISK()}`
+      : `${validConsultant.calcSoulNumber()}${validConsultant.calcSoulNumberISK()}`,
     expression: checkboxState.checkN1
-      ? `${consultant.getExpressionSoulCheck()}${consultant.calcSoulExpressionISK()}`
-      : `${consultant.calcSoulExpression()}${consultant.calcSoulExpressionISK()}`,
-    maturity: `${consultant.calcMaturity()}${consultant.calcMaturityISK()}`,
-  } : null;
+      ? `${validConsultant.getExpressionSoulCheck()}${validConsultant.calcSoulExpressionISK()}`
+      : `${validConsultant.calcSoulExpression()}${validConsultant.calcSoulExpressionISK()}`,
+    maturity: `${validConsultant.calcMaturity()}${validConsultant.calcMaturityISK()}`,
+  };
 
   // Calculate partner metrics directly
-  const partnerMetrics: SynastryMetrics | null = partner ? {
+  const partnerMetrics: SynastryMetrics = {
     name: checkboxState.checkN2
-      ? `${partner.getNameCheck()}${partner.calcNameISK()}`
-      : `${partner.calcName()}${partner.calcNameISK()}`,
+      ? `${validActivePartner.getNameCheck()}${validActivePartner.calcNameISK()}`
+      : `${validActivePartner.calcName()}${validActivePartner.calcNameISK()}`,
     soul: checkboxState.checkN2
-      ? `${partner.getSoulCheck()}${partner.calcSoulNumberISK()}`
-      : `${partner.calcSoulNumber()}${partner.calcSoulNumberISK()}`,
+      ? `${validActivePartner.getSoulCheck()}${validActivePartner.calcSoulNumberISK()}`
+      : `${validActivePartner.calcSoulNumber()}${validActivePartner.calcSoulNumberISK()}`,
     expression: checkboxState.checkN2
-      ? `${partner.getExpressionSoulCheck()}${partner.calcSoulExpressionISK()}`
-      : `${partner.calcSoulExpression()}${partner.calcSoulExpressionISK()}`,
-    maturity: `${partner.calcMaturity()}${partner.calcMaturityISK()}`,
-  } : null;
-
-  // Early returns AFTER all hooks
-  if (!consultant) {
-    console.log('SynastryPinnacle: No consultant, returning NoConsultantSelected');
-    return <NoConsultantSelected />;
-  }
-
-  // Ensure all required data is available - simplified check
-  if (!synastry || !annualReturns) {
-    console.log('SynastryPinnacle: Missing synastry or annualReturns, showing loading');
-    return (
-      <div className="page-content bg-home-background bg-cover pb-10">
-        <SelectPartner />
-        <div className="col-span-12 text-center mt-8">
-          <strong>Cargando información...</strong>
-        </div>
-      </div>
-    );
-  }
-
-  console.log('SynastryPinnacle: All data available, rendering main content');
+      ? `${validActivePartner.getExpressionSoulCheck()}${validActivePartner.calcSoulExpressionISK()}`
+      : `${validActivePartner.calcSoulExpression()}${validActivePartner.calcSoulExpressionISK()}`,
+    maturity: `${validActivePartner.calcMaturity()}${validActivePartner.calcMaturityISK()}`,
+  };
 
   return (
     <div className="page-content bg-home-background bg-cover pb-10">
@@ -201,13 +145,15 @@ export default function SynastryPinnaclePage() {
               text: checkboxState.checkN ? 'Normal' : 'Comprobación',
             }}
           />
-          {synastryMetrics && <MetricsGrid metrics={synastryMetrics} />}
+          <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
+            <MetricsGrid metrics={synastryMetrics} />
+          </div>
         </div>
 
         {/* Consultant Metrics */}
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Nombre: ${consultant.nameView}`}
+            title={`Nombre: ${validConsultant.nameView}`}
             color="bg-blue"
             button={{
               handle: toggles.checkName1,
@@ -216,41 +162,14 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-white shadow-sm">
-            {consultantMetrics && (
-              <div className="grid grid-cols-4">
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Nombre</span>
-                  <CircleNumber size="sm" appearance="blue-30" border="blue">
-                    {consultantMetrics.name}
-                  </CircleNumber>
-                </div>
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Alma</span>
-                  <CircleNumber size="sm" appearance="blue-30" border="blue" radiant>
-                    {consultantMetrics.soul}
-                  </CircleNumber>
-                </div>
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Expresión</span>
-                  <CircleNumber size="sm" appearance="blue-30" border="blue">
-                    {consultantMetrics.expression}
-                  </CircleNumber>
-                </div>
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Madurez</span>
-                  <CircleNumber size="sm" appearance="aguamarina-30" border="aguamarina">
-                    {consultantMetrics.maturity}
-                  </CircleNumber>
-                </div>
-              </div>
-            )}
+            <MetricsGrid metrics={consultantMetrics} />
           </div>
         </div>
 
         {/* Partner Metrics */}
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Nombre: ${partner.nameView}`}
+            title={`Nombre: ${validActivePartner.nameView}`}
             color="bg-blue"
             button={{
               handle: toggles.checkName2,
@@ -259,34 +178,7 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-white shadow-sm">
-            {partnerMetrics && (
-              <div className="grid grid-cols-4">
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Nombre</span>
-                  <CircleNumber size="sm" appearance="blue-30" border="blue">
-                    {partnerMetrics.name}
-                  </CircleNumber>
-                </div>
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Alma</span>
-                  <CircleNumber size="sm" appearance="blue-30" border="blue" radiant>
-                    {partnerMetrics.soul}
-                  </CircleNumber>
-                </div>
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Expresión</span>
-                  <CircleNumber size="sm" appearance="blue-30" border="blue">
-                    {partnerMetrics.expression}
-                  </CircleNumber>
-                </div>
-                <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
-                  <span className="mb-3 text-gray text-13">Madurez</span>
-                  <CircleNumber size="sm" appearance="aguamarina-30" border="aguamarina">
-                    {partnerMetrics.maturity}
-                  </CircleNumber>
-                </div>
-              </div>
-            )}
+            <MetricsGrid metrics={partnerMetrics} />
           </div>
         </div>
 
@@ -302,13 +194,13 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
-            <Pinnacle isVerificationActive={checkboxState.checkP1} size="sm" />
+            <PinnacleComponent entity={synastry} isVerificationActive={checkboxState.checkP1} size="sm" />
           </div>
         </div>
 
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Pináculo: ${consultant.nameView}`}
+            title={`Pináculo: ${validConsultant.nameView}`}
             color="bg-blue"
             button={{
               text: checkboxState.checkP2 ? 'Normal' : 'Comprobación',
@@ -323,7 +215,7 @@ export default function SynastryPinnaclePage() {
 
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Pináculo: ${partner.nameView}`}
+            title={`Pináculo: ${validActivePartner.nameView}`}
             color="bg-blue"
             button={{
               text: checkboxState.checkP ? 'Normal' : 'Comprobación',
@@ -332,7 +224,7 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 shadow-sm">
-            <Pinnacle isVerificationActive={checkboxState.checkP} size="sm" />
+            <PinnacleComponent entity={validActivePartner} isVerificationActive={checkboxState.checkP} size="sm" />
           </div>
         </div>
 
@@ -356,7 +248,7 @@ export default function SynastryPinnaclePage() {
               </div>
               Pináculo:
               {' '}
-              {consultant.nameView}
+              {validConsultant.nameView}
             </div>
           </div>
           <div className="pinnacle-wrap px-5 py-4">
@@ -372,7 +264,7 @@ export default function SynastryPinnaclePage() {
               </div>
               Pináculo:
               {' '}
-              {partner.nameView}
+              {validActivePartner.nameView}
             </div>
           </div>
           <div className="pinnacle-wrap px-5 py-4">
