@@ -1,9 +1,15 @@
 /* eslint-disable no-plusplus */
 import useConsult from '@/hooks/useConsult';
+import Group from '@/resources/Group';
 import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 import Universal from '@/resources/Universal';
 
-function TimeCircleWeeks({ consultant }: { consultant?: Person }) {
+type TimeCircleWeeksProps = {
+  consultant?: Person | Synastry | Group;
+};
+
+function TimeCircleWeeks({ consultant }: TimeCircleWeeksProps) {
   const { consultationDate, calculationDate } = useConsult();
 
   const u = new Universal();

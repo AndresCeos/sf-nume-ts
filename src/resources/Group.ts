@@ -1,10 +1,20 @@
 /* eslint-disable no-plusplus */
-import { getDate, getMonth, getYear } from 'date-fns';
-import _ from 'lodash';
+/* eslint-disable class-methods-use-this */
+import {
+  format,
+  getDate,
+  getDaysInMonth,
+  getMonth,
+  getYear,
+} from 'date-fns';
+import _, { capitalize } from 'lodash';
 import Person from './Person';
 
 import {
   getAllMonths,
+  getDaysOfWeek,
+  getDaysOfWeekEnglish,
+  getMonthName,
   reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
 } from '@/utils/numbers';
 
@@ -19,6 +29,12 @@ export type AnnualReturn = {
   F: number,
   G: number,
   H: number
+};
+
+type SplittedDate = {
+  day?: number,
+  month?: number,
+  year?: number,
 };
 
 class Group {
@@ -505,7 +521,7 @@ class Group {
     return this.karmic.includes(soulISK) ? '*' : '';
   }
 
-  calcPersonalYear(year:number):number {
+  calcPersonalYear(year?:number):number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     return reduceNumber(
       this.getA()
@@ -524,20 +540,67 @@ class Group {
    * calculate personal month
    * @returns {Number} sumPersonalMonth
    */
-  calcPersonalMonth(month:number, year:number):number {
-    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+  calcPersonalMonth(opts: SplittedDate):number {
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const personalYear = this.calcPersonalYear(yearToCalculate);
     const personalMonth = reduceNumber(personalYear + monthToCalculate);
     return personalMonth;
   }
 
-  calcPersonalMonthISK(year:number, month:number):string {
-    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+  calcPersonalMonthISK(opts: SplittedDate):string {
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const personalYear = this.calcPersonalYear(yearToCalculate);
     const personalMonth = reduceNumberISK(personalYear + monthToCalculate);
     return this.karmic.includes(personalMonth) ? '*' : '';
+  }
+
+  /**
+ * Calculate a especific personal weeek
+ * @param monthToCalculate
+ * @param weekToCalculate
+ * @param yearToCalculate
+ * @returns {Number}
+ */
+  calcSelectPersonalWeek(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): number {
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
+    if (weekToCalculate === 1) { return reduceNumber(weekOne); }
+    const weekTwo = this.calcPersonalYear(yearToCalculate) + reduceNumber(weekOne);
+    if (weekToCalculate === 2) { return reduceNumber(weekTwo); }
+    const weekThr = reduceNumber(reduceNumber(weekOne) + reduceNumber(weekTwo));
+    if (weekToCalculate === 3) { return reduceNumber(weekThr); }
+    const weekFou = reduceNumber(monthToCalculate + reduceNumber(weekOne));
+    if (weekToCalculate === 4) { return reduceNumber(weekFou); }
+    return 0;
+  }
+
+  calcSelectPersonalWeekISK(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): string {
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
+    if (weekToCalculate === 1) {
+      const personalWeekOne = reduceNumberISK(weekOne);
+      return this.karmic.includes(personalWeekOne) ? '*' : '';
+    }
+    const weekTwo = this.calcPersonalYear(yearToCalculate) + weekOne;
+    if (weekToCalculate === 2) {
+      const personalWeekTwo = reduceNumberISK(weekTwo);
+      return this.karmic.includes(personalWeekTwo) ? '*' : '';
+    }
+    const weekThr = reduceNumber(reduceNumber(weekOne) + reduceNumber(weekTwo));
+    if (weekToCalculate === 3) {
+      const personalWeekThr = reduceNumberISK(weekThr);
+      return this.karmic.includes(personalWeekThr) ? '*' : '';
+    }
+    const weekFou = reduceNumber(monthToCalculate + reduceNumber(weekOne));
+    if (weekToCalculate === 4) {
+      const personalWeekFou = reduceNumberISK(weekFou);
+      return this.karmic.includes(personalWeekFou) ? '*' : '';
+    }
+    return '';
   }
 
   /**
@@ -747,6 +810,62 @@ class Group {
     return this.karmic.includes(quarter) ? '*' : '';
   }
 
+  getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
+    const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
+    const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
+    const quarterMonth = getMonthName(month);
+    const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
+    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    if (monthIndex < 5) {
+      if (monthIndex >= indexEnero) {
+        if (indexEnero === 0) { return this.getQuarterOne(); }
+        return this.getQuarterOne();
+      }
+      return this.getQuarterOne();
+    }
+    if (monthIndex > 4 && monthIndex < 9) {
+      if (monthIndex >= indexEnero) {
+        if (indexEnero === 0) { return this.getQuarterTwo(year); }
+        return this.getQuarterTwo(year - 1);
+      }
+      return this.getQuarterTwo(year);
+    }
+    if (monthIndex > 8) {
+      if (monthIndex >= indexEnero) {
+        if (indexEnero === 0) { return this.getQuarterThree(year); }
+        return this.getQuarterThree(year - 1);
+      }
+      return this.getQuarterThree(year);
+    }
+    return 0;
+  }
+
+  getQuarterMonthISK(monthToCalculate: number, yearToCalculate: number): string {
+    const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
+    const quarterMonth = getMonthName(monthToCalculate);
+    const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
+    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    if (monthIndex < 5) {
+      if (monthIndex >= indexEnero) {
+        return this.getQuarterOneISK();
+      }
+      return this.getQuarterOneISK();
+    }
+    if (monthIndex > 4 && monthIndex < 9) {
+      if (monthIndex >= indexEnero) {
+        return this.getQuarterTwoISK(year - 1);
+      }
+      return this.getQuarterTwoISK(year);
+    }
+    if (monthIndex > 8) {
+      if (monthIndex >= indexEnero) {
+        return this.getQuarterThreeISK(year - 1);
+      }
+      return this.getQuarterThreeISK(year);
+    }
+    return '';
+  }
+
   getCustomMonths():string[] {
     let sumBirthDates = 0;
     this.group.forEach((m) => {
@@ -927,6 +1046,31 @@ class Group {
       yearToCalculate + 4,
     ];
     return nineYearCycle;
+  }
+
+  getAllDaysInMonth(month?: number, year?: number): number[] {
+    const today = new Date();
+    const yearToCalculate = year ?? today.getFullYear();
+    const monthToCalculate = (month ?? today.getMonth() + 1) - 1;
+    const totalDays = getDaysInMonth(new Date(yearToCalculate, monthToCalculate));
+    return Array.from({ length: totalDays }, (unused, index) => index + 1);
+  }
+
+  getDaysOfWeekCustom(month: number, year: number): string[] {
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const daysInMonth = this.getAllDaysInMonth(monthToCalculate, yearToCalculate);
+    const dayInWeek = getDaysOfWeek();
+
+    const firstDay = format(new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]), 'EEE')
+      .replace(/\./g, '');
+
+    const dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
+
+    return Array.from({ length: 7 }, (unused, index) => {
+      const weekIndex = (dayIndex + index) % 7;
+      return dayInWeek[weekIndex];
+    });
   }
 
   annualReturn(year:number):AnnualReturn {
