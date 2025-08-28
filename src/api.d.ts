@@ -24,6 +24,7 @@ declare namespace Api {
     group?: unknown[];
     groupData?: GroupData[];
     lastName?: string;
+    createNames?: CreateName[];
     names?: string;
     nationality?: string;
     partner?: Partner[];
@@ -106,5 +107,12 @@ declare namespace Api {
     scdLastName: string;
     date: string;
     dateInit: number;
+  }
+  interface CreateName {
+    id: string;
+    name: string;
+    lastName: string;
+    scdLastName: string;
+    birthDate: string;
   }
 }
