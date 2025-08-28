@@ -1,8 +1,14 @@
+import Group from '@/resources/Group';
 import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 import TimeCirclePastMonths from './TimeCirclePastMonths';
 import TimeCircleWeeks from './TimeCircleWeeks';
 
-function TimeCircle({ consultant }: { consultant?: Person }) {
+type TimeCircleProps = {
+  consultant?: Person | Synastry | Group;
+};
+
+function TimeCircle({ consultant }: TimeCircleProps) {
   return (
     <div className="relative time-circle">
       <img src="/assets/time-circle.png" className="relative" alt="Time Circle" />

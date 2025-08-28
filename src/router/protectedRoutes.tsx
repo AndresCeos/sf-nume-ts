@@ -8,8 +8,11 @@ import ConsultProvider from '@/context/ConsultProvider';
 import ConsultantPage from '@/pages/dashboard/ConsultantPage';
 import HomePage from '@/pages/dashboard/HomePage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
+import GroupAnnualCalendar from '@/pages/group/GroupAnnualCalendar';
 import GroupAnnualReturnsPage from '@/pages/group/GroupAnnualReturnsPage';
+import GroupMonthCalendarPage from '@/pages/group/GroupMonthCalendar';
 import GroupPinnaclePage from '@/pages/group/GroupPinnaclePage';
+import GroupTimeCirclePage from '@/pages/group/GroupTimeCirclePage';
 import AnnualCalendar from '@/pages/personal/AnnualCalendar';
 import AnnualReturnsPage from '@/pages/personal/AnnualReturnsPage';
 import CreateNamePage from '@/pages/personal/CreateNamePage';
@@ -61,6 +64,9 @@ const protectedRoutes = [
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },
+      { path: '/group/time-circle', element: <GroupTimeCirclePage /> },
+      { path: '/group/annual-calendar', element: <GroupAnnualCalendar /> },
+      { path: '/group/monthly-calendar', element: <GroupMonthCalendarPage /> },
       // Dashboard Pages
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },

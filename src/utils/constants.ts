@@ -41,6 +41,9 @@ export function pageNameBySlug(opts:{ name:string }) {
     case 'group_pinnacle': return 'Grupo Pináculo';
     case 'group_vibracion': return 'Grupo Vibración del Tiempo';
     case 'group_retornos': return 'Grupo Retornos Anuales';
+    case 'group_time_circle': return 'Grupo Círculo del Tiempo';
+    case 'group_monthly_calendar': return 'Grupo Calendario Mensual';
+    case 'group_annual_calendar': return 'Grupo Calendario Anual';
     default: return 'Numerología';
   }
 }
