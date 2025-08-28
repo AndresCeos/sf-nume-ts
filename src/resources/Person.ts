@@ -1159,14 +1159,14 @@ class Person {
   }
 
   calcNameCycles() {
-    return [1, 2, 3, 4].map((i) => this.nameCount() * i);
+    return [1, 2, 3, 4, 5, 6].map((i) => this.nameCount() * i);
   }
 
   calcNameSubCycles() {
     const factor = (this.nameCount() / 2) / 2;
     const subCycles = [];
     let current = factor;
-    while (current < 120) {
+    while (current < 180) {
       subCycles.push(Math.round(current));
       current += factor;
     }
@@ -1252,7 +1252,7 @@ class Person {
       }
     });
 
-    return nameSetting.slice(0, 124);
+    return nameSetting.slice(0, 186);
   }
 
   getDestinityTable() {
@@ -1274,7 +1274,7 @@ class Person {
           });
         }
       });
-    } while (destiny.length < 120);
+    } while (destiny.length < 180);
 
     let ipMLetters = 0;
     do {
@@ -1289,7 +1289,7 @@ class Person {
           }
         }
       });
-    } while (ipMLetters < 120);
+    } while (ipMLetters < 180);
 
     let ipfLetters = 0;
     if (this.getSingle()) {
@@ -1305,10 +1305,10 @@ class Person {
             }
           }
         });
-      } while (ipfLetters < 120);
+      } while (ipfLetters < 180);
     }
 
-    return destiny.slice(0, 122);
+    return destiny.slice(0, 182);
   }
 
   /** ======================Time  Calcs ==================== */
