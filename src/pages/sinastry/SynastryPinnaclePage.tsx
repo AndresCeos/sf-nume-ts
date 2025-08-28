@@ -8,12 +8,10 @@ import NoConsultantSelected from '@/components/NoConsultantSelected';
 import MetricsGrid from '@/components/partners/MetricsGrid';
 import PinnacleComponent from '@/components/partners/Pinnacle/Pinnacle';
 import AnnualReturn from '@/components/personal/pinnacle/AnnualReturn';
-import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 import WrapTitle from '@/components/WrapTitle';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
-import Person from '@/resources/Person';
 
 // Types
 interface CheckboxState {
@@ -33,7 +31,9 @@ interface SynastryMetrics {
 }
 
 export default function SynastryPinnaclePage() {
-  const { consultant, activePartnerData, calculationDate } = useContext(ConsultContext);
+  const {
+    consultant, activePartnerData, selectedPartnersAsPersons, calculationDate,
+  } = useContext(ConsultContext);
 
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({
     checkP1: false,
@@ -63,7 +63,7 @@ export default function SynastryPinnaclePage() {
     return <NoConsultantSelected />;
   }
 
-  if (!activePartnerData || !activePartnerData.partner || activePartnerData.partner.length < 2) {
+  if (!activePartnerData || !selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
       <div className="page-content bg-home-background bg-cover pb-10">
         <SelectPartner />
@@ -74,24 +74,9 @@ export default function SynastryPinnaclePage() {
     );
   }
 
-  // Create Person objects from the partner group data
-  const partner1 = new Person({
-    id: activePartnerData.partner[0].id,
-    name: activePartnerData.partner[0].names,
-    lastName: activePartnerData.partner[0].lastName,
-    scdLastName: activePartnerData.partner[0].scdLastName,
-    birthDate: activePartnerData.partner[0].date,
-    yearMet: activePartnerData.yearMeet,
-  });
-
-  const partner2 = new Person({
-    id: activePartnerData.partner[1].id,
-    name: activePartnerData.partner[1].names,
-    lastName: activePartnerData.partner[1].lastName,
-    scdLastName: activePartnerData.partner[1].scdLastName,
-    birthDate: activePartnerData.partner[1].date,
-    yearMet: activePartnerData.yearMeet,
-  });
+  // Use the already converted Person objects from context
+  const partner1 = selectedPartnersAsPersons[0];
+  const partner2 = selectedPartnersAsPersons[1];
 
   // Create synastry instance between the two partners (not consultant)
   const synastry = new Synastry(partner1, partner2);
