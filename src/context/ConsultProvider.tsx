@@ -66,6 +66,7 @@ function ConsultProvider({ children }: any) {
       scdLastName: newConsultant.scdLastName || '',
       birthDate: newConsultant.date?.toString() || '',
     });
+    console.log(newConsultant.date?.toString());
     setConsultant(newConsultantPerson);
     setActiveConsultant(newConsultant);
 
