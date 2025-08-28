@@ -11,6 +11,8 @@ export default function DestinyTableCreateName({ createNameObj }: DestinyTableCr
   let table2: any[] = [];
   let table3: any[] = [];
   let table4: any[] = [];
+  let table5: any[] = [];
+  let table6: any[] = [];
   let nameCycles: number[] = [];
   let nameSubCycles: number[] = [];
 
@@ -18,6 +20,8 @@ export default function DestinyTableCreateName({ createNameObj }: DestinyTableCr
   table2 = table.slice(31, 62);
   table3 = table.slice(62, 93);
   table4 = table.slice(93, 124);
+  table5 = table.slice(124, 155);
+  table6 = table.slice(155, 186);
   nameCycles = createNameObj.calcNameCycles();
   nameSubCycles = createNameObj.calcNameSubCycles();
 
@@ -29,6 +33,8 @@ export default function DestinyTableCreateName({ createNameObj }: DestinyTableCr
         <ActiveName table={table2} start={31} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
         <ActiveName table={table3} start={62} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
         <ActiveName table={table4} start={93} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
+        <ActiveName table={table5} start={124} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
+        <ActiveName table={table6} start={155} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
       </div>
 
     </div>

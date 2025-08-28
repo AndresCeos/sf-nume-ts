@@ -10,6 +10,8 @@ export default function NameCycle() {
   const table2 = table.slice(31, 62);
   const table3 = table.slice(62, 93);
   const table4 = table.slice(93, 124);
+  const table5 = table.slice(124, 155);
+  const table6 = table.slice(155, 186);
 
   const nameCycles = consultant.calcNameCycles();
   const nameSubCycles = consultant.calcNameSubCycles();
@@ -36,6 +38,18 @@ export default function NameCycle() {
       <ActiveName
         table={table4}
         start={93}
+        nameCycles={nameCycles}
+        nameSubCycles={nameSubCycles}
+      />
+      <ActiveName
+        table={table5}
+        start={124}
+        nameCycles={nameCycles}
+        nameSubCycles={nameSubCycles}
+      />
+      <ActiveName
+        table={table6}
+        start={155}
         nameCycles={nameCycles}
         nameSubCycles={nameSubCycles}
       />
