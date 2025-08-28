@@ -21,8 +21,6 @@ export default function DestinyTablePage() {
 
   const nameCycles = consultant.calcNameCycles();
   const nameSubCycles = consultant.calcNameSubCycles();
-  console.log('nameCycles:', nameCycles);
-  console.log('nameSubCycles:', nameSubCycles);
 
   return (
     <div className="page-content bg-home-background bg-cover pb-10">
