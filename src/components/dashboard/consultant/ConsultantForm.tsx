@@ -18,6 +18,8 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
   const [isLoading, setIsLoading] = useState(false);
   const { consultant } = useConsult();
 
+  if (!consultant) return <div>Consultant not found</div>;
+
   const {
     handleIsEditingConsultant, isEditingConsultant,
   } = useConsult();
