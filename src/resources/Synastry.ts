@@ -1,6 +1,7 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-plusplus */
+import { getDate, getMonth, getYear } from 'date-fns';
 import _ from 'lodash';
-import moment from 'moment';
 import { capitalize, getDaysOfWeek, getMonthName } from '../utils/numbers';
 import Person from './Person';
 
@@ -32,7 +33,7 @@ class Synastry {
 
   partner: Person;
 
-  NOW:moment.Moment;
+  NOW: Date;
 
   karmic: number[];
 
@@ -41,7 +42,7 @@ class Synastry {
   constructor(consultant: Person, partner: Person) {
     this.consultant = consultant;
     this.partner = partner;
-    this.NOW = moment();
+    this.NOW = new Date();
     this.karmic = [13, 14, 16, 19];
     this.yearMet = partner.yearMet;
   }
@@ -55,14 +56,14 @@ class Synastry {
   }
 
   getYearsOld(year :number) :number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     return yearToCalculate - Number(this.yearMet);
   }
 
   getMonthOfBirth():number {
     const consultantBirthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
-    const sumBirthDates = (consultantBirthDate.month() + 1) + (partnerBirthDate.month() + 1);
+    const sumBirthDates = (getMonth(consultantBirthDate) + 1) + (getMonth(partnerBirthDate) + 1);
     let reduce;
     if (sumBirthDates === 19) {
       reduce = 10;
@@ -76,20 +77,20 @@ class Synastry {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
 
-    return reduceNumber((birthDate.month() + 1) + (partnerBirthDate.month() + 1));
+    return reduceNumber((getMonth(birthDate) + 1) + (getMonth(partnerBirthDate) + 1));
   }
 
   getB():number {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
 
-    return reduceNumber(birthDate.date() + partnerBirthDate.date());
+    return reduceNumber(getDate(birthDate) + getDate(partnerBirthDate));
   }
 
   getBISK():string {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
-    const B = reduceNumberISK(birthDate.date() + partnerBirthDate.date());
+    const B = reduceNumberISK(getDate(birthDate) + getDate(partnerBirthDate));
     return this.karmic.includes(B) ? '*' : '';
   }
 
@@ -97,13 +98,13 @@ class Synastry {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
 
-    return reduceNumber(birthDate.year() + partnerBirthDate.year());
+    return reduceNumber(getYear(birthDate) + getYear(partnerBirthDate));
   }
 
   getCISK():string {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
-    const C = reduceNumberISK(birthDate.year() + partnerBirthDate.year());
+    const C = reduceNumberISK(getYear(birthDate) + getYear(partnerBirthDate));
     return this.karmic.includes(C) ? '*' : '';
   }
 
@@ -267,21 +268,21 @@ class Synastry {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
 
-    return reduceNumberForSub(birthDate.month() + 1 + partnerBirthDate.month() + 1);
+    return reduceNumberForSub(getMonth(birthDate) + 1 + getMonth(partnerBirthDate) + 1);
   }
 
   getBs():number {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
 
-    return reduceNumberForSub(birthDate.date() + partnerBirthDate.date());
+    return reduceNumberForSub(getDate(birthDate) + getDate(partnerBirthDate));
   }
 
   getCs():number {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
 
-    return reduceNumberForSub(birthDate.year() + partnerBirthDate.year());
+    return reduceNumberForSub(getYear(birthDate) + getYear(partnerBirthDate));
   }
 
   getK() :number {
@@ -360,7 +361,7 @@ class Synastry {
       this.getS(),
       this.getP(),
     ];
-    const occurrences: Record<number, number> = [];
+    const occurrences: Record<number, number> = {};
     // eslint-disable-next-line no-restricted-syntax
     for (const num of appearances) {
       occurrences[num] = occurrences[num] ? occurrences[num] + 1 : 1;
@@ -494,8 +495,8 @@ class Synastry {
    * calculate personal year
    * @returns {Number} sumPersonalYear
    */
-  calcPersonalYear(year :number):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+  calcPersonalYear(year?:number):number {
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     return reduceNumber(
       this.getA()
       + this.getB()
@@ -505,7 +506,7 @@ class Synastry {
 
   /* Personal  Year Keramics */
   calcPersonalYearISK(year:number):string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const personalYear = reduceNumberISK(this.getA() + this.getB() + yearToCalculate);
     return this.karmic.includes(personalYear) ? '*' : '';
   }
@@ -514,18 +515,18 @@ class Synastry {
    * calculate personal month
    * @returns {Number} sumPersonalMonth
    */
-  calcPersonalMonth(month :number, year :number):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+  calcPersonalMonth(opts: SplittedDate):number {
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const personalYear = this.calcPersonalYear(yearToCalculate);
     const personalMonth = reduceNumber(personalYear + monthToCalculate);
     return personalMonth;
   }
 
   /** Personal Month Keramics */
-  calcPersonalMonthISK(month :number, year :number):string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
+  calcPersonalMonthISK(opts: SplittedDate):string {
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const personalYear = this.calcPersonalYear(yearToCalculate);
     const personalMonth = reduceNumberISK(personalYear + monthToCalculate);
     return this.karmic.includes(personalMonth) ? '*' : '';
@@ -536,9 +537,9 @@ class Synastry {
    * @returns {Number} sumPersonalWeek
    */
   calcPersonalWeek(day :number, month :number, year:number):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
-    const dayToCalculate = _.isNil(day) ? this.NOW.date() : day;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    const dayToCalculate = _.isNil(day) ? getDate(this.NOW) : day;
     const sumPersonalWeekOne = reduceNumber(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
     if (dayToCalculate >= 1 && dayToCalculate <= 7) {
       return sumPersonalWeekOne;
@@ -562,9 +563,9 @@ class Synastry {
 
   /** Personal Week Keramics */
   calcPersonalWeekISK(day :number, month :number, year:number):string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const monthToCalculate = _.isNil(month) ? this.NOW.month() + 1 : month;
-    const dayToCalculate = _.isNil(day) ? this.NOW.date() : day;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    const dayToCalculate = _.isNil(day) ? getDate(this.NOW) : day;
     const sumPersonalWeekOne = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
     if (dayToCalculate >= 1 && dayToCalculate <= 7) {
       return this.karmic.includes(sumPersonalWeekOne) ? '*' : '';
@@ -587,13 +588,60 @@ class Synastry {
   }
 
   /**
+ * Calculate a especific personal weeek
+ * @param monthToCalculate
+ * @param weekToCalculate
+ * @param yearToCalculate
+ * @returns {Number}
+ */
+  calcSelectPersonalWeek(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): number {
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
+    if (weekToCalculate === 1) { return reduceNumber(weekOne); }
+    const weekTwo = this.calcPersonalYear(yearToCalculate) + reduceNumber(weekOne);
+    if (weekToCalculate === 2) { return reduceNumber(weekTwo); }
+    const weekThr = reduceNumber(reduceNumber(weekOne) + reduceNumber(weekTwo));
+    if (weekToCalculate === 3) { return reduceNumber(weekThr); }
+    const weekFou = reduceNumber(monthToCalculate + reduceNumber(weekOne));
+    if (weekToCalculate === 4) { return reduceNumber(weekFou); }
+    return 0;
+  }
+
+  calcSelectPersonalWeekISK(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): string {
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
+    if (weekToCalculate === 1) {
+      const personalWeekOne = reduceNumberISK(weekOne);
+      return this.karmic.includes(personalWeekOne) ? '*' : '';
+    }
+    const weekTwo = this.calcPersonalYear(yearToCalculate) + weekOne;
+    if (weekToCalculate === 2) {
+      const personalWeekTwo = reduceNumberISK(weekTwo);
+      return this.karmic.includes(personalWeekTwo) ? '*' : '';
+    }
+    const weekThr = reduceNumber(reduceNumber(weekOne) + reduceNumber(weekTwo));
+    if (weekToCalculate === 3) {
+      const personalWeekThr = reduceNumberISK(weekThr);
+      return this.karmic.includes(personalWeekThr) ? '*' : '';
+    }
+    const weekFou = reduceNumber(monthToCalculate + reduceNumber(weekOne));
+    if (weekToCalculate === 4) {
+      const personalWeekFou = reduceNumberISK(weekFou);
+      return this.karmic.includes(personalWeekFou) ? '*' : '';
+    }
+    return '';
+  }
+
+  /**
    * calculate personal day
    * @returns {Number} sumPersonalDay
    */
   calcPersonalDay(opts:SplittedDate):number {
-    const yearToCalculate = _.isNil(opts.year) ? this.NOW.year() : opts.year;
-    const monthToCalculate = _.isNil(opts.month) ? this.NOW.month() + 1 : opts.month;
-    const dayToCalculate = _.isNil(opts.day) ? this.NOW.date() : opts.day;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
     return reduceNumber(
       this.calcPersonalYear(yearToCalculate)
       + monthToCalculate
@@ -602,17 +650,17 @@ class Synastry {
   }
 
   calcPersonalDayISK(opts:SplittedDate):string {
-    const yearToCalculate = _.isNil(opts.year) ? this.NOW.year() : opts.year;
-    const monthToCalculate = _.isNil(opts.month) ? this.NOW.month() + 1 : opts.month;
-    const dayToCalculate = _.isNil(opts.day) ? this.NOW.date() : opts.day;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
     const personalDay = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + monthToCalculate + dayToCalculate);
     return this.karmic.includes(personalDay) ? '*' : '';
   }
 
   hasDoubleStage():boolean {
-    const yearBirthDate = this.consultant.birthDate.year() + this.partner.birthDate.year();
-    const monthBirthDate = (this.consultant.birthDate.month() + 1) + (this.partner.birthDate.month() + 1);
-    const dayBirthDate = this.consultant.birthDate.date() + this.partner.birthDate.date();
+    const yearBirthDate = getYear(this.consultant.birthDate) + getYear(this.partner.birthDate);
+    const monthBirthDate = (getMonth(this.consultant.birthDate) + 1) + (getMonth(this.partner.birthDate) + 1);
+    const dayBirthDate = getDate(this.consultant.birthDate) + getDate(this.partner.birthDate);
 
     const reducedYear = reduceNumber(yearBirthDate);
     const reducedMonth = reduceNumber(monthBirthDate);
@@ -730,78 +778,15 @@ class Synastry {
     return 0;
   }
 
-  getLifeStage(year:number, date :moment.Moment):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const newDate = _.isNil(date) ? this.NOW : date;
-    const monthCut = this.getCustomMonths();
-    const actualMonth = getMonthName(newDate.toString());
-    const indexEnero = monthCut.findIndex((i: string) => i === 'Enero');
-    const index = monthCut.findIndex((i:string) => i === capitalize(actualMonth));
-
-    const start:number = Number(this.yearMet);
-    const duration = 9 - reduceNumberForSub(
-      this.getA()
-      + this.getB()
-      + start,
-    );
-    let stageOneEnd = start + duration;
-    if (duration === 0) {
-      stageOneEnd += 9;
-    }
-    const stageOne = this.getE();
-    const stageTwo = this.getF();
-    const stageTwoEnd = stageOneEnd + 9;
-    const stageThr = this.getG();
-    const stageThrEnd = stageTwoEnd + 9;
-    const stageFou = this.getH();
-    const stageFouEnd = stageThrEnd + 9;
-    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
-      if (indexEnero > index && yearToCalculate === stageOneEnd) {
-        return stageTwo;
-      }
-      return stageOne;
-    }
-    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
-      if (indexEnero > index && yearToCalculate === stageTwoEnd) {
-        return stageThr;
-      }
-      return stageTwo;
-    }
-
-    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
-      if (indexEnero > index && yearToCalculate === stageThrEnd) {
-        return stageFou;
-      }
-      return stageThr;
-    }
-
-    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd) {
-        return stageThr;
-      }
-      return stageFou;
-    }
-
-    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd + 9) {
-        return stageTwo;
-      }
-      return stageThr;
-    }
-    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd + 18) {
-        return stageOne;
-      }
-      return stageTwo;
-    }
-    if ((stageFouEnd + 18) <= yearToCalculate) {
-      return stageOne;
-    }
-    return 0;
+  getLifeStage(year:number):number {
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const age = yearToCalculate - Number(this.yearMet);
+    const lifeStage = Math.floor(age / 9);
+    return lifeStage;
   }
 
   getLifeStageISK(year :number):string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const start:number = Number(this.yearMet);
     const duration = 9 - reduceNumberForSub(this.getA() + this.getB() + start);
     let stageOneEnd = start + duration;
@@ -847,72 +832,16 @@ class Synastry {
    * calculate current stage number
    * @returns {Number} stage
    */
-  getLifeStageNumber(year:number, date :moment.Moment):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const newDate = _.isNil(date) ? this.NOW : date;
-    const monthCut = this.getCustomMonths();
-    const actualMonth = getMonthName(newDate.toString());
-    const indexEnero = monthCut.findIndex((i:string) => i === 'Enero');
-    const index = monthCut.findIndex((i:string) => i === capitalize(actualMonth));
-    const start:number = Number(this.yearMet);
-    const duration = 9 - reduceNumberForSub(
-      this.getA()
-      + this.getB()
-      + start,
-    );
-    let stageOneEnd = start + duration;
-    if (duration === 0) {
-      stageOneEnd += 9;
-    }
-    const stageTwoEnd = stageOneEnd + 9;
-    const stageThrEnd = stageTwoEnd + 9;
-    const stageFouEnd = stageThrEnd + 9;
-    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
-      if (indexEnero > index && yearToCalculate === stageOneEnd) {
-        return 2;
-      }
-      return 1;
-    }
-
-    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
-      if (indexEnero > index && yearToCalculate === stageTwoEnd) {
-        return 3;
-      }
-      return 2;
-    }
-    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
-      if (indexEnero > index && yearToCalculate === stageThrEnd) {
-        return 4;
-      }
-      return 3;
-    }
-    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd) {
-        return 5;
-      }
-      return 4;
-    }
-    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd + 9) {
-        return 6;
-      }
-      return 5;
-    }
-    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd + 18) {
-        return 7;
-      }
-      return 6;
-    }
-    if ((stageFouEnd + 18) <= yearToCalculate) {
-      return 7;
-    }
-    return 0;
+  getLifeStageNumber(year:number):number {
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const age = yearToCalculate - Number(this.yearMet);
+    const lifeStage = Math.floor(age / 9);
+    return lifeStage + 1;
   }
 
   getDoubleLifeStageNumber(year:number):number {
     const start:number = Number(this.yearMet);
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const duration = 9 - reduceNumberForSub(this.getA() + this.getB());
     let stageOneEnd = start + duration;
     if (duration === 0) {
@@ -950,7 +879,7 @@ class Synastry {
    * @returns {Number} nineYearCycle
    */
   getNineYearCycleStage(year:number) :number[] {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     let firstValue = false;
     let firstYear:number = 0;
     const nineYearCycle = [];
@@ -1000,7 +929,7 @@ class Synastry {
   getCustomMonths():string[] {
     const consultantBirthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
-    const sumBirthDates = (consultantBirthDate.month() + 1) + (partnerBirthDate.month() + 1);
+    const sumBirthDates = (getMonth(consultantBirthDate) + 1) + (getMonth(partnerBirthDate) + 1);
     let reduce;
     if (sumBirthDates === 19) {
       reduce = 10;
@@ -1029,91 +958,115 @@ class Synastry {
   getQuarterOneISK():string {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
-    const quarterOne = reduceNumberISK(birthDate.year() + partnerBirthDate.year());
+    const quarterOne = reduceNumberISK(getYear(birthDate) + getYear(partnerBirthDate));
     return this.karmic.includes(quarterOne) ? '*' : '';
   }
 
   getQuarterTwo(year :number):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     return reduceNumber(yearToCalculate - this.getD());
   }
 
   getQuarterTwoISK(year :number):string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const quarterTwo = reduceNumberISK(yearToCalculate - this.getD());
     return this.karmic.includes(quarterTwo) ? '*' : '';
   }
 
   getQuarterThree(year :number):number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     return reduceNumber(this.getQuarterOne() + this.getQuarterTwo(yearToCalculate));
   }
 
   getQuarterThreeISK(year :number):string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const quarterThr = reduceNumberISK(this.getQuarterOne() + this.getQuarterTwo(yearToCalculate));
     return this.karmic.includes(quarterThr) ? '*' : '';
   }
 
-  calcCurrentQuarter(month :moment.Moment, year:number):number {
+  calcCurrentQuarter(month :Date):number {
     const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const listOfMonths = this.getCustomMonths();
-    const actualMonth = getMonthName(monthToCalculate.toString());
-    const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
-    const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
-    if (index < 5) { return this.getQuarterOne(); }
-    if (index > 4 && index < 9) {
-      if (index > indexEnero) {
-        return this.getQuarterTwo(yearToCalculate - 1);
+    const monthNumber = getMonth(monthToCalculate) + 1;
+    const quarter = Math.ceil(monthNumber / 3);
+    return quarter;
+  }
+
+  calcCurrentQuarterISK(month :Date):string {
+    const monthToCalculate = _.isNil(month) ? this.NOW : month;
+    const monthNumber = getMonth(monthToCalculate) + 1;
+    const quarter = Math.ceil(monthNumber / 3);
+    return this.karmic.includes(quarter) ? '*' : '';
+  }
+
+  getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
+    const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
+    const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
+    const quarterMonth = getMonthName(month);
+    const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
+    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    if (monthIndex < 5) {
+      if (monthIndex >= indexEnero) {
+        if (indexEnero === 0) { return this.getQuarterOne(); }
+        return this.getQuarterOne();
       }
-      return this.getQuarterTwo(yearToCalculate);
+      return this.getQuarterOne();
     }
-    if (index > 8) {
-      if (index > indexEnero) {
-        return this.getQuarterThree(yearToCalculate - 1);
+    if (monthIndex > 4 && monthIndex < 9) {
+      if (monthIndex >= indexEnero) {
+        if (indexEnero === 0) { return this.getQuarterTwo(year); }
+        return this.getQuarterTwo(year - 1);
       }
-      return this.getQuarterThree(yearToCalculate);
+      return this.getQuarterTwo(year);
+    }
+    if (monthIndex > 8) {
+      if (monthIndex >= indexEnero) {
+        if (indexEnero === 0) { return this.getQuarterThree(year); }
+        return this.getQuarterThree(year - 1);
+      }
+      return this.getQuarterThree(year);
     }
     return 0;
   }
 
-  calcCurrentQuarterISK(month :moment.Moment, year:number):string {
-    const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
-    const listOfMonths = this.getCustomMonths();
-    const actualMonth = getMonthName(monthToCalculate.toString());
-    const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
-    const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
-    if (index < 5) { return this.getQuarterOneISK(); }
-    if (index > 4 && index < 9) {
-      if (index > indexEnero) {
-        return this.getQuarterTwoISK(yearToCalculate - 1);
+  getQuarterMonthISK(monthToCalculate: number, yearToCalculate: number): string {
+    const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
+    const quarterMonth = getMonthName(monthToCalculate);
+    const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
+    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    if (monthIndex < 5) {
+      if (monthIndex >= indexEnero) {
+        return this.getQuarterOneISK();
       }
-      return this.getQuarterTwoISK(yearToCalculate);
+      return this.getQuarterOneISK();
     }
-    if (index > 8) {
-      if (index > indexEnero) {
-        return this.getQuarterThreeISK(yearToCalculate - 1);
+    if (monthIndex > 4 && monthIndex < 9) {
+      if (monthIndex >= indexEnero) {
+        return this.getQuarterTwoISK(year - 1);
       }
-      return this.getQuarterThreeISK(yearToCalculate);
+      return this.getQuarterTwoISK(year);
+    }
+    if (monthIndex > 8) {
+      if (monthIndex >= indexEnero) {
+        return this.getQuarterThreeISK(year - 1);
+      }
+      return this.getQuarterThreeISK(year);
     }
     return '';
   }
 
   annualReturn(year :number):AnnualReturn {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const age = yearToCalculate - Number(this.yearMet);
     const A = reduceNumber(yearToCalculate);
     const B = reduceNumber(
       yearToCalculate
-      + reduceNumber(this.consultant.birthDate.month() + this.partner.birthDate.month() + 2)
-      + reduceNumber(this.consultant.birthDate.date() + this.partner.birthDate.date()),
+      + reduceNumber(getMonth(this.consultant.birthDate) + getMonth(this.partner.birthDate) + 2)
+      + reduceNumber(getDate(this.consultant.birthDate) + getDate(this.partner.birthDate)),
     );
     const C = reduceNumber(
       (
-        this.consultant.birthDate.year()
-        + this.partner.birthDate.year()
+        getYear(this.consultant.birthDate)
+        + getYear(this.partner.birthDate)
       )
       - yearToCalculate,
     );
@@ -1164,7 +1117,7 @@ class Synastry {
   }
 
   getNineYearCycle(year :number):number[] {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const nineYearCycle = [
       yearToCalculate - 4,
       yearToCalculate - 3,
@@ -1180,18 +1133,16 @@ class Synastry {
   }
 
   getAllDaysInMonth(month: number, year: number): number[] {
-    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
-    return Array.from(Array(moment(`${yearToCalculate}-${monthToCalculate}`).daysInMonth()), (x, i) => i + 1);
+    return Array.from({ length: new Date(year, month, 0).getDate() }, (__, i) => i + 1);
   }
 
   getDaysOfWeekCustom(month: number, year: number): string[] {
-    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const daysInMonth = this.getAllDaysInMonth(monthToCalculate, yearToCalculate);
     const daysCustom = [];
     const dayInWeek = getDaysOfWeek();
-    let firstDay = this.NOW.year(yearToCalculate).month(monthToCalculate - 1).date(daysInMonth[0]).format('ddd');
+    let firstDay = new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]).toLocaleDateString('en-US', { weekday: 'short' });
     firstDay = firstDay.replace(/\./g, '');
     let dayIndex = getDaysOfWeek().findIndex((i) => i === capitalize(firstDay));
     for (let i = 0; i < 7; i++) {

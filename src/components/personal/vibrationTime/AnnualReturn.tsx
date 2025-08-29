@@ -8,7 +8,7 @@ import CircleNumber from '@/components/CircleNumber';
 import { AnnualReturn as AnnualReturnCalc } from '@/resources/Person';
 
 type AnnualReturnProps = {
-  size: 'xs';
+  size: 'xs' | 'xl';
   annualReturn: AnnualReturnCalc;
   current?: boolean;
   months?: boolean;
@@ -22,8 +22,8 @@ function AnnualReturn({
   annualReturn, current, months, group, personalYear, yearsOld, year, size,
 }: AnnualReturnProps) {
   const { t } = useTranslation();
-  const fontSize = { xs: 'xs' };
-  const marginBottom = { xs: '4' };
+  const fontSize = { xs: 'xs', xl: 'xl' };
+  // const marginBottom = { xs: '4' };
 
   // TODO: refactor this
   const calcAge = (age: number, year: number) => {
@@ -108,7 +108,7 @@ function AnnualReturn({
             </>
           )
           : (
-            <div className={`grid grid-cols-3 mb-${marginBottom[size] || '8'}`}>
+            <div className="grid grid-cols-3 mb-4">
               <div className={`text-${fontSize[size] || 'xl'} font-bold border border-black border-opacity-50 flex justify-center items-center h-10 rounded-lg`}>
                 {annualReturn.yearToCalculate}
               </div>

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,7 @@ function ConsultationDateModal() {
       title: t('modal.date.title') as string,
       icon: 'info',
       html:
-        `<input  type="date" id="newDate" class="border border-gray-500 p-1 rounded-md" value="${consultationDate.format('YYYY-MM-DD')}" />`,
+        `<input  type="date" id="newDate" class="border border-gray-500 p-1 rounded-md" value="${format(consultationDate, 'yyyy-MM-dd')}" />`,
       showCloseButton: true,
       showCancelButton: true,
       showDenyButton: true,
@@ -26,11 +26,11 @@ function ConsultationDateModal() {
       cancelButtonColor: '#ff0000',
     }).then((result) => {
       if (result.isConfirmed) {
-        selectConsultationDate(moment());
+        selectConsultationDate(new Date());
       }
       if (result.isDenied) {
-        const date = (document?.getElementById('newDate') as any)?.value ?? moment();
-        selectConsultationDate(moment(date));
+        const date = (document?.getElementById('newDate') as any)?.value ?? new Date();
+        selectConsultationDate(new Date(date));
       }
     });
   };

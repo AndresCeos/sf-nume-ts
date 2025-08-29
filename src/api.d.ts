@@ -22,10 +22,13 @@ declare namespace Api {
     email?: string;
     gender?: string;
     group?: unknown[];
+    groupData?: GroupData[];
     lastName?: string;
+    createNames?: CreateName[];
     names?: string;
     nationality?: string;
-    partner?: unknown[];
+    partner?: Partner[];
+    partnerData?: PartnerData[];
     phone?: string;
     scdLastName?: string;
   }
@@ -52,19 +55,6 @@ declare namespace Api {
     status: 0 | 1;
   }
 
-  interface User {
-    avatar: string;
-    birthDate: Date;
-    country: string;
-    email: string;
-    firstName: string;
-    gender: string;
-    id: number;
-    lastName: string;
-    phone: string;
-    scdLastName: string;
-  }
-
   interface UserResponse {
     app_version: string;
     company: Company;
@@ -87,5 +77,42 @@ declare namespace Api {
     phone?: string;
     webSite?: string;
   }
+  interface PartnerData {
+    id: string;
+    name:string;
+    date: string;
+    yearMeet: number;
+    partner?: Partner[];
+  }
 
+  interface Partner {
+    id: string;
+    names: string;
+    lastName: string;
+    scdLastName: string;
+    date: string;
+  }
+  interface GroupData {
+    id: string;
+    name: string;
+    description: string;
+    date: string;
+    members?: GroupMember[];
+    lastInit: number;
+  }
+  interface GroupMember {
+    id: string;
+    name: string;
+    lastName: string;
+    scdLastName: string;
+    date: string;
+    dateInit: number;
+  }
+  interface CreateName {
+    id: string;
+    name: string;
+    lastName: string;
+    scdLastName: string;
+    birthDate: string;
+  }
 }

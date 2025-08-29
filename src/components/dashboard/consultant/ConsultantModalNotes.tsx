@@ -1,10 +1,15 @@
 import { formatDate } from '@/utils/constants';
 import ConsultantContentNotes from './ConsultantContentNotes';
 
-function ConsultantModalNotes(modalNote: Record<string, Record<string, string>>) {
+type ConsultantModalNotesProps = {
+  item?: Record<string, Record<string, string>>;
+};
+
+function ConsultantModalNotes(modalNote: ConsultantModalNotesProps) {
   const { item: itemNote } = modalNote;
+
+  if (!itemNote) return <div>No notes found</div>;
   const pages = Object.entries(itemNote).map((items) => items);
-  console.log(pages);
 
   return (
     <li className="flex flex-col overflow-x-hidden overflow-y-auto h-96">

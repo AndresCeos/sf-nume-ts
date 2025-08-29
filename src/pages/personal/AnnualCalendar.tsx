@@ -14,6 +14,7 @@ function AnnualCalendar() {
   if (!consultant) return (<NoConsultantSelected />);
   const u = new Universal();
   const allMonths = getAllMonths();
+  console.log(allMonths);
   return (
     <div className="page-content bg-home-background bg-cover">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
@@ -47,7 +48,7 @@ function AnnualCalendar() {
                 {' '}
               </div>
             </div>
-            {allMonths.map((month, index) => <SingleMonth month={index + 1} />)}
+            {allMonths.map((month, index) => <SingleMonth month={index + 1} showMonthSelector={false} />)}
           </div>
         </div>
       </div>

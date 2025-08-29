@@ -1,11 +1,16 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-loop-func */
 /* eslint-disable no-plusplus */
+import {
+  format,
+  getDate,
+  getDaysInMonth,
+  getMonth,
+  getYear,
+  parse,
+} from 'date-fns';
 import _ from 'lodash';
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable @typescript-eslint/no-loop-func */
-/* eslint-disable no-plusplus */
-import moment from 'moment';
 
 import {
   capitalize,
@@ -30,6 +35,8 @@ type PersonProps = {
   scdLastName: string;
   birthDate: string;
   yearMet?: number;
+  partner?: Person[];
+  group?: any[];
 };
 type SplittedDate = {
   day?: number,
@@ -77,9 +84,9 @@ class Person {
 
   scdLastName: string;
 
-  birthDate: moment.Moment;
+  birthDate: Date;
 
-  NOW: moment.Moment;
+  NOW: Date;
 
   fullName: string;
 
@@ -89,6 +96,8 @@ class Person {
 
   yearMet?: number;
 
+  private memoizedValues: Map<string, any> = new Map();
+
   constructor({
     id, name, lastName, scdLastName, birthDate, yearMet,
   }: PersonProps) {
@@ -96,12 +105,21 @@ class Person {
     this.name = name;
     this.lastName = lastName;
     this.scdLastName = scdLastName;
-    this.birthDate = moment(birthDate);
-    this.NOW = moment();
+    this.birthDate = parse(birthDate, 'yyyy-MM-dd', new Date());
+    this.NOW = new Date();
     this.fullName = `${name} ${lastName} ${scdLastName}`;
     this.nameView = name;
     this.karmic = [13, 14, 16, 19];
     this.yearMet = yearMet;
+  }
+
+  private memoize<T>(key: string, fn: () => T): T {
+    if (this.memoizedValues.has(key)) {
+      return this.memoizedValues.get(key);
+    }
+    const result = fn();
+    this.memoizedValues.set(key, result);
+    return result;
   }
 
   getSingle(): boolean {
@@ -109,46 +127,50 @@ class Person {
   }
 
   getYearTimeCurve(): number {
-    return this.birthDate.year();
+    return getYear(this.birthDate);
   }
 
   getInitials(): string {
     const names = this.name.split(' ');
-    let initials: any = names.map((el) => `${el.toUpperCase().charAt(0)}, `);
-    initials += `${this.lastName.toUpperCase().charAt(0)}, `;
-    initials += this.scdLastName.toUpperCase().charAt(0);
-    return initials;
+    const initials = names.map((el) => el.toUpperCase().charAt(0));
+    initials.push(this.lastName.toUpperCase().charAt(0));
+    initials.push(this.scdLastName.toUpperCase().charAt(0));
+    return initials.join(', ');
   }
 
   getFormBirthDate(): string {
-    return `${this.birthDate.date()}/${this.birthDate.format('MM')}/${this.birthDate.year()}`;
+    return format(this.birthDate, 'dd/MM/yyyy');
   }
 
-  getBirthDate(): moment.Moment {
+  getBirthDate(): Date {
     return this.birthDate;
   }
 
   getDayOfBirth(): number {
-    return this.birthDate.date();
+    return getDate(this.birthDate);
   }
 
   getMonthOfBirth(): number {
-    return this.birthDate.month();
+    return getMonth(this.birthDate);
   }
 
   getYearOfBirth(): number {
-    return this.birthDate.year();
+    return getYear(this.birthDate);
   }
 
   getFormattedBirthDate(): string {
-    return `${this.birthDate.date()} de ${getMonthName(this.birthDate.toString())} ${this.birthDate.year()}`;
+    return `${getDate(this.birthDate)} de ${getMonthName(this.getMonthOfBirth() + 1)} ${getYear(this.birthDate)}`;
   }
 
   getYearsOld(number?: number): number {
-    const yearToCalculate = _.isNil(number) ? this.NOW.year() : number;
-    let age = yearToCalculate - this.birthDate.year();
+    const yearToCalculate = _.isNil(number) ? getYear(this.NOW) : number;
+    let age = yearToCalculate - getYear(this.birthDate);
     if (age < 1) { age = 0; }
     return age;
+  }
+
+  calcAgeDigit(): number {
+    return reduceNumber(this.getYearsOld());
   }
 
   /** ======================Pinnacle Calcs ==================== */
@@ -159,8 +181,7 @@ class Person {
    * @returns {Number}
    */
   calcKarma(): number {
-    console.log(reduceNumber(this.birthDate.month() + 1));
-    return reduceNumber(this.birthDate.month() + 1);
+    return this.memoize('karma', () => reduceNumber(getMonth(this.birthDate) + 1));
   }
 
   /**
@@ -169,7 +190,7 @@ class Person {
    * @returns {Number}
    */
   calcPersonalNumber(): number {
-    return reduceNumber(this.birthDate.date());
+    return this.memoize('personalNumber', () => reduceNumber(getDate(this.birthDate)));
   }
 
   /**
@@ -179,7 +200,7 @@ class Person {
    * @returns {Number}
    */
   calcPastLife(): number {
-    return reduceNumber(this.birthDate.year());
+    return this.memoize('pastLife', () => reduceNumber(getYear(this.birthDate)));
   }
 
   /**
@@ -189,11 +210,11 @@ class Person {
    * @returns {Number}
    */
   calcPersonalityNumber(): number {
-    return reduceNumber(
-      this.birthDate.date()
-      + this.birthDate.month() + 1
-      + this.birthDate.year(),
-    );
+    return this.memoize('personalityNumber', () => reduceNumber(
+      getDate(this.birthDate)
+      + getMonth(this.birthDate) + 1
+      + getYear(this.birthDate),
+    ));
   }
 
   /**
@@ -201,9 +222,9 @@ class Person {
  * @returns {Number}
  */
   getDCheck(): number {
-    const yearReduce = reduceNumber(this.birthDate.year());
-    const monthReduce = reduceNumber(this.birthDate.month() + 1);
-    const dayReduce = reduceNumber(this.birthDate.date());
+    const yearReduce = reduceNumber(getYear(this.birthDate));
+    const monthReduce = reduceNumber(getMonth(this.birthDate) + 1);
+    const dayReduce = reduceNumber(getDate(this.birthDate));
     const sumReduce = reduceNumber(yearReduce + monthReduce + dayReduce);
     return sumReduce;
   }
@@ -213,8 +234,8 @@ class Person {
  * @returns {Number}
  */
   getHCheck(): number {
-    const monthReduce = reduceNumber(this.birthDate.month() + 1);
-    const yearReduce = reduceNumber(this.birthDate.year());
+    const monthReduce = reduceNumber(getMonth(this.birthDate) + 1);
+    const yearReduce = reduceNumber(getYear(this.birthDate));
     const sumReduce = reduceNumber(monthReduce + yearReduce);
 
     return sumReduce;
@@ -405,12 +426,12 @@ class Person {
       8: { a: 0, v: 'HQZ' },
       9: { a: 0, v: 'IR' },
     };
-    this.fullName.toLowerCase().split('').forEach((el) => {
-      if (el !== ' ') {
-        const val = reduceNumberForSub(inclusionValue(el));
-        appearances[val].a++;
-      }
-    });
+
+    const letters = this.fullName.toLowerCase().replace(/\s/g, '');
+    for (const letter of letters) {
+      const val = reduceNumberForSub(inclusionValue(letter));
+      appearances[val].a++;
+    }
     return appearances;
   }
 
@@ -443,19 +464,18 @@ class Person {
  * @returns {Number}
  */
   calcGift(): number {
-    console.log(this.birthDate.year().toString()[0]);
     let gift: number = reduceNumber(
-      Number(this.birthDate.year().toString()[2])
-      + Number(this.birthDate.year().toString()[3]),
+      Number(getYear(this.birthDate).toString()[2])
+      + Number(getYear(this.birthDate).toString()[3]),
     );
     if (gift === 0) {
-      gift = Number(this.birthDate.year().toString()[1]);
+      gift = Number(getYear(this.birthDate).toString()[1]);
     }
     if (gift === 0) {
-      gift = Number(this.birthDate.year().toString()[0]);
+      gift = Number(getYear(this.birthDate).toString()[0]);
     }
     if (gift === 0) {
-      gift = Number(this.birthDate.year().toString()[0]);
+      gift = Number(getYear(this.birthDate).toString()[0]);
     }
     return gift;
   }
@@ -469,9 +489,9 @@ class Person {
    * @returns {Number}
    */
   calcLifeStage(stage: number): number {
-    const reducedYear = reduceNumber(this.birthDate.year());
-    const reducedMonth = reduceNumber(this.birthDate.month() + 1);
-    const reducedDay = reduceNumber(this.birthDate.date());
+    const reducedYear = reduceNumber(getYear(this.birthDate));
+    const reducedMonth = reduceNumber(getMonth(this.birthDate) + 1);
+    const reducedDay = reduceNumber(getDate(this.birthDate));
 
     const stageOne = reduceNumber(reducedMonth + reducedDay);
     if (stage === 1) return stageOne;
@@ -482,7 +502,7 @@ class Person {
     const stageThr = reduceNumber(stageOne + stageTwo);
     if (stage === 3) return stageThr;
 
-    const stageFou = reduceNumber(this.birthDate.month() + 1 + this.birthDate.year());
+    const stageFou = reduceNumber(getMonth(this.birthDate) + 1 + getYear(this.birthDate));
     if (stage === 4) return stageFou;
 
     if (stage === 5) return stageThr;
@@ -500,11 +520,11 @@ class Person {
    * @returns {Number}
    */
   calcLifeGoal(goal: number): number {
-    let sumDay = reduceNumber(this.birthDate.date());
+    let sumDay = reduceNumber(getDate(this.birthDate));
     sumDay = sumNumbers(sumDay);
-    let sumMonth = reduceNumber(this.birthDate.month() + 1);
+    let sumMonth = reduceNumber(getMonth(this.birthDate) + 1);
     sumMonth = sumNumbers(sumMonth);
-    let sumYear = reduceNumber(this.birthDate.year());
+    let sumYear = reduceNumber(getYear(this.birthDate));
     sumYear = sumNumbers(sumYear);
 
     let goalOne = Math.abs(sumMonth - sumDay);
@@ -605,7 +625,7 @@ class Person {
   * @returns {Number} name value
   */
   calcName(): number {
-    return reduceNumber(this.calcNameFull());
+    return this.memoize('name', () => reduceNumber(this.calcNameFull()));
   }
 
   /**
@@ -672,7 +692,7 @@ class Person {
  * @returns {Number}
  */
   calcSoulNumber(): number {
-    return reduceNumber(this.calcSoulNumberFull());
+    return this.memoize('soulNumber', () => reduceNumber(this.calcSoulNumberFull()));
   }
 
   /**
@@ -711,7 +731,7 @@ class Person {
  * @returns {Number}
  */
   calcSoulExpression(): number {
-    return reduceNumber(this.calcSoulExpresionFull());
+    return this.memoize('soulExpression', () => reduceNumber(this.calcSoulExpresionFull()));
   }
 
   /**
@@ -758,8 +778,8 @@ class Person {
    * 5. This is your Personal Year number for the current year.
    */
   calcPersonalYear(year?: number): number {
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
-    return reduceNumber(yearToCalculate + this.birthDate.month() + 1 + this.birthDate.date());
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    return reduceNumber(yearToCalculate + getMonth(this.birthDate) + 1 + getDate(this.birthDate));
   }
 
   /**
@@ -769,8 +789,8 @@ class Person {
    * @returns {Number} personalMonth
    */
   calcPersonalMonth(opts: SplittedDate): number {
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
     return reduceNumber(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
   }
 
@@ -780,9 +800,9 @@ class Person {
      * @returns {Number}
      */
   calcPersonalWeek(opts: SplittedDate): number | string {
-    const dayToCalculate = _.isNil(opts.day) ? Number(this.NOW.format('D')) : opts.day;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
     const personalYear = this.calcPersonalYear(yearToCalculate);
     const sumPersonalWeekOne = reduceNumber(personalYear + monthToCalculate);
     if (dayToCalculate >= 1 && dayToCalculate <= 7) {
@@ -808,9 +828,9 @@ class Person {
    * @returns {Number} sumPersonalDay
    */
   calcPersonalDay(opts: SplittedDate): number {
-    const dayToCalculate = _.isNil(opts.day) ? Number(this.NOW.format('D')) : opts.day;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
     return reduceNumber(this.calcPersonalYear(yearToCalculate) + dayToCalculate + monthToCalculate);
   }
   /**
@@ -827,8 +847,8 @@ class Person {
  * @returns {Number}
  */
   calcSelectPersonalWeek(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): number {
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
     const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
     if (weekToCalculate === 1) { return reduceNumber(weekOne); }
     const weekTwo = this.calcPersonalYear(yearToCalculate) + reduceNumber(weekOne);
@@ -901,9 +921,9 @@ class Person {
   }
 
   calcLifeStageDuration(stage: number): number {
-    const year = this.birthDate.year();
-    const month = this.birthDate.month() + 1;
-    const day = this.birthDate.date();
+    const year = getYear(this.birthDate);
+    const month = getMonth(this.birthDate) + 1;
+    const day = getDate(this.birthDate);
     const reduced = reduceNumber(year + month + day);
     const stageOneEnd = year + 36 - reduced;
     if (stage === 1) return stageOneEnd;
@@ -916,7 +936,7 @@ class Person {
   }
 
   calcDoubleLifeStageDuration(stage: number): number {
-    const year = this.birthDate.year();
+    const year = getYear(this.birthDate);
     const D = this.getD();
     const dC = this.getDCheck();
     let reduced = dC;
@@ -945,10 +965,10 @@ class Person {
    */
   /* Función adaptada a Redux */
   getLifeStage(year: number): number {
-    const yearToCompare = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
-    const yearBirthDate = this.birthDate.year();
-    const monthBirthDate = this.birthDate.month() + 1;
-    const dayBirthDate = this.birthDate.date();
+    const yearToCompare = _.isNil(year) ? getYear(this.NOW) : year;
+    const yearBirthDate = getYear(this.birthDate);
+    const monthBirthDate = getMonth(this.birthDate) + 1;
+    const dayBirthDate = getDate(this.birthDate);
 
     const reducedYear = reduceNumber(yearBirthDate);
     const reducedMonth = reduceNumber(monthBirthDate);
@@ -998,11 +1018,11 @@ class Person {
    */
 
   getLifeStageNumber(opts: SplittedDate): number {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('MM')) : opts.month;
-    const yearBirthDate = this.birthDate.year();
-    const monthBirthDate = this.birthDate.month() + 1;
-    const dayBirthDate = this.birthDate.date();
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const yearBirthDate = getYear(this.birthDate);
+    const monthBirthDate = getMonth(this.birthDate) + 1;
+    const dayBirthDate = getDate(this.birthDate);
 
     const reduceSum = reduceNumber(dayBirthDate + monthBirthDate + yearBirthDate);
     const stageOneEnd = yearBirthDate + 36 - reduceSum;
@@ -1056,8 +1076,8 @@ class Person {
   }
 
   getDoubleLifeStageNumber(opts: SplittedDate): number {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const yearBirthDate = this.birthDate.year();
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const yearBirthDate = getYear(this.birthDate);
 
     const D = this.getD();
     const dC = this.getDCheck();
@@ -1100,13 +1120,14 @@ class Person {
   }
 
   annualReturn(opts: SplittedDate): AnnualReturn {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const age = (yearToCalculate - this.birthDate.year());
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    console.log({ yearToCalculate, birthDate: this.birthDate });
+    const age = (yearToCalculate - this.getYearOfBirth());
     const a = reduceNumber(yearToCalculate);
     const aK = reduceNumberISK(yearToCalculate);
     const A = `${a}${this.karmic.includes(aK) ? '*' : ''}`;
     const b = this.calcPersonalYear(yearToCalculate);
-    const bK = reduceNumberISK(yearToCalculate + this.birthDate.month() + 1 + this.birthDate.date());
+    const bK = reduceNumberISK(yearToCalculate + getMonth(this.birthDate) + 1 + getDate(this.birthDate));
     const B = `${b}${this.karmic.includes(bK) ? '*' : ''}`;
     const c = reduceNumber(age);
     const cK = reduceNumberISK(age);
@@ -1138,14 +1159,14 @@ class Person {
   }
 
   calcNameCycles() {
-    return [1, 2, 3, 4].map((i) => this.nameCount() * i);
+    return [1, 2, 3, 4, 5, 6].map((i) => this.nameCount() * i);
   }
 
   calcNameSubCycles() {
     const factor = (this.nameCount() / 2) / 2;
     const subCycles = [];
     let current = factor;
-    while (current < 120) {
+    while (current < 180) {
       subCycles.push(Math.round(current));
       current += factor;
     }
@@ -1154,56 +1175,49 @@ class Person {
   }
 
   calcOneDigitYearsOld() {
-    return reduceNumber(this.getYearsOld(this.NOW.year()));
+    return reduceNumber(this.getYearsOld(getYear(this.NOW)));
   }
 
-  getUngroupName(name: string = this.fullName) {
-    const ungroupName: UngroupName[] = [];
-    name.toLowerCase().split('').forEach((el) => {
-      if (el !== ' ') {
-        ungroupName.push({
-          v: vowelsValues(el),
-          L: el.toUpperCase(),
-          c: consonantValues(el),
-        });
-      }
-    });
-    return ungroupName;
+  getUngroupName(name: string = this.fullName): UngroupName[] {
+    const letters = name.toLowerCase().replace(/\s/g, '');
+    return letters.split('').map((letter) => ({
+      v: vowelsValues(letter),
+      L: letter.toUpperCase(),
+      c: consonantValues(letter),
+    }));
   }
 
   getUngroupNameValues(name: string = this.fullName) {
-    const ungroupName = [];
+    const letters = name.toLowerCase().replace(/\s/g, '');
     let ungroupNameV = 0;
     let ungroupNameC = 0;
-    name.toLowerCase().split('').forEach((el) => {
-      if (el !== ' ') {
-        ungroupNameV += vowelsValues(el);
-        ungroupNameC += consonantValues(el);
-      }
-    });
-    ungroupName.push({ v: ungroupNameV, L: '', c: ungroupNameC });
-    return ungroupName;
+
+    for (const letter of letters) {
+      ungroupNameV += vowelsValues(letter);
+      ungroupNameC += consonantValues(letter);
+    }
+
+    return [{ v: ungroupNameV, L: '', c: ungroupNameC }];
   }
 
   getUngroupNameTotal(name: string = this.fullName) {
-    const ungroupName = [];
+    const letters = name.toLowerCase().replace(/\s/g, '');
     let ungroupNameV = 0;
     let ungroupNameC = 0;
-    name.toLowerCase().split('').forEach((el) => {
-      if (el !== ' ') {
-        ungroupNameV += vowelsValues(el);
-        ungroupNameC += consonantValues(el);
-      }
-    });
-    ungroupName.push({
+
+    for (const letter of letters) {
+      ungroupNameV += vowelsValues(letter);
+      ungroupNameC += consonantValues(letter);
+    }
+
+    return [{
       v: reduceNumber(ungroupNameV),
       L: reduceNumber(ungroupNameV + ungroupNameC),
       c: reduceNumber(ungroupNameC),
       vA: ungroupNameV,
       LA: ungroupNameV + ungroupNameC,
       cA: ungroupNameC,
-    });
-    return ungroupName;
+    }];
   }
 
   getUngroupNameTotalFull(name: string = this.fullName) {
@@ -1238,7 +1252,7 @@ class Person {
       }
     });
 
-    return nameSetting.slice(0, 124);
+    return nameSetting.slice(0, 186);
   }
 
   getDestinityTable() {
@@ -1260,7 +1274,7 @@ class Person {
           });
         }
       });
-    } while (destiny.length < 120);
+    } while (destiny.length < 180);
 
     let ipMLetters = 0;
     do {
@@ -1275,7 +1289,7 @@ class Person {
           }
         }
       });
-    } while (ipMLetters < 120);
+    } while (ipMLetters < 180);
 
     let ipfLetters = 0;
     if (this.getSingle()) {
@@ -1291,26 +1305,21 @@ class Person {
             }
           }
         });
-      } while (ipfLetters < 120);
+      } while (ipfLetters < 180);
     }
 
-    return destiny.slice(0, 122);
+    return destiny.slice(0, 182);
   }
 
   /** ======================Time  Calcs ==================== */
 
   getCustomMonths(): string[] {
-    let indexMonth = this.birthDate.month();
     const months = getAllMonths();
-    const listOfMonths = [];
-    for (let index = 0; index < 13; index++) {
-      if (indexMonth > 11) {
-        indexMonth = 0;
-      }
-      listOfMonths.push(months[indexMonth]);
-      indexMonth++;
-    }
-    return listOfMonths;
+    const startMonth = getMonth(this.birthDate);
+    return Array.from({ length: 13 }, (unused, index) => {
+      const monthIndex = (startMonth + index) % 12;
+      return months[monthIndex];
+    });
   }
 
   /**
@@ -1318,19 +1327,8 @@ class Person {
    * @returns {Number} nineYearCycle
    */
   getNineYearCycle(opts: SplittedDate): number[] {
-    const yearToCalculate = _.isNil(opts.year) ? this.NOW.year() : opts.year;
-    const nineYearCycle = [
-      yearToCalculate - 4,
-      yearToCalculate - 3,
-      yearToCalculate - 2,
-      yearToCalculate - 1,
-      yearToCalculate,
-      yearToCalculate + 1,
-      yearToCalculate + 2,
-      yearToCalculate + 3,
-      yearToCalculate + 4,
-    ];
-    return nineYearCycle;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    return Array.from({ length: 9 }, (unused, index) => yearToCalculate - 4 + index);
   }
 
   /**
@@ -1338,22 +1336,19 @@ class Person {
    * @returns {Number} nineYearCycle2
    */
   getNineYearCycleStage(optsYear: number): number[] {
-    const yearToCalculate = _.isNil(optsYear) ? this.NOW.year() : optsYear;
-    let firstValue = false;
-    let firstYear: number = 0;
-    const nineYearCycle = [];
-    for (let index = 0; index <= 9; index++) {
-      const personalYear = this.calcPersonalYear(yearToCalculate - index);
-      if (personalYear === 9 && firstValue === false) {
-        nineYearCycle.push(yearToCalculate - index);
-        firstYear = yearToCalculate - index;
-        firstValue = true;
+    const yearToCalculate = _.isNil(optsYear) ? getYear(this.NOW) : optsYear;
+    let firstYear = 0;
+
+    // Find first year with personal year 9
+    for (let i = 0; i <= 9; i++) {
+      const personalYear = this.calcPersonalYear(yearToCalculate - i);
+      if (personalYear === 9) {
+        firstYear = yearToCalculate - i;
+        break;
       }
     }
-    for (let index = 1; index <= 9; index++) {
-      nineYearCycle[index] = firstYear + index;
-    }
-    return nineYearCycle;
+
+    return Array.from({ length: 10 }, (unused, index) => firstYear + index);
   }
 
   /**
@@ -1369,7 +1364,7 @@ class Person {
      * @returns {Number} quarter two
      */
   getQuarterTwo(year: number): number {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     return reduceNumber(yearToCalculate - this.calcPersonalityNumber());
   }
 
@@ -1378,34 +1373,33 @@ class Person {
      * @returns {Number} quarter three
      */
   getQuarterThree(year: number): number {
-    const yearToCalculate: number = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate: number = _.isNil(year) ? getYear(this.NOW) : year;
     return reduceNumber(this.getQuarterOne() + this.getQuarterTwo(yearToCalculate));
   }
 
-  getAllDaysInMonth(month: number, year: number): number[] {
-    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
-    return Array.from(Array(moment(`${yearToCalculate}-${monthToCalculate}`).daysInMonth()), (x, i) => i + 1);
+  getAllDaysInMonth(month?: number, year?: number): number[] {
+    const today = new Date();
+    const yearToCalculate = year ?? today.getFullYear();
+    const monthToCalculate = (month ?? today.getMonth() + 1) - 1;
+    const totalDays = getDaysInMonth(new Date(yearToCalculate, monthToCalculate));
+    return Array.from({ length: totalDays }, (unused, index) => index + 1);
   }
 
   getDaysOfWeekCustom(month: number, year: number): string[] {
-    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const daysInMonth = this.getAllDaysInMonth(monthToCalculate, yearToCalculate);
-    const daysCustom = [];
     const dayInWeek = getDaysOfWeek();
-    let firstDay = this.NOW.year(yearToCalculate).month(monthToCalculate - 1).date(daysInMonth[0]).format('ddd');
-    firstDay = firstDay.replace(/\./g, '');
-    let dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
 
-    for (let i = 0; i < 7; i++) {
-      if (dayIndex > 6) {
-        dayIndex = 0;
-      }
-      daysCustom.push(dayInWeek[dayIndex]);
-      dayIndex++;
-    }
-    return daysCustom;
+    const firstDay = format(new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]), 'EEE')
+      .replace(/\./g, '');
+
+    const dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
+
+    return Array.from({ length: 7 }, (unused, index) => {
+      const weekIndex = (dayIndex + index) % 7;
+      return dayInWeek[weekIndex];
+    });
   }
 
   /**
@@ -1414,15 +1408,14 @@ class Person {
    * @returns {Number} current quarter
    */
   calcCurrentQuarter(month: number, year: number): number {
-    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const listOfMonths = this.getCustomMonths();
-    const actualMonth = getMonthName(this.NOW.month(monthToCalculate - 1).toString());
-    const birthDateMonth = getMonthName(this.birthDate.toString());
+    const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const birthDateMonth = getMonthName(this.getMonthOfBirth());
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
     const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
     if (index < 5) {
-      if (birthDateMonth === actualMonth && this.birthDate.date() > 20) {
+      if (birthDateMonth === actualMonth && getDate(this.birthDate) > 20) {
         return this.getQuarterThree(yearToCalculate - 1);
       }
       return this.getQuarterOne();
@@ -1449,9 +1442,9 @@ class Person {
   }
 
   getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
-    const month = _.isNil(monthToCalculate) ? Number(this.NOW.format('M')) : monthToCalculate;
-    const year = _.isNil(yearToCalculate) ? Number(this.NOW.format('YYYY')) : yearToCalculate;
-    const quarterMonth = getMonthName(this.NOW.month(month - 1).toString());
+    const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
+    const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
+    const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
     const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
     if (monthIndex < 5) {
@@ -1481,65 +1474,65 @@ class Person {
   /** ======================Karmics Calcs ==================== */
 
   getAISK(): string {
-    const A = reduceNumberISK(this.birthDate.month() + 1);
+    const A = reduceNumberISK(getMonth(this.birthDate) + 1);
     return this.karmic.includes(A) ? '*' : '';
   }
 
   getBISK(): string {
-    const B = reduceNumberISK(this.birthDate.date() + 1);
+    const B = reduceNumberISK(getDate(this.birthDate) + 1);
     return this.karmic.includes(B) ? '*' : '';
   }
 
   getCISK(): string {
-    const C = reduceNumberISK(this.birthDate.year());
+    const C = reduceNumberISK(getYear(this.birthDate));
     return this.karmic.includes(C) ? '*' : '';
   }
 
   getDISK(): string {
     const D = reduceNumberISK(
-      this.birthDate.date()
-      + this.birthDate.month() + 1
-      + this.birthDate.year(),
+      getDate(this.birthDate)
+      + getMonth(this.birthDate) + 1
+      + getYear(this.birthDate),
     );
     return this.karmic.includes(D) ? '*' : '';
   }
 
   getDISKCheck(): string {
     const D = reduceNumberISK(
-      reduceNumber(this.birthDate.date())
-      + reduceNumber(this.birthDate.month() + 1)
-      + reduceNumber(this.birthDate.year()),
+      reduceNumber(getDate(this.birthDate))
+      + reduceNumber(getMonth(this.birthDate) + 1)
+      + reduceNumber(getYear(this.birthDate)),
     );
     return this.karmic.includes(D) ? '*' : '';
   }
 
   getEISK(): string {
-    const reducedMonth = reduceNumber(this.birthDate.month() + 1);
-    const reducedDay = reduceNumber(this.birthDate.date());
+    const reducedMonth = reduceNumber(getMonth(this.birthDate) + 1);
+    const reducedDay = reduceNumber(getDate(this.birthDate));
     const stageOne = reduceNumberISK(reducedMonth + reducedDay);
 
     return this.karmic.includes(stageOne) ? '*' : '';
   }
 
   getEISKCheck(): string {
-    const reducedMonth = this.birthDate.month() + 1;
-    const reducedDay = this.birthDate.date();
+    const reducedMonth = getMonth(this.birthDate) + 1;
+    const reducedDay = getDate(this.birthDate);
     const stageOne = reduceNumberISK(reducedMonth + reducedDay);
 
     return this.karmic.includes(stageOne) ? '*' : '';
   }
 
   getFISK(): string {
-    const reducedDay = reduceNumber(this.birthDate.date());
-    const reducedYear = reduceNumber(this.birthDate.year());
+    const reducedDay = reduceNumber(getDate(this.birthDate));
+    const reducedYear = reduceNumber(getYear(this.birthDate));
     const stageTwo = reduceNumberISK(reducedDay + reducedYear);
 
     return this.karmic.includes(stageTwo) ? '*' : '';
   }
 
   getFISKCheck(): string {
-    const reducedDay = this.birthDate.date();
-    const reducedYear = this.birthDate.year();
+    const reducedDay = getDate(this.birthDate);
+    const reducedYear = getYear(this.birthDate);
     const stageTwo = reduceNumberISK(reducedDay + reducedYear);
 
     return this.karmic.includes(stageTwo) ? '*' : '';
@@ -1552,15 +1545,15 @@ class Person {
   }
 
   getHISK(): string {
-    const reduceMonth = reduceNumber(this.birthDate.month() + 1);
-    const reduceYear = reduceNumber(this.birthDate.year());
+    const reduceMonth = reduceNumber(getMonth(this.birthDate) + 1);
+    const reduceYear = reduceNumber(getYear(this.birthDate));
     const stageFou = reduceNumberISK(reduceMonth + reduceYear);
     return this.karmic.includes(stageFou) ? '*' : '';
   }
 
   getHISKCheck(): string {
-    const reduceMonth = this.birthDate.month() + 1;
-    const reduceYear = this.birthDate.year();
+    const reduceMonth = getMonth(this.birthDate) + 1;
+    const reduceYear = getYear(this.birthDate);
     const stageFou = reduceNumberISK(reduceMonth + reduceYear);
     return this.karmic.includes(stageFou) ? '*' : '';
   }
@@ -1583,9 +1576,9 @@ class Person {
   }
 
   calcLifeStageISK(stage: number): string {
-    const reducedYear = reduceNumber(this.birthDate.year());
-    const reducedMonth = reduceNumber(this.birthDate.month() + 1);
-    const reducedDay = reduceNumber(this.birthDate.date());
+    const reducedYear = reduceNumber(getYear(this.birthDate));
+    const reducedMonth = reduceNumber(getMonth(this.birthDate) + 1);
+    const reducedDay = reduceNumber(getDate(this.birthDate));
 
     const stageOne = reduceNumberISK(reducedMonth + reducedDay);
     if (stage === 1) return this.karmic.includes(stageOne) ? '*' : '';
@@ -1596,7 +1589,7 @@ class Person {
     const stageThr = reduceNumberISK(stageOne + stageTwo);
     if (stage === 3) return this.karmic.includes(stageThr) ? '*' : '';
 
-    const stageFou = reduceNumberISK(this.birthDate.month() + 1 + this.birthDate.year());
+    const stageFou = reduceNumberISK(getMonth(this.birthDate) + 1 + getYear(this.birthDate));
     if (stage === 4) return this.karmic.includes(stageFou) ? '*' : '';
 
     if (stage === 5) return this.karmic.includes(stageThr) ? '*' : '';
@@ -1625,14 +1618,14 @@ class Person {
 
   calcGiftISK(): string {
     let gift = reduceNumberISK(
-      Number(this.birthDate.year().toString()[2])
-      + Number(this.birthDate.year().toString()[3]),
+      Number(getYear(this.birthDate).toString()[2])
+      + Number(getYear(this.birthDate).toString()[3]),
     );
     if (gift === 0) {
-      gift = Number(this.birthDate.year().toString()[1]);
+      gift = Number(getYear(this.birthDate).toString()[1]);
     }
     if (gift === 0) {
-      gift = Number(this.birthDate.year().toString()[0]);
+      gift = Number(getYear(this.birthDate).toString()[0]);
     }
     return this.karmic.includes(gift) ? '*' : '';
   }
@@ -1717,22 +1710,22 @@ class Person {
   }
 
   calcPersonalYearISK(year: number): string {
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
-    const personalYear = reduceNumberISK(yearToCalculate + this.birthDate.month() + 1 + this.birthDate.date());
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const personalYear = reduceNumberISK(yearToCalculate + getMonth(this.birthDate) + 1 + getDate(this.birthDate));
     return this.karmic.includes(personalYear) ? '*' : '';
   }
 
   calcPersonalMonthISK(opts: SplittedDate): string {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const personalMonth = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
     return this.karmic.includes(personalMonth) ? '*' : '';
   }
 
   calcPersonalWeekISK(opts: SplittedDate): string {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
-    const dayToCalculate = _.isNil(opts.day) ? Number(this.NOW.format('D')) : opts.day;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
     const personalYear = this.calcPersonalYear(yearToCalculate);
     const sumPersonalWeekOne = reduceNumberISK(personalYear + monthToCalculate);
     if (dayToCalculate >= 1 && dayToCalculate <= 7) {
@@ -1757,16 +1750,16 @@ class Person {
   }
 
   calcPersonalDayISK(opts: SplittedDate): string {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
-    const dayToCalculate = _.isNil(opts.day) ? Number(this.NOW.format('D')) : opts.day;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
+    const dayToCalculate = _.isNil(opts.day) ? getDate(this.NOW) : opts.day;
     const personalDay = reduceNumberISK(this.calcPersonalYear(yearToCalculate) + dayToCalculate + monthToCalculate);
     return this.karmic.includes(personalDay) ? '*' : '';
   }
 
   calcSelectPersonalWeekISK(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): string {
-    const yearToCalculate = _.isNil(opts.year) ? Number(this.NOW.format('YYYY')) : opts.year;
-    const monthToCalculate: number = _.isNil(opts.month) ? Number(this.NOW.format('M')) : opts.month;
+    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
     const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
     if (weekToCalculate === 1) {
       const personalWeekOne = reduceNumberISK(weekOne);
@@ -1791,10 +1784,10 @@ class Person {
   }
 
   getLifeStageISK(year: number): string {
-    const yearToCompare = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
-    const yearBirthDate = this.birthDate.year();
-    const monthBirthDate = this.birthDate.month() + 1;
-    const dayBirthDate = this.birthDate.date();
+    const yearToCompare = _.isNil(year) ? getYear(this.NOW) : year;
+    const yearBirthDate = getYear(this.birthDate);
+    const monthBirthDate = getMonth(this.birthDate) + 1;
+    const dayBirthDate = getDate(this.birthDate);
 
     const reducedYear = reduceNumber(yearBirthDate);
     const reducedMonth = reduceNumber(monthBirthDate);
@@ -1839,44 +1832,50 @@ class Person {
   }
 
   getQuarterOneISK(): string {
-    const quarterOne = reduceNumberISK(this.birthDate.year());
+    const quarterOne = reduceNumberISK(getYear(this.birthDate));
     return this.karmic.includes(quarterOne) ? '*' : '';
   }
 
   getQuarterTwoISK(year: number): string {
-    const yearToCalculate = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const quarterTwo = reduceNumberISK(yearToCalculate - this.calcPersonalityNumber());
     return this.karmic.includes(quarterTwo) ? '*' : '';
   }
 
   getQuarterThreeISK(year: number): string {
-    const yearToCalculate: number = _.isNil(year) ? this.NOW.year() : year;
+    const yearToCalculate: number = _.isNil(year) ? getYear(this.NOW) : year;
     const quarterThree = reduceNumberISK(this.getQuarterOne() + this.getQuarterTwo(yearToCalculate));
     return this.karmic.includes(quarterThree) ? '*' : '';
   }
 
   calcCurrentQuarterISK(month: number, year: number): string {
-    const monthToCalculate = _.isNil(month) ? Number(this.NOW.format('M')) : month;
-    const yearToCalculate = _.isNil(year) ? Number(this.NOW.format('YYYY')) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const listOfMonths = this.getCustomMonths();
-    const actualMonth = getMonthName(this.NOW.month(monthToCalculate - 1).toString());
-    const birthDateMonth = getMonthName(this.birthDate.toString());
+    const actualMonth = getMonthName(monthToCalculate);
+    const birthDateMonth = getMonthName(this.getMonthOfBirth());
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
     const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
     if (index < 5) {
-      if (birthDateMonth === actualMonth && this.birthDate.date() > 20) {
+      if (birthDateMonth === actualMonth && getDate(this.birthDate) > 20) {
         return this.getQuarterThreeISK(yearToCalculate - 1);
       }
       return this.getQuarterOneISK();
     }
     if (index > 4 && index < 9) {
-      if (index > indexEnero) {
+      if (indexEnero === 0) {
+        return this.getQuarterTwoISK(yearToCalculate);
+      }
+      if (index >= indexEnero) {
         return this.getQuarterTwoISK(yearToCalculate - 1);
       }
       return this.getQuarterTwoISK(yearToCalculate);
     }
     if (index > 8) {
-      if (index > indexEnero) {
+      if (indexEnero === 0) {
+        return this.getQuarterThreeISK(yearToCalculate);
+      }
+      if (index >= indexEnero) {
         return this.getQuarterThreeISK(yearToCalculate - 1);
       }
       return this.getQuarterThreeISK(yearToCalculate);
@@ -1885,9 +1884,8 @@ class Person {
   }
 
   getQuarterMonthISK(monthToCalculate: number, yearToCalculate: number): string {
-    const month = _.isNil(monthToCalculate) ? Number(this.NOW.format('M')) : monthToCalculate;
-    const year = _.isNil(yearToCalculate) ? Number(this.NOW.format('YYYY')) : yearToCalculate;
-    const quarterMonth = getMonthName(this.NOW.month(month - 1).toString());
+    const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
+    const quarterMonth = getMonthName(monthToCalculate);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
     const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
     if (monthIndex < 5) {

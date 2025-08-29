@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 
+import _ from 'lodash';
+
 export function reduceNumber(number: number) {
   let reduceSum = number;
   while (reduceSum > 9 && !(reduceSum === 22 || reduceSum === 11)) {
@@ -301,10 +303,14 @@ export function getResBridge(a: number, b: number): number {
   return Math.abs(result !== 0 ? result : n1);
 }
 
-export function getMonthName(date: string): string {
+export function getMonthName(month: number): string {
+  if (!_.isNumber(month) || month < 1 || month > 12) {
+    return '';
+  }
+  // Los meses en JavaScript son 0-based, por eso restamos 1
   return new Intl.DateTimeFormat('es', {
     month: 'long',
-  }).format(new Date(date));
+  }).format(new Date(2025, month - 1, 1));
 }
 export function sliceIntoChunks(arr:number[], chunkSize:number) {
   const res = [];
