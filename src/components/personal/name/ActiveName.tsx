@@ -42,7 +42,7 @@ export default function ActiveName({
         </div>
       </div>
       {table.map((el: any, i: number) => (
-        <div key={start} className="w-8">
+        <div className="w-8">
           <div className={`h-30 text-11 ${bkConfig(i + start, 'bg-main-30')} flex items-center justify-center border-t border-gray-500 border-r w-8`}>
             {consultant.getYearOfBirth() + i + start}
             {' '}

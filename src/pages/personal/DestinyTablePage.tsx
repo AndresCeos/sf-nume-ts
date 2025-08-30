@@ -16,9 +16,12 @@ export default function DestinyTablePage() {
   const table2 = table.slice(30, 60);
   const table3 = table.slice(60, 90);
   const table4 = table.slice(90, 120);
+  const table5 = table.slice(120, 150);
+  const table6 = table.slice(150, 180);
 
   const nameCycles = consultant.calcNameCycles();
   const nameSubCycles = consultant.calcNameSubCycles();
+
   return (
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10 relative">
@@ -54,6 +57,20 @@ export default function DestinyTablePage() {
             <DestinyTable
               table={table4}
               start={90}
+              consultant={consultant}
+              nameCycles={nameCycles}
+              nameSubCycles={nameSubCycles}
+            />
+            <DestinyTable
+              table={table5}
+              start={120}
+              consultant={consultant}
+              nameCycles={nameCycles}
+              nameSubCycles={nameSubCycles}
+            />
+            <DestinyTable
+              table={table6}
+              start={150}
               consultant={consultant}
               nameCycles={nameCycles}
               nameSubCycles={nameSubCycles}
