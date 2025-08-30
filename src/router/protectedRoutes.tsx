@@ -21,6 +21,7 @@ import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
 import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPage';
+import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
 
 function App() {
@@ -60,6 +61,7 @@ const protectedRoutes = [
       // Sinastry Pages
       { path: '/partner/sinastria', element: <SynastryPinnaclePage /> },
       { path: '/sinastria_retornos', element: <SinastryAnnualReturnsPage /> },
+      { path: '/sinastria_destino', element: <SinastryDestinyTablePage /> },
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },
