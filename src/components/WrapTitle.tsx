@@ -4,7 +4,7 @@ import check from '../assets/icons/check.svg';
 type WrapTitleProps = {
   title: string;
   color: string;
-  button: {
+  button?: {
     handle: () => void;
     state: boolean;
     text: string;
@@ -33,3 +33,7 @@ export default function WrapTitle({ title, color, button }: WrapTitleProps) {
     </div>
   );
 }
+
+WrapTitle.defaultProps = {
+  button: undefined,
+};

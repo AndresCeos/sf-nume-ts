@@ -119,7 +119,7 @@ export default function PartnerFormInLine({
 
   // Función para crear nuevo grupo
   const handleCreateGroup = () => {
-    handleIsEditingPartnerData(false);
+    handleIsEditingPartnerData(true);
     setIsAddFormActive(true);
   };
 

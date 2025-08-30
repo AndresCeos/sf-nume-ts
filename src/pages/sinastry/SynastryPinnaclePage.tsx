@@ -8,7 +8,6 @@ import NoConsultantSelected from '@/components/NoConsultantSelected';
 import MetricsGrid from '@/components/partners/MetricsGrid';
 import PinnacleComponent from '@/components/partners/Pinnacle/Pinnacle';
 import AnnualReturn from '@/components/personal/pinnacle/AnnualReturn';
-import Pinnacle from '@/components/personal/pinnacle/Pinnacle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 import WrapTitle from '@/components/WrapTitle';
 import { ConsultContext } from '@/context/ConsultContext';
@@ -32,7 +31,9 @@ interface SynastryMetrics {
 }
 
 export default function SynastryPinnaclePage() {
-  const { consultant, activePartner, calculationDate } = useContext(ConsultContext);
+  const {
+    consultant, activePartnerData, selectedPartnersAsPersons, calculationDate,
+  } = useContext(ConsultContext);
 
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({
     checkP1: false,
@@ -62,28 +63,28 @@ export default function SynastryPinnaclePage() {
     return <NoConsultantSelected />;
   }
 
-  if (!activePartner) {
+  if (!activePartnerData || !selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
       <div className="page-content bg-home-background bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
-          <strong>Agrega/Selecciona una pareja para ver esta información</strong>
+          <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
         </div>
       </div>
     );
   }
 
-  // TypeScript assertions - at this point we know these are not null
-  const validConsultant = consultant!;
-  const validActivePartner = activePartner!;
+  // Use the already converted Person objects from context
+  const partner1 = selectedPartnersAsPersons[0];
+  const partner2 = selectedPartnersAsPersons[1];
 
-  // Create synastry instance directly
-  const synastry = new Synastry(validConsultant, validActivePartner);
+  // Create synastry instance between the two partners (not consultant)
+  const synastry = new Synastry(partner1, partner2);
 
-  // Calculate annual returns directly
+  // Calculate annual returns for both partners and synastry
   const annualReturns = {
-    consultant: validConsultant.annualReturn(calculationDate),
-    partner: validActivePartner.annualReturn(calculationDate),
+    partner1: partner1.annualReturn(calculationDate),
+    partner2: partner2.annualReturn(calculationDate),
     synastry: synastry.annualReturn(calculationDate.year),
   };
 
@@ -101,32 +102,32 @@ export default function SynastryPinnaclePage() {
     maturity: `${synastry.calcMaturity()}${synastry.calcMaturityISK()}`,
   };
 
-  // Calculate consultant metrics directly
-  const consultantMetrics: SynastryMetrics = {
+  // Calculate partner1 metrics directly
+  const partner1Metrics: SynastryMetrics = {
     name: checkboxState.checkN1
-      ? `${validConsultant.getNameCheck()}${validConsultant.calcNameISK()}`
-      : `${validConsultant.calcName()}${validConsultant.calcNameISK()}`,
+      ? `${partner1.getNameCheck()}${partner1.calcNameISK()}`
+      : `${partner1.calcName()}${partner1.calcNameISK()}`,
     soul: checkboxState.checkN1
-      ? `${validConsultant.getSoulCheck()}${validConsultant.calcSoulNumberISK()}`
-      : `${validConsultant.calcSoulNumber()}${validConsultant.calcSoulNumberISK()}`,
+      ? `${partner1.getSoulCheck()}${partner1.calcSoulNumberISK()}`
+      : `${partner1.calcSoulNumber()}${partner1.calcSoulNumberISK()}`,
     expression: checkboxState.checkN1
-      ? `${validConsultant.getExpressionSoulCheck()}${validConsultant.calcSoulExpressionISK()}`
-      : `${validConsultant.calcSoulExpression()}${validConsultant.calcSoulExpressionISK()}`,
-    maturity: `${validConsultant.calcMaturity()}${validConsultant.calcMaturityISK()}`,
+      ? `${partner1.getExpressionSoulCheck()}${partner1.calcSoulExpressionISK()}`
+      : `${partner1.calcSoulExpression()}${partner1.calcSoulExpressionISK()}`,
+    maturity: `${partner1.calcMaturity()}${partner1.calcMaturityISK()}`,
   };
 
-  // Calculate partner metrics directly
-  const partnerMetrics: SynastryMetrics = {
+  // Calculate partner2 metrics directly
+  const partner2Metrics: SynastryMetrics = {
     name: checkboxState.checkN2
-      ? `${validActivePartner.getNameCheck()}${validActivePartner.calcNameISK()}`
-      : `${validActivePartner.calcName()}${validActivePartner.calcNameISK()}`,
+      ? `${partner2.getNameCheck()}${partner2.calcNameISK()}`
+      : `${partner2.calcName()}${partner2.calcNameISK()}`,
     soul: checkboxState.checkN2
-      ? `${validActivePartner.getSoulCheck()}${validActivePartner.calcSoulNumberISK()}`
-      : `${validActivePartner.calcSoulNumber()}${validActivePartner.calcSoulNumberISK()}`,
+      ? `${partner2.getSoulCheck()}${partner2.calcSoulNumberISK()}`
+      : `${partner2.calcSoulNumber()}${partner2.calcSoulNumberISK()}`,
     expression: checkboxState.checkN2
-      ? `${validActivePartner.getExpressionSoulCheck()}${validActivePartner.calcSoulExpressionISK()}`
-      : `${validActivePartner.calcSoulExpression()}${validActivePartner.calcSoulExpressionISK()}`,
-    maturity: `${validActivePartner.calcMaturity()}${validActivePartner.calcMaturityISK()}`,
+      ? `${partner2.getExpressionSoulCheck()}${partner2.calcSoulExpressionISK()}`
+      : `${partner2.calcSoulExpression()}${partner2.calcSoulExpressionISK()}`,
+    maturity: `${partner2.calcMaturity()}${partner2.calcMaturityISK()}`,
   };
 
   return (
@@ -150,10 +151,10 @@ export default function SynastryPinnaclePage() {
           </div>
         </div>
 
-        {/* Consultant Metrics */}
+        {/* Partner 1 Metrics */}
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Nombre: ${validConsultant.nameView}`}
+            title={`Nombre: ${partner1.nameView}`}
             color="bg-blue"
             button={{
               handle: toggles.checkName1,
@@ -162,14 +163,14 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-white shadow-sm">
-            <MetricsGrid metrics={consultantMetrics} />
+            <MetricsGrid metrics={partner1Metrics} />
           </div>
         </div>
 
-        {/* Partner Metrics */}
+        {/* Partner 2 Metrics */}
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Nombre: ${validActivePartner.nameView}`}
+            title={`Nombre: ${partner2.nameView}`}
             color="bg-blue"
             button={{
               handle: toggles.checkName2,
@@ -178,7 +179,7 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-white shadow-sm">
-            <MetricsGrid metrics={partnerMetrics} />
+            <MetricsGrid metrics={partner2Metrics} />
           </div>
         </div>
 
@@ -200,7 +201,7 @@ export default function SynastryPinnaclePage() {
 
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Pináculo: ${validConsultant.nameView}`}
+            title={`Pináculo: ${partner1.nameView}`}
             color="bg-blue"
             button={{
               text: checkboxState.checkP2 ? 'Normal' : 'Comprobación',
@@ -209,13 +210,13 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 shadow-sm">
-            <Pinnacle isVerificationActive={checkboxState.checkP2} size="sm" />
+            <PinnacleComponent entity={partner1} isVerificationActive={checkboxState.checkP2} size="sm" />
           </div>
         </div>
 
         <div className="col-span-4 mb-1">
           <WrapTitle
-            title={`Pináculo: ${validActivePartner.nameView}`}
+            title={`Pináculo: ${partner2.nameView}`}
             color="bg-blue"
             button={{
               text: checkboxState.checkP ? 'Normal' : 'Comprobación',
@@ -224,7 +225,7 @@ export default function SynastryPinnaclePage() {
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 shadow-sm">
-            <PinnacleComponent entity={validActivePartner} isVerificationActive={checkboxState.checkP} size="sm" />
+            <PinnacleComponent entity={partner2} isVerificationActive={checkboxState.checkP} size="sm" />
           </div>
         </div>
 
@@ -248,11 +249,11 @@ export default function SynastryPinnaclePage() {
               </div>
               Pináculo:
               {' '}
-              {validConsultant.nameView}
+              {partner1.nameView}
             </div>
           </div>
           <div className="pinnacle-wrap px-5 py-4">
-            <AnnualReturn annualReturn={annualReturns.consultant} current months size="xs" />
+            <AnnualReturn annualReturn={annualReturns.partner1} current months size="xs" />
           </div>
         </div>
 
@@ -264,11 +265,11 @@ export default function SynastryPinnaclePage() {
               </div>
               Pináculo:
               {' '}
-              {validActivePartner.nameView}
+              {partner2.nameView}
             </div>
           </div>
           <div className="pinnacle-wrap px-5 py-4">
-            <AnnualReturn annualReturn={annualReturns.partner} current months size="xs" />
+            <AnnualReturn annualReturn={annualReturns.partner2} current months size="xs" />
           </div>
         </div>
       </div>
