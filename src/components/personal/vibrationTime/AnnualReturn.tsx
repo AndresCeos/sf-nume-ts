@@ -23,7 +23,7 @@ function AnnualReturn({
 }: AnnualReturnProps) {
   const { t } = useTranslation();
   const fontSize = { xs: 'xs', xl: 'xl' };
-  const marginBottom = { xs: '4' };
+  // const marginBottom = { xs: '4' };
 
   // TODO: refactor this
   const calcAge = (age: number, year: number) => {
@@ -108,7 +108,7 @@ function AnnualReturn({
             </>
           )
           : (
-            <div className={`grid grid-cols-3 mb-${marginBottom[size] || '8'}`}>
+            <div className="grid grid-cols-3 mb-4">
               <div className={`text-${fontSize[size] || 'xl'} font-bold border border-black border-opacity-50 flex justify-center items-center h-10 rounded-lg`}>
                 {annualReturn.yearToCalculate}
               </div>

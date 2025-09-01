@@ -86,7 +86,7 @@ function ConsultantProfile() {
         {showModal
         && (
         <MyModal size="large" title="Historial de Notas" isOpen={showModal} setIsOpen={setShowModal} icon isLoading={false}>
-          <ConsultantModalNotes item={consultantInfo.notes} />
+          <ConsultantModalNotes item={consultantInfo?.notes} />
         </MyModal>
         )}
       </div>
