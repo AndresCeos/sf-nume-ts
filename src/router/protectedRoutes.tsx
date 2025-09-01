@@ -63,10 +63,10 @@ const protectedRoutes = [
       { path: '/personal/annual-calendar', element: <AnnualCalendar /> },
       { path: '/personal/monthly-calendar', element: <MonthCalendarPage /> },
       // Sinastry Pages
-      { path: '/partner/sinastria', element: <SynastryPinnaclePage /> },
-      { path: '/sinastria_retornos', element: <SinastryAnnualReturnsPage /> },
-      { path: '/sinastria_destino', element: <SinastryDestinyTablePage /> },
-      { path: '/sinastria_compatibilidad', element: <SynastryCompatibilityTablePage /> },
+      { path: '/partner/pinnacle', element: <SynastryPinnaclePage /> },
+      { path: '/partner/annual-returns', element: <SinastryAnnualReturnsPage /> },
+      { path: '/partner/destiny-table', element: <SinastryDestinyTablePage /> },
+      { path: '/partner/compatibility-table', element: <SynastryCompatibilityTablePage /> },
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },

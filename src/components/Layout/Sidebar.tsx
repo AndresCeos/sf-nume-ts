@@ -192,7 +192,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/sinastria"
+                to="/partner/pinnacle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -214,7 +214,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/sinastria_retornos"
+                to="/partner/annual-returns"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -225,7 +225,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/sinastria_destino"
+                to="/partner/destiny-table"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -236,7 +236,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/sinastria_compatibilidad"
+                to="/partner/compatibility-table"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
