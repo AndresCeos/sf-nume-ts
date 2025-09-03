@@ -1,0 +1,65 @@
+import { StyleSheet, View } from '@react-pdf/renderer';
+import React from 'react';
+import { SynastryAnnualReturn } from './SynastryAnnualReturn';
+
+export const SynastryAnnualReturns: React.FC<{ synastry }> = ({ synastry }) => {
+  const newDate = new Date()
+
+  const annualReturnCurrent = synastry.consultant.annualReturn(newDate.year())
+  const annualReturnLastYear = synastry.annualReturn(newDate.year())
+  const annualReturnNextYear = synastry.partner.annualReturn(newDate.year())
+
+  return (
+    <View style={annualReturn.container}>
+      <View style={annualReturn.wrap}>
+        <View style={annualReturn.return_1}>
+          <SynastryAnnualReturn annualReturn={annualReturnLastYear} />
+        </View>
+        <View style={annualReturn.return_2}>
+          <SynastryAnnualReturn annualReturn={annualReturnCurrent} />
+        </View>
+        <View style={annualReturn.return_3}>
+          <SynastryAnnualReturn annualReturn={annualReturnNextYear} />
+        </View>
+      </View>
+    </View>
+  )
+}
+
+export const annualReturn = StyleSheet.create({
+  container: {
+    backgroundColor: '#ff0000',
+    position: 'absolute',
+    top: '503px',
+    width: '119px',
+    left: '14px',
+    fontSize: '10px',
+
+  },
+  wrap: {
+    position: 'relative'
+  },
+  return_1: {
+    position: 'absolute',
+    top: '0px',
+    height: '134px',
+    width: '169px',
+    // backgroundColor: '#ff0000',
+  },
+  return_2: {
+    position: 'absolute',
+    top: '0px',
+    left: '182px',
+    height: '134px',
+    width: '169px',
+    // backgroundColor: '#00ff00',
+  },
+  return_3: {
+    position: 'absolute',
+    top: '0px',
+    left: '361px',
+    height: '134px',
+    width: '169px',
+    // backgroundColor: '#0000ff',
+  },
+})
