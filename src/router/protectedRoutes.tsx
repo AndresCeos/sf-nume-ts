@@ -27,6 +27,7 @@ import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPag
 import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
 import SynastryCompatibilityTablePage from '@/pages/sinastry/SynastryCompatibilityTablePage';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
+import SynastryTimeCirclePage from '@/pages/sinastry/SynastryTimeCirclePage';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ const protectedRoutes = [
       { path: '/partner/annual-returns', element: <SinastryAnnualReturnsPage /> },
       { path: '/partner/destiny-table', element: <SinastryDestinyTablePage /> },
       { path: '/partner/compatibility-table', element: <SynastryCompatibilityTablePage /> },
+      { path: '/partner/time-circle', element: <SynastryTimeCirclePage /> },
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },

@@ -244,6 +244,17 @@ function Sidebar() {
                 <label className="ml-2">{t('sidebar.compatibilityTable')}</label>
               </NavLink>
             </li>
+            <li className={currentPage === 'partner' ? '' : 'hidden'}>
+              <NavLink
+                end
+                to="/partner/time-circle"
+                className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
+                aria-current="page"
+              >
+                <img src="/assets/sidebar/circle_time.svg" className="w-6 h-4 object-center" alt="ic_circle_time" />
+                <label className="ml-2">{t('sidebar.timeCircle')}</label>
+              </NavLink>
+            </li>
             <li className={currentPage === 'group' ? 'bg-secondary' : ''}>
               <button
                 type="button"
