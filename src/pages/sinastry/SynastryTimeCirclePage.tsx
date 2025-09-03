@@ -14,11 +14,11 @@ function SynastryTimeCirclePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons, calculationDate, consultationDate,
   } = useContext(ConsultContext);
-  
+
   const universal = new Universal();
-  
+
   if (!consultant) return (<NoConsultantSelected />);
-  
+
   if (!activePartnerData || !selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
       <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
