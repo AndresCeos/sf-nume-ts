@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 
-import { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { capitalize } from 'lodash';
 
@@ -24,7 +24,6 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
 
   if (!consultant) return null;
   const u = new Universal();
-  console.log(calculationDate);
 
   const personalMonth = { ...calculationDate, month: selectedMonth };
 
@@ -59,8 +58,6 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(parseInt(event.target.value, 10));
   };
-
-  console.log(getMonthName(personalMonth.month), 'personalMonth.month', personalMonth.month);
 
   return (
     <div className="p-6">
@@ -205,8 +202,8 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
                 {day}
                 <br />
                 <span className="text-xl flex justify-center text-black font-bold">
-                  {consultant.calcPersonalDay(day, personalMonth.month, personalMonth.year)}
-                  {consultant.calcPersonalDayISK(day, personalMonth.month, personalMonth.year)}
+                  {consultant.calcPersonalDay({ day, month: personalMonth.month, year: personalMonth.year })}
+                  {consultant.calcPersonalDayISK({ day, month: personalMonth.month, year: personalMonth.year })}
                   /
                   {u.calcUniversalDay({ ...calculationDate, month, day })}
                   {u.calcUniversalDayISK({ ...calculationDate, month, day })}
