@@ -1,5 +1,5 @@
 import {
-  useContext, useMemo,
+  useContext, useMemo, useState,
 } from 'react';
 import { MdEdit } from 'react-icons/md';
 
@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import add_user_main from '../../assets/icons/add_user_main.svg';
 import c_delete from '../../assets/icons/c_delete.svg';
 import PartnerDataForm from './PartnerDataForm';
+import PartnerForm from './PartnerForm';
 
 type PartnerFormInLineProps = {
   setIsAddFormActive: (isAddFormActive: boolean) => void;
@@ -72,10 +73,17 @@ export default function PartnerFormInLine({
 
   const hasNoPartners = hasPartner;
 
+  // Estado para distinguir si estamos agregando pareja a grupo existente
+  const [isAddingPartnerToGroup, setIsAddingPartnerToGroup] = useState(false);
+
+  // Estado para trackear qué pareja específica se está editando
+  const [partnerBeingEdited, setPartnerBeingEdited] = useState<Api.Partner | null>(null);
+
   const editPartner = (partnerId: string) => {
     // Encontrar la pareja específica a editar
     const partnerToEdit = currentActivePartnerData?.partner?.find((p) => p.id === partnerId);
     if (partnerToEdit) {
+      setPartnerBeingEdited(partnerToEdit);
       setIsAddFormActive(true);
       handleEditPartner();
     }
@@ -113,7 +121,7 @@ export default function PartnerFormInLine({
 
   // Función para agregar pareja a grupo existente
   const handleAddPartner = () => {
-    handleIsEditingPartnerData(false);
+    setIsAddingPartnerToGroup(true);
     setIsAddFormActive(true);
   };
   const handleRemovePartner = async (partnerId: string) => {
@@ -180,6 +188,8 @@ export default function PartnerFormInLine({
   const handleCloseForm = () => {
     setIsAddFormActive(false);
     handleIsEditingPartnerData(false);
+    setIsAddingPartnerToGroup(false);
+    setPartnerBeingEdited(null);
   };
 
   // Mostrar formulario de creación/edición de grupo
@@ -194,8 +204,32 @@ export default function PartnerFormInLine({
     );
   }
 
+  // Mostrar formulario de editar pareja individual
+  if (isAddFormActive && partnerBeingEdited) {
+    return (
+      <PartnerForm
+        activeConsultant={activeConsultant}
+        setIsAddFormActive={handleCloseForm}
+        isEditing
+        partnerToEdit={partnerBeingEdited}
+      />
+    );
+  }
+
+  // Mostrar formulario de agregar pareja a grupo existente
+  if (isAddFormActive && isAddingPartnerToGroup) {
+    return (
+      <PartnerForm
+        activeConsultant={activeConsultant}
+        setIsAddFormActive={handleCloseForm}
+        isEditing={false}
+        partnerToEdit={undefined}
+      />
+    );
+  }
+
   // Mostrar formulario de crear nuevo grupo cuando viene del botón de SelectPartner
-  if (isAddFormActive && !isEditingPartnerData) {
+  if (isAddFormActive && !isEditingPartnerData && !isAddingPartnerToGroup && !partnerBeingEdited) {
     return (
       <PartnerDataForm
         activeConsultant={activeConsultant}
