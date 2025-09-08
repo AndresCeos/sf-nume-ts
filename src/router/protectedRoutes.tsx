@@ -23,6 +23,7 @@ import NamePage from '@/pages/personal/NamePage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
+
 import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPage';
 import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
 import SynastryAnnualCalendar from '@/pages/sinastry/SynastryAnnualCalendar';
@@ -30,6 +31,7 @@ import SynastryCompatibilityTablePage from '@/pages/sinastry/SynastryCompatibili
 import SynastryMonthCalendarPage from '@/pages/sinastry/SynastryMonthCalendar';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
 import SynastryTimeCirclePage from '@/pages/sinastry/SynastryTimeCirclePage';
+
 
 function App() {
   return (
