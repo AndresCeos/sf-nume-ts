@@ -25,6 +25,7 @@ import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
 import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPage';
 import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
+import SynastryAnnualCalendar from '@/pages/sinastry/SynastryAnnualCalendar';
 import SynastryCompatibilityTablePage from '@/pages/sinastry/SynastryCompatibilityTablePage';
 import SynastryMonthCalendarPage from '@/pages/sinastry/SynastryMonthCalendar';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
@@ -71,6 +72,7 @@ const protectedRoutes = [
       { path: '/partner/compatibility-table', element: <SynastryCompatibilityTablePage /> },
       { path: '/partner/time-circle', element: <SynastryTimeCirclePage /> },
       { path: '/partner/monthly-calendar', element: <SynastryMonthCalendarPage /> },
+      { path: '/partner/annual-calendar', element: <SynastryAnnualCalendar /> },
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },
