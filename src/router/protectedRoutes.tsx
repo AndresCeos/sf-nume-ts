@@ -32,7 +32,6 @@ import SynastryMonthCalendarPage from '@/pages/sinastry/SynastryMonthCalendar';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
 import SynastryTimeCirclePage from '@/pages/sinastry/SynastryTimeCirclePage';
 
-
 function App() {
   return (
     <ConsultProvider>

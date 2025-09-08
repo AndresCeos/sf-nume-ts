@@ -56,10 +56,7 @@ export default function PartnerDataForm({
 
   // Actualizar los valores del formulario cuando partnerDataToEdit cambie
   useEffect(() => {
-    console.log('DEBUG - PartnerDataForm - isEditing:', isEditing);
-    console.log('DEBUG - PartnerDataForm - partnerDataToEdit:', partnerDataToEdit);
     if (isEditing && partnerDataToEdit) {
-      console.log('DEBUG - PartnerDataForm - Actualizando valores con:', partnerDataToEdit);
       updateValues({
         name: partnerDataToEdit.name || '',
         date: partnerDataToEdit.date || new Date().toISOString().split('T')[0],
