@@ -1,5 +1,5 @@
 import {
-  useContext, useMemo, useState,
+  useContext, useMemo,
 } from 'react';
 import { MdEdit } from 'react-icons/md';
 
@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import add_user_main from '../../assets/icons/add_user_main.svg';
 import c_delete from '../../assets/icons/c_delete.svg';
 import PartnerDataForm from './PartnerDataForm';
-import PartnerForm from './PartnerForm';
 
 type PartnerFormInLineProps = {
   setIsAddFormActive: (isAddFormActive: boolean) => void;
@@ -31,7 +30,6 @@ export default function PartnerFormInLine({
     activePartnerData,
     selectActivePartnerData,
     activeConsultant,
-    isEditingConsultant,
     updateConsultantPartners,
     isEditingPartnerData,
     handleIsEditingPartnerData,
@@ -76,9 +74,8 @@ export default function PartnerFormInLine({
 
   const editPartner = (partnerId: string) => {
     // Encontrar la pareja específica a editar
-    const partnerToEdit = currentActivePartnerData?.partner?.find(p => p.id === partnerId);
+    const partnerToEdit = currentActivePartnerData?.partner?.find((p) => p.id === partnerId);
     if (partnerToEdit) {
-      setPartnerBeingEdited(partnerToEdit);
       setIsAddFormActive(true);
       handleEditPartner();
     }
@@ -108,26 +105,9 @@ export default function PartnerFormInLine({
     }
   };
 
-  // Estado para trackear cuál pareja específica se está editando
-  const [partnerBeingEdited, setPartnerBeingEdited] = useState<Api.Partner | null>(null);
-
-  // Función para convertir PartnerData a formato compatible con PartnerForm
-  const convertPartnerDataToApiPartner = (partnerData: Api.PartnerData | null): Api.Partner | undefined => {
-    if (!partnerData || !partnerData.partner || partnerData.partner.length === 0) return undefined;
-
-    const firstPartner = partnerData.partner[0];
-    return {
-      id: firstPartner.id,
-      names: firstPartner.names,
-      lastName: firstPartner.lastName,
-      scdLastName: firstPartner.scdLastName,
-      date: firstPartner.date,
-    };
-  };
-
   // Función para crear nuevo grupo
   const handleCreateGroup = () => {
-    handleIsEditingPartnerData(true);
+    handleIsEditingPartnerData(false);
     setIsAddFormActive(true);
   };
 
@@ -200,12 +180,10 @@ export default function PartnerFormInLine({
   const handleCloseForm = () => {
     setIsAddFormActive(false);
     handleIsEditingPartnerData(false);
-    setPartnerBeingEdited(null); // Limpiar la pareja que se está editando
   };
 
   // Mostrar formulario de creación/edición de grupo
   if (isAddFormActive && isEditingPartnerData) {
-    console.log('DEBUG - Editando grupo:', currentActivePartnerData);
     return (
       <PartnerDataForm
         activeConsultant={activeConsultant}
@@ -216,14 +194,14 @@ export default function PartnerFormInLine({
     );
   }
 
-  // Mostrar formulario de agregar pareja
+  // Mostrar formulario de crear nuevo grupo cuando viene del botón de SelectPartner
   if (isAddFormActive && !isEditingPartnerData) {
     return (
-      <PartnerForm
+      <PartnerDataForm
         activeConsultant={activeConsultant}
         setIsAddFormActive={handleCloseForm}
-        isEditing={isEditingConsultant}
-        partnerToEdit={partnerBeingEdited || convertPartnerDataToApiPartner(currentActivePartnerData)}
+        isEditing={false}
+        partnerDataToEdit={undefined}
       />
     );
   }
