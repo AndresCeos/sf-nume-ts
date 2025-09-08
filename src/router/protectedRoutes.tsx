@@ -23,12 +23,14 @@ import NamePage from '@/pages/personal/NamePage';
 import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
+
 import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPage';
 import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
 import SynastryCompatibilityTablePage from '@/pages/sinastry/SynastryCompatibilityTablePage';
 import SynastryMonthCalendarPage from '@/pages/sinastry/SynastryMonthCalendar';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
 import SynastryTimeCirclePage from '@/pages/sinastry/SynastryTimeCirclePage';
+
 
 function App() {
   return (
