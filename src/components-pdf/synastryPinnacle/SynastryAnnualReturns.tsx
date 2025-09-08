@@ -1,30 +1,7 @@
+import { SplittedDate } from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 import { StyleSheet, View } from '@react-pdf/renderer';
-import React from 'react';
-import { SynastryAnnualReturn } from './SynastryAnnualReturn';
-
-export const SynastryAnnualReturns: React.FC<{ synastry }> = ({ synastry }) => {
-  const newDate = new Date()
-
-  const annualReturnCurrent = synastry.consultant.annualReturn(newDate.year())
-  const annualReturnLastYear = synastry.annualReturn(newDate.year())
-  const annualReturnNextYear = synastry.partner.annualReturn(newDate.year())
-
-  return (
-    <View style={annualReturn.container}>
-      <View style={annualReturn.wrap}>
-        <View style={annualReturn.return_1}>
-          <SynastryAnnualReturn annualReturn={annualReturnLastYear} />
-        </View>
-        <View style={annualReturn.return_2}>
-          <SynastryAnnualReturn annualReturn={annualReturnCurrent} />
-        </View>
-        <View style={annualReturn.return_3}>
-          <SynastryAnnualReturn annualReturn={annualReturnNextYear} />
-        </View>
-      </View>
-    </View>
-  )
-}
+import SynastryAnnualReturn from './SynastryAnnualReturn';
 
 export const annualReturn = StyleSheet.create({
   container: {
@@ -37,7 +14,7 @@ export const annualReturn = StyleSheet.create({
 
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   return_1: {
     position: 'absolute',
@@ -62,4 +39,26 @@ export const annualReturn = StyleSheet.create({
     width: '169px',
     // backgroundColor: '#0000ff',
   },
-})
+});
+
+export default function SynastryAnnualReturns({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
+  const annualReturnPersonOne = synastry.consultant.annualReturn(date);
+  const annualReturnSynastry = synastry.annualReturn(date.year);
+  const annualReturnPersonTwo = synastry.partner.annualReturn(date);
+
+  return (
+    <View style={annualReturn.container}>
+      <View style={annualReturn.wrap}>
+        <View style={annualReturn.return_1}>
+          <SynastryAnnualReturn annualReturn={annualReturnSynastry} />
+        </View>
+        <View style={annualReturn.return_2}>
+          <SynastryAnnualReturn annualReturn={annualReturnPersonOne} />
+        </View>
+        <View style={annualReturn.return_3}>
+          <SynastryAnnualReturn annualReturn={annualReturnPersonTwo} />
+        </View>
+      </View>
+    </View>
+  );
+}

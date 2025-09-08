@@ -1,34 +1,12 @@
+import Synastry, { SplittedDate } from '@/resources/Synastry';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
-import React from 'react';
 
 interface SynastryDataProps {
-  synastry: any;
-  newDate: any;
-  horizontal?: boolean;
+  synastry: Synastry;
+  date: SplittedDate;
+  horizontal: boolean;
 }
 
-export const SynastryData: React.FC<SynastryDataProps> = ({ synastry, newDate, horizontal = false }) => {
-  const consultant = synastry.consultant
-  const partner = synastry.partner
-  return (
-    <View style={[data.container, horizontal && { transform: 'rotate(-90deg)', width: 660, top: 320, left: -310 }]}>
-      <View style={data.partners}>
-        <Text style={[data.textName, { top: 18 }, horizontal && { left: 50 }]}>{consultant.fullNameView}</Text>
-        <Text style={[data.textBirth, { top: 18 }, horizontal && { right: 220 }]}>{consultant.getFormBirthDate()}</Text>
-        <Text style={[data.textAge, { top: 18 }, horizontal && { right: 175 }]}>{consultant.getYearsOld(newDate.year())}</Text>
-      </View>
-      <View style={data.partners}>
-        <Text style={[data.textName, { top: 45 }, horizontal && { left: 50 }]}>{partner.fullNameView}</Text>
-        <Text style={[data.textBirth, { top: 45 }, horizontal && { right: 220 }]}>{partner.getFormBirthDate()}</Text>
-        <Text style={[data.textAge, { top: 45 }, horizontal && { right: 175 }]}>{partner.getYearsOld(newDate.year())}</Text>
-      </View>
-      <View>
-        <Text style={[data.textYear, horizontal && { top: 45, left: 525 }]}>{partner.yearMeet}</Text>
-      </View>
-      {/* <Text>-</Text> */}
-    </View>
-  )
-}
 export const data = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -42,14 +20,14 @@ export const data = StyleSheet.create({
     color: '#7E7E7E',
     position: 'absolute',
     width: '240px',
-    left: '80px'
+    left: '80px',
   },
   textBirth: {
     fontSize: '7px',
     color: '#7E7E7E',
     position: 'absolute',
     width: '50px',
-    right: '65px'
+    right: '65px',
   },
   textAge: {
     fontSize: '7px',
@@ -60,7 +38,7 @@ export const data = StyleSheet.create({
   },
   partners: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   textYear: {
     fontSize: '7px',
@@ -68,5 +46,50 @@ export const data = StyleSheet.create({
     position: 'absolute',
     left: '300px',
     top: 75,
+  },
+});
+
+export default function SynastryData({ synastry, date, horizontal }: SynastryDataProps) {
+  const { consultant, partner } = synastry;
+
+  if (horizontal) {
+    return (
+      <View style={[data.container, {
+        transform: 'rotate(-90deg)', width: 660, top: 320, left: -310,
+      }]}
+      >
+        <View style={data.partners}>
+          <Text style={[data.textName, { top: 18 }, { left: 50 }]}>{consultant.fullName}</Text>
+          <Text style={[data.textBirth, { top: 18 }, { right: 220 }]}>{consultant.getFormBirthDate()}</Text>
+          <Text style={[data.textAge, { top: 18 }, { right: 175 }]}>{consultant.getYearsOld(date.year)}</Text>
+        </View>
+        <View style={data.partners}>
+          <Text style={[data.textName, { top: 45 }, { left: 50 }]}>{partner.fullName}</Text>
+          <Text style={[data.textBirth, { top: 45 }, { right: 220 }]}>{partner.getFormBirthDate()}</Text>
+          <Text style={[data.textAge, { top: 45 }, { right: 175 }]}>{partner.getYearsOld(date.year)}</Text>
+        </View>
+        <View>
+          <Text style={[data.textYear, { top: 45, left: 525 }]}>{partner.yearMet}</Text>
+        </View>
+      </View>
+    );
   }
-})
+  return (
+    <View style={[data.container]}>
+      <View style={data.partners}>
+        <Text style={[data.textName, { top: 18 }]}>{consultant.fullName}</Text>
+        <Text style={[data.textBirth, { top: 18 }]}>{consultant.getFormBirthDate()}</Text>
+        <Text style={[data.textAge, { top: 18 }]}>{consultant.getYearsOld(date.year)}</Text>
+      </View>
+      <View style={data.partners}>
+        <Text style={[data.textName, { top: 45 }]}>{partner.fullName}</Text>
+        <Text style={[data.textBirth, { top: 45 }]}>{partner.getFormBirthDate()}</Text>
+        <Text style={[data.textAge, { top: 45 }]}>{partner.getYearsOld(date.year)}</Text>
+      </View>
+      <View>
+        <Text style={[data.textYear]}>{partner.yearMet}</Text>
+      </View>
+      {/* <Text>-</Text> */}
+    </View>
+  );
+}

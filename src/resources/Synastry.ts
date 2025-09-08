@@ -2,30 +2,33 @@
 /* eslint-disable no-plusplus */
 import { getDate, getMonth, getYear } from 'date-fns';
 import _ from 'lodash';
-import { capitalize, getDaysOfWeek, getMonthName } from '../utils/numbers';
+import {
+  capitalize, getDaysOfWeek, getMonthName, reduceNumber,
+} from '../utils/numbers';
 import Person from './Person';
 
 import {
   getAllMonths,
-  reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
+  reduceMonth,
+  reduceNumberForSub, reduceNumberISK,
 } from '@/utils/numbers';
 
-type SplittedDate = {
-  day?: number,
-  month?: number,
-  year?: number,
+export type SplittedDate = {
+  day: number,
+  month: number,
+  year: number,
 };
-type AnnualReturn = {
+export type AnnualReturn = {
   yearToCalculate: number,
   age: number,
-  A: number,
-  B: number,
-  C: number,
-  D: number,
-  E: number,
-  F: number,
-  G: number,
-  H: number
+  A: string,
+  B: string,
+  C: string,
+  D: string,
+  E: string,
+  F: string,
+  G: string,
+  H: string,
 };
 
 class Synastry {
@@ -1057,24 +1060,32 @@ class Synastry {
   annualReturn(year :number):AnnualReturn {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const age = yearToCalculate - Number(this.yearMet);
-    const A = reduceNumber(yearToCalculate);
-    const B = reduceNumber(
+    const a = reduceNumber(yearToCalculate);
+    const aK = reduceNumberISK(yearToCalculate);
+    const A = `${a}${this.karmic.includes(aK) ? '*' : ''}`;
+    const b = reduceNumber(
       yearToCalculate
-      + reduceNumber(getMonth(this.consultant.birthDate) + getMonth(this.partner.birthDate) + 2)
-      + reduceNumber(getDate(this.consultant.birthDate) + getDate(this.partner.birthDate)),
+      + reduceNumber(this.consultant.birthDate.getMonth() + this.partner.birthDate.getMonth() + 2)
+      + reduceNumber(this.consultant.birthDate.getDate() + this.partner.birthDate.getDate()),
     );
-    const C = reduceNumber(
-      (
-        getYear(this.consultant.birthDate)
-        + getYear(this.partner.birthDate)
-      )
-      - yearToCalculate,
-    );
-    const D = reduceNumber(A + B);
-    const E = reduceNumber(B + C);
-    const F = reduceNumber(D + E);
-    const G = reduceNumber(D + E + F);
-    const H = reduceNumber(A + C);
+    const B = `${b}`;
+    const c = reduceNumber((this.consultant.birthDate.getFullYear() + this.partner.birthDate.getFullYear()) - yearToCalculate);
+    const C = `${c}`;
+    const d = reduceNumber(a + b);
+    const dK = reduceNumberISK(a + b);
+    const D = `${d}${this.karmic.includes(dK) ? '*' : ''}`;
+    const e = reduceNumber(b + c);
+    const eK = reduceNumberISK(b + c);
+    const E = `${e}${this.karmic.includes(eK) ? '*' : ''}`;
+    const f = reduceNumber(d + e);
+    const fK = reduceNumberISK(d + e);
+    const F = `${f}${this.karmic.includes(fK) ? '*' : ''}`;
+    const g = reduceNumber(d + e + f);
+    const gK = reduceNumberISK(d + e + f);
+    const G = `${g}${this.karmic.includes(gK) ? '*' : ''}`;
+    const h = reduceNumber(a + c);
+    const hK = reduceNumberISK(a + c);
+    const H = `${h}${this.karmic.includes(hK) ? '*' : ''}`;
 
     return {
       yearToCalculate, age, A, B, C, D, E, F, G, H,

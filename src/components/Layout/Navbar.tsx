@@ -13,6 +13,7 @@ import MonthPDF from '@/components-pdf/document/MonthPDF';
 import NamePDF from '@/components-pdf/document/NamePDF';
 import PDF from '@/components-pdf/document/PDF';
 import PinnaclePDF from '@/components-pdf/document/PinnaclePDF';
+import SynastryPinnaclePDF from '@/components-pdf/document/SynastryPinnaclePDF';
 import TimeVibrationPDF from '@/components-pdf/document/TimeVibrationPDF';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
@@ -72,6 +73,7 @@ function Navbar() {
     'time_circle',
     'annual_calendar',
     'monthly_calendar',
+    'synastry_pinnacle',
   ];
   const location = useLocation();
   const path = location.pathname.split('/')[2];
@@ -115,6 +117,7 @@ function Navbar() {
       time_circle: CircleTimePDF,
       annual_calendar: CalendarPDF,
       monthly_calendar: MonthPDF,
+      synastry_pinnacle: SynastryPinnaclePDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
     console.log({ config });

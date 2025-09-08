@@ -1,19 +1,21 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
-import { SynastryNames } from '../synastryPinnacle/SynastryNames';
-import { SynastryData } from '../synastryVibrationTime/SynastryData';
-import { SynastryPinnacles } from '../synastryPinnacle/SynastryPinnacles';
-import { SynastryAnnualReturns } from '../synastryPinnacle/SynastryAnnualReturns';
+import { PDFPageConfig } from '@/types/pdf.types';
+import SynastryAnnualReturns from '../synastryPinnacle/SynastryAnnualReturns';
+import SynastryNames from '../synastryPinnacle/SynastryNames';
+import SynastryPinnacles from '../synastryPinnacle/SynastryPinnacles';
+import SynastryData from '../synastryVibrationTime/SynastryData';
 
-import sPinnacle from '../assets/s-pinnacle.jpg'
-export const SynastryPinnaclePDF: React.FC<{ synastry, newDate }> = ({ synastry, newDate }) => {
+import Synastry, { SplittedDate } from '@/resources/Synastry';
+import sPinnacle from '../assets/s-pinnacle.jpg';
+
+export default function SynastryPinnaclePDF({ synastry, date }: { synastry: Synastry, date: SplittedDate }): PDFPageConfig {
   return {
     bg: sPinnacle,
-    children: <>
-      <SynastryData synastry={synastry} newDate={newDate} />
-      <SynastryNames synastry={synastry} newDate={newDate} />
-      <SynastryPinnacles synastry={synastry} newDate={newDate} />
-      <SynastryAnnualReturns synastry={synastry} newDate={newDate} />
-              </>
-  }
+    children:
+  <>
+    <SynastryData synastry={synastry} date={date} horizontal={false} />
+    <SynastryNames synastry={synastry} />
+    <SynastryPinnacles synastry={synastry} />
+    <SynastryAnnualReturns synastry={synastry} date={date} />
+  </>,
+  };
 }

@@ -1,31 +1,14 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
-import { SynastryPinnacle } from './SynastryPinnacle';
+import Synastry from '@/resources/Synastry';
+import { StyleSheet, View } from '@react-pdf/renderer';
+import SynastryPinnacle from './SynastryPinnacle';
 
-export const SynastryPinnacles: React.FC<{ synastry }> = ({ synastry }) => {
-  const consultant = synastry.consultant
-  const partner = synastry.partner
-  return (
-    <View style={data.container}>
-      <View style={[data.wrap, data.synastry]}>
-        <SynastryPinnacle consultant={synastry} />
-      </View>
-      <View style={[data.wrap, data.consultant]}>
-        <SynastryPinnacle consultant={consultant} />
-      </View>
-      <View style={[data.wrap, data.partner]}>
-        <SynastryPinnacle consultant={partner} />
-      </View>
-    </View>
-  )
-}
 export const data = StyleSheet.create({
   container: {
     position: 'absolute',
     top: '250px',
     left: '12px',
     width: '532px',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   wrap: {
     // backgroundColor: 'blue',
@@ -33,15 +16,15 @@ export const data = StyleSheet.create({
   },
   synastry: {
     position: 'relative',
-    left: 18
+    left: 18,
   },
   consultant: {
     position: 'relative',
-    left: 198
+    left: 198,
   },
   partner: {
     position: 'relative',
-    left: 382
+    left: 382,
   },
   number: {
     width: 24,
@@ -51,6 +34,23 @@ export const data = StyleSheet.create({
     position: 'absolute',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-})
+});
+
+export default function SynastryPinnacles({ synastry }: { synastry: Synastry }) {
+  const { consultant, partner } = synastry;
+  return (
+    <View style={data.container}>
+      <View style={[data.wrap, data.synastry]}>
+        <SynastryPinnacle synastry={synastry} />
+      </View>
+      <View style={[data.wrap, data.consultant]}>
+        <SynastryPinnacle synastry={consultant} />
+      </View>
+      <View style={[data.wrap, data.partner]}>
+        <SynastryPinnacle synastry={partner} />
+      </View>
+    </View>
+  );
+}

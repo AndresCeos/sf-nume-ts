@@ -1,3 +1,5 @@
+import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 import { ReactElement } from 'react';
 // import { Group, Person, Synastry } from '../resources';
 
@@ -9,9 +11,9 @@ type Opts = {
 
 // PDF Component Props
 export interface PDFComponentProps {
-  consultant: any; // Person
+  consultant: Person; // Person
   newDate?: any; // dayjs object
-  synastry?: any; // Synastry
+  synastry?: Synastry; // Synastry
   groupConsult?: any; // Group
   month?: number;
   createNameObj?: any;
