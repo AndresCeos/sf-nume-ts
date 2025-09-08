@@ -1,10 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from '@react-pdf/renderer'
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
-export const CreateName: React.FC<{ consultant }> = ({ consultant }) => {
-  const { name, lastName, scdLastName } = consultant
+export const pinnacleName = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '0px',
+    left: '11px',
+    fontSize: '7px',
+    width: '271px',
+    // backgroundColor: 'red'
+  },
+  wrap: {
+    position: 'relative',
+  },
+  circle: {
+    // backgroundColor: '#00000090',
+    position: 'absolute',
+    // width: '20px',
+    height: '15px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    fontSize: '7px',
+    top: '29px',
+  },
+});
 
-
+export default function CreateName({ consultant }: { consultant: Person }) {
   return (
     <View style={pinnacleName.container}>
       <View style={pinnacleName.wrap}>
@@ -22,31 +45,5 @@ export const CreateName: React.FC<{ consultant }> = ({ consultant }) => {
         </View>
       </View>
     </View>
-  )
+  );
 }
-
-export const pinnacleName = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '0px',
-    left: '11px',
-    fontSize: '7px',
-    width: '271px',
-    // backgroundColor: 'red'
-  },
-  wrap: {
-    position: 'relative'
-  },
-  circle: {
-    // backgroundColor: '#00000090',
-    position: 'absolute',
-    // width: '20px',
-    height: '15px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    fontSize: '7px',
-    top: '29px',
-  }
-})

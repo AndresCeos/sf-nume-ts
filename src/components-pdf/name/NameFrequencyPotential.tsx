@@ -1,8 +1,34 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
+export const pinnacleName = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '119px',
+    left: '302px',
+    fontSize: '7px',
+    width: '308px',
+    height: '107px',
+    transform: 'rotate(-90deg)',
+    // backgroundColor: 'red'
+  },
+  wrap: {
+    position: 'relative',
+  },
+  circle: {
+    // backgroundColor: '#00000090',
+    position: 'absolute',
+    width: '20px',
+    height: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    fontSize: '12px',
+  },
+});
 
-export const NameFrequencyPotential: React.FC<{ consultant }> = ({ consultant }) => {
+export default function NameFrequencyPotential({ consultant }: { consultant: Person }) {
   return (
     <View style={pinnacleName.container}>
       <View style={pinnacleName.wrap}>
@@ -39,31 +65,5 @@ export const NameFrequencyPotential: React.FC<{ consultant }> = ({ consultant })
       </View>
       <Text>-</Text>
     </View>
-  )
+  );
 }
-export const pinnacleName = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '119px',
-    left: '302px',
-    fontSize: '7px',
-    width: '308px',
-    height: '107px',
-    transform: 'rotate(-90deg)',
-    // backgroundColor: 'red'
-  },
-  wrap: {
-    position: 'relative'
-  },
-  circle: {
-    // backgroundColor: '#00000090',
-    position: 'absolute',
-    width: '20px',
-    height: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    fontSize: '12px',
-  },
-})

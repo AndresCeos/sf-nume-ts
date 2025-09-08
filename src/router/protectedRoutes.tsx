@@ -50,15 +50,15 @@ const protectedRoutes = [
     element: <App />,
     children: [
       { path: '/personal/pinnacle', element: <PinnaclePage /> },
-      { path: '/personal/life-path', element: <LifePathPage /> },
+      { path: '/personal/life_path', element: <LifePathPage /> },
       { path: '/personal/name', element: <NamePage /> },
       { path: '/personal/create-name', element: <CreateNamePage /> },
-      { path: '/personal/destiny-table', element: <DestinyTablePage /> },
-      { path: '/personal/time-vibration', element: <VibrationTimePage /> },
-      { path: '/personal/annual-returns', element: <AnnualReturnsPage /> },
-      { path: '/personal/time-circle', element: <TimeCirclePage /> },
-      { path: '/personal/annual-calendar', element: <AnnualCalendar /> },
-      { path: '/personal/monthly-calendar', element: <MonthCalendarPage /> },
+      { path: '/personal/destiny_table', element: <DestinyTablePage /> },
+      { path: '/personal/time_vibration', element: <VibrationTimePage /> },
+      { path: '/personal/annual_returns', element: <AnnualReturnsPage /> },
+      { path: '/personal/time_circle', element: <TimeCirclePage /> },
+      { path: '/personal/annual_calendar', element: <AnnualCalendar /> },
+      { path: '/personal/monthly_calendar', element: <MonthCalendarPage /> },
       // Sinastry Pages
       { path: '/partner/sinastria', element: <SynastryPinnaclePage /> },
       // Group Pages

@@ -1,16 +1,16 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
-import { AnnualReturns } from '../annualReturns/AnnualReturns'
-import { TimeCicle } from '../annualReturns/TimeCicle'
+import Person, { SplittedDate } from '@/resources/Person';
+import AnnualReturns from '../annualReturns/AnnualReturns';
+import TimeCycle from '../annualReturns/TimeCicle';
 
-import annualImage from '../assets/annual-returns.jpg'
+import annualImage from '../assets/annual-returns.jpg';
 
-export const AnnualReturnsPDF: React.FC<{ consultant, newDate }> = ({ consultant, newDate }) => {
+export default function AnnualReturnsPDF({ consultant, date }: { consultant: Person, date: SplittedDate }) {
   return {
     bg: annualImage,
-    children: <>
-      <AnnualReturns consultant={consultant} newDate={newDate} />
-      <TimeCicle consultant={consultant} newDate={newDate} />
-              </>
-  }
+    children:
+  <>
+    <AnnualReturns consultant={consultant} date={date} />
+    <TimeCycle consultant={consultant} date={date} />
+  </>,
+  };
 }

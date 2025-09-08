@@ -1,8 +1,38 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
+export const pinnacleName = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '126px',
+    right: '14px',
+    fontSize: '7px',
+    width: '135px',
+    // backgroundColor: 'red'
+  },
+  wrap: {
+    position: 'relative',
+  },
+  circle: {
+    // backgroundColor: '#0000ff90',
+    position: 'absolute',
+    width: '14px',
+    height: '14px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    fontSize: '7px',
+    top: '63px',
+    left: 53,
+  },
+  circle_main: {
+    width: '20px',
+    height: '20px',
+  },
+});
 
-export const CreatePinnacle: React.FC<{ consultant }> = ({ consultant }) => {
+export default function CreatePinnacle({ consultant }: { consultant: Person }) {
   return (
     <View style={pinnacleName.container}>
       <View style={pinnacleName.wrap}>
@@ -71,47 +101,18 @@ export const CreatePinnacle: React.FC<{ consultant }> = ({ consultant }) => {
           <Text>{consultant.getS()}</Text>
         </View>
 
-
         <View style={[pinnacleName.circle, { left: 12, top: 132 }]}>
           <Text>{consultant.getW()}</Text>
         </View>
 
-        <View style={[pinnacleName.circle, { left: 86, top: 169, width: 40, height: 22 }]}>
+        <View style={[pinnacleName.circle, {
+          left: 86, top: 169, width: 40, height: 22,
+        }]}
+        >
           <Text>{consultant.getAbsences()}</Text>
         </View>
         {/* <Text>-</Text> */}
       </View>
     </View>
-  )
+  );
 }
-
-export const pinnacleName = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '126px',
-    right: '14px',
-    fontSize: '7px',
-    width: '135px',
-    // backgroundColor: 'red'
-  },
-  wrap: {
-    position: 'relative'
-  },
-  circle: {
-    // backgroundColor: '#0000ff90',
-    position: 'absolute',
-    width: '14px',
-    height: '14px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    fontSize: '7px',
-    top: '63px',
-    left: 53,
-  },
-  circle_main: {
-    width: '20px',
-    height: '20px'
-  }
-})

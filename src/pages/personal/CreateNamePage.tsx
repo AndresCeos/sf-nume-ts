@@ -9,6 +9,9 @@ import Swal from 'sweetalert2';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 
 import makeConsultant from '@/api/useConsultant';
+import { PDFPageConfig } from '@/components-pdf';
+import CreateNamePDF from '@/components-pdf/document/CreateNamePDF';
+import PDF from '@/components-pdf/document/PDF';
 import WrapTitle from '@/components/WrapTitle';
 import DestinyTableCreateName from '@/components/personal/createName/DestinyTableCreateName';
 import InclusionTable from '@/components/personal/createName/InclusionTable';
@@ -16,15 +19,22 @@ import NameBreak from '@/components/personal/createName/NameBreak';
 import NumericValues from '@/components/personal/createName/NumericValues';
 import PinnacleCreateName from '@/components/personal/createName/PinnacleCreateName';
 import AnnualReturn from '@/components/personal/vibrationTime/AnnualReturn';
+import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import Person from '@/resources/Person';
+import { pdf } from '@react-pdf/renderer';
 import { format } from 'date-fns';
+import { saveAs } from 'file-saver';
 
 function CreateNamePage() {
+  const { user: userAuth } = useAuth();
   const {
-    consultant, activeConsultant, calculationDate, selectActiveConsultant,
+    consultant, activeConsultant, calculationDate, selectActiveConsultant, consultationDate,
   } = useConsult();
+  const {
+    firstName, lastName, scdLastName, birthDate,
+  } = userAuth?.user ?? {};
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
 
@@ -59,14 +69,14 @@ function CreateNamePage() {
 
   // Inicializar inputs con datos del consultant
   useEffect(() => {
-    if (consultant && !hasCalculated && inputName === '') {
+    if (consultant && !hasCalculated) {
       const {
-        name: nameConsultant, lastName, scdLastName, birthDate,
+        name: nameConsultant, lastName: lastNameConsultant, scdLastName: scdLastNameConsultant, birthDate: birthDateConsultant,
       } = consultant;
-      setInputName(`${nameConsultant} ${lastName} ${scdLastName}`);
-      setInputDate(birthDate);
+      setInputName(`${nameConsultant} ${lastNameConsultant} ${scdLastNameConsultant}`);
+      setInputDate(birthDateConsultant);
     }
-  }, [consultant, hasCalculated, inputName]);
+  }, [consultant, hasCalculated]);
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -83,9 +93,9 @@ function CreateNamePage() {
   const createNameObj = new Person(createNameData);
   console.log(createNameObj.calcMaturity());
 
-  const annualReturnPastYear = createNameObj.annualReturn({ year: calculationDate.year - 1 });
-  const annualReturnCurrent = createNameObj.annualReturn({ year: calculationDate.year });
-  const annualReturnNextYear = createNameObj.annualReturn({ year: calculationDate.year + 1 });
+  const annualReturnPastYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
+  const annualReturnCurrent = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year });
+  const annualReturnNextYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   const checkName = () => {
     setcheckN(!checkN);
@@ -102,7 +112,7 @@ function CreateNamePage() {
   };
 
   // Solo mostrar error de validación si el usuario ha intentado calcular o si hay datos inválidos
-  if (!isValid() && hasCalculated) {
+  if ((!isValid() && hasCalculated)) {
     return (
       <div className="col-span-12 text-center font-bold">Ingresa datos validos.</div>
     );
@@ -276,6 +286,35 @@ function CreateNamePage() {
     return '';
   };
 
+  const handleGeneratePDF = async () => {
+    const config = [CreateNamePDF as unknown as PDFPageConfig];
+    const profile = new Person({
+      id: '0',
+      name: firstName || '',
+      lastName: lastName || '',
+      scdLastName: scdLastName || '',
+      birthDate: birthDate?.toString() || '',
+    });
+    const sidebar = { email: '', webSite: '', phone: '' };
+    const logoURL = '';
+    const blob = await pdf((
+      <PDF
+        consultant={createNameObj}
+        config={config}
+        profile={profile}
+        date={calculationDate}
+        newDate={consultationDate}
+        month={calculationDate.month}
+        synastry={[]}
+        groupConsult={[]}
+        sidebar={sidebar}
+        logoURL={logoURL}
+        createNameObj={[]}
+      />
+    )).toBlob();
+    saveAs(blob, `${consultant?.fullName} - CreateName.pdf`);
+  };
+
   return (
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10">
@@ -421,6 +460,14 @@ function CreateNamePage() {
                   className={`btn-save ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   Guardar
+                </button>
+                <button
+                  type="button"
+                  className={`btn-save ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  onClick={handleGeneratePDF}
+                  disabled={!isValid() || !hasCalculated}
+                >
+                  Generar PDF
                 </button>
               </div>
             </div>

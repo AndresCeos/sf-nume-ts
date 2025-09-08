@@ -1,46 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
-
-
-export const NamePotential: React.FC<{ consultant }> = ({ consultant }) => {
-  const nameCycles = consultant.calcNameCycles()
-  return (
-    <View style={pinnacleName.container}>
-      <View style={pinnacleName.wrap}>
-        <View style={[pinnacleName.circle, pinnacleName.nameCount]}>
-          <Text>
-            {consultant.nameCount()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.nameCycles]}>
-          <Text>
-            {nameCycles.toString()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.circle, pinnacleName.calcPersonalYear]}>
-          <Text>
-            {consultant.calcPersonalYear()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.circle, pinnacleName.calcOneDigitYearsOld]}>
-          <Text>
-            {consultant.calcOneDigitYearsOld()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.circle, pinnacleName.calcPersonalNumber]}>
-          <Text>
-            {consultant.calcPersonalNumber()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.circle, pinnacleName.calcMaturity]}>
-          <Text>
-            {consultant.calcMaturity()}
-          </Text>
-        </View>
-      </View>
-    </View>
-  )
-}
+import Person, { SplittedDate } from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 export const pinnacleName = StyleSheet.create({
   container: {
@@ -52,7 +11,7 @@ export const pinnacleName = StyleSheet.create({
     // backgroundColor: 'red',
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   circle: {
     // backgroundColor: '#00000090',
@@ -90,7 +49,6 @@ export const pinnacleName = StyleSheet.create({
     alignItems: 'center',
     color: '#000',
     fontSize: '12px',
-    top: '6px',
     left: '205px',
   },
   calcPersonalYear: {
@@ -109,4 +67,44 @@ export const pinnacleName = StyleSheet.create({
     top: '38px',
     left: '233px',
   },
-})
+});
+
+export default function NamePotential({ consultant, date }: { consultant: Person, date: SplittedDate }) {
+  const nameCycles = consultant.calcNameCycles();
+  return (
+    <View style={pinnacleName.container}>
+      <View style={pinnacleName.wrap}>
+        <View style={[pinnacleName.circle, pinnacleName.nameCount]}>
+          <Text>
+            {consultant.nameCount()}
+          </Text>
+        </View>
+        <View style={[pinnacleName.nameCycles]}>
+          <Text>
+            {nameCycles.toString()}
+          </Text>
+        </View>
+        <View style={[pinnacleName.circle, pinnacleName.calcPersonalYear]}>
+          <Text>
+            {consultant.calcPersonalYear(date.year)}
+          </Text>
+        </View>
+        <View style={[pinnacleName.circle, pinnacleName.calcOneDigitYearsOld]}>
+          <Text>
+            {consultant.calcOneDigitYearsOld()}
+          </Text>
+        </View>
+        <View style={[pinnacleName.circle, pinnacleName.calcPersonalNumber]}>
+          <Text>
+            {consultant.calcPersonalNumber()}
+          </Text>
+        </View>
+        <View style={[pinnacleName.circle, pinnacleName.calcMaturity]}>
+          <Text>
+            {consultant.calcMaturity()}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+}

@@ -1,5 +1,4 @@
-import useConsult from '@/hooks/useConsult';
-import Person from '@/resources/Person';
+import Person, { SplittedDate } from '@/resources/Person';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 const vibrationStyle = StyleSheet.create({
@@ -111,9 +110,7 @@ const vibrationStyle = StyleSheet.create({
   },
 });
 
-export default function VibrationTimeStage({ consultant, newDate }: { consultant: Person, newDate: Date }) {
-  const { calculationDate } = useConsult();
-  console.log({ newDate });
+export default function VibrationTimeStage({ consultant, date }: { consultant: Person, date: SplittedDate }) {
   return (
     <View style={vibrationStyle.container}>
       <View style={vibrationStyle.bar}>
@@ -128,8 +125,8 @@ export default function VibrationTimeStage({ consultant, newDate }: { consultant
             Actual
           </Text>
           <Text style={vibrationStyle.circle}>
-            {consultant.getLifeStage(calculationDate.year)}
-            {consultant.getLifeStageISK(calculationDate.year)}
+            {consultant.getLifeStage(date.year)}
+            {consultant.getLifeStageISK(date.year)}
           </Text>
         </View>
 
@@ -144,8 +141,8 @@ export default function VibrationTimeStage({ consultant, newDate }: { consultant
             Personal
           </Text>
           <Text style={[vibrationStyle.squad, { backgroundColor: '#9F5D9B' }]}>
-            {consultant.calcPersonalYear(calculationDate.year)}
-            {consultant.calcPersonalYearISK(calculationDate.year)}
+            {consultant.calcPersonalYear(date.year)}
+            {consultant.calcPersonalYearISK(date.year)}
           </Text>
         </View>
 
@@ -160,8 +157,8 @@ export default function VibrationTimeStage({ consultant, newDate }: { consultant
             mestre
           </Text>
           <Text style={[vibrationStyle.squad, { backgroundColor: '#66AB8E' }]}>
-            {consultant.calcCurrentQuarter(calculationDate.month, calculationDate.year)}
-            {consultant.calcCurrentQuarterISK(calculationDate.month, calculationDate.year)}
+            {consultant.calcCurrentQuarter(date.month, date.year)}
+            {consultant.calcCurrentQuarterISK(date.month, date.year)}
           </Text>
         </View>
 
@@ -176,8 +173,8 @@ export default function VibrationTimeStage({ consultant, newDate }: { consultant
             Personal
           </Text>
           <Text style={[vibrationStyle.squad, { backgroundColor: '#E7B62C' }]}>
-            {consultant.calcPersonalMonth(calculationDate)}
-            {consultant.calcPersonalMonthISK(calculationDate)}
+            {consultant.calcPersonalMonth(date)}
+            {consultant.calcPersonalMonthISK(date)}
           </Text>
         </View>
 
@@ -192,8 +189,8 @@ export default function VibrationTimeStage({ consultant, newDate }: { consultant
             Personal
           </Text>
           <Text style={[vibrationStyle.squad, { backgroundColor: '#52B8C8' }]}>
-            {consultant.calcPersonalWeek(calculationDate)}
-            {consultant.calcPersonalWeekISK(calculationDate)}
+            {consultant.calcPersonalWeek(date)}
+            {consultant.calcPersonalWeekISK(date)}
           </Text>
         </View>
 
@@ -208,8 +205,8 @@ export default function VibrationTimeStage({ consultant, newDate }: { consultant
             Personal
           </Text>
           <Text style={[vibrationStyle.squad, { backgroundColor: '#FA8072' }]}>
-            {consultant.calcPersonalDay(calculationDate)}
-            {consultant.calcPersonalDayISK(calculationDate)}
+            {consultant.calcPersonalDay(date)}
+            {consultant.calcPersonalDayISK(date)}
           </Text>
         </View>
 

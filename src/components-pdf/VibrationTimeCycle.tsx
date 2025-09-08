@@ -1,5 +1,4 @@
-import useConsult from '@/hooks/useConsult';
-import Person from '@/resources/Person';
+import Person, { SplittedDate } from '@/resources/Person';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 const cycle = StyleSheet.create({
@@ -94,12 +93,10 @@ const cycle = StyleSheet.create({
   },
 });
 
-export default function VibrationTimeCycle({ consultant, newDate }: { consultant: Person, newDate: Date }) {
-  const { calculationDate } = useConsult();
-  console.log({ newDate });
-  const nineYearCycle = consultant.getNineYearCycleStage(calculationDate.year);
+export default function VibrationTimeCycle({ consultant, date }: { consultant: Person, date: SplittedDate }) {
+  const nineYearCycle = consultant.getNineYearCycleStage(date.year);
   const personalYears: number[] = [];
-  nineYearCycle.forEach((year) => {
+  nineYearCycle.forEach((year: number) => {
     personalYears.push(consultant.calcPersonalYear(year));
   });
   console.log(personalYears);
@@ -113,11 +110,11 @@ export default function VibrationTimeCycle({ consultant, newDate }: { consultant
         <View style={cycle.item_1}>
           <Text style={[cycle.title, { fontWeight: 'bold' }]}>
             Etapa
-            {consultant.getLifeStageNumber(calculationDate)}
+            {consultant.getLifeStageNumber(date)}
           </Text>
           <Text style={cycle.circle}>
-            {consultant.calcLifeStage(consultant.getLifeStageNumber(calculationDate))}
-            {consultant.calcLifeStageISK(consultant.getLifeStageNumber(calculationDate))}
+            {consultant.calcLifeStage(consultant.getLifeStageNumber(date))}
+            {consultant.calcLifeStageISK(consultant.getLifeStageNumber(date))}
           </Text>
         </View>
         <View style={cycle.borderH} />
@@ -125,7 +122,7 @@ export default function VibrationTimeCycle({ consultant, newDate }: { consultant
         <View style={cycle.item}>
           {nineYearCycle.map((year) => (
             <View style={cycle.itemMap}>
-              {year === calculationDate.year ? (
+              {year === date.year ? (
                 <Text style={[cycle.title_circle, { backgroundColor: '#D8C7EB' }]}>
                   {consultant.calcPersonalYear(year)}
                   {(consultant.calcPersonalYear(year) === 2) ? '/11' : ''}
@@ -141,9 +138,9 @@ export default function VibrationTimeCycle({ consultant, newDate }: { consultant
                     {consultant.calcPersonalYearISK(year)}
                   </Text>
                 )}
-              {(year === calculationDate.year) ? <Text style={[cycle.title, { fontWeight: 'bold' }]}>{year}</Text> : <Text style={[cycle.title, { color: '#7E7E7E' }]}>{year}</Text>}
-              {(consultant.getLifeStageNumber(calculationDate) === 1) ? <Text style={[cycle.title, { color: '#7E7E7E' }]}>{year + 9}</Text> : ''}
-              {(consultant.getLifeStageNumber(calculationDate) === 1) ? <Text style={[cycle.title, { color: '#7E7E7E' }]}>{year + 18}</Text> : ''}
+              {(year === date.year) ? <Text style={[cycle.title, { fontWeight: 'bold' }]}>{year}</Text> : <Text style={[cycle.title, { color: '#7E7E7E' }]}>{year}</Text>}
+              {(consultant.getLifeStageNumber(date) === 1) ? <Text style={[cycle.title, { color: '#7E7E7E' }]}>{year + 9}</Text> : ''}
+              {(consultant.getLifeStageNumber(date) === 1) ? <Text style={[cycle.title, { color: '#7E7E7E' }]}>{year + 18}</Text> : ''}
             </View>
           ))}
         </View>

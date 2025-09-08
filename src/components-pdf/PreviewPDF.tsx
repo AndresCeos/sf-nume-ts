@@ -1,5 +1,3 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { UnselectedConsultant } from '../components/UnselectedConsultant';
 import { dateSelect, useConsultant, useGroup } from '../hooks';

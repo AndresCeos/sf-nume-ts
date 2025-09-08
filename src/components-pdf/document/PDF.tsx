@@ -5,12 +5,13 @@ import {
 } from '@react-pdf/renderer';
 import { useMemo } from 'react';
 
+import { formatDate } from '@/utils/constants';
 import { PDFDocumentProps, PDFError } from '../../types/pdf.types';
 import PDFErrorFallback from '../PDFErrorFallback';
 import { configReport } from '../styles';
 
 export default function PDF({
-  consultant, config, profile, sidebar, synastry, groupConsult, newDate, month, logoURL, createNameObj, date,
+  consultant, config, profile, sidebar, synastry, groupConsult, newDate, month, logoURL, date,
 }: PDFDocumentProps) {
   // Validate required props
   const validationErrors = useMemo(() => {
@@ -93,7 +94,6 @@ export default function PDF({
               synastry,
               groupConsult,
               month,
-              createNameObj,
               date,
             });
 
@@ -116,7 +116,6 @@ export default function PDF({
                 synastry,
                 groupConsult,
                 month,
-                createNameObj,
                 date,
               });
 
@@ -192,7 +191,7 @@ export default function PDF({
       })
       .flat()
       .filter(Boolean), // Remove any null/undefined results
-    [config, consultant, newDate, synastry, groupConsult, month, createNameObj],
+    [config, consultant, newDate, synastry, groupConsult, month],
   );
 
   console.log('Generated PDF components:', listOfPDF);
@@ -243,7 +242,7 @@ export default function PDF({
               <Text>{consultant?.fullName || 'N/A'}</Text>
             </View>
             <View style={configReport.header_date}>
-              <Text>{newDate?.toLocaleDateString() || 'N/A'}</Text>
+              <Text>{formatDate({ date: newDate || new Date(), format: 'long' }) || 'N/A'}</Text>
             </View>
             <View style={configReport.header_birth_date}>
               <Text>{consultant?.getFormattedBirthDate?.() || 'N/A'}</Text>

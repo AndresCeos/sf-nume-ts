@@ -1,5 +1,4 @@
-import useConsult from '@/hooks/useConsult';
-import Person from '@/resources/Person';
+import Person, { SplittedDate } from '@/resources/Person';
 import { StyleSheet, View } from '@react-pdf/renderer';
 import AnnualReturnVibration from './AnnualReturnVibration';
 
@@ -42,14 +41,10 @@ export const annualReturn = StyleSheet.create({
   },
 });
 
-export default function AnnualReturnsVibration({ consultant, newDate }: { consultant: Person, newDate: Date }) {
-  // const newDate = moment()
-  console.log({ newDate });
-  const { calculationDate } = useConsult();
-
-  const annualReturnCurrent = consultant.annualReturn({ ...calculationDate, year: calculationDate.year });
-  const annualReturnLastYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
-  const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
+export default function AnnualReturnsVibration({ consultant, date }: { consultant: Person, date: SplittedDate }) {
+  const annualReturnCurrent = consultant.annualReturn(date);
+  const annualReturnLastYear = consultant.annualReturn({ ...date, year: date.year - 1 });
+  const annualReturnNextYear = consultant.annualReturn({ ...date, year: date.year + 1 });
 
   return (
     <View style={annualReturn.container}>

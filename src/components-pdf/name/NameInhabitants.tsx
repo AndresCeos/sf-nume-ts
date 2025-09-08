@@ -1,22 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
-
-
-export const NameInhabitants: React.FC<{ consultant }> = ({ consultant }) => {
-  const appearances = consultant.getAppearances()
-
-  return (
-    <View style={pinnacleName.container}>
-      <View style={pinnacleName.wrap}>
-        {Object.entries(appearances).map((el, i) => (
-          <View style={[pinnacleName.circle, pinnacleName[`hab${i}`]]}>
-            <Text>{el[1].a} </Text>
-          </View>
-        ))}
-      </View>
-    </View>
-  )
-}
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 export const pinnacleName = StyleSheet.create({
   container: {
@@ -28,7 +11,7 @@ export const pinnacleName = StyleSheet.create({
     // backgroundColor: 'red'
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   circle: {
     // backgroundColor: '#00000090',
@@ -66,5 +49,24 @@ export const pinnacleName = StyleSheet.create({
   },
   hab8: {
     left: '489px',
-  }
-})
+  },
+});
+
+export default function NameInhabitants({ consultant }: { consultant: Person }) {
+  const appearances = consultant.getAppearances();
+
+  return (
+    <View style={pinnacleName.container}>
+      <View style={pinnacleName.wrap}>
+        {Object.entries(appearances).map((el, i) => (
+          <View style={[pinnacleName.circle, pinnacleName[`hab${i}` as keyof typeof pinnacleName]]}>
+            <Text>
+              {el[1].a}
+              {' '}
+            </Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}

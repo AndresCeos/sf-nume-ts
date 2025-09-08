@@ -1,16 +1,18 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
-import { CalendarHeadMonth } from '../calendarMonth/CalendarHeadMonth'
-import { CalendarMonth } from '../calendarMonth/CalendarMonth'
+import Person, { SplittedDate } from '@/resources/Person';
+import CalendarHeadMonth from '../calendarMonth/CalendarHeadMonth';
+import CalendarMonth from '../calendarMonth/CalendarMonth';
 
-import calendar from '../assets/calendar-month.jpg'
+import Universal from '@/resources/Universal';
+import calendar from '../assets/calendar-month.jpg';
 
-export const MonthPDF: React.FC<{ consultant, newDate, month }> = ({ consultant, newDate, month }) => {
+export default function MonthPDF({ consultant, date, month }: { consultant: Person, date: SplittedDate, month: number }) {
+  const universalCalcs = new Universal();
   return {
     bg: calendar,
-    children: <>
-      <CalendarHeadMonth consultant={consultant} newDate={newDate} />
-      <CalendarMonth consultant={consultant} newDate={newDate} month={month} />
-              </>
-  }
+    children:
+  <>
+    <CalendarHeadMonth consultant={consultant} date={date} universalCalcs={universalCalcs} />
+    <CalendarMonth consultant={consultant} date={date} month={month} universalCalcs={universalCalcs} />
+  </>,
+  };
 }

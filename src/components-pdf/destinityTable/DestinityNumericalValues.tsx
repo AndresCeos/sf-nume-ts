@@ -1,8 +1,34 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
+import Person, { SplittedDate } from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
+export const pinnacleName = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '300px',
+    left: '21px',
+    fontSize: '7px',
+    width: '669px',
+    height: '105px',
+    transform: 'rotate(-90deg)',
+    // backgroundColor: 'red'
+  },
+  wrap: {
+    position: 'relative',
+  },
+  circle: {
+    // backgroundColor: '#00000090',
+    position: 'absolute',
+    width: '24px',
+    height: '24px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    fontSize: '12px',
+  },
+});
 
-export const DestinityNumericalValues: React.FC<{ consultant }> = ({ consultant }) => {
+export default function DestinityNumericalValues({ consultant, date }: { consultant: Person, date: SplittedDate }) {
   return (
     <View style={pinnacleName.container}>
       <View style={pinnacleName.wrap}>
@@ -16,14 +42,17 @@ export const DestinityNumericalValues: React.FC<{ consultant }> = ({ consultant 
             {consultant.calcNameCycles().toString()}
           </Text>
         </View>
-        <View style={[pinnacleName.circle, { left: 286, top: 57, width: 148, overflow: 'hidden' }]}>
+        <View style={[pinnacleName.circle, {
+          left: 286, top: 57, width: 148, overflow: 'hidden',
+        }]}
+        >
           <Text>
             {consultant.calcNameSubCycles().slice(0, 9).toString()}
           </Text>
         </View>
         <View style={[pinnacleName.circle, { left: 541, top: 31 }]}>
           <Text>
-            {consultant.calcPersonalYear()}
+            {consultant.calcPersonalYear(date.year)}
           </Text>
         </View>
         <View style={[pinnacleName.circle, { left: 578, top: 30 }]}>
@@ -44,31 +73,5 @@ export const DestinityNumericalValues: React.FC<{ consultant }> = ({ consultant 
       </View>
       <Text>-</Text>
     </View>
-  )
+  );
 }
-export const pinnacleName = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '300px',
-    left: '21px',
-    fontSize: '7px',
-    width: '669px',
-    height: '105px',
-    transform: 'rotate(-90deg)',
-    // backgroundColor: 'red'
-  },
-  wrap: {
-    position: 'relative'
-  },
-  circle: {
-    // backgroundColor: '#00000090',
-    position: 'absolute',
-    width: '24px',
-    height: '24px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    fontSize: '12px',
-  },
-})

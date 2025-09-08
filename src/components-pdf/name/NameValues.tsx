@@ -1,30 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
-
-
-export const NameValues: React.FC<{ consultant }> = ({ consultant }) => {
-  return (
-    <View style={pinnacleName.container}>
-      <View style={pinnacleName.wrap}>
-        <View style={[pinnacleName.circle, pinnacleName.name]}>
-          <Text>
-            {consultant.calcName()}{consultant.calcNameISK()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.circle, pinnacleName.soul]}>
-          <Text>
-            {consultant.calcSoulNumber()}{consultant.calcSoulNumberISK()}
-          </Text>
-        </View>
-        <View style={[pinnacleName.circle, pinnacleName.soul_expresion]}>
-          <Text>
-            {consultant.calcSoulExpresion()}{consultant.calcSoulExpresionISK()}
-          </Text>
-        </View>
-      </View>
-    </View>
-  )
-}
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 export const pinnacleName = StyleSheet.create({
   container: {
@@ -32,10 +7,10 @@ export const pinnacleName = StyleSheet.create({
     top: '10px',
     left: '10px',
     fontSize: '7px',
-    width: '271px'
+    width: '271px',
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   circle: {
     // backgroundColor: '#00000090',
@@ -58,4 +33,31 @@ export const pinnacleName = StyleSheet.create({
   soul_expresion: {
     left: '161px',
   },
-})
+});
+
+export default function NameValues({ consultant }: { consultant: Person }) {
+  return (
+    <View style={pinnacleName.container}>
+      <View style={pinnacleName.wrap}>
+        <View style={[pinnacleName.circle, pinnacleName.name]}>
+          <Text>
+            {consultant.calcName()}
+            {consultant.calcNameISK()}
+          </Text>
+        </View>
+        <View style={[pinnacleName.circle, pinnacleName.soul]}>
+          <Text>
+            {consultant.calcSoulNumber()}
+            {consultant.calcSoulNumberISK()}
+          </Text>
+        </View>
+        <View style={[pinnacleName.circle, pinnacleName.soul_expresion]}>
+          <Text>
+            {consultant.calcSoulExpression()}
+            {consultant.calcSoulExpressionISK()}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+}

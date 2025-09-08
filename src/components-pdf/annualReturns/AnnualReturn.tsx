@@ -1,44 +1,87 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
+import { AnnualReturn } from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
+export const aReturn = StyleSheet.create({
+  table: {
+    position: 'absolute',
+  },
+  tableTitle: {
+    fontSize: 8,
+    position: 'absolute',
+    color: '#fff',
+  },
+  tableItem: {
+    fontSize: 8,
+    position: 'absolute',
+    backgroundColor: '#00000050',
+    color: '#7E7E7E',
+  },
+  personalYear: {
+    position: 'absolute',
+    width: '81px',
+    height: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    fontSize: '8px',
+    textAlign: 'center',
 
-export const AnnualReturn: React.FC<{ annualReturn, top, left, personalYear, yearsOld, year }> = ({ annualReturn, top, left, personalYear, yearsOld, year }) => {
-  console.log({ annualReturn })
-  console.log({ yearToCalculate: annualReturn.age })
+    // backgroundColor: '#00000050',
+  },
+  circle: {
+    // backgroundColor: '#00000050',
+    position: 'absolute',
+    width: '20px',
+    height: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    fontSize: '8px',
+  },
+});
+type AnnualReturnProps = {
+  annualReturn: AnnualReturn;
+  top: number;
+  left: number;
+  personalYear: number;
+  yearsOld: number;
+  year: number;
+};
+const calcAge = (age: number, year: number) => {
+  const Age = age;
+  const Year = year;
 
-  const caclAge = (age, year) => {
-    const Age = age
-    const Year = year
+  const yearsOld = [age];
+  const years = [year];
 
-    const yearsOld = [age];
-    const years = [year];
+  while (age - 9 > 0 && yearsOld.length < 9) {
+    age -= 9;
+    yearsOld.push(age);
 
-    while (age - 9 > 0 && yearsOld.length < 9) {
-      age -= 9
-      yearsOld.push(age)
-
-      year -= 9
-      years.push(year)
-    }
-    if (yearsOld.length < 9) {
-      age = Age
-      year = Year
-      while (age + 9 > 0 && yearsOld.length < 9) {
-        age += 9
-        yearsOld.unshift(age)
-        year += 9
-        years.unshift(year)
-      }
-    }
-    yearsOld.reverse()
-    years.reverse()
-    const table = yearsOld.map((e, i) => {
-      return [e, years[i]]
-    })
-    return Object.entries(table)
+    year -= 9;
+    years.push(year);
   }
-  console.log({ caclAge: caclAge(yearsOld, year) })
+  if (yearsOld.length < 9) {
+    age = Age;
+    year = Year;
+    while (age + 9 > 0 && yearsOld.length < 9) {
+      age += 9;
+      yearsOld.unshift(age);
+      year += 9;
+      years.unshift(year);
+    }
+  }
+  yearsOld.reverse();
+  years.reverse();
+  const table = yearsOld.map((e, i) => [e, years[i]]);
+  return Object.entries(table);
+};
 
+export default function AnnualReturnPDF({
+  annualReturn, top, left, personalYear, yearsOld, year,
+}: AnnualReturnProps) {
   return (
     <>
       <View style={[aReturn.circle, { top: 67 + top, left: 116 + left }]}>
@@ -77,7 +120,7 @@ export const AnnualReturn: React.FC<{ annualReturn, top, left, personalYear, yea
         <Text style={[aReturn.tableTitle, { top: 43 + top, left: 22 + left + 22 }]}>Edad</Text>
       </View>
       {
-        caclAge(yearsOld, year).map((e, i) => (
+        calcAge(yearsOld, year).map((e, i) => (
           <View style={[aReturn.table]}>
             <Text style={[aReturn.tableItem, { top: 53 + top + (i * 11.5), left: 22 + left }]}>{e[1][1]}</Text>
             <Text style={[aReturn.tableItem, { top: 53 + top + (i * 11.5), left: 30 + left + 20 }]}>{e[1][0]}</Text>
@@ -85,46 +128,5 @@ export const AnnualReturn: React.FC<{ annualReturn, top, left, personalYear, yea
         ))
       }
     </>
-  )
+  );
 }
-
-export const aReturn = StyleSheet.create({
-  table: {
-    position: 'absolute',
-  },
-  tableTitle: {
-    fontSize: 8,
-    position: 'absolute',
-    color: '#fff'
-  },
-  tableItem: {
-    fontSize: 8,
-    position: 'absolute',
-    backgroundColor: '#00000050',
-    color: '#7E7E7E'
-  },
-  personalYear: {
-    position: 'absolute',
-    width: '81px',
-    height: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    fontSize: '8px',
-    textAlign: 'center',
-    fontSize: '10px',
-    // backgroundColor: '#00000050',
-  },
-  circle: {
-    // backgroundColor: '#00000050',
-    position: 'absolute',
-    width: '20px',
-    height: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    fontSize: '8px'
-  }
-})

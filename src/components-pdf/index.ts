@@ -1,7 +1,7 @@
 // Main PDF Components
 
-export { AnnualReturnsVibration } from './AnnualReturnsVibration';
-export { AnnualReturnVibration } from './AnnualReturnVibration';
+export { default as AnnualReturnsVibration } from './AnnualReturnsVibration';
+export { default as AnnualReturnVibration } from './AnnualReturnVibration';
 
 // Calendar Components
 export { CalendarHead } from './calendarAnual/CalendarHead';
@@ -53,29 +53,29 @@ export { GroupQuaterY } from './groupVibrationTime/GroupQuaterY';
 export { GroupTimeCurve } from './groupVibrationTime/GroupTimeCurve';
 
 // Life Path Components
-export { LifePath9Years } from './lifePath/LifePath9Years';
-export { LifePathDialogs } from './lifePath/LifePathDialogs';
-export { LifePathLearningStage } from './lifePath/LifePathLearningStage';
-export { LifePathPersonalMonths } from './lifePath/LifePathPersonalMonths';
-export { LifePathPersonalWeeks } from './lifePath/LifePathPersonalWeeks';
-export { LifePathPersonalYears } from './lifePath/LifePathPersonalYears';
-export { LifePathQuarters } from './lifePath/LifePathQuarters';
+export { default as LifePath9Years } from './lifePath/LifePath9Years';
+export { default as LifePathDialogs } from './lifePath/LifePathDialogs';
+export { default as LifePathLearningStage } from './lifePath/LifePathLearningStage';
+export { default as LifePathPersonalMonths } from './lifePath/LifePathPersonalMonths';
+export { default as LifePathPersonalWeeks } from './lifePath/LifePathPersonalWeeks';
+export { default as LifePathPersonalYears } from './lifePath/LifePathPersonalYears';
+export { default as LifePathQuarters } from './lifePath/LifePathQuarters';
 
 // Name Components
-export { NameActive } from './name/NameActive';
-export { NameBalance } from './name/NameBalance';
-export { NameCycle } from './name/NameCycle';
-export { NameFrequencyPotential } from './name/NameFrequencyPotential';
-export { NameInhabitants } from './name/NameInhabitants';
-export { NamePotential } from './name/NamePotential';
-export { NameTable } from './name/NameTable';
-export { NameValues } from './name/NameValues';
+export { default as NameActive } from './name/NameActive';
+export { default as NameBalance } from './name/NameBalance';
+export { default as NameCycle } from './name/NameCycle';
+export { default as NameFrequencyPotential } from './name/NameFrequencyPotential';
+export { default as NameInhabitants } from './name/NameInhabitants';
+export { default as NamePotential } from './name/NamePotential';
+export { default as NameTable } from './name/NameTable';
+export { default as NameValues } from './name/NameValues';
 
 // Pinnacle Components
-export { Pinnacle } from './pinnacle/Pinnacle';
-export { PinnacleName } from './pinnacle/PinnacleName';
-export { PinnaclePotential } from './pinnacle/PinnaclePotential';
-export { PinnacleTimeCurve } from './pinnacle/PinnacleTimeCurve';
+export { default as Pinnacle } from './pinnacle/Pinnacle';
+export { default as PinnacleName } from './pinnacle/PinnacleName';
+export { default as PinnaclePotential } from './pinnacle/PinnaclePotential';
+export { default as PinnacleTimeCurve } from './pinnacle/PinnacleTimeCurve';
 
 // Synastry Destiny Table Components
 export { SynastryDestinyTable } from './synastryDestinyTable/SynastryDestinyTable';
@@ -90,10 +90,10 @@ export { SynastryVTQuaterM } from './synastryVibrationTime/SynastryVTQuaterM';
 export { SynastryVTQuaterY } from './synastryVibrationTime/SynastryVTQuaterY';
 
 // Vibration Time Components
-export { VibrationTimeCycle } from './VibrationTimeCycle';
-export { VibrationTimeQuarterM } from './VibrationTimeQuarterM';
-export { VibrationTimeQuarterY } from './VibrationTimeQuarterY';
-export { VibrationTimeStages } from './VibrationTimeStages';
+export { default as VibrationTimeCycle } from './VibrationTimeCycle';
+export { default as VibrationTimeQuarterM } from './VibrationTimeQuarterM';
+export { default as VibrationTimeQuarterY } from './VibrationTimeQuarterY';
+export { default as VibrationTimeStages } from './VibrationTimeStages';
 
 // Document Components
 export * from './document';

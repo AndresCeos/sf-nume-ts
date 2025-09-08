@@ -1,25 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
-
-
-export const CreateTable: React.FC<{ consultant }> = ({ consultant }) => {
-  const { name, lastName, scdLastName } = consultant
-
-  const appearances = consultant.getAppearances()
-
-  return (
-    <View style={pinnacleName.container}>
-      <View style={pinnacleName.wrap}>
-        {Object.entries(appearances).map((el, i) => (
-          <View style={[pinnacleName.circle, pinnacleName[`hab${i}`]]}>
-            <Text>{el[1].a} </Text>
-          </View>
-        ))}
-      </View>
-      <View>-</View>
-    </View>
-  )
-}
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 export const pinnacleName = StyleSheet.create({
   container: {
@@ -28,10 +8,10 @@ export const pinnacleName = StyleSheet.create({
     left: '11px',
     fontSize: '7px',
     width: '271px',
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   circle: {
     // backgroundColor: '#0000ff90',
@@ -69,5 +49,25 @@ export const pinnacleName = StyleSheet.create({
   },
   hab8: {
     left: '349px',
-  }
-})
+  },
+});
+
+export default function CreateTable({ consultant }: { consultant: Person }) {
+  const appearances = consultant.getAppearances();
+
+  return (
+    <View style={pinnacleName.container}>
+      <View style={pinnacleName.wrap}>
+        {Object.entries(appearances).map((el, i) => (
+          <View style={[pinnacleName.circle, pinnacleName[`hab${i}` as keyof typeof pinnacleName]]}>
+            <Text>
+              {el[1].a}
+              {' '}
+            </Text>
+          </View>
+        ))}
+      </View>
+      <View>-</View>
+    </View>
+  );
+}

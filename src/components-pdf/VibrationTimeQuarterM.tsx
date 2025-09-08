@@ -1,5 +1,4 @@
-import useConsult from '@/hooks/useConsult';
-import Person from '@/resources/Person';
+import Person, { SplittedDate } from '@/resources/Person';
 import { getAllMonths } from '@/utils/numbers';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 import { capitalize } from 'lodash';
@@ -72,31 +71,29 @@ const quaterM = StyleSheet.create({
 
 });
 
-export default function VibrationTimeQuarterM({ consultant, newDate }: { consultant: Person, newDate: Date }) {
-  console.log({ newDate });
-  const { calculationDate } = useConsult();
+export default function VibrationTimeQuarterM({ consultant, date }: { consultant: Person, date: SplittedDate }) {
   const listOfMonths = consultant.getCustomMonths();
   const allMonths = getAllMonths();
-  const quater1 = consultant.getQuarterOne();
-  const quater2 = consultant.getQuarterTwo(calculationDate.year);
-  const quater3 = consultant.getQuarterThree(calculationDate.year);
-  const lastYear = calculationDate.year - 1;
-  const quater1LastYear = consultant.getQuarterOne();
-  const quater2LastYear = consultant.getQuarterTwo(lastYear);
-  const quater3LastYear = consultant.getQuarterThree(lastYear);
-  const quater1Karmico = consultant.getQuarterOneISK();
-  const quater2Karmico = consultant.getQuarterTwoISK(calculationDate.year);
-  const quater3Karmico = consultant.getQuarterThreeISK(calculationDate.year);
-  const quater2KarmicoLast = consultant.getQuarterTwoISK(lastYear);
-  const quater3KarmicoLast = consultant.getQuarterThreeISK(lastYear);
-  const personalYearISK = consultant.calcPersonalYearISK(calculationDate.year);
+  const quarter1 = consultant.getQuarterOne();
+  const quarter2 = consultant.getQuarterTwo(date.year);
+  const quarter3 = consultant.getQuarterThree(date.year);
+  const lastYear = date.year - 1;
+  const quarter1LastYear = consultant.getQuarterOne();
+  const quarter2LastYear = consultant.getQuarterTwo(lastYear);
+  const quarter3LastYear = consultant.getQuarterThree(lastYear);
+  const quarter1Karmico = consultant.getQuarterOneISK();
+  const quarter2Karmico = consultant.getQuarterTwoISK(date.year);
+  const quarter3Karmico = consultant.getQuarterThreeISK(date.year);
+  const quarter2KarmicoLast = consultant.getQuarterTwoISK(lastYear);
+  const quarter3KarmicoLast = consultant.getQuarterThreeISK(lastYear);
+  const personalYearISK = consultant.calcPersonalYearISK(date.year);
   let m1; let m2; let m3; let m4; let cm1; let cm2; let cm3; let
     cm4 = '';
   let ism1; let ism2; let ism3; let
     ism4 = false;
-  const personalYear = consultant.calcPersonalYear(calculationDate.year);
+  const personalYear = consultant.calcPersonalYear(date.year);
 
-  const actualMonth = allMonths[calculationDate.month - 1];
+  const actualMonth = allMonths[date.month - 1];
   const index = listOfMonths.findIndex((i) => i === 'Enero');
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
   switch (index) {
@@ -104,9 +101,9 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m1 = `De ${listOfMonths[index]} a ${listOfMonths[4]}`;
       m2 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
       m3 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm2 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
-      cm3 = `${personalYear + personalYearISK}/${quater3}${quater3Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter3}${quarter3Karmico}`;
       if (currentMonth >= 0 && currentMonth <= 4) { ism1 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism2 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism3 = true; }
@@ -116,10 +113,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
       m3 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
       m4 = `En ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater1LastYear}${quater1Karmico}`;
-      cm2 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm4 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter1LastYear}${quarter1Karmico}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
       if (currentMonth >= 1 && currentMonth <= 4) { ism1 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism2 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism3 = true; }
@@ -131,10 +128,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
       m3 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
       m4 = `De ${listOfMonths[0]} a ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater1LastYear}${quater1Karmico}`;
-      cm2 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm4 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter1LastYear}${quarter1Karmico}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
       if (currentMonth >= 3 && currentMonth <= 4) { ism1 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism2 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism3 = true; }
@@ -145,10 +142,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
       m3 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
       m4 = `De ${listOfMonths[0]} a ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater1LastYear}${quater1Karmico}`;
-      cm2 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm4 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter1LastYear}${quarter1Karmico}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
       if (currentMonth === 4) { ism1 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism2 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism3 = true; }
@@ -158,9 +155,9 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m1 = `De ${listOfMonths[index]} a ${listOfMonths[8]}`;
       m2 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
       m3 = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
       if (currentMonth >= 5 && currentMonth <= 8) { ism1 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism2 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism3 = true; }
@@ -171,10 +168,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
       m3 = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
       m4 = `En ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm4 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
       if (currentMonth >= 6 && currentMonth <= 8) { ism1 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism2 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism3 = true; }
@@ -185,10 +182,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
       m3 = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
       m4 = `De ${listOfMonths[5]} a ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm4 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
       if (currentMonth >= 7 && currentMonth <= 8) { ism1 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism2 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism3 = true; }
@@ -200,10 +197,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m3 = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
       m4 = `De ${listOfMonths[5]} a ${listOfMonths[index - 1]}`;
 
-      cm1 = `${personalYear + personalYearISK}/${quater2LastYear}${quater2KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm3 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm4 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter2LastYear}${quarter2KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
       if (currentMonth === 8) { ism1 = true; }
       if (currentMonth >= 9 && currentMonth <= 11) { ism2 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism3 = true; }
@@ -213,9 +210,9 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m1 = `De ${listOfMonths[index]} a ${listOfMonths[11]}`;
       m2 = `De ${listOfMonths[0]} a ${listOfMonths[4]}`;
       m3 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm3 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
       if (currentMonth >= index && currentMonth <= 11) { ism1 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism2 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism3 = true; }
@@ -226,10 +223,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[0]} a ${listOfMonths[4]}`;
       m3 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
       m4 = `En ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm3 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
-      cm4 = `${personalYear + personalYearISK}/${quater3}${quater3Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter3}${quarter3Karmico}`;
       if (currentMonth >= index && currentMonth <= 11) { ism1 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism2 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism3 = true; }
@@ -240,10 +237,10 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       m2 = `De ${listOfMonths[0]} a ${listOfMonths[4]}`;
       m3 = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
       m4 = `De ${listOfMonths[9]} a ${listOfMonths[index - 1]}`;
-      cm1 = `${personalYear + personalYearISK}/${quater3LastYear}${quater3KarmicoLast}`;
-      cm2 = `${personalYear + personalYearISK}/${quater1}${quater1Karmico}`;
-      cm3 = `${personalYear + personalYearISK}/${quater2}${quater2Karmico}`;
-      cm4 = `${personalYear + personalYearISK}/${quater3}${quater3Karmico}`;
+      cm1 = `${personalYear + personalYearISK}/${quarter3LastYear}${quarter3KarmicoLast}`;
+      cm2 = `${personalYear + personalYearISK}/${quarter1}${quarter1Karmico}`;
+      cm3 = `${personalYear + personalYearISK}/${quarter2}${quarter2Karmico}`;
+      cm4 = `${personalYear + personalYearISK}/${quarter3}${quarter3Karmico}`;
       if (currentMonth === index) { ism1 = true; }
       if (currentMonth >= 0 && currentMonth <= 4) { ism2 = true; }
       if (currentMonth >= 5 && currentMonth <= 8) { ism3 = true; }
@@ -258,7 +255,7 @@ export default function VibrationTimeQuarterM({ consultant, newDate }: { consult
       </View>
       <View style={quaterM.wrap}>
         <View style={quaterM.item_year}>
-          <Text style={quaterM.title}>{calculationDate.year}</Text>
+          <Text style={quaterM.title}>{date.year}</Text>
         </View>
         {ism1
           ? (

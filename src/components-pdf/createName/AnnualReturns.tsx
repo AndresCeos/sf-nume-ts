@@ -1,30 +1,6 @@
+import Person, { SplittedDate } from '@/resources/Person';
 import { StyleSheet, View } from '@react-pdf/renderer';
-import React from 'react';
 import { AnnualReturn } from './AnnualReturn';
-
-export const AnnualReturns: React.FC<{ consultant }> = ({ consultant }) => {
-  const newDate = new Date()
-
-  const annualReturnCurrent = consultant.annualReturn(newDate.year())
-  const annualReturnLastYear = consultant.annualReturn(newDate.year() - 1)
-  const annualReturnNextYear = consultant.annualReturn(newDate.year() + 1)
-
-  return (
-    <View style={annualReturn.container}>
-      <View style={annualReturn.wrap}>
-        <View style={annualReturn.return_1}>
-          <AnnualReturn annualReturn={annualReturnLastYear} />
-        </View>
-        <View style={annualReturn.return_2}>
-          <AnnualReturn annualReturn={annualReturnCurrent} />
-        </View>
-        <View style={annualReturn.return_3}>
-          <AnnualReturn annualReturn={annualReturnNextYear} />
-        </View>
-      </View>
-    </View>
-  )
-}
 
 export const annualReturn = StyleSheet.create({
   container: {
@@ -37,7 +13,7 @@ export const annualReturn = StyleSheet.create({
 
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   return_1: {
     position: 'absolute',
@@ -62,4 +38,26 @@ export const annualReturn = StyleSheet.create({
     width: '174px',
     // backgroundColor: '#0000ff',
   },
-})
+});
+
+export default function AnnualReturns({ consultant, date }: { consultant: Person, date: SplittedDate }) {
+  const annualReturnCurrent = consultant.annualReturn(date);
+  const annualReturnLastYear = consultant.annualReturn({ ...date, year: date.year - 1 });
+  const annualReturnNextYear = consultant.annualReturn({ ...date, year: date.year + 1 });
+
+  return (
+    <View style={annualReturn.container}>
+      <View style={annualReturn.wrap}>
+        <View style={annualReturn.return_1}>
+          <AnnualReturn annualReturn={annualReturnLastYear} />
+        </View>
+        <View style={annualReturn.return_2}>
+          <AnnualReturn annualReturn={annualReturnCurrent} />
+        </View>
+        <View style={annualReturn.return_3}>
+          <AnnualReturn annualReturn={annualReturnNextYear} />
+        </View>
+      </View>
+    </View>
+  );
+}
