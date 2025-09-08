@@ -1,5 +1,5 @@
 import {
-  useContext, useMemo,
+  useContext, useMemo, useState,
 } from 'react';
 import { MdEdit } from 'react-icons/md';
 
@@ -74,9 +74,14 @@ export default function PartnerFormInLine({
 
   const hasNoPartners = hasPartner;
 
-  const editPartner = () => {
-    setIsAddFormActive(true);
-    handleEditPartner();
+  const editPartner = (partnerId: string) => {
+    // Encontrar la pareja específica a editar
+    const partnerToEdit = currentActivePartnerData?.partner?.find(p => p.id === partnerId);
+    if (partnerToEdit) {
+      setPartnerBeingEdited(partnerToEdit);
+      setIsAddFormActive(true);
+      handleEditPartner();
+    }
   };
 
   const editGroup = () => {
@@ -102,6 +107,9 @@ export default function PartnerFormInLine({
       selectActivePartnerData(selectedPartnerData);
     }
   };
+
+  // Estado para trackear cuál pareja específica se está editando
+  const [partnerBeingEdited, setPartnerBeingEdited] = useState<Api.Partner | null>(null);
 
   // Función para convertir PartnerData a formato compatible con PartnerForm
   const convertPartnerDataToApiPartner = (partnerData: Api.PartnerData | null): Api.Partner | undefined => {
@@ -192,6 +200,7 @@ export default function PartnerFormInLine({
   const handleCloseForm = () => {
     setIsAddFormActive(false);
     handleIsEditingPartnerData(false);
+    setPartnerBeingEdited(null); // Limpiar la pareja que se está editando
   };
 
   // Mostrar formulario de creación/edición de grupo
@@ -214,7 +223,7 @@ export default function PartnerFormInLine({
         activeConsultant={activeConsultant}
         setIsAddFormActive={handleCloseForm}
         isEditing={isEditingConsultant}
-        partnerToEdit={convertPartnerDataToApiPartner(currentActivePartnerData)}
+        partnerToEdit={partnerBeingEdited || convertPartnerDataToApiPartner(currentActivePartnerData)}
       />
     );
   }
@@ -410,7 +419,7 @@ export default function PartnerFormInLine({
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button type="button" onClick={editPartner}>
+                    <button type="button" onClick={() => editPartner(partner.id)}>
                       <MdEdit className="text-gray-400 w-4 h-4" />
                     </button>
                     <button type="button" onClick={() => handleRemovePartner(partner.id)}>
