@@ -1,5 +1,5 @@
 import {
-  useContext, useMemo,
+  useContext, useMemo, useState,
 } from 'react';
 import { MdEdit } from 'react-icons/md';
 
@@ -31,7 +31,6 @@ export default function PartnerFormInLine({
     activePartnerData,
     selectActivePartnerData,
     activeConsultant,
-    isEditingConsultant,
     updateConsultantPartners,
     isEditingPartnerData,
     handleIsEditingPartnerData,
@@ -74,9 +73,20 @@ export default function PartnerFormInLine({
 
   const hasNoPartners = hasPartner;
 
-  const editPartner = () => {
-    setIsAddFormActive(true);
-    handleEditPartner();
+  // Estado para distinguir si estamos agregando pareja a grupo existente
+  const [isAddingPartnerToGroup, setIsAddingPartnerToGroup] = useState(false);
+
+  // Estado para trackear qué pareja específica se está editando
+  const [partnerBeingEdited, setPartnerBeingEdited] = useState<Api.Partner | null>(null);
+
+  const editPartner = (partnerId: string) => {
+    // Encontrar la pareja específica a editar
+    const partnerToEdit = currentActivePartnerData?.partner?.find((p) => p.id === partnerId);
+    if (partnerToEdit) {
+      setPartnerBeingEdited(partnerToEdit);
+      setIsAddFormActive(true);
+      handleEditPartner();
+    }
   };
 
   const editGroup = () => {
@@ -103,29 +113,15 @@ export default function PartnerFormInLine({
     }
   };
 
-  // Función para convertir PartnerData a formato compatible con PartnerForm
-  const convertPartnerDataToApiPartner = (partnerData: Api.PartnerData | null): Api.Partner | undefined => {
-    if (!partnerData || !partnerData.partner || partnerData.partner.length === 0) return undefined;
-
-    const firstPartner = partnerData.partner[0];
-    return {
-      id: firstPartner.id,
-      names: firstPartner.names,
-      lastName: firstPartner.lastName,
-      scdLastName: firstPartner.scdLastName,
-      date: firstPartner.date,
-    };
-  };
-
   // Función para crear nuevo grupo
   const handleCreateGroup = () => {
-    handleIsEditingPartnerData(true);
+    handleIsEditingPartnerData(false);
     setIsAddFormActive(true);
   };
 
   // Función para agregar pareja a grupo existente
   const handleAddPartner = () => {
-    handleIsEditingPartnerData(false);
+    setIsAddingPartnerToGroup(true);
     setIsAddFormActive(true);
   };
   const handleRemovePartner = async (partnerId: string) => {
@@ -192,11 +188,12 @@ export default function PartnerFormInLine({
   const handleCloseForm = () => {
     setIsAddFormActive(false);
     handleIsEditingPartnerData(false);
+    setIsAddingPartnerToGroup(false);
+    setPartnerBeingEdited(null);
   };
 
   // Mostrar formulario de creación/edición de grupo
   if (isAddFormActive && isEditingPartnerData) {
-    console.log('DEBUG - Editando grupo:', currentActivePartnerData);
     return (
       <PartnerDataForm
         activeConsultant={activeConsultant}
@@ -207,14 +204,38 @@ export default function PartnerFormInLine({
     );
   }
 
-  // Mostrar formulario de agregar pareja
-  if (isAddFormActive && !isEditingPartnerData) {
+  // Mostrar formulario de editar pareja individual
+  if (isAddFormActive && partnerBeingEdited) {
     return (
       <PartnerForm
         activeConsultant={activeConsultant}
         setIsAddFormActive={handleCloseForm}
-        isEditing={isEditingConsultant}
-        partnerToEdit={convertPartnerDataToApiPartner(currentActivePartnerData)}
+        isEditing
+        partnerToEdit={partnerBeingEdited}
+      />
+    );
+  }
+
+  // Mostrar formulario de agregar pareja a grupo existente
+  if (isAddFormActive && isAddingPartnerToGroup) {
+    return (
+      <PartnerForm
+        activeConsultant={activeConsultant}
+        setIsAddFormActive={handleCloseForm}
+        isEditing={false}
+        partnerToEdit={undefined}
+      />
+    );
+  }
+
+  // Mostrar formulario de crear nuevo grupo cuando viene del botón de SelectPartner
+  if (isAddFormActive && !isEditingPartnerData && !isAddingPartnerToGroup && !partnerBeingEdited) {
+    return (
+      <PartnerDataForm
+        activeConsultant={activeConsultant}
+        setIsAddFormActive={handleCloseForm}
+        isEditing={false}
+        partnerDataToEdit={undefined}
       />
     );
   }
@@ -410,7 +431,7 @@ export default function PartnerFormInLine({
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button type="button" onClick={editPartner}>
+                    <button type="button" onClick={() => editPartner(partner.id)}>
                       <MdEdit className="text-gray-400 w-4 h-4" />
                     </button>
                     <button type="button" onClick={() => handleRemovePartner(partner.id)}>
