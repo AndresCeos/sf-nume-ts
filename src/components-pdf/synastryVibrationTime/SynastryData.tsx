@@ -44,7 +44,7 @@ export const data = StyleSheet.create({
     fontSize: '7px',
     color: '#7E7E7E',
     position: 'absolute',
-    left: '300px',
+    left: '140px',
     top: 75,
   },
 });

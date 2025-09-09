@@ -1,6 +1,6 @@
 import { SplittedDate } from '@/resources/Person';
 import Synastry from '@/resources/Synastry';
-import { StyleSheet, View } from '@react-pdf/renderer';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 import SynastryAnnualReturn from './SynastryAnnualReturn';
 
 export const annualReturn = StyleSheet.create({
@@ -39,6 +39,20 @@ export const annualReturn = StyleSheet.create({
     width: '169px',
     // backgroundColor: '#0000ff',
   },
+  name: {
+    fontSize: 10,
+    position: 'absolute',
+    top: -20,
+    left: 60,
+    color: '#FFF',
+  },
+  partnerName: {
+    fontSize: 10,
+    position: 'absolute',
+    top: -20,
+    left: 60,
+    color: '#FFF',
+  },
 });
 
 export default function SynastryAnnualReturns({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
@@ -53,9 +67,11 @@ export default function SynastryAnnualReturns({ synastry, date }: { synastry: Sy
           <SynastryAnnualReturn annualReturn={annualReturnSynastry} />
         </View>
         <View style={annualReturn.return_2}>
+          <View style={annualReturn.name}><Text>{synastry.consultant.name}</Text></View>
           <SynastryAnnualReturn annualReturn={annualReturnPersonOne} />
         </View>
         <View style={annualReturn.return_3}>
+          <View style={annualReturn.name}><Text>{synastry.partner.name}</Text></View>
           <SynastryAnnualReturn annualReturn={annualReturnPersonTwo} />
         </View>
       </View>

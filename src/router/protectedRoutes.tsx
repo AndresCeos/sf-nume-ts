@@ -60,7 +60,7 @@ const protectedRoutes = [
       { path: '/personal/annual_calendar', element: <AnnualCalendar /> },
       { path: '/personal/monthly_calendar', element: <MonthCalendarPage /> },
       // Sinastry Pages
-      { path: '/partner/sinastria', element: <SynastryPinnaclePage /> },
+      { path: '/partner/synastry_pinnacle', element: <SynastryPinnaclePage /> },
       // Group Pages
       { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
 import cx from 'classnames';
 import { Trans, useTranslation } from 'react-i18next';
@@ -19,6 +20,7 @@ import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import { usePDFErrorHandler } from '@/hooks/usePDFErrorHandler';
 import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 import { pdf, PDFViewer } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import { useEffect, useState } from 'react';
@@ -120,7 +122,6 @@ function Navbar() {
       synastry_pinnacle: SynastryPinnaclePDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
-    console.log({ config });
     const profile = new Person({
       id: '0',
       name: firstName || '',
@@ -130,6 +131,10 @@ function Navbar() {
     });
 
     const sidebar = { email: email || '', webSite: website || '', phone: phone || '' };
+    let synastryObject: Synastry | null = null;
+    if (groupPath === 'partner') {
+      synastryObject = new Synastry(selectedPartnersAsPersons[0], selectedPartnersAsPersons[1]);
+    }
     const blob = await pdf((
       <PDF
         consultant={consultant}
@@ -141,7 +146,7 @@ function Navbar() {
         groupConsult={[]}
         newDate={consultationDate}
         month={calculationDate.month}
-        synastry={[]}
+        synastry={synastryObject}
       />
     )).toBlob();
     saveAs(blob, `${consultant?.fullName} - ${path}.pdf`);
@@ -159,20 +164,25 @@ function Navbar() {
           pinnacle: { name: 'Pináculo', fn: PinnaclePDF },
           lifePath: { name: 'Camino de Vida', fn: LifePathPDF },
           name: { name: 'Nombre', fn: NamePDF },
-          destinyTable: { name: 'Tabla del Destino', fn: DestinyPDF },
-          timeVibration: { name: 'Vibración del Tiempo', fn: TimeVibrationPDF },
-          annualReturns: { name: 'Retornos Anuales', fn: AnnualReturnsPDF },
-          timeCircle: { name: 'Círculo del Tiempo', fn: CircleTimePDF },
-          calendarAnnual: { name: 'Calendario Anual', fn: CalendarPDF },
-          calendarMonthly: { name: 'Calendario Mensual', fn: MonthPDF },
+          destiny_table: { name: 'Tabla del Destino', fn: DestinyPDF },
+          time_vibration: { name: 'Vibración del Tiempo', fn: TimeVibrationPDF },
+          annual_returns: { name: 'Retornos Anuales', fn: AnnualReturnsPDF },
+          time_circle: { name: 'Círculo del Tiempo', fn: CircleTimePDF },
+          annual_calendar: { name: 'Calendario Anual', fn: CalendarPDF },
+          monthly_calendar: { name: 'Calendario Mensual', fn: MonthPDF },
+        },
+        partner: {
+          synastry_pinnacle: { name: 'Pináculo de Sinastria', fn: SynastryPinnaclePDF },
         },
       };
 
       // Find matching report type
-      const reportType = Object.entries(reports).find(([, value]) => Object.prototype.hasOwnProperty.call(value, path));
-
-      if (reportType) {
-        [, reportListType] = reportType;
+      for (const kind of Object.keys(reports)) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (reports[kind].hasOwnProperty(path)) {
+          reportListType = reports[kind];
+          break; // Salir del loop una vez encontrado
+        }
       }
 
       if (!reportListType) {
@@ -319,6 +329,10 @@ function Navbar() {
         scdLastName: scdLastName || '',
         birthDate: birthDate?.toString() || '',
       });
+      let synastryObject: Synastry | null = null;
+      if (groupPath === 'partner') {
+        synastryObject = new Synastry(selectedPartnersAsPersons[0], selectedPartnersAsPersons[1]);
+      }
 
       const sidebar = { email: email || '', webSite: website || '', phone: phone || '' };
 
@@ -331,7 +345,7 @@ function Navbar() {
             date={calculationDate}
             newDate={consultationDate}
             sidebar={sidebar}
-            synastry={[]}
+            synastry={synastryObject}
             logoURL={logo}
             groupConsult={[]}
             month={calculationDate.month}

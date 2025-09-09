@@ -35,6 +35,20 @@ export const data = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  name: {
+    fontSize: 10,
+    position: 'absolute',
+    top: 2,
+    left: 57,
+    color: '#FFF',
+  },
+  partnerName: {
+    fontSize: 10,
+    position: 'absolute',
+    top: 1,
+    left: 57,
+    color: '#FFF',
+  },
 });
 
 export default function SynastryNames({ synastry }: { synastry: Synastry }) {
@@ -68,6 +82,9 @@ export default function SynastryNames({ synastry }: { synastry: Synastry }) {
         </View>
       </View>
       <View style={[data.wrap, data.consultant]}>
+        <View style={data.name}>
+          <Text>{consultant.name}</Text>
+        </View>
         <View style={[data.number, { top: 32, left: 11 }]}>
           <Text>
             {consultant.calcName()}
@@ -94,6 +111,9 @@ export default function SynastryNames({ synastry }: { synastry: Synastry }) {
         </View>
       </View>
       <View style={[data.wrap, data.partner]}>
+        <View style={data.partnerName}>
+          <Text>{partner.name}</Text>
+        </View>
         <View style={[data.number, { top: 32, left: 11 }]}>
           <Text>
             {partner.calcName()}
@@ -114,8 +134,8 @@ export default function SynastryNames({ synastry }: { synastry: Synastry }) {
         </View>
         <View style={[data.number, { top: 32, left: 135 }]}>
           <Text>
-            {consultant.calcMaturity()}
-            {consultant.calcMaturityISK()}
+            {partner.calcMaturity()}
+            {partner.calcMaturityISK()}
           </Text>
         </View>
       </View>

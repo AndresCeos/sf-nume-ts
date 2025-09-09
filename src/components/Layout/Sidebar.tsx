@@ -192,7 +192,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/sinastria"
+                to="/partner/synastry_pinnacle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
