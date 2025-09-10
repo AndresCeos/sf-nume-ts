@@ -1,15 +1,15 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
-import { CompatibilityTable } from '../compatibilityTable/CompatibilityValues';
-import { SynastryData } from '../synastryVibrationTime/SynastryData';
-import compatibility from '../assets/s-compatibility.jpg'
+import Synastry, { SplittedDate } from '@/resources/Synastry';
+import compatibility from '../assets/s-compatibility.jpg';
+import CompatibilityTable from '../compatibilityTable/CompatibilityValues';
+import SynastryData from '../synastryVibrationTime/SynastryData';
 
-export const CompatibilityTablePDF: React.FC<{ synastry, newDate }> = ({ synastry, newDate }) => {
+export default function CompatibilityTablePDF({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
   return {
     bg: compatibility,
-    children: <>
-      <SynastryData synastry={synastry} newDate={newDate} />
-      <CompatibilityTable synastry={synastry} newDate={newDate} />
-              </>
-  }
+    children:
+  <>
+    <SynastryData synastry={synastry} date={date} horizontal={false} />
+    <CompatibilityTable synastry={synastry} />
+  </>,
+  };
 }

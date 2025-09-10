@@ -8,12 +8,18 @@ import { PDFPageConfig } from '@/components-pdf';
 import AnnualReturnsPDF from '@/components-pdf/document/AnnualReturnsPDF';
 import CalendarPDF from '@/components-pdf/document/CalendarPDF';
 import CircleTimePDF from '@/components-pdf/document/CircleTimePDF';
+import CompatibilityTablePDF from '@/components-pdf/document/CompatibilityTablePDF';
 import DestinyPDF from '@/components-pdf/document/DestinyPDF';
 import LifePathPDF from '@/components-pdf/document/LifePathPDF';
 import MonthPDF from '@/components-pdf/document/MonthPDF';
 import NamePDF from '@/components-pdf/document/NamePDF';
 import PDF from '@/components-pdf/document/PDF';
 import PinnaclePDF from '@/components-pdf/document/PinnaclePDF';
+import SynastryAnnualReturnsPDF from '@/components-pdf/document/SynastryAnnualReturnsPDF';
+import SynastryCalendarMonthPDF from '@/components-pdf/document/SynastryCalendarMonthPDF';
+import SynastryCalendarPDF from '@/components-pdf/document/SynastryCalendarPDF';
+import SynastryCircleTimePDF from '@/components-pdf/document/SynastryCircleTimePDF';
+import SynastryDestinyPDF from '@/components-pdf/document/SynastryDestinityPDF';
 import SynastryPinnaclePDF from '@/components-pdf/document/SynastryPinnaclePDF';
 import TimeVibrationPDF from '@/components-pdf/document/TimeVibrationPDF';
 import { useAuth } from '@/context/AuthProvider';
@@ -76,11 +82,18 @@ function Navbar() {
     'annual_calendar',
     'monthly_calendar',
     'synastry_pinnacle',
+    'synastry_annual_returns',
+    'synastry_destiny_table',
+    'synastry_compatibility_table',
+    'synastry_time_circle',
+    'synastry_annual_calendar',
+    'synastry_monthly_calendar',
   ];
   const location = useLocation();
   const path = location.pathname.split('/')[2];
   const groupPath = location.pathname.split('/')[1];
   const existDownloadPDF = () => reportList.includes(path);
+  console.log({ path });
   const {
     handleIsEditingConsultant,
     activeConsultant,
@@ -89,6 +102,7 @@ function Navbar() {
     calculationDate,
     consultant,
     consultationDate,
+    activePartnerData,
   } = useConsult();
 
   useEffect(() => {
@@ -120,8 +134,15 @@ function Navbar() {
       annual_calendar: CalendarPDF,
       monthly_calendar: MonthPDF,
       synastry_pinnacle: SynastryPinnaclePDF,
+      synastry_annual_returns: SynastryAnnualReturnsPDF,
+      synastry_destiny_table: SynastryDestinyPDF,
+      synastry_compatibility_table: CompatibilityTablePDF,
+      synastry_time_circle: SynastryCircleTimePDF,
+      synastry_annual_calendar: SynastryCalendarPDF,
+      synastry_monthly_calendar: SynastryCalendarMonthPDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
+    console.log({ config });
     const profile = new Person({
       id: '0',
       name: firstName || '',
@@ -135,6 +156,9 @@ function Navbar() {
     if (groupPath === 'partner') {
       synastryObject = new Synastry(selectedPartnersAsPersons[0], selectedPartnersAsPersons[1]);
     }
+    if (!activePartnerData) {
+      return;
+    }
     const blob = await pdf((
       <PDF
         consultant={consultant}
@@ -147,6 +171,8 @@ function Navbar() {
         newDate={consultationDate}
         month={calculationDate.month}
         synastry={synastryObject}
+        partnerYear={activePartnerData.yearMeet ?? 0}
+        groupYear={0}
       />
     )).toBlob();
     saveAs(blob, `${consultant?.fullName} - ${path}.pdf`);
@@ -173,6 +199,12 @@ function Navbar() {
         },
         partner: {
           synastry_pinnacle: { name: 'Pináculo de Sinastria', fn: SynastryPinnaclePDF },
+          synastry_annual_returns: { name: 'Retornos Anuales de Sinastria', fn: SynastryAnnualReturnsPDF },
+          synastry_destiny_table: { name: 'Tabla del Destino de Sinastria', fn: SynastryDestinyPDF },
+          synastry_compatibility_table: { name: 'Tabla de Compatibilidad de Sinastria', fn: CompatibilityTablePDF },
+          synastry_time_circle: { name: 'Círculo del Tiempo de Sinastria', fn: SynastryCircleTimePDF },
+          synastry_annual_calendar: { name: 'Calendario Anual de Sinastria', fn: SynastryCalendarPDF },
+          synastry_monthly_calendar: { name: 'Calendario Mensual de Sinastria', fn: SynastryCalendarMonthPDF },
         },
       };
 
@@ -349,6 +381,8 @@ function Navbar() {
             logoURL={logo}
             groupConsult={[]}
             month={calculationDate.month}
+            partnerYear={activePartnerData?.yearMeet ?? 0}
+            groupYear={0}
           />
         </PDFViewer>
       );

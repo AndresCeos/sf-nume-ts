@@ -27,7 +27,7 @@ export { CreateTable } from './createName/CreateTable';
 
 // Destiny Table Components
 export { DestinityNumericalValues } from './destinityTable/DestinityNumericalValues';
-export { DestinityTable } from './destinityTable/DestinityTable';
+export { default as DestinityTable } from './destinityTable/DestinityTable';
 
 // Group Annual Returns Components
 export { GroupAnnualReturns } from './groupAnnualReturns/GroupAnnualReturns';
@@ -78,7 +78,7 @@ export { default as PinnaclePotential } from './pinnacle/PinnaclePotential';
 export { default as PinnacleTimeCurve } from './pinnacle/PinnacleTimeCurve';
 
 // Synastry Destiny Table Components
-export { SynastryDestinyTable } from './synastryDestinyTable/SynastryDestinyTable';
+export { default as SynastryDestinyTable } from './synastryDestinyTable/SynastryDestinyTable';
 
 // Synastry Vibration Time Components
 export { SynastryData } from './synastryVibrationTime/SynastryData';

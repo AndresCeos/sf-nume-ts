@@ -203,7 +203,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/sinastria_vibracion"
+                to="/partner/synastry_time_vibration"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -214,7 +214,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/annual-returns"
+                to="/partner/synastry_annual_returns"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -225,7 +225,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/destiny-table"
+                to="/partner/synastry_destiny_table"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -236,7 +236,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/compatibility-table"
+                to="/partner/synastry_compatibility_table"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -247,7 +247,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/time-circle"
+                to="/partner/synastry_time_circle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -258,7 +258,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/monthly-calendar"
+                to="/partner/synastry_monthly_calendar"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -269,7 +269,7 @@ function Sidebar() {
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/partner/annual-calendar"
+                to="/partner/synastry_annual_calendar"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >

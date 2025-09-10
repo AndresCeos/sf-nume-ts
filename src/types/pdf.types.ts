@@ -27,20 +27,22 @@ export interface PDFPageConfig {
 
 // PDF Document Props
 export interface PDFDocumentProps {
-  consultant: any; // Person
+  consultant: Person | null; // Person
   config: PDFPageConfig[];
-  profile: any; // Person
+  profile: Person; // Person
   date: Opts; // dayjs object
   sidebar: {
     email: string;
     webSite: string;
     phone: string;
   };
-  synastry?: any; // Synastry
+  synastry?: Synastry | null; // Synastry
   groupConsult?: any; // Group
   newDate?: Date; // dayjs object
   month?: number;
   logoURL?: string;
+  partnerYear: number;
+  groupYear: number;
 }
 
 // Annual Return Types

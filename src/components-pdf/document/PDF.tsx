@@ -11,7 +11,7 @@ import PDFErrorFallback from '../PDFErrorFallback';
 import { configReport } from '../styles';
 
 export default function PDF({
-  consultant, config, profile, sidebar, synastry, groupConsult, newDate, month, logoURL, date,
+  consultant, config, profile, sidebar, synastry, groupConsult, newDate, month, logoURL, date, partnerYear, groupYear,
 }: PDFDocumentProps) {
   // Validate required props
   const validationErrors = useMemo(() => {
@@ -95,6 +95,8 @@ export default function PDF({
               groupConsult,
               month,
               date,
+              partnerYear,
+              groupYear,
             });
 
             // Validate component result
@@ -117,6 +119,8 @@ export default function PDF({
                 groupConsult,
                 month,
                 date,
+                partnerYear,
+                groupYear,
               });
 
               // Validate component result
@@ -191,7 +195,7 @@ export default function PDF({
       })
       .flat()
       .filter(Boolean), // Remove any null/undefined results
-    [config, consultant, newDate, synastry, groupConsult, month],
+    [config, consultant, newDate, synastry, groupConsult, month, partnerYear, groupYear],
   );
 
   console.log('Generated PDF components:', listOfPDF);

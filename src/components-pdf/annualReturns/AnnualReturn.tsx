@@ -50,27 +50,27 @@ type AnnualReturnProps = {
   year: number;
 };
 const calcAge = (age: number, year: number) => {
-  const Age = age;
-  const Year = year;
+  let Age = age;
+  let Year = year;
 
-  const yearsOld = [age];
-  const years = [year];
+  const yearsOld = [Age];
+  const years = [Year];
 
-  while (age - 9 > 0 && yearsOld.length < 9) {
-    age -= 9;
-    yearsOld.push(age);
+  while (Age - 9 > 0 && yearsOld.length < 9) {
+    Age -= 9;
+    yearsOld.push(Age);
 
-    year -= 9;
-    years.push(year);
+    Year -= 9;
+    years.push(Year);
   }
   if (yearsOld.length < 9) {
-    age = Age;
-    year = Year;
-    while (age + 9 > 0 && yearsOld.length < 9) {
-      age += 9;
-      yearsOld.unshift(age);
-      year += 9;
-      years.unshift(year);
+    Age = age;
+    Year = year;
+    while (Age + 9 > 0 && yearsOld.length < 9) {
+      Age += 9;
+      yearsOld.unshift(Age);
+      Year += 9;
+      years.unshift(Year);
     }
   }
   yearsOld.reverse();

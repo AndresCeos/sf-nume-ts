@@ -1,9 +1,11 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-plusplus */
-import { getDate, getMonth, getYear } from 'date-fns';
+import {
+  format, getDate, getDaysInMonth, getMonth, getYear,
+} from 'date-fns';
 import _ from 'lodash';
 import {
-  capitalize, getDaysOfWeek, getMonthName, reduceNumber,
+  capitalize, getDaysOfWeek, getDaysOfWeekEnglish, getMonthName, reduceNumber,
 } from '../utils/numbers';
 import Person from './Person';
 
@@ -1144,26 +1146,28 @@ class Synastry {
   }
 
   getAllDaysInMonth(month: number, year: number): number[] {
-    return Array.from({ length: new Date(year, month, 0).getDate() }, (__, i) => i + 1);
+    const today = new Date();
+    const yearToCalculate = year ?? today.getFullYear();
+    const monthToCalculate = (month ?? today.getMonth() + 1) - 1;
+    const totalDays = getDaysInMonth(new Date(yearToCalculate, monthToCalculate));
+    return Array.from({ length: totalDays }, (unused, index) => index + 1);
   }
 
   getDaysOfWeekCustom(month: number, year: number): string[] {
     const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const daysInMonth = this.getAllDaysInMonth(monthToCalculate, yearToCalculate);
-    const daysCustom = [];
     const dayInWeek = getDaysOfWeek();
-    let firstDay = new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]).toLocaleDateString('en-US', { weekday: 'short' });
-    firstDay = firstDay.replace(/\./g, '');
-    let dayIndex = getDaysOfWeek().findIndex((i) => i === capitalize(firstDay));
-    for (let i = 0; i < 7; i++) {
-      if (dayIndex > 6) {
-        dayIndex = 0;
-      }
-      daysCustom.push(dayInWeek[dayIndex]);
-      dayIndex++;
-    }
-    return daysCustom;
+
+    const firstDay = format(new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]), 'EEE')
+      .replace(/\./g, '');
+
+    const dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
+
+    return Array.from({ length: 7 }, (unused, index) => {
+      const weekIndex = (dayIndex + index) % 7;
+      return dayInWeek[weekIndex];
+    });
   }
 }
 export default Synastry;
