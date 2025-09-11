@@ -1,53 +1,8 @@
-import React from 'react';
+import { SplittedDate } from '@/resources/Group';
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import AnnualReturn from './AnnualReturn';
 
-import { View, Text, StyleSheet } from '@react-pdf/renderer';
-import { AnnualReturn } from './AnnualReturn';
-
-export const GroupRetornos2: React.FC<{ groupConsult, newDate }> = ({ groupConsult, newDate }) => {
-  const cap = groupConsult.group
-  let p3;
-  let p4;
-  let p5;
-  let annualReturnLastYear;
-  let annualReturnNextYear;
-  let annualReturnCurrent;
-  if (cap[2] !== undefined) {
-    p3 = cap[2]
-    annualReturnCurrent = p3.annualReturn(newDate.year())
-  }
-  if (cap[3] !== undefined) {
-    p4 = cap[3]
-    annualReturnLastYear = p4.annualReturn(newDate.year())
-  }
-  if (cap[4] !== undefined) {
-    p5 = cap[4]
-    annualReturnNextYear = p5.annualReturn(newDate.year())
-  }
-  return (
-    <View style={annualReturn.container}>
-      <View style={annualReturn.wrap}>
-        {(cap[3]) ? (
-<View style={annualReturn.return_2}>
-        <View style={annualReturn.name}><Text>{p4.nameView}</Text></View>
-          <AnnualReturn annualReturn={annualReturnLastYear} />
-</View>
-) : null}
-        {(cap[2] !== undefined) ? (
-<View style={annualReturn.return_1}>
-        <View style={annualReturn.name}><Text>{p3.nameView}</Text></View>
-          <AnnualReturn annualReturn={annualReturnCurrent} />
-</View>
-) : null}
-        {(cap[4]) ? (
-<View style={annualReturn.return_3}>
-        <View style={annualReturn.name}><Text>{p5.nameView}</Text></View>
-          <AnnualReturn annualReturn={annualReturnNextYear} />
-</View>
-) : null}
-      </View>
-    </View>
-  )
-}
 export const annualReturn = StyleSheet.create({
   container: {
     // backgroundColor: '#ff0000',
@@ -59,7 +14,7 @@ export const annualReturn = StyleSheet.create({
 
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   return_1: {
     position: 'absolute',
@@ -90,6 +45,34 @@ export const annualReturn = StyleSheet.create({
     left: 70,
     fontSize: '8px',
     color: '#ffffff',
-    position: 'absolute'
-  }
-})
+    position: 'absolute',
+  },
+});
+
+export default function GroupReturns2({ date, members }: { date: SplittedDate, members: Person[] }) {
+  return (
+    <View style={annualReturn.container}>
+      <View style={annualReturn.wrap}>
+        {(members[0] !== undefined) ? (
+          <View style={annualReturn.return_1}>
+            <View style={annualReturn.name}><Text>{members[0].nameView}</Text></View>
+            <AnnualReturn annualReturn={members[0].annualReturn(date)} />
+          </View>
+        ) : null}
+        {(members[1]) !== undefined ? (
+          <View style={annualReturn.return_2}>
+            <View style={annualReturn.name}><Text>{members[1].nameView}</Text></View>
+            <AnnualReturn annualReturn={members[1].annualReturn(date)} />
+          </View>
+        ) : null}
+
+        {(members[2]) !== undefined ? (
+          <View style={annualReturn.return_3}>
+            <View style={annualReturn.name}><Text>{members[2].nameView}</Text></View>
+            <AnnualReturn annualReturn={members[2].annualReturn(date)} />
+          </View>
+        ) : null}
+      </View>
+    </View>
+  );
+}

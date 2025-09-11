@@ -1,17 +1,17 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
+import Group, { SplittedDate } from '@/resources/Group';
+import sPinnacle from '../assets/g-annual-returns.jpg';
+import GroupAnnualReturns from '../groupAnnualReturns/GroupAnnualReturns';
+import GroupData from '../groupPinnacle/GroupData';
 
-import sPinnacle from '../assets/g-annual-returns.jpg'
-import { GroupAnnualReturns } from '../groupAnnualReturns/GroupAnnualReturns'
-import { GroupData } from '../groupPinnacle/GroupData'
-
-export const GroupAnnualReturnsPDF: React.FC<{ groupConsult, newDate }> = ({ groupConsult, newDate }) => {
+export default function GroupAnnualReturnsPDF({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
   console.log(groupConsult);
   return {
     bg: sPinnacle,
-    children: <>
-      <GroupAnnualReturns groupConsult={groupConsult} newDate={newDate} />
-      <GroupData groupConsult={groupConsult} newDate={newDate} />
-              </>
-  }
+    children:
+  <>
+    <GroupData groupConsult={groupConsult} />
+    <GroupAnnualReturns groupConsult={groupConsult} date={date} />
+
+  </>,
+  };
 }

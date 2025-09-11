@@ -291,7 +291,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group/pinnacle"
+                to="/group/group_pinnacle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -313,7 +313,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group/annual-returns"
+                to="/group/group_annual_returns"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -324,7 +324,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group/time-circle"
+                to="/group/group_time_circle"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -335,7 +335,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group/annual-calendar"
+                to="/group/group_annual_calendar"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
@@ -346,7 +346,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group/monthly-calendar"
+                to="/group/group_monthly_calendar"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >

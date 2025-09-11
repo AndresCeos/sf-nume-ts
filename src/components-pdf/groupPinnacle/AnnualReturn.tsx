@@ -1,15 +1,92 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
+import { AnnualReturn } from '@/resources/Group';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
+export const aReturn = StyleSheet.create({
+  return_year: {
+    // backgroundColor: '#00000050',
+    position: 'absolute',
+    width: '25px',
+    height: '18px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    top: '0px',
+    left: '50px',
 
-export const AnnualReturn: React.FC<{ annualReturn }> = ({ annualReturn }) => {
+  },
+  return_age: {
+    // backgroundColor: '#00000050',
+    position: 'absolute',
+    width: '48px',
+    height: '18px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+    top: '0px',
+    left: '99px',
+
+  },
+  circle: {
+    // backgroundColor: '#00000050',
+    position: 'absolute',
+    width: '18px',
+    height: '18px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#000',
+  },
+  return_top: {
+    top: '42px',
+    left: '75px',
+
+  },
+  return_sl_left: {
+    top: '64px',
+    left: '51px',
+
+  },
+  return_sl_mid: {
+    top: '64px',
+    left: '75px',
+  },
+  return_sl_rig: {
+    top: '64px',
+    left: '99px',
+
+  },
+  return_tl_left: {
+    top: '88px',
+    left: '30px',
+  },
+  return_tl_mid: {
+    top: '88px',
+    left: '75px',
+  },
+  return_tl_rig: {
+    top: '86px',
+    left: '121px',
+  },
+  return_bottom: {
+    top: '111px',
+    left: '75px',
+  },
+});
+
+export default function AnnualReturnGroup({ annualReturn }: { annualReturn: AnnualReturn }) {
   return (
     <>
       <View style={aReturn.return_year}>
         <Text>{annualReturn.yearToCalculate}</Text>
       </View>
       <View style={aReturn.return_age}>
-        <Text>{annualReturn.age} años</Text>
+        <Text>
+          {annualReturn.age}
+          {' '}
+          años
+        </Text>
       </View>
       <View style={[aReturn.circle, aReturn.return_top]}>
         <Text>{annualReturn.F}</Text>
@@ -36,79 +113,5 @@ export const AnnualReturn: React.FC<{ annualReturn }> = ({ annualReturn }) => {
         <Text>{annualReturn.H}</Text>
       </View>
     </>
-  )
+  );
 }
-
-export const aReturn = StyleSheet.create({
-  return_year: {
-    // backgroundColor: '#00000050',
-    position: 'absolute',
-    width: '25px',
-    height: '18px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    top: '0px',
-    left: '50px'
-
-  },
-  return_age: {
-    // backgroundColor: '#00000050',
-    position: 'absolute',
-    width: '48px',
-    height: '18px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-    top: '0px',
-    left: '99px'
-
-  },
-  circle: {
-    // backgroundColor: '#00000050',
-    position: 'absolute',
-    width: '18px',
-    height: '18px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#000',
-  },
-  return_top: {
-    top: '42px',
-    left: '75px'
-
-  },
-  return_sl_left: {
-    top: '64px',
-    left: '51px'
-
-  },
-  return_sl_mid: {
-    top: '64px',
-    left: '75px'
-  },
-  return_sl_rig: {
-    top: '64px',
-    left: '99px'
-
-  },
-  return_tl_left: {
-    top: '88px',
-    left: '30px'
-  },
-  return_tl_mid: {
-    top: '88px',
-    left: '75px'
-  },
-  return_tl_rig: {
-    top: '86px',
-    left: '121px'
-  },
-  return_bottom: {
-    top: '111px',
-    left: '75px'
-  },
-})

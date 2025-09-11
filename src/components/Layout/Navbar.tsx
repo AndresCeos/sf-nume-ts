@@ -10,6 +10,11 @@ import CalendarPDF from '@/components-pdf/document/CalendarPDF';
 import CircleTimePDF from '@/components-pdf/document/CircleTimePDF';
 import CompatibilityTablePDF from '@/components-pdf/document/CompatibilityTablePDF';
 import DestinyPDF from '@/components-pdf/document/DestinyPDF';
+import GroupAnnualReturnsPDF from '@/components-pdf/document/GroupAnnualReturnsPDF';
+import GroupCalendarMonthPDF from '@/components-pdf/document/GroupCalendarMonthPDF';
+import GroupCalendarPDF from '@/components-pdf/document/GroupCalendarPDF';
+import GroupCircleTimePDF from '@/components-pdf/document/GroupCircleTimePDF';
+import GroupPinnaclePDF from '@/components-pdf/document/GroupPinnaclePDF';
 import LifePathPDF from '@/components-pdf/document/LifePathPDF';
 import MonthPDF from '@/components-pdf/document/MonthPDF';
 import NamePDF from '@/components-pdf/document/NamePDF';
@@ -25,6 +30,7 @@ import TimeVibrationPDF from '@/components-pdf/document/TimeVibrationPDF';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import { usePDFErrorHandler } from '@/hooks/usePDFErrorHandler';
+import Group from '@/resources/Group';
 import Person from '@/resources/Person';
 import Synastry from '@/resources/Synastry';
 import { pdf, PDFViewer } from '@react-pdf/renderer';
@@ -88,6 +94,11 @@ function Navbar() {
     'synastry_time_circle',
     'synastry_annual_calendar',
     'synastry_monthly_calendar',
+    'group_pinnacle',
+    'group_annual_returns',
+    'group_time_circle',
+    'group_annual_calendar',
+    'group_monthly_calendar',
   ];
   const location = useLocation();
   const path = location.pathname.split('/')[2];
@@ -103,6 +114,7 @@ function Navbar() {
     consultant,
     consultationDate,
     activePartnerData,
+    activeGroup,
   } = useConsult();
 
   useEffect(() => {
@@ -140,6 +152,11 @@ function Navbar() {
       synastry_time_circle: SynastryCircleTimePDF,
       synastry_annual_calendar: SynastryCalendarPDF,
       synastry_monthly_calendar: SynastryCalendarMonthPDF,
+      group_pinnacle: GroupPinnaclePDF,
+      group_annual_returns: GroupAnnualReturnsPDF,
+      group_time_circle: GroupCircleTimePDF,
+      group_annual_calendar: GroupCalendarPDF,
+      group_monthly_calendar: GroupCalendarMonthPDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
     console.log({ config });
@@ -153,12 +170,14 @@ function Navbar() {
 
     const sidebar = { email: email || '', webSite: website || '', phone: phone || '' };
     let synastryObject: Synastry | null = null;
+    let groupConsult: Group | null = null;
     if (groupPath === 'partner') {
       synastryObject = new Synastry(selectedPartnersAsPersons[0], selectedPartnersAsPersons[1]);
     }
-    if (!activePartnerData) {
-      return;
+    if (groupPath === 'group') {
+      groupConsult = new Group(selectedGroup, activeGroup?.lastInit ?? 0);
     }
+
     const blob = await pdf((
       <PDF
         consultant={consultant}
@@ -167,12 +186,12 @@ function Navbar() {
         date={calculationDate}
         sidebar={sidebar}
         logoURL={logo}
-        groupConsult={[]}
+        groupConsult={groupConsult}
         newDate={consultationDate}
         month={calculationDate.month}
         synastry={synastryObject}
-        partnerYear={activePartnerData.yearMeet ?? 0}
-        groupYear={0}
+        partnerYear={activePartnerData?.yearMeet ?? 0}
+        groupYear={activeGroup?.lastInit ?? 0}
       />
     )).toBlob();
     saveAs(blob, `${consultant?.fullName} - ${path}.pdf`);
@@ -205,6 +224,13 @@ function Navbar() {
           synastry_time_circle: { name: 'Círculo del Tiempo de Sinastria', fn: SynastryCircleTimePDF },
           synastry_annual_calendar: { name: 'Calendario Anual de Sinastria', fn: SynastryCalendarPDF },
           synastry_monthly_calendar: { name: 'Calendario Mensual de Sinastria', fn: SynastryCalendarMonthPDF },
+        },
+        group: {
+          group_pinnacle: { name: 'Pináculo de Grupo', fn: GroupPinnaclePDF },
+          group_annual_returns: { name: 'Retornos Anuales de Grupo', fn: GroupAnnualReturnsPDF },
+          group_time_circle: { name: 'Círculo del Tiempo de Grupo', fn: GroupCircleTimePDF },
+          group_annual_calendar: { name: 'Calendario Anual de Grupo', fn: GroupCalendarPDF },
+          group_monthly_calendar: { name: 'Calendario Mensual de Grupo', fn: GroupCalendarMonthPDF },
         },
       };
 
@@ -362,8 +388,12 @@ function Navbar() {
         birthDate: birthDate?.toString() || '',
       });
       let synastryObject: Synastry | null = null;
+      let groupConsult: Group | null = null;
       if (groupPath === 'partner') {
         synastryObject = new Synastry(selectedPartnersAsPersons[0], selectedPartnersAsPersons[1]);
+      }
+      if (groupPath === 'group') {
+        groupConsult = new Group(selectedGroup, activeGroup?.lastInit ?? 0);
       }
 
       const sidebar = { email: email || '', webSite: website || '', phone: phone || '' };
@@ -379,10 +409,10 @@ function Navbar() {
             sidebar={sidebar}
             synastry={synastryObject}
             logoURL={logo}
-            groupConsult={[]}
+            groupConsult={groupConsult}
             month={calculationDate.month}
             partnerYear={activePartnerData?.yearMeet ?? 0}
-            groupYear={0}
+            groupYear={activeGroup?.lastInit ?? 0}
           />
         </PDFViewer>
       );

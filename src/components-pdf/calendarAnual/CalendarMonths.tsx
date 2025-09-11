@@ -172,9 +172,9 @@ export function MonthsInDay({
     <>
       <View style={calendar.daysRow}>
         {semOne.map((day) => (
-          <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month + 1) ? '#C77575' : ((sem1 === true) && month === date.month + 1) ? '#DCA8A9' : (month === date.month + 1) ? '#FBEDD9' : ''}` }]}>
-            <Text style={[calendar.days, { color: `${(day === date.day && month === date.month + 1) ? '#fff' : ''}` }]}>{day}</Text>
-            <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month + 1) ? '#fff' : ''}` }]}>
+          <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem1 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
+            <Text style={[calendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
+            <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
               {consultant.calcPersonalDay({ ...date, day, month })}
               {consultant.calcPersonalDayISK({ ...date, day, month })}
               /
@@ -186,9 +186,9 @@ export function MonthsInDay({
       </View>
       <View style={calendar.daysRow}>
         {semTwo.map((day) => (
-          <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month + 1) ? '#C77575' : ((sem2 === true) && month === date.month + 1) ? '#DCA8A9' : (month === date.month + 1) ? '#FBEDD9' : ''}` }]}>
-            <Text style={[calendar.days, { color: `${(day === date.day && month === date.month + 1) ? '#fff' : ''}` }]}>{day}</Text>
-            <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month + 1) ? '#fff' : ''}` }]}>
+          <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem2 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
+            <Text style={[calendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
+            <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
               {consultant.calcPersonalDay({ ...date, day, month })}
               {consultant.calcPersonalDayISK({ ...date, day, month })}
               /
@@ -200,7 +200,7 @@ export function MonthsInDay({
       </View>
       <View style={calendar.daysRow}>
         {semThr.map((day) => (
-          <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month + 1) ? '#C77575' : (sem3 === true && month === date.month + 1) ? '#DCA8A9' : (month === date.month + 1) ? '#FBEDD9' : ''}` }]}>
+          <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : (sem3 === true && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[calendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
             <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
               {consultant.calcPersonalDay({ ...date, day, month })}

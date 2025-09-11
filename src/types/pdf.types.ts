@@ -1,3 +1,4 @@
+import Group from '@/resources/Group';
 import Person from '@/resources/Person';
 import Synastry from '@/resources/Synastry';
 import { ReactElement } from 'react';
@@ -37,7 +38,7 @@ export interface PDFDocumentProps {
     phone: string;
   };
   synastry?: Synastry | null; // Synastry
-  groupConsult?: any; // Group
+  groupConsult?: Group | null; // Group
   newDate?: Date; // dayjs object
   month?: number;
   logoURL?: string;

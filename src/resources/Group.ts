@@ -21,20 +21,20 @@ import {
 export type AnnualReturn = {
   yearToCalculate: number,
   age: number,
-  A: number,
-  B: number,
-  C: number,
-  D: number,
-  E: number,
-  F: number,
-  G: number,
-  H: number
+  A: string,
+  B: string,
+  C: string,
+  D: string,
+  E: string,
+  F: string,
+  G: string,
+  H: string,
 };
 
-type SplittedDate = {
-  day?: number,
-  month?: number,
-  year?: number,
+export type SplittedDate = {
+  day: number,
+  month: number,
+  year: number,
 };
 
 class Group {
@@ -1076,18 +1076,26 @@ class Group {
   annualReturn(year:number):AnnualReturn {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const age = yearToCalculate - this.groupDate;
-    const A = reduceNumber(yearToCalculate);
-    const B = reduceNumber(
+    const a = reduceNumber(yearToCalculate);
+    const A = `${a}`;
+    const b = reduceNumber(
       yearToCalculate
       + this.getAWOR()
       + this.getBWOR(),
     );
-    const C = reduceNumber(this.getCWOR() - yearToCalculate);
-    const D = reduceNumber(A + B);
-    const E = reduceNumber(B + C);
-    const F = reduceNumber(D + E);
-    const G = reduceNumber(D + E + F);
-    const H = reduceNumber(A + C);
+    const B = `${b}`;
+    const c = reduceNumber(this.getCWOR() - yearToCalculate);
+    const C = `${c}`;
+    const d = reduceNumber(a + b);
+    const D = `${d}`;
+    const e = reduceNumber(b + c);
+    const E = `${e}`;
+    const f = reduceNumber(d + e);
+    const F = `${f}`;
+    const g = reduceNumber(d + e + f);
+    const G = `${g}`;
+    const h = reduceNumber(a + c);
+    const H = `${h}`;
 
     return {
       yearToCalculate, age, A, B, C, D, E, F, G, H,

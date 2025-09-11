@@ -1,52 +1,58 @@
-import { PDFComponentProps, PDFPageConfig } from '../types/pdf.types';
-import React from 'react';
+import { PDFPageConfig } from '@/types/pdf.types';
 
-import gPinnacle from '../assets/g-pinnacle.jpg'
-import gPinnacle2 from '../assets/g-pinnacle2.jpg'
-import { GroupData } from '../groupPinnacle/GroupData'
-import { GroupPinacle1 } from '../groupPinnacle/GroupPinacle1'
-import { GroupPinacle2 } from '../groupPinnacle/GroupPinacle2'
-import { GroupPinacle3 } from '../groupPinnacle/GroupPinacle3'
-import { GroupName1 } from '../groupPinnacle/GroupName1'
-import { GroupName2 } from '../groupPinnacle/GroupName2'
-import { GroupName3 } from '../groupPinnacle/GroupName3'
-import { GroupRetornos1 } from '../groupPinnacle/GroupRetornos1'
-import { GroupRetornos2 } from '../groupPinnacle/GroupRetornos2'
-import { GroupRetornos3 } from '../groupPinnacle/GroupRetornos3'
+import Group, { SplittedDate } from '@/resources/Group';
+import Person from '@/resources/Person';
+import gPinnacle from '../assets/g-pinnacle.jpg';
+import gPinnacle2 from '../assets/g-pinnacle2.jpg';
+import GroupData from '../groupPinnacle/GroupData';
+import GroupName1 from '../groupPinnacle/GroupName1';
+import GroupName2 from '../groupPinnacle/GroupName2';
+import GroupName3 from '../groupPinnacle/GroupName3';
+import GroupPinnacle1 from '../groupPinnacle/GroupPinacle1';
+import GroupPinnacle2 from '../groupPinnacle/GroupPinacle2';
+import GroupPinnacle3 from '../groupPinnacle/GroupPinacle3';
+import GroupReturns1 from '../groupPinnacle/GroupRetornos1';
+import GroupReturns2 from '../groupPinnacle/GroupRetornos2';
+import GroupReturns3 from '../groupPinnacle/GroupRetornos3';
 
-export const GroupPinnaclePDF: React.FC<{ groupConsult, newDate }> = ({ groupConsult, newDate }) => {
-  const cap = groupConsult.group
+export default function GroupPinnaclePDF({ groupConsult, date }: { groupConsult: Group, date: SplittedDate
+}): PDFPageConfig[] {
+  const cap = groupConsult.group;
+  const [p1, p2, p3, p4, p5, p6, p7, p8]: (Person | undefined)[] = cap;
 
-  let config = {
+  let config: PDFPageConfig[] = [{
     bg: gPinnacle,
-    children: <>
-      <GroupData groupConsult={groupConsult} newDate={newDate} />
-      <GroupName1 groupConsult={groupConsult} newDate={newDate} />
-      <GroupPinacle1 groupConsult={groupConsult} newDate={newDate} />
-      <GroupRetornos1 groupConsult={groupConsult} newDate={newDate} />
-              </>
-  };
+    children:
+  <>
+    <GroupData groupConsult={groupConsult} />
+    <GroupName1 groupConsult={groupConsult} members={[p1, p2]} />
+    <GroupPinnacle1 groupConsult={groupConsult} members={[p1, p2]} />
+    <GroupReturns1 groupConsult={groupConsult} date={date} members={[p1, p2]} />
+  </>,
+  }];
   if (cap.length > 2) {
-    config = [config, {
+    config = [...config, {
       bg: gPinnacle2,
-      children: <>
-        <GroupData groupConsult={groupConsult} newDate={newDate} />
-        <GroupName2 groupConsult={groupConsult} newDate={newDate} />
-        <GroupPinacle2 groupConsult={groupConsult} newDate={newDate} />
-        <GroupRetornos2 groupConsult={groupConsult} newDate={newDate} />
-                </>
-    }]
+      children:
+  <>
+    <GroupData groupConsult={groupConsult} />
+    <GroupName2 members={[p3, p4, p5]} />
+    <GroupPinnacle2 members={[p3, p4, p5]} />
+    <GroupReturns2 date={date} members={[p3, p4, p5]} />
+  </>,
+    }];
   }
   if (cap.length > 5) {
     config = [...config, {
       bg: gPinnacle2,
-      children: <>
-        <GroupData groupConsult={groupConsult} newDate={newDate} />
-        <GroupName3 groupConsult={groupConsult} newDate={newDate} />
-        <GroupPinacle3 groupConsult={groupConsult} newDate={newDate} />
-        <GroupRetornos3 groupConsult={groupConsult} newDate={newDate} />
-                </>
-    }]
+      children:
+  <>
+    <GroupData groupConsult={groupConsult} />
+    <GroupName3 members={[p6, p7, p8]} />
+    <GroupPinnacle3 members={[p6, p7, p8]} />
+    <GroupReturns3 date={date} members={[p6, p7, p8]} />
+  </>,
+    }];
   }
   return config;
 }

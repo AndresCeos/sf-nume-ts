@@ -75,11 +75,11 @@ const protectedRoutes = [
       { path: '/partner/synastry_monthly_calendar', element: <SynastryMonthCalendarPage /> },
       { path: '/partner/synastry_annual_calendar', element: <SynastryAnnualCalendar /> },
       // Group Pages
-      { path: '/group/pinnacle', element: <GroupPinnaclePage /> },
-      { path: '/group/annual-returns', element: <GroupAnnualReturnsPage /> },
-      { path: '/group/time-circle', element: <GroupTimeCirclePage /> },
-      { path: '/group/annual-calendar', element: <GroupAnnualCalendar /> },
-      { path: '/group/monthly-calendar', element: <GroupMonthCalendarPage /> },
+      { path: '/group/group_pinnacle', element: <GroupPinnaclePage /> },
+      { path: '/group/group_annual_returns', element: <GroupAnnualReturnsPage /> },
+      { path: '/group/group_time_circle', element: <GroupTimeCirclePage /> },
+      { path: '/group/group_annual_calendar', element: <GroupAnnualCalendar /> },
+      { path: '/group/group_monthly_calendar', element: <GroupMonthCalendarPage /> },
       // Dashboard Pages
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },

@@ -1,45 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet } from '@react-pdf/renderer';
-import { AnnualReturn } from './AnnualReturn';
-export const GroupRetornos1: React.FC<{ groupConsult, newDate }> = ({ groupConsult, newDate }) => {
-  const cap = groupConsult.group
-  console.log(cap[1])
-  console.log(cap);
-  const annualReturnCurrent = groupConsult.annualReturn(newDate.year())
-  let p1;
-  let p2;
-  let annualReturnLastYear;
-  let annualReturnNextYear;
-  if (cap[0] !== undefined) {
-    p1 = cap[0]
-    annualReturnLastYear = p1.annualReturn(newDate.year())
-  }
-  if (cap[1] !== undefined) {
-    p2 = cap[1]
-    annualReturnNextYear = p2.annualReturn(newDate.year())
-  }
-  return (
-    <View style={annualReturn.container}>
-      <View style={annualReturn.wrap}>
-        {(cap[0]) ? (
-<View style={annualReturn.return_2}>
-        <View style={annualReturn.name}><Text>{p1.nameView}</Text></View>
-          <AnnualReturn annualReturn={annualReturnLastYear} />
-</View>
-) : null}
-        <View style={annualReturn.return_1}>
-          <AnnualReturn annualReturn={annualReturnCurrent} />
-        </View>
-        {(cap[1]) ? (
-<View style={annualReturn.return_3}>
-        <View style={annualReturn.name}><Text>{p2.nameView}</Text></View>
-          <AnnualReturn annualReturn={annualReturnNextYear} />
-</View>
-) : null}
-      </View>
-    </View>
-  )
-}
+import Group, { SplittedDate } from '@/resources/Group';
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import AnnualReturn from './AnnualReturn';
 
 export const annualReturn = StyleSheet.create({
   container: {
@@ -52,7 +14,7 @@ export const annualReturn = StyleSheet.create({
 
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   return_1: {
     position: 'absolute',
@@ -83,6 +45,34 @@ export const annualReturn = StyleSheet.create({
     left: 70,
     fontSize: '8px',
     color: '#ffffff',
-    position: 'absolute'
-  }
-})
+    position: 'absolute',
+  },
+});
+
+export default function GroupReturns1({ groupConsult, date, members }: { groupConsult: Group, date: SplittedDate, members: Person[] }) {
+  const annualReturnCurrent = groupConsult.annualReturn(date.year);
+  const annualReturnLastYear = members[0]?.annualReturn(date);
+  const annualReturnNextYear = members[1]?.annualReturn(date);
+
+  return (
+    <View style={annualReturn.container}>
+      <View style={annualReturn.wrap}>
+        {(members[0]) ? (
+          <View style={annualReturn.return_2}>
+            <View style={annualReturn.name}><Text>{members[0].nameView}</Text></View>
+            <AnnualReturn annualReturn={annualReturnLastYear} />
+          </View>
+        ) : null}
+        <View style={annualReturn.return_1}>
+          <AnnualReturn annualReturn={annualReturnCurrent} />
+        </View>
+        {(members[1]) ? (
+          <View style={annualReturn.return_3}>
+            <View style={annualReturn.name}><Text>{members[1].nameView}</Text></View>
+            <AnnualReturn annualReturn={annualReturnNextYear} />
+          </View>
+        ) : null}
+      </View>
+    </View>
+  );
+}

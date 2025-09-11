@@ -1,78 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from '@react-pdf/renderer';
-export const GroupName3: React.FC<{ groupConsult }> = ({ groupConsult }) => {
-  const cap = groupConsult.group
-  let p6;
-  let p7;
-  let p8
-  if (cap[5] !== undefined) {
-    p6 = cap[5]
-  }
-  if (cap[6] !== undefined) {
-    p7 = cap[6]
-  }
-  if (cap[7] !== undefined) {
-    p8 = cap[7]
-  }
-  return (
-    <View style={style.container}>
-      {cap[5] !== undefined ? (
-<View style={[style.wrap, style.wrap1]}>
-        <View style={style.name}><Text>{p6.nameView}</Text></View>
-        <View style={[style.letter, style.A]}>
-          <Text>{p6.calcName()}{p6.calcNameISK()}</Text>
-        </View>
-        <View style={[style.letter, style.B]}>
-          <Text>{p6.calcSoulNumber()}{p6.calcSoulNumberISK()}</Text>
-        </View>
-        <View style={[style.letter, style.C]}>
-          <Text>{p6.calcSoulExpresion()}{p6.calcSoulExpresionISK()}</Text>
-        </View>
-        <View style={[style.letter, style.D]}>
-          <Text>{p6.calcMaturity()}{p6.calcMaturityISK()}</Text>
-        </View>
+import Person from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
-</View>
-) : null}
-      {cap[6] !== undefined ? (
-<View style={[style.wrap, style.wrap2]}>
-        <View style={style.name}><Text>{p7.nameView}</Text></View>
-        <View style={[style.letter, style.A]}>
-          <Text>{p7.calcName()}{p7.calcNameISK()}</Text>
-        </View>
-        <View style={[style.letter, style.B]}>
-          <Text>{p7.calcSoulNumber()}{p7.calcSoulNumberISK()}</Text>
-        </View>
-        <View style={[style.letter, style.C]}>
-          <Text>{p7.calcSoulExpresion()}{p7.calcSoulExpresionISK()}</Text>
-        </View>
-        <View style={[style.letter, style.D]}>
-          <Text>{p7.calcMaturity()}{p7.calcMaturityISK()}</Text>
-        </View>
-
-</View>
-) : null}
-      {cap[7] !== undefined ? (
-<View style={[style.wrap, style.wrap3]}>
-      <View style={style.name}><Text>{p8.nameView}</Text></View>
-      <View style={[style.letter, style.A]}>
-          <Text>{p8.calcName()}{p8.calcNameISK()}</Text>
-      </View>
-        <View style={[style.letter, style.B]}>
-          <Text>{p8.calcSoulNumber()}{p8.calcSoulNumberISK()}</Text>
-        </View>
-        <View style={[style.letter, style.C]}>
-          <Text>{p8.calcSoulExpresion()}{p8.calcSoulExpresionISK()}</Text>
-        </View>
-        <View style={[style.letter, style.D]}>
-          <Text>{p8.calcMaturity()}{p8.calcMaturityISK()}</Text>
-        </View>
-
-</View>
-) : null}
-    </View>
-  )
-}
 export const style = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -89,22 +17,22 @@ export const style = StyleSheet.create({
   wrap1: {
     top: '0px',
     left: '0px',
-    position: 'absolute'
+    position: 'absolute',
   },
   wrap2: {
     top: '0px',
     left: '180px',
-    position: 'absolute'
+    position: 'absolute',
   },
   wrap3: {
     top: '0px',
     left: '360px',
-    position: 'absolute'
+    position: 'absolute',
   },
   bar: {
     backgroundColor: '#333',
     width: '170px',
-    height: '10px'
+    height: '10px',
   },
   letter: {
     width: '24px',
@@ -117,7 +45,7 @@ export const style = StyleSheet.create({
     // border: '1px solid #000',
     // borderRadius: '50%',
     position: 'absolute',
-    fontSize: '14px'
+    fontSize: '14px',
   },
   name: {
     width: '60px',
@@ -125,22 +53,119 @@ export const style = StyleSheet.create({
     left: 70,
     fontSize: '8px',
     color: '#ffffff',
-    position: 'absolute'
+    position: 'absolute',
   },
   A: {
     top: 32,
-    left: 10
+    left: 10,
   },
   B: {
     left: 49,
-    top: 32
+    top: 32,
   },
   C: {
     top: 31,
-    left: 87
+    left: 87,
   },
   D: {
     top: 31,
-    left: 135
-  }
-})
+    left: 135,
+  },
+});
+
+export default function GroupName3({ members }: { members: Person[] }) {
+  return (
+    <View style={style.container}>
+      {members[0] !== undefined ? (
+        <View style={[style.wrap, style.wrap1]}>
+          <View style={style.name}><Text>{members[0].nameView}</Text></View>
+          <View style={[style.letter, style.A]}>
+            <Text>
+              {members[0].calcName()}
+              {members[0].calcNameISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.B]}>
+            <Text>
+              {members[0].calcSoulNumber()}
+              {members[0].calcSoulNumberISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.C]}>
+            <Text>
+              {members[0].calcSoulExpression()}
+              {members[0].calcSoulExpressionISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.D]}>
+            <Text>
+              {members[0].calcMaturity()}
+              {members[0].calcMaturityISK()}
+            </Text>
+          </View>
+
+        </View>
+      ) : null}
+      {members[1] !== undefined ? (
+        <View style={[style.wrap, style.wrap2]}>
+          <View style={style.name}><Text>{members[1].nameView}</Text></View>
+          <View style={[style.letter, style.A]}>
+            <Text>
+              {members[1].calcName()}
+              {members[1].calcNameISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.B]}>
+            <Text>
+              {members[1].calcSoulNumber()}
+              {members[1].calcSoulNumberISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.C]}>
+            <Text>
+              {members[1].calcSoulExpression()}
+              {members[1].calcSoulExpressionISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.D]}>
+            <Text>
+              {members[1].calcMaturity()}
+              {members[1].calcMaturityISK()}
+            </Text>
+          </View>
+
+        </View>
+      ) : null}
+      {members[2] !== undefined ? (
+        <View style={[style.wrap, style.wrap3]}>
+          <View style={style.name}><Text>{members[2].nameView}</Text></View>
+          <View style={[style.letter, style.A]}>
+            <Text>
+              {members[2].calcName()}
+              {members[2].calcNameISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.B]}>
+            <Text>
+              {members[2].calcSoulNumber()}
+              {members[2].calcSoulNumberISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.C]}>
+            <Text>
+              {members[2].calcSoulExpression()}
+              {members[2].calcSoulExpressionISK()}
+            </Text>
+          </View>
+          <View style={[style.letter, style.D]}>
+            <Text>
+              {members[2].calcMaturity()}
+              {members[2].calcMaturityISK()}
+            </Text>
+          </View>
+
+        </View>
+      ) : null}
+    </View>
+  );
+}

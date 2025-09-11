@@ -188,7 +188,7 @@ export function MonthsInDay({
         {semTwo.map((day) => (
           <View style={[calendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem2 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[calendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
-            <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month + 1) ? '#fff' : ''}` }]}>
+            <Text style={[calendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
               {consultant.calcPersonalDay({ ...date, day, month })}
               {consultant.calcPersonalDayISK({ ...date, day, month })}
               /
