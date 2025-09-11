@@ -78,6 +78,19 @@ class Synastry {
     return reduce;
   }
 
+  getYearOfBirth():number {
+    const consultantBirthDate = this.consultant.getBirthDate();
+    const partnerBirthDate = this.partner.getBirthDate();
+    const sumBirthDates = getYear(consultantBirthDate) + getYear(partnerBirthDate);
+    let reduce;
+    if (sumBirthDates === 19) {
+      reduce = 10;
+    } else {
+      reduce = reduceNumber(sumBirthDates);
+    }
+    return reduce;
+  }
+
   getA():number {
     const birthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();

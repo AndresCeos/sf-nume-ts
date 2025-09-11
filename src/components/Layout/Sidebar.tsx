@@ -302,7 +302,7 @@ function Sidebar() {
             <li className={currentPage === 'group' ? '' : 'hidden'}>
               <NavLink
                 end
-                to="/group_vibracion"
+                to="/group/group_vibration_time"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >

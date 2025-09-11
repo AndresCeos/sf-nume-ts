@@ -24,6 +24,7 @@ import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
 
+import GroupVibrationTimePage from '@/pages/group/GroupVibrationTime';
 import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPage';
 import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
 import SynastryAnnualCalendar from '@/pages/sinastry/SynastryAnnualCalendar';
@@ -31,6 +32,7 @@ import SynastryCompatibilityTablePage from '@/pages/sinastry/SynastryCompatibili
 import SynastryMonthCalendarPage from '@/pages/sinastry/SynastryMonthCalendar';
 import SynastryPinnaclePage from '@/pages/sinastry/SynastryPinnaclePage';
 import SynastryTimeCirclePage from '@/pages/sinastry/SynastryTimeCirclePage';
+import SynastryVibrationTimePage from '@/pages/sinastry/SynastryVibrationTimePage';
 
 function App() {
   return (
@@ -74,12 +76,14 @@ const protectedRoutes = [
       { path: '/partner/synastry_time_circle', element: <SynastryTimeCirclePage /> },
       { path: '/partner/synastry_monthly_calendar', element: <SynastryMonthCalendarPage /> },
       { path: '/partner/synastry_annual_calendar', element: <SynastryAnnualCalendar /> },
+      { path: '/partner/synastry_time_vibration', element: <SynastryVibrationTimePage /> },
       // Group Pages
       { path: '/group/group_pinnacle', element: <GroupPinnaclePage /> },
       { path: '/group/group_annual_returns', element: <GroupAnnualReturnsPage /> },
       { path: '/group/group_time_circle', element: <GroupTimeCirclePage /> },
       { path: '/group/group_annual_calendar', element: <GroupAnnualCalendar /> },
       { path: '/group/group_monthly_calendar', element: <GroupMonthCalendarPage /> },
+      { path: '/group/group_vibration_time', element: <GroupVibrationTimePage /> },
       // Dashboard Pages
       { path: '/consultant', element: <ConsultantPage /> },
       { path: '/config', element: <SettingsPage /> },

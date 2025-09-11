@@ -26,6 +26,7 @@ import SynastryCalendarPDF from '@/components-pdf/document/SynastryCalendarPDF';
 import SynastryCircleTimePDF from '@/components-pdf/document/SynastryCircleTimePDF';
 import SynastryDestinyPDF from '@/components-pdf/document/SynastryDestinityPDF';
 import SynastryPinnaclePDF from '@/components-pdf/document/SynastryPinnaclePDF';
+import SynastryVibrationTimePDF from '@/components-pdf/document/SynastryVibrationTimePDF';
 import TimeVibrationPDF from '@/components-pdf/document/TimeVibrationPDF';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
@@ -94,6 +95,7 @@ function Navbar() {
     'synastry_time_circle',
     'synastry_annual_calendar',
     'synastry_monthly_calendar',
+    'synastry_time_vibration',
     'group_pinnacle',
     'group_annual_returns',
     'group_time_circle',
@@ -157,6 +159,7 @@ function Navbar() {
       group_time_circle: GroupCircleTimePDF,
       group_annual_calendar: GroupCalendarPDF,
       group_monthly_calendar: GroupCalendarMonthPDF,
+      synastry_time_vibration: SynastryVibrationTimePDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
     console.log({ config });
@@ -224,6 +227,7 @@ function Navbar() {
           synastry_time_circle: { name: 'Círculo del Tiempo de Sinastria', fn: SynastryCircleTimePDF },
           synastry_annual_calendar: { name: 'Calendario Anual de Sinastria', fn: SynastryCalendarPDF },
           synastry_monthly_calendar: { name: 'Calendario Mensual de Sinastria', fn: SynastryCalendarMonthPDF },
+          synastry_time_vibration: { name: 'Vibración del Tiempo de Sinastria', fn: SynastryVibrationTimePDF },
         },
         group: {
           group_pinnacle: { name: 'Pináculo de Grupo', fn: GroupPinnaclePDF },

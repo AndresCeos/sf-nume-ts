@@ -10,21 +10,25 @@ import { GroupLine } from '../groupVibrationTime/GroupLine';
 import { GroupQuaterM } from '../groupVibrationTime/GroupQuaterM';
 import { GroupQuaterY } from '../groupVibrationTime/GroupQuaterY';
 import { GroupTimeCurve } from '../groupVibrationTime/GroupTimeCurve';
+import { SplittedDate } from '../../resources/Group';
 
-export const GroupVibrationTimePDF: React.FC<{ groupConsult, newDate }> = ({ groupConsult, newDate }) => [{
-  bg: gVibration,
-  children: <>
-    <GroupData groupConsult={groupConsult} newDate={newDate} />
-    <GroupEnergy groupConsult={groupConsult} newDate={newDate} />
-    <GroupCycle groupConsult={groupConsult} newDate={newDate} />
-    <GroupQuaterM groupConsult={groupConsult} newDate={newDate} />
-    <GroupLine groupConsult={groupConsult} newDate={newDate} />
-            </>,
-}, {
-  bg: gVibration2,
-  children: <>
-    <GroupData groupConsult={groupConsult} newDate={newDate} />
-    <GroupQuaterY groupConsult={groupConsult} newDate={newDate} />
-    <GroupTimeCurve groupConsult={groupConsult} newDate={newDate} />
-            </>,
-}];
+export default function GroupVibrationTimePDF({ groupConsult, date }: ({ groupConsult: Group, date: SplittedDate }): PDFPageConfig[] {
+  return[{
+    bg: gVibration,
+    children: <>
+      <GroupData groupConsult={groupConsult} newDate={newDate} />
+      <GroupEnergy groupConsult={groupConsult} newDate={newDate} />
+      <GroupCycle groupConsult={groupConsult} newDate={newDate} />
+      <GroupQuaterM groupConsult={groupConsult} newDate={newDate} />
+      <GroupLine groupConsult={groupConsult} newDate={newDate} />
+              </>,
+  },{
+    bg: gVibration2,
+    children: <>
+      <GroupData groupConsult={groupConsult} newDate={newDate} />
+      <GroupQuaterY groupConsult={groupConsult} newDate={newDate} />
+      <GroupTimeCurve groupConsult={groupConsult} newDate={newDate} />
+              </>,
+  }
+  ];
+}

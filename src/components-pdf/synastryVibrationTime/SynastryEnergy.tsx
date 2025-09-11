@@ -1,10 +1,23 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import Synastry, { SplittedDate } from '@/resources/Synastry';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
-export const SynastryEnergy: React.FC<{ synastry, newDate }> = ({ synastry, newDate }) => {
-  const currentYear = newDate.year();
-  const currentMonth = newDate.month() + 1;
-  const currentDay = newDate.date();
+export const energy = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '150px',
+    left: '15px',
+    width: '356px',
+  },
+  text: {
+    position: 'absolute',
+    fontSize: '12px',
+  },
+});
+
+export default function SynastryEnergy({ synastry, date, newDate }: { synastry: Synastry, date: SplittedDate, newDate:Date }) {
+  const currentYear = date.year;
+  const currentMonth = date.month;
+  const currentDay = date.day;
 
   return (
     <View style={energy.container}>
@@ -22,14 +35,14 @@ export const SynastryEnergy: React.FC<{ synastry, newDate }> = ({ synastry, newD
       </View>
       <View>
         <Text style={[energy.text, { top: 40, left: 140 }]}>
-          {synastry.calcCurrentQuater(newDate, currentYear)}
-          {synastry.calcCurrentQuaterISK(newDate, currentYear)}
+          {synastry.calcCurrentQuarter(newDate)}
+          {synastry.calcCurrentQuarterISK(newDate)}
         </Text>
       </View>
       <View>
         <Text style={[energy.text, { top: 50, left: 200 }]}>
-          {synastry.calcPersonalMonth(currentMonth, currentYear)}
-          {synastry.calcPersonalMonthISK(currentMonth, currentYear)}
+          {synastry.calcPersonalMonth(date)}
+          {synastry.calcPersonalMonthISK(date)}
         </Text>
       </View>
       <View>
@@ -40,23 +53,11 @@ export const SynastryEnergy: React.FC<{ synastry, newDate }> = ({ synastry, newD
       </View>
       <View>
         <Text style={[energy.text, { top: 75, left: 320 }]}>
-          {synastry.calcPersonalDay(currentDay, currentMonth, currentYear)}
-          {synastry.calcPersonalDayISK(currentDay, currentMonth, currentYear)}
+          {synastry.calcPersonalDay(date)}
+          {synastry.calcPersonalDayISK(date)}
         </Text>
       </View>
 
     </View>
   );
-};
-export const energy = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '150px',
-    left: '15px',
-    width: '356px',
-  },
-  text: {
-    position: 'absolute',
-    fontSize: '12px',
-  },
-});
+}

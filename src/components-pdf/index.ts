@@ -82,15 +82,14 @@ export { default as PinnacleTimeCurve } from './pinnacle/PinnacleTimeCurve';
 export { default as SynastryDestinyTable } from './synastryDestinyTable/SynastryDestinyTable';
 
 // Synastry Vibration Time Components
-/*
-export { SynastryData } from './synastryVibrationTime/SynastryData';
-export { SynastryEnergy } from './synastryVibrationTime/SynastryEnergy';
-export { SynastryLine } from './synastryVibrationTime/SynastryLine';
-export { SynastryNineCycle } from './synastryVibrationTime/SynastryNineCycle';
-export { SynastryTimeCurve } from './synastryVibrationTime/SynastryTimeCurve';
-export { SynastryVTQuaterM } from './synastryVibrationTime/SynastryVTQuaterM';
-export { SynastryVTQuaterY } from './synastryVibrationTime/SynastryVTQuaterY';
-*/
+
+export { default as SynastryData } from './synastryVibrationTime/SynastryData';
+export { default as SynastryEnergy } from './synastryVibrationTime/SynastryEnergy';
+export { default as SynastryLine } from './synastryVibrationTime/SynastryLine';
+export { default as SynastryNineCycle } from './synastryVibrationTime/SynastryNineCycle';
+export { default as SynastryTimeCurve } from './synastryVibrationTime/SynastryTimeCurve';
+export { default as SynastryVTQuaterM } from './synastryVibrationTime/SynastryVTQuaterM';
+export { default as SynastryVTQuaterY } from './synastryVibrationTime/SynastryVTQuaterY';
 
 // Vibration Time Components
 export { default as VibrationTimeCycle } from './VibrationTimeCycle';

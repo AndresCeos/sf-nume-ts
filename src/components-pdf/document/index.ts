@@ -1,4 +1,3 @@
-/* eslint-disable no-multiple-empty-lines */
 // PDF Document Components
 export { default as AnnualReturnsPDF } from './AnnualReturnsPDF';
 export { default as CalendarPDF } from './CalendarPDF';
@@ -16,6 +15,7 @@ export { default as PinnaclePDF } from './PinnaclePDF';
 export { default as SynastryAnnualReturnsPDF } from './SynastryAnnualReturnsPDF';
 export { default as SynastryDestinityPDF } from './SynastryDestinityPDF';
 export { default as SynastryPinnaclePDF } from './SynastryPinnaclePDF';
-export { SynastryVibrationTimePDF } from './SynastryVibrationTimePDF';
+export { default as SynastryVibrationTimePDF } from './SynastryVibrationTimePDF';
 export { default as TimeVibrationPDF } from './TimeVibrationPDF';
+// eslint-disable-next-line no-multiple-empty-lines
 
