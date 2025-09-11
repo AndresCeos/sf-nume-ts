@@ -58,8 +58,6 @@ export function GroupMembers({ members }: { members: Person[] }) {
 }
 
 export default function GroupData({ groupConsult }: { groupConsult: Group }) {
-  console.log(groupConsult);
-
   return (
     <View style={style.container}>
       <View style={style.person}>

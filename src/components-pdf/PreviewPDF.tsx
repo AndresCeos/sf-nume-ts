@@ -5,36 +5,40 @@ import { dateSelect, useConsultant, useGroup } from '../hooks';
 import { PDFViewer } from '@react-pdf/renderer';
 import { Group, Person, Synastry } from '../resources';
 import {
-  PDF, SynastryDestinityPDF
+  PDF, SynastryDestinityPDF,
 } from './document';
 
-export const PreviewPDF = () => {
-  const { userActive } = useSelector(state => state.users);
+export function PreviewPDF() {
+  const { userActive } = useSelector((state) => state.users);
   const isEmpty = Object.keys(userActive).length === 0;
-  const { consultant } = useConsultant()
-  const { group } = useGroup()
+  const { consultant } = useConsultant();
+  const { group } = useGroup();
 
-  const { names, lastName, scdLastName, date,
-    email, webSite, phone, logoURL } = useSelector(state => state.auth)
-  const { newDate } = dateSelect()
-  const profile = new Person({ name: names, lastName, scdLastName, birthDate: date })
-  const sidebar = { email, webSite, phone }
+  const {
+    names, lastName, scdLastName, date,
+    email, webSite, phone, logoURL,
+  } = useSelector((state) => state.auth);
+  const { newDate } = dateSelect();
+  const profile = new Person({
+    name: names, lastName, scdLastName, birthDate: date,
+  });
+  const sidebar = { email, webSite, phone };
   if (isEmpty) {
-    return <UnselectedConsultant />
+    return <UnselectedConsultant />;
   }
-  const groupDate = userActive.dateGroup
-  const groupConsult = new Group(group, groupDate)
+  const groupDate = userActive.dateGroup;
+  const groupConsult = new Group(group, groupDate);
 
-  const partnerActive = userActive.partner[0]
+  const partnerActive = userActive.partner[0];
   const partner = new Person({
     name: partnerActive.names,
     lastName: partnerActive.lastName,
     scdLastName: partnerActive.scdLastName,
     birthDate: partnerActive.date,
-    yearMeet: partnerActive.yearMeet
-  })
-  const synastry = new Synastry(consultant, partner)
-  console.log(synastry)
+    yearMeet: partnerActive.yearMeet,
+  });
+  const synastry = new Synastry(consultant, partner);
+  console.log(synastry);
   const config = [
     // PinnaclePDF, // ({ consultant }),
     // LifePathPDF(consultant, newDate),
@@ -56,14 +60,14 @@ export const PreviewPDF = () => {
     // ...GroupPinnaclePDF(groupConsult, newDate),
     // ...GroupVibrationTimePDF(groupConsult,newDate),
     // GroupAnnualReturnsPDF(groupConsult,newDate),
-  ]
+  ];
 
   return (
-    <div className='mx-10 my-16'>
+    <div className="mx-10 my-16">
       Preview
-      <PDFViewer width='100%' height='100%' style={{ height: 800 }}>
+      <PDFViewer width="100%" height="100%" style={{ height: 800 }}>
         <PDF consultant={consultant} config={config} profile={profile} date={newDate} sidebar={sidebar} logoURL={logoURL} />
       </PDFViewer>
     </div>
-  )
+  );
 }

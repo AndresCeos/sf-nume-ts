@@ -12,7 +12,7 @@ export const PDF_CONFIG = {
       right: 20,
     },
   },
-  
+
   // Font settings
   fonts: {
     primary: 'Open Sans',
@@ -25,7 +25,7 @@ export const PDF_CONFIG = {
       title: 16,
     },
   },
-  
+
   // Colors
   colors: {
     primary: '#000000',
@@ -34,7 +34,7 @@ export const PDF_CONFIG = {
     background: '#ffffff',
     sidebar: '#f0f0f0',
   },
-  
+
   // Layout settings
   layout: {
     header: {
@@ -49,7 +49,7 @@ export const PDF_CONFIG = {
       minHeight: 700,
     },
   },
-  
+
   // Copyright and branding
   branding: {
     copyright: 'Copyright 2022, Laura L. Rodríguez. Prohibida su reproducción y distribución.',
@@ -124,27 +124,21 @@ export const PDF_UTILS = {
     if (!date) return '';
     return date.format('DD/MM/YYYY');
   },
-  
+
   // Calculate age
   calculateAge: (birthDate: any, currentDate: any): number => {
     if (!birthDate || !currentDate) return 0;
     return currentDate.diff(birthDate, 'year');
   },
-  
+
   // Validate PDF data
-  validatePDFData: (data: any): boolean => {
-    return data && typeof data === 'object' && Object.keys(data).length > 0;
-  },
-  
+  validatePDFData: (data: any): boolean => data && typeof data === 'object' && Object.keys(data).length > 0,
+
   // Generate unique ID for PDF elements
-  generateId: (): string => {
-    return `pdf_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  },
-  
+  generateId: (): string => `pdf_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+
   // Check if component should be rendered
-  shouldRender: (condition: boolean, fallback?: any): any => {
-    return condition ? true : fallback || false;
-  },
+  shouldRender: (condition: boolean, fallback?: any): any => (condition ? true : fallback || false),
 };
 
 // Export all configurations

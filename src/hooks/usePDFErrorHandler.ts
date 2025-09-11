@@ -1,6 +1,6 @@
 import {
-    ErrorHandlerConfig,
-    PDFError, PDFErrorContext, PDFValidationResult,
+  ErrorHandlerConfig,
+  PDFError, PDFErrorContext, PDFValidationResult,
 } from '@/types/pdf.types';
 import { useCallback, useState } from 'react';
 

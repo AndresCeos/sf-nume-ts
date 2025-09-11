@@ -1,12 +1,13 @@
+/* eslint-disable no-multiple-empty-lines */
 // PDF Document Components
 export { default as AnnualReturnsPDF } from './AnnualReturnsPDF';
 export { default as CalendarPDF } from './CalendarPDF';
 export { default as CircleTimePDF } from './CircleTimePDF';
-export { CompatibilityTablePDF } from './CompatibilityTablePDF';
+export { default as CompatibilityTablePDF } from './CompatibilityTablePDF';
 export { default as CreateNamePDF } from './CreateNamePDF';
 export { default as DestinyPDF } from './DestinyPDF';
-export { GroupAnnualReturnsPDF } from './GroupAnnualReturnsPDF';
-export { GroupPinnaclePDF } from './GroupPinnaclePDF';
+export { default as GroupAnnualReturnsPDF } from './GroupAnnualReturnsPDF';
+export { default as GroupPinnaclePDF } from './GroupPinnaclePDF';
 export { default as LifePathPDF } from './LifePathPDF';
 export { default as MonthPDF } from './MonthPDF';
 export { default as NamePDF } from './NamePDF';

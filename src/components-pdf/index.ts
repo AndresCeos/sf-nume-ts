@@ -1,57 +1,58 @@
+/* eslint-disable import/export */
 // Main PDF Components
 
 export { default as AnnualReturnsVibration } from './AnnualReturnsVibration';
 export { default as AnnualReturnVibration } from './AnnualReturnVibration';
 
 // Calendar Components
-export { CalendarHead } from './calendarAnual/CalendarHead';
-export { CalendarMonths } from './calendarAnual/CalendarMonths';
-export { CalendarMonths2 } from './calendarAnual/CalendarMonths2';
-export { CalendarHeadMonth } from './calendarMonth/CalendarHeadMonth';
-export { CalendarMonth } from './calendarMonth/CalendarMonth';
+export { default as CalendarHead } from './calendarAnual/CalendarHead';
+export { default as CalendarMonths } from './calendarAnual/CalendarMonths';
+export { default as CalendarMonths2 } from './calendarAnual/CalendarMonths2';
+export { default as CalendarHeadMonth } from './calendarMonth/CalendarHeadMonth';
+export { default as CalendarMonth } from './calendarMonth/CalendarMonth';
 
 // Circle Time Components
-export { Circle } from './circleTime/Circle';
-export { MonthCircle } from './circleTime/MonthCircle';
+export { default as Circle } from './circleTime/Circle';
+export { default as MonthCircle } from './circleTime/MonthCircle';
 
 // Compatibility Components
-export { CompatibilityValues } from './compatibilityTable/CompatibilityValues';
+export { default as CompatibilityValues } from './compatibilityTable/CompatibilityValues';
 
 // Create Name Components
-export { AnnualReturns as CreateNameAnnualReturns } from './createName/AnnualReturns';
-export { CreateBreakdown } from './createName/CreateBreakdown';
-export { CreateName } from './createName/CreateName';
-export { CreateNumeric } from './createName/CreateNumeric';
-export { CreatePinnacle } from './createName/CreatePinnacle';
-export { CreateTable } from './createName/CreateTable';
+export { default as AnnualReturns } from './createName/AnnualReturns';
+export { default as CreateBreakdown } from './createName/CreateBreakdown';
+export { default as CreateName } from './createName/CreateName';
+export { default as CreateNumeric } from './createName/CreateNumeric';
+export { default as CreatePinnacle } from './createName/CreatePinnacle';
+export { default as CreateTable } from './createName/CreateTable';
 
 // Destiny Table Components
-export { DestinityNumericalValues } from './destinityTable/DestinityNumericalValues';
+export { default as DestinityNumericalValues } from './destinityTable/DestinityNumericalValues';
 export { default as DestinityTable } from './destinityTable/DestinityTable';
 
 // Group Annual Returns Components
-export { GroupAnnualReturns } from './groupAnnualReturns/GroupAnnualReturns';
+export { default as GroupAnnualReturns } from './groupAnnualReturns/GroupAnnualReturns';
 
 // Group Pinnacle Components
-export { GroupData } from './groupPinnacle/GroupData';
-export { GroupName1 } from './groupPinnacle/GroupName1';
-export { GroupName2 } from './groupPinnacle/GroupName2';
-export { GroupName3 } from './groupPinnacle/GroupName3';
-export { GroupPinacle1 } from './groupPinnacle/GroupPinacle1';
-export { GroupPinacle2 } from './groupPinnacle/GroupPinacle2';
-export { GroupPinacle3 } from './groupPinnacle/GroupPinacle3';
-export { GroupRetornos1 } from './groupPinnacle/GroupRetornos1';
-export { GroupRetornos2 } from './groupPinnacle/GroupRetornos2';
-export { GroupRetornos3 } from './groupPinnacle/GroupRetornos3';
+export { default as GroupData } from './groupPinnacle/GroupData';
+export { default as GroupName1 } from './groupPinnacle/GroupName1';
+export { default as GroupName2 } from './groupPinnacle/GroupName2';
+export { default as GroupName3 } from './groupPinnacle/GroupName3';
+export { default as GroupPinacle1 } from './groupPinnacle/GroupPinacle1';
+export { default as GroupPinacle2 } from './groupPinnacle/GroupPinacle2';
+export { default as GroupPinacle3 } from './groupPinnacle/GroupPinacle3';
+export { default as GroupRetornos1 } from './groupPinnacle/GroupRetornos1';
+export { default as GroupRetornos2 } from './groupPinnacle/GroupRetornos2';
+export { default as GroupRetornos3 } from './groupPinnacle/GroupRetornos3';
 
 // Group Vibration Time Components
-export { GroupCycle } from './groupVibrationTime/GroupCycle';
-export { GroupEnergy } from './groupVibrationTime/GroupEnergy';
-export { GroupLine } from './groupVibrationTime/GroupLine';
-export { GroupQuaterM } from './groupVibrationTime/GroupQuaterM';
-export { GroupQuaterY } from './groupVibrationTime/GroupQuaterY';
-export { GroupTimeCurve } from './groupVibrationTime/GroupTimeCurve';
-
+/* export { default as GroupCycle } from './groupVibrationTime/GroupCycle';
+export { default as GroupEnergy } from './groupVibrationTime/GroupEnergy';
+export { default  GroupLine } from './groupVibrationTime/GroupLine';
+export { default as GroupQuaterM } from './groupVibrationTime/GroupQuaterM';
+export { default as GroupQuaterY } from './groupVibrationTime/GroupQuaterY';
+export { default as GroupTimeCurve } from './groupVibrationTime/GroupTimeCurve';
+*/
 // Life Path Components
 export { default as LifePath9Years } from './lifePath/LifePath9Years';
 export { default as LifePathDialogs } from './lifePath/LifePathDialogs';
@@ -81,6 +82,7 @@ export { default as PinnacleTimeCurve } from './pinnacle/PinnacleTimeCurve';
 export { default as SynastryDestinyTable } from './synastryDestinyTable/SynastryDestinyTable';
 
 // Synastry Vibration Time Components
+/*
 export { SynastryData } from './synastryVibrationTime/SynastryData';
 export { SynastryEnergy } from './synastryVibrationTime/SynastryEnergy';
 export { SynastryLine } from './synastryVibrationTime/SynastryLine';
@@ -88,6 +90,7 @@ export { SynastryNineCycle } from './synastryVibrationTime/SynastryNineCycle';
 export { SynastryTimeCurve } from './synastryVibrationTime/SynastryTimeCurve';
 export { SynastryVTQuaterM } from './synastryVibrationTime/SynastryVTQuaterM';
 export { SynastryVTQuaterY } from './synastryVibrationTime/SynastryVTQuaterY';
+*/
 
 // Vibration Time Components
 export { default as VibrationTimeCycle } from './VibrationTimeCycle';

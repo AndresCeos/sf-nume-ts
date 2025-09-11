@@ -2,229 +2,258 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 import React from 'react';
 
 export const SynastryVTQuarterY: React.FC<{ synastry, newDate }> = ({ synastry, newDate }) => {
-  const cycleNineY = synastry.getNineYearCycle(newDate.year())
-  const listOfMonths = synastry.getCustomMonths()
-  const indexOfMonth = listOfMonths.findIndex(i => i === 'Enero')
-  const m1 = listOfMonths[0]
-  const m2 = listOfMonths[1]
-  const m3 = listOfMonths[2]
-  const m4 = listOfMonths[3]
-  const m5 = listOfMonths[4]
-  const m6 = listOfMonths[5]
-  const m7 = listOfMonths[6]
-  const m8 = listOfMonths[7]
-  const m9 = listOfMonths[8]
-  const m10 = listOfMonths[9]
-  const m11 = listOfMonths[10]
-  const m12 = listOfMonths[11]
-  const m13 = listOfMonths[12]
-  const FontSelect = () => {
+  const cycleNineY = synastry.getNineYearCycle(newDate.year());
+  const listOfMonths = synastry.getCustomMonths();
+  const indexOfMonth = listOfMonths.findIndex((i) => i === 'Enero');
+  const m1 = listOfMonths[0];
+  const m2 = listOfMonths[1];
+  const m3 = listOfMonths[2];
+  const m4 = listOfMonths[3];
+  const m5 = listOfMonths[4];
+  const m6 = listOfMonths[5];
+  const m7 = listOfMonths[6];
+  const m8 = listOfMonths[7];
+  const m9 = listOfMonths[8];
+  const m10 = listOfMonths[9];
+  const m11 = listOfMonths[10];
+  const m12 = listOfMonths[11];
+  const m13 = listOfMonths[12];
+  function FontSelect() {
     if (indexOfMonth === 0) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ2, { left: '258px', }]} />
-          <Text style={[quaterY.pos10, { left: '258px', }]} />
-          <Text style={[quaterY.pos11, { left: '258px', }]} />
-          <Text style={[quaterY.pos12, { left: '258px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ2, { left: '258px' }]} />
+          <Text style={[quaterY.pos10, { left: '258px' }]} />
+          <Text style={[quaterY.pos11, { left: '258px' }]} />
+          <Text style={[quaterY.pos12, { left: '258px' }]} />
           {(synastry.birthDate.date() > 1)
-          ? <><Text style={[quaterY.pos13, { left: '258px', }]} /><Text style={[quaterY.lineEnero, { top: '35px' }]} /></>
-          : <><Text style={[quaterY.pos13, { left: '208px', }]} /><Text style={[quaterY.lineEnero, { top: '191px' }]} /></>}
+            ? (
+              <>
+                <Text style={[quaterY.pos13, { left: '258px' }]} />
+                <Text style={[quaterY.lineEnero, { top: '35px' }]} />
+              </>
+            )
+            : (
+              <>
+                <Text style={[quaterY.pos13, { left: '208px' }]} />
+                <Text style={[quaterY.lineEnero, { top: '191px' }]} />
+              </>
+            )}
         </>
-      )
+      );
     }
     if (indexOfMonth === 1) {
       return (
         <>
-          <Text style={[quaterY.backQ2, { left: '208px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos1, { left: '258px', }]} />
-          <Text style={[quaterY.pos2, { left: '208px', }]} />
-          <Text style={[quaterY.pos3, { left: '208px', }]} />
-          <Text style={[quaterY.pos4, { left: '208px', }]} />
-          <Text style={[quaterY.pos5, { left: '208px', }]} />
+          <Text style={[quaterY.backQ2, { left: '208px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos1, { left: '258px' }]} />
+          <Text style={[quaterY.pos2, { left: '208px' }]} />
+          <Text style={[quaterY.pos3, { left: '208px' }]} />
+          <Text style={[quaterY.pos4, { left: '208px' }]} />
+          <Text style={[quaterY.pos5, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '48px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 2) {
       return (
         <>
-          <Text style={[quaterY.backQ2, { left: '208px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos1, { left: '258px', }]} />
-          <Text style={[quaterY.pos2, { left: '258px', }]} />
-          <Text style={[quaterY.pos3, { left: '208px', }]} />
-          <Text style={[quaterY.pos4, { left: '208px', }]} />
-          <Text style={[quaterY.pos5, { left: '208px', }]} />
+          <Text style={[quaterY.backQ2, { left: '208px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos1, { left: '258px' }]} />
+          <Text style={[quaterY.pos2, { left: '258px' }]} />
+          <Text style={[quaterY.pos3, { left: '208px' }]} />
+          <Text style={[quaterY.pos4, { left: '208px' }]} />
+          <Text style={[quaterY.pos5, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '61px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 3) {
       return (
         <>
-          <Text style={[quaterY.backQ2, { left: '208px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos1, { left: '258px', }]} />
-          <Text style={[quaterY.pos2, { left: '258px', }]} />
-          <Text style={[quaterY.pos3, { left: '258px', }]} />
-          <Text style={[quaterY.pos4, { left: '208px', }]} />
-          <Text style={[quaterY.pos5, { left: '208px', }]} />
+          <Text style={[quaterY.backQ2, { left: '208px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos1, { left: '258px' }]} />
+          <Text style={[quaterY.pos2, { left: '258px' }]} />
+          <Text style={[quaterY.pos3, { left: '258px' }]} />
+          <Text style={[quaterY.pos4, { left: '208px' }]} />
+          <Text style={[quaterY.pos5, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '74px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 4) {
       return (
         <>
-          <Text style={[quaterY.backQ2, { left: '208px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos1, { left: '258px', }]} />
-          <Text style={[quaterY.pos2, { left: '258px', }]} />
-          <Text style={[quaterY.pos3, { left: '258px', }]} />
-          <Text style={[quaterY.pos4, { left: '258px', }]} />
-          <Text style={[quaterY.pos5, { left: '208px', }]} />
+          <Text style={[quaterY.backQ2, { left: '208px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos1, { left: '258px' }]} />
+          <Text style={[quaterY.pos2, { left: '258px' }]} />
+          <Text style={[quaterY.pos3, { left: '258px' }]} />
+          <Text style={[quaterY.pos4, { left: '258px' }]} />
+          <Text style={[quaterY.pos5, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '87px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 5) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ2, { left: '208px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ2, { left: '208px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '100px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 6) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos6, { left: '258px', }]} />
-          <Text style={[quaterY.pos7, { left: '208px', }]} />
-          <Text style={[quaterY.pos8, { left: '208px', }]} />
-          <Text style={[quaterY.pos9, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos6, { left: '258px' }]} />
+          <Text style={[quaterY.pos7, { left: '208px' }]} />
+          <Text style={[quaterY.pos8, { left: '208px' }]} />
+          <Text style={[quaterY.pos9, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '113px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 7) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos6, { left: '258px', }]} />
-          <Text style={[quaterY.pos7, { left: '258px', }]} />
-          <Text style={[quaterY.pos8, { left: '208px', }]} />
-          <Text style={[quaterY.pos9, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos6, { left: '258px' }]} />
+          <Text style={[quaterY.pos7, { left: '258px' }]} />
+          <Text style={[quaterY.pos8, { left: '208px' }]} />
+          <Text style={[quaterY.pos9, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '126px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 8) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
-          <Text style={[quaterY.pos6, { left: '258px', }]} />
-          <Text style={[quaterY.pos7, { left: '258px', }]} />
-          <Text style={[quaterY.pos8, { left: '258px', }]} />
-          <Text style={[quaterY.pos9, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
+          <Text style={[quaterY.pos6, { left: '258px' }]} />
+          <Text style={[quaterY.pos7, { left: '258px' }]} />
+          <Text style={[quaterY.pos8, { left: '258px' }]} />
+          <Text style={[quaterY.pos9, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '139px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 9) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ2, { left: '258px', }]} />
-          <Text style={[quaterY.backQ3, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ2, { left: '258px' }]} />
+          <Text style={[quaterY.backQ3, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '152px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 10) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ2, { left: '258px', }]} />
-          <Text style={[quaterY.pos10, { left: '258px', }]} />
-          <Text style={[quaterY.pos11, { left: '208px', }]} />
-          <Text style={[quaterY.pos12, { left: '208px', }]} />
-          <Text style={[quaterY.pos13, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ2, { left: '258px' }]} />
+          <Text style={[quaterY.pos10, { left: '258px' }]} />
+          <Text style={[quaterY.pos11, { left: '208px' }]} />
+          <Text style={[quaterY.pos12, { left: '208px' }]} />
+          <Text style={[quaterY.pos13, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '165px' }]} />
         </>
-      )
+      );
     }
     if (indexOfMonth === 11) {
       return (
         <>
-          <Text style={[quaterY.backQ1, { left: '258px', }]} />
-          <Text style={[quaterY.backQ2, { left: '258px', }]} />
-          <Text style={[quaterY.pos10, { left: '258px', }]} />
-          <Text style={[quaterY.pos11, { left: '258px', }]} />
-          <Text style={[quaterY.pos12, { left: '208px', }]} />
-          <Text style={[quaterY.pos13, { left: '208px', }]} />
+          <Text style={[quaterY.backQ1, { left: '258px' }]} />
+          <Text style={[quaterY.backQ2, { left: '258px' }]} />
+          <Text style={[quaterY.pos10, { left: '258px' }]} />
+          <Text style={[quaterY.pos11, { left: '258px' }]} />
+          <Text style={[quaterY.pos12, { left: '208px' }]} />
+          <Text style={[quaterY.pos13, { left: '208px' }]} />
           <Text style={[quaterY.lineEnero, { top: '178px' }]} />
         </>
-      )
+      );
     }
-    return ''
+    return '';
   }
-  const Ciclo = () => {
+  function Ciclo() {
     return (
       <View style={quaterY.flex}>
-        {cycleNineY.map(m => (
-        <View>
+        {cycleNineY.map((m) => (
+          <View>
             {(m === newDate.year()) ? <Text style={[quaterY.item, quaterY.bg_main_select]}>{m}</Text> : <Text style={[quaterY.item, quaterY.bg_main]}>{m}</Text>}
-            {(m === newDate.year()) ? <Text style={[quaterY.item, quaterY.bg_sec, { color: '#000' }, { fontWeight: 'bold' }]}>{synastry.calcPersonalYear(m)}{synastry.calcPersonalYearISK(m)}</Text> : <Text style={[quaterY.item, quaterY.bg_sec, { color: '#000' }]}>{synastry.calcPersonalYear(m)}{synastry.calcPersonalYearISK(m)}</Text>}
-            <Text style={quaterY.itemQ1}>{synastry.getQuaterOne()}{synastry.getQuaterOneISK()}</Text>
-            <Text style={quaterY.itemQ23}>{synastry.getQuaterTwo(m)}{synastry.getQuaterTwoISK(m)}</Text>
-            <Text style={quaterY.itemQ23}>{synastry.getQuaterThree(m)}{synastry.getQuaterThreeISK(m)}</Text>
+            {(m === newDate.year()) ? (
+              <Text style={[quaterY.item, quaterY.bg_sec, { color: '#000' }, { fontWeight: 'bold' }]}>
+                {synastry.calcPersonalYear(m)}
+                {synastry.calcPersonalYearISK(m)}
+              </Text>
+            ) : (
+              <Text style={[quaterY.item, quaterY.bg_sec, { color: '#000' }]}>
+                {synastry.calcPersonalYear(m)}
+                {synastry.calcPersonalYearISK(m)}
+              </Text>
+            )}
+            <Text style={quaterY.itemQ1}>
+              {synastry.getQuaterOne()}
+              {synastry.getQuaterOneISK()}
+            </Text>
+            <Text style={quaterY.itemQ23}>
+              {synastry.getQuaterTwo(m)}
+              {synastry.getQuaterTwoISK(m)}
+            </Text>
+            <Text style={quaterY.itemQ23}>
+              {synastry.getQuaterThree(m)}
+              {synastry.getQuaterThreeISK(m)}
+            </Text>
             {indexOfMonth >= 0 && indexOfMonth < 5 ? <Text style={quaterY.datePos1Up}>{m}</Text> : ''}
             {indexOfMonth !== 0 && indexOfMonth < 5 ? <Text style={quaterY.datePos1Down}>{m + 1}</Text> : ''}
             {indexOfMonth > 4 && indexOfMonth < 9 ? <Text style={quaterY.datePos2Up}>{m}</Text> : ''}
             {indexOfMonth > 4 && indexOfMonth < 9 ? <Text style={quaterY.datePos2Down}>{m + 1}</Text> : ''}
             {indexOfMonth > 8 && indexOfMonth < 12 ? <Text style={quaterY.datePos3Up}>{m}</Text> : ''}
             {indexOfMonth > 8 && indexOfMonth < 12 ? <Text style={quaterY.datePos3Down}>{m + 1}</Text> : ''}
-        </View>
-      ))}
+          </View>
+        ))}
       </View>
-    )
+    );
   }
-return (
-  <View style={quaterY.container}>
-    <View style={quaterY.wrap}>
-    <FontSelect />
-      <View style={quaterY.flex}>
-      <View>
-        <Text style={[quaterY.item, quaterY.bg_main]}>Año Calend</Text>
-        <Text style={[quaterY.item, quaterY.bg_sec, { fontWeight: 'bold' }, { color: '#000' }]}>A. Personal</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m1}</Text>
-        <Text style={[quaterY.item, quaterY.font_2]}>{m2}</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m3}</Text>
-        <Text style={[quaterY.item, quaterY.font_2]}>{m4}</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m5}</Text>
-        <Text style={[quaterY.item, quaterY.font_2]}>{m6}</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m7}</Text>
-        <Text style={[quaterY.item, quaterY.font_2]}>{m8}</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m9}</Text>
-        <Text style={[quaterY.item, quaterY.font_2]}>{m10}</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m11}</Text>
-        <Text style={[quaterY.item, quaterY.font_2]}>{m12}</Text>
-        <Text style={[quaterY.item, quaterY.font_1]}>{m13}</Text>
-      </View>
-      <Ciclo />
+  return (
+    <View style={quaterY.container}>
+      <View style={quaterY.wrap}>
+        <FontSelect />
+        <View style={quaterY.flex}>
+          <View>
+            <Text style={[quaterY.item, quaterY.bg_main]}>Año Calend</Text>
+            <Text style={[quaterY.item, quaterY.bg_sec, { fontWeight: 'bold' }, { color: '#000' }]}>A. Personal</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m1}</Text>
+            <Text style={[quaterY.item, quaterY.font_2]}>{m2}</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m3}</Text>
+            <Text style={[quaterY.item, quaterY.font_2]}>{m4}</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m5}</Text>
+            <Text style={[quaterY.item, quaterY.font_2]}>{m6}</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m7}</Text>
+            <Text style={[quaterY.item, quaterY.font_2]}>{m8}</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m9}</Text>
+            <Text style={[quaterY.item, quaterY.font_2]}>{m10}</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m11}</Text>
+            <Text style={[quaterY.item, quaterY.font_2]}>{m12}</Text>
+            <Text style={[quaterY.item, quaterY.font_1]}>{m13}</Text>
+          </View>
+          <Ciclo />
+        </View>
       </View>
     </View>
-  </View>
-)
-}
+  );
+};
 const quaterY = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -247,7 +276,7 @@ const quaterY = StyleSheet.create({
     flexDirection: 'column',
     height: '224px',
     padding: '8px',
-    position: 'relative'
+    position: 'relative',
   },
   item: {
     width: '50px',
@@ -258,7 +287,7 @@ const quaterY = StyleSheet.create({
     paddingTop: '2px',
     zIndex: '2',
     fontFamily: 'Open Sans',
-    color: '#7E7E7E'
+    color: '#7E7E7E',
   },
   backQ1: {
     position: 'absolute',
@@ -448,7 +477,7 @@ const quaterY = StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: '25px',
     color: '#7E7E7E',
-    paddingTop: '8px'
+    paddingTop: '8px',
   },
   itemQ23: {
     width: '50px',
@@ -460,33 +489,33 @@ const quaterY = StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: '25px',
     color: '#7E7E7E',
-    paddingTop: '6px'
+    paddingTop: '6px',
   },
   flex: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   bg_main: {
     backgroundColor: '#320033',
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   bg_main_select: {
     backgroundColor: '#320033',
     color: '#E3AC5A',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   bg_sec: {
-    backgroundColor: '#AD99AD'
+    backgroundColor: '#AD99AD',
   },
   font_1: {
     backgroundColor: '#D6D6D6',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   font_2: {
     backgroundColor: '#F0F0F0',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   lineEnero: {
     height: '2px',
@@ -494,7 +523,7 @@ const quaterY = StyleSheet.create({
     zIndex: '9',
     backgroundColor: '#EBD398',
     position: 'absolute',
-    left: '8px'
+    left: '8px',
   },
   datePos1Up: {
     position: 'absolute',
@@ -504,7 +533,7 @@ const quaterY = StyleSheet.create({
     color: '#7E7E7E',
     width: '50px',
     height: '13px',
-    paddingTop: '3px'
+    paddingTop: '3px',
   },
   datePos1Down: {
     position: 'absolute',
@@ -514,7 +543,7 @@ const quaterY = StyleSheet.create({
     color: '#7E7E7E',
     width: '50px',
     height: '13px',
-    paddingTop: '3px'
+    paddingTop: '3px',
   },
   datePos2Up: {
     position: 'absolute',
@@ -524,7 +553,7 @@ const quaterY = StyleSheet.create({
     color: '#7E7E7E',
     width: '50px',
     height: '13px',
-    paddingTop: '3px'
+    paddingTop: '3px',
   },
   datePos2Down: {
     position: 'absolute',
@@ -534,7 +563,7 @@ const quaterY = StyleSheet.create({
     color: '#7E7E7E',
     width: '50px',
     height: '13px',
-    paddingTop: '3px'
+    paddingTop: '3px',
   },
   datePos3Up: {
     position: 'absolute',
@@ -544,7 +573,7 @@ const quaterY = StyleSheet.create({
     color: '#7E7E7E',
     width: '50px',
     height: '13px',
-    paddingTop: '3px'
+    paddingTop: '3px',
   },
   datePos3Down: {
     position: 'absolute',
@@ -554,6 +583,6 @@ const quaterY = StyleSheet.create({
     color: '#7E7E7E',
     width: '50px',
     height: '13px',
-    paddingTop: '3px'
-  }
-})
+    paddingTop: '3px',
+  },
+});

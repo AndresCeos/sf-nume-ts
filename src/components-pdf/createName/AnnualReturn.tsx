@@ -1,43 +1,44 @@
 import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer'
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
-
-export const AnnualReturn: React.FC<{ annualReturn }> = ({ annualReturn }) => {
-  return (
-    <>
-      <View style={aReturn.return_year}>
-        <Text>{annualReturn.yearToCalculate}</Text>
-      </View>
-      <View style={aReturn.return_age}>
-        <Text>{annualReturn.age} años</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_top]}>
-        <Text>{annualReturn.F}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_sl_left]}>
-        <Text>{annualReturn.D}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_sl_mid]}>
-        <Text>{annualReturn.G}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_sl_rig]}>
-        <Text>{annualReturn.E}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_tl_left]}>
-        <Text>{annualReturn.A}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_tl_mid]}>
-        <Text>{annualReturn.B}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_tl_rig]}>
-        <Text>{annualReturn.C}</Text>
-      </View>
-      <View style={[aReturn.circle, aReturn.return_bottom]}>
-        <Text>{annualReturn.H}</Text>
-      </View>
-    </>
-  )
-}
+export const AnnualReturn: React.FC<{ annualReturn }> = ({ annualReturn }) => (
+  <>
+    <View style={aReturn.return_year}>
+      <Text>{annualReturn.yearToCalculate}</Text>
+    </View>
+    <View style={aReturn.return_age}>
+      <Text>
+        {annualReturn.age}
+        {' '}
+        años
+      </Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_top]}>
+      <Text>{annualReturn.F}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_sl_left]}>
+      <Text>{annualReturn.D}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_sl_mid]}>
+      <Text>{annualReturn.G}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_sl_rig]}>
+      <Text>{annualReturn.E}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_tl_left]}>
+      <Text>{annualReturn.A}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_tl_mid]}>
+      <Text>{annualReturn.B}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_tl_rig]}>
+      <Text>{annualReturn.C}</Text>
+    </View>
+    <View style={[aReturn.circle, aReturn.return_bottom]}>
+      <Text>{annualReturn.H}</Text>
+    </View>
+  </>
+);
 
 export const aReturn = StyleSheet.create({
   return_year: {
@@ -50,7 +51,7 @@ export const aReturn = StyleSheet.create({
     alignItems: 'center',
     color: '#000',
     top: '5px',
-    left: '40px'
+    left: '40px',
 
   },
   return_age: {
@@ -63,7 +64,7 @@ export const aReturn = StyleSheet.create({
     alignItems: 'center',
     color: '#000',
     top: '5px',
-    left: '99px'
+    left: '99px',
 
   },
   circle: {
@@ -78,37 +79,37 @@ export const aReturn = StyleSheet.create({
   },
   return_top: {
     top: '42px',
-    left: '75px'
+    left: '75px',
 
   },
   return_sl_left: {
     top: '64px',
-    left: '51px'
+    left: '51px',
 
   },
   return_sl_mid: {
     top: '64px',
-    left: '75px'
+    left: '75px',
   },
   return_sl_rig: {
     top: '64px',
-    left: '99px'
+    left: '99px',
 
   },
   return_tl_left: {
     top: '88px',
-    left: '30px'
+    left: '30px',
   },
   return_tl_mid: {
     top: '88px',
-    left: '75px'
+    left: '75px',
   },
   return_tl_rig: {
     top: '86px',
-    left: '121px'
+    left: '121px',
   },
   return_bottom: {
     top: '111px',
-    left: '75px'
+    left: '75px',
   },
-})
+});

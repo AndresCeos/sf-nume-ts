@@ -1,9 +1,11 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from '@react-pdf/renderer'
-import bgTimeCurve from '../assets/s-time-vibration-time-bk.png'
+import {
+  Image, StyleSheet, Text, View,
+} from '@react-pdf/renderer';
+import bgTimeCurve from '../assets/s-time-vibration-time-bk.png';
 
 export const SynastryTimeCurve: React.FC<{ synastry, newDate }> = ({ synastry, newDate }) => {
-  const activeStage = synastry.getLifeStageNumber(newDate.year(), newDate)
+  const activeStage = synastry.getLifeStageNumber(newDate.year(), newDate);
   return (
     <View style={[timeCurve.container]}>
 
@@ -12,46 +14,67 @@ export const SynastryTimeCurve: React.FC<{ synastry, newDate }> = ({ synastry, n
       </View>
       <View style={[timeCurve.wrap, { zIndex: 2 }]}>
         <View style={[timeCurve.item, timeCurve.s1_duration]}>
-        <Text>{synastry.getK()}</Text>
+          <Text>{synastry.getK()}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.s2_duration]}>
-        <Text>{synastry.getL()}</Text>
+          <Text>{synastry.getL()}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.s3_duration]}>
-        <Text>{synastry.getM()}</Text>
+          <Text>{synastry.getM()}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.s4_duration]}>
-        <Text>{synastry.getN()}</Text>
+          <Text>{synastry.getN()}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.s5_duration]}>
-        <Text>{synastry.getM()}</Text>
+          <Text>{synastry.getM()}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.s6_duration]}>
-        <Text>{synastry.getL()}</Text>
+          <Text>{synastry.getL()}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.s7_duration]}>
           <Text>{synastry.getK()}</Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s1_vibration]}>
-          <Text>{synastry.calcLifeStage(1)}{synastry.calcLifeStageISK(1)}</Text>
+          <Text>
+            {synastry.calcLifeStage(1)}
+            {synastry.calcLifeStageISK(1)}
+          </Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s2_vibration]}>
-          <Text>{synastry.calcLifeStage(2)}{synastry.calcLifeStageISK(2)}</Text>
+          <Text>
+            {synastry.calcLifeStage(2)}
+            {synastry.calcLifeStageISK(2)}
+          </Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s3_vibration]}>
-          <Text>{synastry.calcLifeStage(3)}{synastry.calcLifeStageISK(3)}</Text>
+          <Text>
+            {synastry.calcLifeStage(3)}
+            {synastry.calcLifeStageISK(3)}
+          </Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s4_vibration]}>
-          <Text>{synastry.calcLifeStage(4)}{synastry.calcLifeStageISK(4)}</Text>
+          <Text>
+            {synastry.calcLifeStage(4)}
+            {synastry.calcLifeStageISK(4)}
+          </Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s5_vibration]}>
-          <Text>{synastry.calcLifeStage(3)}{synastry.calcLifeStageISK(3)}</Text>
+          <Text>
+            {synastry.calcLifeStage(3)}
+            {synastry.calcLifeStageISK(3)}
+          </Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s6_vibration]}>
-          <Text>{synastry.calcLifeStage(2)}{synastry.calcLifeStageISK(2)}</Text>
+          <Text>
+            {synastry.calcLifeStage(2)}
+            {synastry.calcLifeStageISK(2)}
+          </Text>
         </View>
         <View style={[timeCurve.circle, timeCurve.s7_vibration]}>
-          <Text>{synastry.calcLifeStage(1)}{synastry.calcLifeStageISK(1)}</Text>
+          <Text>
+            {synastry.calcLifeStage(1)}
+            {synastry.calcLifeStageISK(1)}
+          </Text>
         </View>
 
         <View style={[timeCurve.item, timeCurve.s1_begining]}>
@@ -76,11 +99,12 @@ export const SynastryTimeCurve: React.FC<{ synastry, newDate }> = ({ synastry, n
           <Text>{synastry.calcLifeStageDuration(6)}</Text>
         </View>
         <View style={[timeCurve.item, timeCurve.ending]}>
-          <Text>En adelante...
+          <Text>
+            En adelante...
           </Text>
         </View>
       </View>
-       <View style={{ zIndex: 4 }}>
+      <View style={{ zIndex: 4 }}>
         {(activeStage === 1) ? <View style={[timeCurve.activeLarge, timeCurve.active_1]} /> : null}
         {(activeStage === 2) ? <View style={[timeCurve.active, timeCurve.active_2]} /> : null}
         {(activeStage === 3) ? <View style={[timeCurve.active, timeCurve.active_3]} /> : null}
@@ -89,10 +113,10 @@ export const SynastryTimeCurve: React.FC<{ synastry, newDate }> = ({ synastry, n
         {(activeStage === 6) ? <View style={[timeCurve.active, timeCurve.active_6]} /> : null}
         {(activeStage === 7) ? <View style={[timeCurve.activeLast, timeCurve.active_7]} /> : null}
 
-       </View>
+      </View>
     </View>
-  )
-}
+  );
+};
 export const timeCurve = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -104,7 +128,7 @@ export const timeCurve = StyleSheet.create({
     // color: '#fff'
   },
   wrap: {
-    position: 'relative'
+    position: 'relative',
   },
   item: {
     position: 'absolute',
@@ -220,42 +244,42 @@ export const timeCurve = StyleSheet.create({
   s1_begining: {
     top: '142px',
     left: '10px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   s2_begining: {
     top: '142px',
     left: '165px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   s3_begining: {
     top: '142px',
     left: '222px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   s4_begining: {
     top: '142px',
     left: '277px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   s5_begining: {
     top: '142px',
     left: '331px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   s6_begining: {
     top: '142px',
     left: '387px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   s7_begining: {
     top: '142px',
     left: '450px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   ending: {
     top: '142px',
     left: '480px',
-    fontSize: '8px'
+    fontSize: '8px',
   },
   active: {
     width: '50px',
@@ -275,36 +299,36 @@ export const timeCurve = StyleSheet.create({
   active_1: {
     position: 'absolute',
     top: 20,
-    left: 17
+    left: 17,
   },
-   active_2: {
+  active_2: {
     position: 'absolute',
     top: 20,
-    left: 176
-   },
+    left: 176,
+  },
   active_3: {
     position: 'absolute',
     top: 20,
-    left: 231
+    left: 231,
   },
   active_4: {
     position: 'absolute',
     top: 20,
-    left: 286
+    left: 286,
   },
   active_5: {
     position: 'absolute',
     top: 20,
-    left: 341
+    left: 341,
   },
-      active_6: {
+  active_6: {
     position: 'absolute',
     top: 20,
-    left: 398
+    left: 398,
   },
   active_7: {
     position: 'absolute',
     top: 20,
-    left: 451
-  }
-})
+    left: 451,
+  },
+});
