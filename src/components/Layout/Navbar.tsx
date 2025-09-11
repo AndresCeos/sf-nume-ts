@@ -496,7 +496,7 @@ function Navbar() {
               <li className="flex items-center justify-center">
                 <Link
                   className="button-nav-bar"
-                  to="/sinastria"
+                  to="/partner/synastry_pinnacle"
                 >
                   <img
                     src="/assets/navbar/partner_data.svg"
@@ -509,7 +509,7 @@ function Navbar() {
               <li className="flex items-center justify-center">
                 <Link
                   className="button-nav-bar"
-                  to="/group/pinnacle"
+                  to="/group/group_pinnacle"
                 >
                   <img
                     src="/assets/navbar/group_data.svg"
