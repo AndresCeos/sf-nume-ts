@@ -151,8 +151,8 @@ function PathMonth() {
             ${isActive ? 'month-active' : ''}
           `}
         >
-          {consultant.calcPersonalMonth({ month: monthIndex + 1, year: currentYear })}
-          {consultant.calcPersonalMonthISK({ month: monthIndex + 1, year: currentYear })}
+          {consultant.calcPersonalMonth({ month: monthIndex + 1, day: 1, year: currentYear })}
+          {consultant.calcPersonalMonthISK({ month: monthIndex + 1, day: 1, year: currentYear })}
           <div className={`path-month-des ${isActive ? 'path-month-active' : ''}`}>
             {month.toUpperCase()}
           </div>

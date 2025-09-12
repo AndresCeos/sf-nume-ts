@@ -28,8 +28,8 @@ function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: Univers
       id: id ?? '', name, lastName: '', scdLastName: '', birthDate: date,
     });
   }
-  const day = energy?.getDayOfBirth();
-  const month = energy?.getMonthOfBirth();
+  const day = Number(energy?.getDayOfBirth());
+  const month = Number(energy?.getMonthOfBirth());
 
   return (
     <ul className={cx(

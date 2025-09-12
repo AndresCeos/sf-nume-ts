@@ -1,5 +1,6 @@
 import {
-  getDate, getMonth, getYear,
+  getDate,
+  getYear,
 } from 'date-fns';
 
 import { capitalize } from '@/utils/numbers';
@@ -21,7 +22,7 @@ interface QuarterData {
 type WeekNumber = 1 | 2 | 3 | 4;
 
 function LearningStage() {
-  const { consultant, consultationDate } = useConsult();
+  const { consultant, consultationDate, calculationDate } = useConsult();
 
   if (!consultant) return null;
 
@@ -367,7 +368,7 @@ function LearningStage() {
   };
 
   const quarters = calculateQuarters();
-  const activeStage = consultant.getLifeStageNumber({ year: getYear(newDate), month: getMonth(newDate) + 1 });
+  const activeStage = consultant.getLifeStageNumber(calculationDate);
   const currentWeek = Math.ceil(getDate(newDate) / 7) as WeekNumber;
 
   // Calculate cycle years

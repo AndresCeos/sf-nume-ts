@@ -56,7 +56,7 @@ export default function SelectPartner() {
           >
             {isAddFormActive
               ? 'Cancelar'
-              : 'Agregar Pareja'}
+              : 'Crear Grupo de Pareja'}
           </button>
         ) : null}
       </div>

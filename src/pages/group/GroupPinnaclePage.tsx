@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { HiArrowRight } from 'react-icons/hi';
 import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -134,6 +135,16 @@ export default function GroupPinnaclePage() {
     <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
       <SelectGroup />
       <div className="mx-auto px-5 py-6">
+        {/* Leyenda de navegación */}
+        <div className="mb-4 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-lg px-4 py-2 shadow-sm">
+            <HiArrowRight className="text-blue-600 text-lg" />
+            <p className="text-sm text-gray-700 font-medium">
+              Arrastra o desliza hacia la derecha para ver más contenido
+            </p>
+          </div>
+        </div>
+
         {/* Contenedor principal con scroll horizontal */}
         <div
           ref={scrollContainerRef}

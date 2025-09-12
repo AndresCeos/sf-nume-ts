@@ -88,15 +88,15 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
             <div className="text-sm text-white font-bold px-2">{t('monthCalendar.personalYear')}</div>
             <div className=" px-2">
               <CircleNumber size="sm" appearance="purple-30" border="main">
-                {consultant.calcPersonalMonth({ month: selectedMonth, year: calculationDate.year })}
-                {consultant.calcPersonalMonthISK({ month: selectedMonth, year: calculationDate.year })}
+                {consultant.calcPersonalMonth(calculationDate)}
+                {consultant.calcPersonalMonthISK(calculationDate)}
               </CircleNumber>
             </div>
             <div className="text-white font-bold text-xl px-2"> / </div>
             <div className=" px-2">
               <CircleNumber size="sm" appearance="purple-30" border="main">
-                {u.calcUniversalMonth({ month: selectedMonth, year: calculationDate.year })}
-                {u.calcUniversalMonthISK({ month: selectedMonth, year: calculationDate.year })}
+                {u.calcUniversalMonth(calculationDate)}
+                {u.calcUniversalMonthISK(calculationDate)}
               </CircleNumber>
             </div>
             <div className="text-sm text-white font-bold px-2">{t('monthCalendar.universalYear')}</div>
