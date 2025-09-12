@@ -1,8 +1,8 @@
+import OpenSansBold from '@/assets/fonts/OpenSans/OpenSans-Bold.ttf';
+import OpenSansBoldItalic from '@/assets/fonts/OpenSans/OpenSans-BoldItalic.ttf';
+import OpenSansItalic from '@/assets/fonts/OpenSans/OpenSans-Italic.ttf';
+import OpenSans from '@/assets/fonts/OpenSans/OpenSans-Regular.ttf';
 import { Font, StyleSheet } from '@react-pdf/renderer';
-import OpenSansBold from '../assets/fonts/OpenSans/OpenSans-Bold.ttf';
-import OpenSansBoldItalic from '../assets/fonts/OpenSans/OpenSans-BoldItalic.ttf';
-import OpenSansItalic from '../assets/fonts/OpenSans/OpenSans-Italic.ttf';
-import OpenSans from '../assets/fonts/OpenSans/OpenSans-Regular.ttf';
 
 export const exampleReport = StyleSheet.create({
   page: {
@@ -18,7 +18,6 @@ export const exampleReport = StyleSheet.create({
     position: 'absolute',
     minWidth: '100%',
     minHeight: '100%',
-    // display: 'block', // Not supported in react-pdf
     height: '100%',
     width: '100%',
     zIndex: 2,
@@ -27,7 +26,6 @@ export const exampleReport = StyleSheet.create({
     position: 'absolute',
     top: '300px',
     left: '90px',
-    display: 'block',
     color: 'white',
     fontSize: 30,
     zIndex: 1,

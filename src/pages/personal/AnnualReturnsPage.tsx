@@ -7,7 +7,7 @@ import AnnualReturn from '@/components/personal/vibrationTime/AnnualReturn';
 import useConsult from '@/hooks/useConsult';
 
 export default function AnnualReturnsPage() {
-  const { consultant, consultationDate } = useConsult();
+  const { consultant, consultationDate, calculationDate } = useConsult();
   const { t } = useTranslation();
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -18,7 +18,7 @@ export default function AnnualReturnsPage() {
     const year = now + yearOffset;
     return {
       year,
-      annualReturn: consultant.annualReturn({ year }),
+      annualReturn: consultant.annualReturn(calculationDate),
       personalYear: consultant.calcPersonalYear(year),
       yearsOld: consultant.getYearsOld(year),
     };

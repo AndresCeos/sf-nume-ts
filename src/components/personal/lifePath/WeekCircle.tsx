@@ -1,7 +1,8 @@
 import {
-  endOfMonth, format, getMonth, getYear,
+  endOfMonth, format,
 } from 'date-fns';
 
+import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
 
 type WeekNumber = 1 | 2 | 3 | 4;
@@ -15,6 +16,7 @@ export default function WeekCircle({
   newDate: Date;
   currentMonthName: string;
 }) {
+  const { calculationDate } = useConsult();
   return (
     <div
       className={`
@@ -22,8 +24,8 @@ export default function WeekCircle({
       ${currentWeek === week ? 'week-active' : ''}
     `}
     >
-      {consultant.calcSelectPersonalWeek(week, { month: getMonth(newDate) + 1, year: getYear(newDate) })}
-      {consultant.calcSelectPersonalWeekISK(week, { month: getMonth(newDate) + 1, year: getYear(newDate) })}
+      {consultant.calcSelectPersonalWeek(week, calculationDate)}
+      {consultant.calcSelectPersonalWeekISK(week, calculationDate)}
       <div className={`path-week-des ${currentWeek === week ? 'path-week-active' : ''}`}>
         {week === 4
           ? `22-${format(endOfMonth(newDate), 'dd')} ${currentMonthName}`

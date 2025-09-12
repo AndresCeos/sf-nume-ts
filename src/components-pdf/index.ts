@@ -102,6 +102,3 @@ export * from './document';
 
 // Styles
 export * from './styles';
-
-// Types
-export type * from '../types/pdf.types';

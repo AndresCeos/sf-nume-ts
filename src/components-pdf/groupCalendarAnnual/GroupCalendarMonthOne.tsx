@@ -176,8 +176,8 @@ export function MonthsInDay({
           <View style={[groupCalendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem1 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[groupCalendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
             <Text style={[groupCalendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
-              {groupConsult.calcPersonalDay(day, month, date.year)}
-              {groupConsult.calcPersonalDayISK(day, month, date.year)}
+              {groupConsult.calcPersonalDay(date)}
+              {groupConsult.calcPersonalDayISK(date)}
               /
               {universalCalcs.calcUniversalDay({ ...date, day, month })}
               {universalCalcs.calcUniversalDayISK({ ...date, day, month })}
@@ -190,8 +190,8 @@ export function MonthsInDay({
           <View style={[groupCalendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem2 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[groupCalendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
             <Text style={[groupCalendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
-              {groupConsult.calcPersonalDay(day, month, date.year)}
-              {groupConsult.calcPersonalDayISK(day, month, date.year)}
+              {groupConsult.calcPersonalDay(date)}
+              {groupConsult.calcPersonalDayISK(date)}
               /
               {universalCalcs.calcUniversalDay({ ...date, day, month })}
               {universalCalcs.calcUniversalDayISK({ ...date, day, month })}
@@ -204,8 +204,8 @@ export function MonthsInDay({
           <View style={[groupCalendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : (sem3 === true && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[groupCalendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
             <Text style={[groupCalendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
-              {groupConsult.calcPersonalDay(day, month, date.year)}
-              {groupConsult.calcPersonalDayISK(day, month, date.year)}
+              {groupConsult.calcPersonalDay(date)}
+              {groupConsult.calcPersonalDayISK(date)}
               /
               {universalCalcs.calcUniversalDay({ ...date, day, month })}
               {universalCalcs.calcUniversalDayISK({ ...date, day, month })}
@@ -218,8 +218,8 @@ export function MonthsInDay({
           <View style={[groupCalendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem4 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[groupCalendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
             <Text style={[groupCalendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
-              {groupConsult.calcPersonalDay(day, month, date.year)}
-              {groupConsult.calcPersonalDayISK(day, month, date.year)}
+              {groupConsult.calcPersonalDay(date)}
+              {groupConsult.calcPersonalDayISK(date)}
               /
               {universalCalcs.calcUniversalDay({ ...date, day, month })}
               {universalCalcs.calcUniversalDayISK({ ...date, day, month })}
@@ -232,8 +232,8 @@ export function MonthsInDay({
           <View style={[groupCalendar.example, { backgroundColor: `${(day === date.day && month === date.month) ? '#C77575' : ((sem4 === true) && month === date.month) ? '#DCA8A9' : (month === date.month) ? '#FBEDD9' : ''}` }]}>
             <Text style={[groupCalendar.days, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>{day}</Text>
             <Text style={[groupCalendar.calcDays, { color: `${(day === date.day && month === date.month) ? '#fff' : ''}` }]}>
-              {groupConsult.calcPersonalDay(day, month, date.year)}
-              {groupConsult.calcPersonalDayISK(day, month, date.year)}
+              {groupConsult.calcPersonalDay(date)}
+              {groupConsult.calcPersonalDayISK(date)}
               /
               {universalCalcs.calcUniversalDay({ ...date, day, month })}
               {universalCalcs.calcUniversalDayISK({ ...date, day, month })}

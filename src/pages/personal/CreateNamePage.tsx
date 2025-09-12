@@ -305,11 +305,12 @@ function CreateNamePage() {
         date={calculationDate}
         newDate={consultationDate}
         month={calculationDate.month}
-        synastry={[]}
-        groupConsult={[]}
+        synastry={null}
+        groupConsult={null}
         sidebar={sidebar}
         logoURL={logoURL}
-        createNameObj={[]}
+        groupYear={0}
+        partnerYear={0}
       />
     )).toBlob();
     saveAs(blob, `${consultant?.fullName} - CreateName.pdf`);
