@@ -4,7 +4,6 @@ import cx from 'classnames';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
-import { PDFPageConfig } from '@/components-pdf';
 import AnnualReturnsPDF from '@/components-pdf/document/AnnualReturnsPDF';
 import CalendarPDF from '@/components-pdf/document/CalendarPDF';
 import CircleTimePDF from '@/components-pdf/document/CircleTimePDF';
@@ -35,6 +34,7 @@ import usePDFErrorHandler from '@/hooks/usePDFErrorHandler';
 import Group from '@/resources/Group';
 import Person from '@/resources/Person';
 import Synastry from '@/resources/Synastry';
+import { PDFPageConfig } from '@/types/pdf.types';
 import { pdf, PDFViewer } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import { useEffect, useState } from 'react';

@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 
 import makeConsultant from '@/api/useConsultant';
-import { PDFPageConfig } from '@/components-pdf';
 import CreateNamePDF from '@/components-pdf/document/CreateNamePDF';
 import PDF from '@/components-pdf/document/PDF';
 import WrapTitle from '@/components/WrapTitle';
@@ -23,6 +22,7 @@ import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import Person from '@/resources/Person';
+import { PDFPageConfig } from '@/types/pdf.types';
 import { pdf } from '@react-pdf/renderer';
 import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
