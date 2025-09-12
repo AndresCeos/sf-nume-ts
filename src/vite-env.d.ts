@@ -3,6 +3,7 @@ declare type Msg = { title: string; description?: string | JSX.Element };
 declare module '*.svg';
 declare module '*.png';
 declare module '*.jpg';
+declare module '*.ttf';
 
 interface ImportMetaEnv {
   // defined in .env

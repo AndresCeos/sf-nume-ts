@@ -38,10 +38,10 @@ type PersonProps = {
   partner?: Person[];
   group?: any[];
 };
-type SplittedDate = {
-  day?: number,
-  month?: number,
-  year?: number,
+export type SplittedDate = {
+  day: number,
+  month: number,
+  year: number,
 };
 type Appearance = {
   a: number,
@@ -1121,7 +1121,6 @@ class Person {
 
   annualReturn(opts: SplittedDate): AnnualReturn {
     const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
-    console.log({ yearToCalculate, birthDate: this.birthDate });
     const age = (yearToCalculate - this.getYearOfBirth());
     const a = reduceNumber(yearToCalculate);
     const aK = reduceNumberISK(yearToCalculate);

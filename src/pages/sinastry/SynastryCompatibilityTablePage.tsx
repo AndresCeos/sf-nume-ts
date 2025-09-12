@@ -34,10 +34,10 @@ function SynastryCompatibilityTablePage() {
   const partner2 = selectedPartnersAsPersons[1];
 
   return (
-    <div className="grid grid-cols-12 mx-14 gap-6 mt-8 pt-10">
+    <div className="page-content bg-home-background grid grid-cols-12 gap-6 mt-8 pt-10">
       <SelectPartner />
 
-      <div className="col-span-12">
+      <div className="col-span-12 mx-14 mb-5">
         <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
           <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-red-day p-2">
             <TiPlus className="text-2xl" />

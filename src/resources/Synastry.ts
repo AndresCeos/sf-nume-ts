@@ -1,31 +1,36 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-plusplus */
-import { getDate, getMonth, getYear } from 'date-fns';
+import {
+  format, getDate, getDaysInMonth, getMonth, getYear,
+} from 'date-fns';
 import _ from 'lodash';
-import { capitalize, getDaysOfWeek, getMonthName } from '../utils/numbers';
+import {
+  capitalize, getDaysOfWeek, getDaysOfWeekEnglish, getMonthName, reduceNumber,
+} from '../utils/numbers';
 import Person from './Person';
 
 import {
   getAllMonths,
-  reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
+  reduceMonth,
+  reduceNumberForSub, reduceNumberISK,
 } from '@/utils/numbers';
 
-type SplittedDate = {
-  day?: number,
-  month?: number,
-  year?: number,
+export type SplittedDate = {
+  day: number,
+  month: number,
+  year: number,
 };
-type AnnualReturn = {
+export type AnnualReturn = {
   yearToCalculate: number,
   age: number,
-  A: number,
-  B: number,
-  C: number,
-  D: number,
-  E: number,
-  F: number,
-  G: number,
-  H: number
+  A: string,
+  B: string,
+  C: string,
+  D: string,
+  E: string,
+  F: string,
+  G: string,
+  H: string,
 };
 
 class Synastry {
@@ -69,6 +74,19 @@ class Synastry {
       reduce = 10;
     } else {
       reduce = reduceMonth(sumBirthDates);
+    }
+    return reduce;
+  }
+
+  getYearOfBirth():number {
+    const consultantBirthDate = this.consultant.getBirthDate();
+    const partnerBirthDate = this.partner.getBirthDate();
+    const sumBirthDates = getYear(consultantBirthDate) + getYear(partnerBirthDate);
+    let reduce;
+    if (sumBirthDates === 19) {
+      reduce = 10;
+    } else {
+      reduce = reduceNumber(sumBirthDates);
     }
     return reduce;
   }
@@ -1057,24 +1075,32 @@ class Synastry {
   annualReturn(year :number):AnnualReturn {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const age = yearToCalculate - Number(this.yearMet);
-    const A = reduceNumber(yearToCalculate);
-    const B = reduceNumber(
+    const a = reduceNumber(yearToCalculate);
+    const aK = reduceNumberISK(yearToCalculate);
+    const A = `${a}${this.karmic.includes(aK) ? '*' : ''}`;
+    const b = reduceNumber(
       yearToCalculate
-      + reduceNumber(getMonth(this.consultant.birthDate) + getMonth(this.partner.birthDate) + 2)
-      + reduceNumber(getDate(this.consultant.birthDate) + getDate(this.partner.birthDate)),
+      + reduceNumber(this.consultant.birthDate.getMonth() + this.partner.birthDate.getMonth() + 2)
+      + reduceNumber(this.consultant.birthDate.getDate() + this.partner.birthDate.getDate()),
     );
-    const C = reduceNumber(
-      (
-        getYear(this.consultant.birthDate)
-        + getYear(this.partner.birthDate)
-      )
-      - yearToCalculate,
-    );
-    const D = reduceNumber(A + B);
-    const E = reduceNumber(B + C);
-    const F = reduceNumber(D + E);
-    const G = reduceNumber(D + E + F);
-    const H = reduceNumber(A + C);
+    const B = `${b}`;
+    const c = reduceNumber((this.consultant.birthDate.getFullYear() + this.partner.birthDate.getFullYear()) - yearToCalculate);
+    const C = `${c}`;
+    const d = reduceNumber(a + b);
+    const dK = reduceNumberISK(a + b);
+    const D = `${d}${this.karmic.includes(dK) ? '*' : ''}`;
+    const e = reduceNumber(b + c);
+    const eK = reduceNumberISK(b + c);
+    const E = `${e}${this.karmic.includes(eK) ? '*' : ''}`;
+    const f = reduceNumber(d + e);
+    const fK = reduceNumberISK(d + e);
+    const F = `${f}${this.karmic.includes(fK) ? '*' : ''}`;
+    const g = reduceNumber(d + e + f);
+    const gK = reduceNumberISK(d + e + f);
+    const G = `${g}${this.karmic.includes(gK) ? '*' : ''}`;
+    const h = reduceNumber(a + c);
+    const hK = reduceNumberISK(a + c);
+    const H = `${h}${this.karmic.includes(hK) ? '*' : ''}`;
 
     return {
       yearToCalculate, age, A, B, C, D, E, F, G, H,
@@ -1133,26 +1159,28 @@ class Synastry {
   }
 
   getAllDaysInMonth(month: number, year: number): number[] {
-    return Array.from({ length: new Date(year, month, 0).getDate() }, (__, i) => i + 1);
+    const today = new Date();
+    const yearToCalculate = year ?? today.getFullYear();
+    const monthToCalculate = (month ?? today.getMonth() + 1) - 1;
+    const totalDays = getDaysInMonth(new Date(yearToCalculate, monthToCalculate));
+    return Array.from({ length: totalDays }, (unused, index) => index + 1);
   }
 
   getDaysOfWeekCustom(month: number, year: number): string[] {
     const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const daysInMonth = this.getAllDaysInMonth(monthToCalculate, yearToCalculate);
-    const daysCustom = [];
     const dayInWeek = getDaysOfWeek();
-    let firstDay = new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]).toLocaleDateString('en-US', { weekday: 'short' });
-    firstDay = firstDay.replace(/\./g, '');
-    let dayIndex = getDaysOfWeek().findIndex((i) => i === capitalize(firstDay));
-    for (let i = 0; i < 7; i++) {
-      if (dayIndex > 6) {
-        dayIndex = 0;
-      }
-      daysCustom.push(dayInWeek[dayIndex]);
-      dayIndex++;
-    }
-    return daysCustom;
+
+    const firstDay = format(new Date(yearToCalculate, monthToCalculate - 1, daysInMonth[0]), 'EEE')
+      .replace(/\./g, '');
+
+    const dayIndex = getDaysOfWeekEnglish().findIndex((i) => i === capitalize(firstDay));
+
+    return Array.from({ length: 7 }, (unused, index) => {
+      const weekIndex = (dayIndex + index) % 7;
+      return dayInWeek[weekIndex];
+    });
   }
 }
 export default Synastry;
