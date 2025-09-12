@@ -1,5 +1,6 @@
 import Group, { SplittedDate } from '@/resources/Group';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
+
 export const energy = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -59,5 +60,4 @@ export default function GroupEnergy({ groupConsult, date, newDate }: { groupCons
 
     </View>
   );
-};
-
+}

@@ -270,7 +270,7 @@ export default function PartnerFormInLine({
                   (
                   {partnerData.partner?.length || 0}
                   {' '}
-                  parejas)
+                  personas)
                 </option>
               ))}
             </select>

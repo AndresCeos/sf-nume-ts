@@ -30,20 +30,20 @@ export const cycle = StyleSheet.create({
   },
 });
 export function Cycle({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
-   const currentYear = date.year;
-   const niceCycle = groupConsult.getNineYearCycleStage(currentYear);
-    
+  const currentYear = date.year;
+  const niceCycle = groupConsult.getNineYearCycleStage(currentYear);
+
   return (
-      <>
-        {niceCycle.map((year, index) => (
-          <View>
-            <View style={[cycle.circle, { top: 51, left: 14 + (14 * index), backgroundColor: `${(year === currentYear) ? '#D6C5E9' : ''}` }]}><Text style={[cycle.number]}>{groupConsult.calcPersonalYear(year)}</Text></View>
-            <Text style={[cycle.text, { top: 80, left: 14 + (14 * index), color: `${(year === currentYear) ? '#000' : '#7E7E7E'}` }]}>{year}</Text>
-          </View>
-        ))}
-      </>
-    );
-  }
+    <>
+      {niceCycle.map((year, index) => (
+        <View>
+          <View style={[cycle.circle, { top: 51, left: 14 + (14 * index), backgroundColor: `${(year === currentYear) ? '#D6C5E9' : ''}` }]}><Text style={[cycle.number]}>{groupConsult.calcPersonalYear(year)}</Text></View>
+          <Text style={[cycle.text, { top: 80, left: 14 + (14 * index), color: `${(year === currentYear) ? '#000' : '#7E7E7E'}` }]}>{year}</Text>
+        </View>
+      ))}
+    </>
+  );
+}
 export default function GroupCycle({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
   const currentYear = date.year;
   return (
@@ -65,5 +65,4 @@ export default function GroupCycle({ groupConsult, date }: { groupConsult: Group
       </View>
     </View>
   );
-};
-
+}

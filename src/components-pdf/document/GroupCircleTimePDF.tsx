@@ -27,4 +27,3 @@ export default function GroupCircleTimePDF({ groupConsult, date }: { groupConsul
     },
   ];
 }
-  

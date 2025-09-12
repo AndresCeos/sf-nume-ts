@@ -1,24 +1,5 @@
-import React from 'react';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
-
-export const NameCycle: React.FC<{ consultant, date }> = ({ consultant, date }) => {
-  const table = consultant.getNameSetting();
-  const table1 = table.slice(0, 31);
-  const table2 = table.slice(31, 62);
-  const table3 = table.slice(62, 93);
-  const table4 = table.slice(93, 124);
-
-  const nameCycles = consultant.calcNameCycles();
-
-  return (
-    <View>
-      <ActiveName table={table1} start={0} consultant={consultant} nameCycles={nameCycles} date={date} position={0} />
-      <ActiveName table={table2} start={31} consultant={consultant} nameCycles={nameCycles} date={date} position={1} />
-      <ActiveName table={table3} start={62} consultant={consultant} nameCycles={nameCycles} date={date} position={2} />
-      <ActiveName table={table4} start={93} consultant={consultant} nameCycles={nameCycles} date={date} position={3} />
-    </View>
-  );
-};
+import React from 'react';
 
 export const ActiveName: React.FC<{ table, start, consultant, nameCycles, date, position }> = ({
   table, start, consultant, nameCycles, date, position,
@@ -120,3 +101,22 @@ export const pinnacleName = StyleSheet.create({
     transform: 'rotate(-90deg)',
   },
 });
+
+export const NameCycle: React.FC<{ consultant, date }> = ({ consultant, date }) => {
+  const table = consultant.getNameSetting();
+  const table1 = table.slice(0, 31);
+  const table2 = table.slice(31, 62);
+  const table3 = table.slice(62, 93);
+  const table4 = table.slice(93, 124);
+
+  const nameCycles = consultant.calcNameCycles();
+
+  return (
+    <View>
+      <ActiveName table={table1} start={0} consultant={consultant} nameCycles={nameCycles} date={date} position={0} />
+      <ActiveName table={table2} start={31} consultant={consultant} nameCycles={nameCycles} date={date} position={1} />
+      <ActiveName table={table3} start={62} consultant={consultant} nameCycles={nameCycles} date={date} position={2} />
+      <ActiveName table={table4} start={93} consultant={consultant} nameCycles={nameCycles} date={date} position={3} />
+    </View>
+  );
+};

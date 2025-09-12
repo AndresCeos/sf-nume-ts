@@ -3,8 +3,6 @@ import { getAllMonths } from '@/utils/numbers';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 import { capitalize } from 'lodash';
 
-
-
 const quaterM = StyleSheet.create({
   container: {
     position: 'absolute',
@@ -92,7 +90,7 @@ export default function GroupQuaterM({ groupConsult, date }:{ groupConsult:Group
   const actualMonth = allMonths[date.month - 1];
   const index = listOfMonths.findIndex((i) => i === 'Enero');
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
-  
+
   switch (index) {
     case 0:
       m1 = `De ${listOfMonths[index]} a ${listOfMonths[4]}`;
@@ -243,8 +241,8 @@ export default function GroupQuaterM({ groupConsult, date }:{ groupConsult:Group
       if (currentMonth >= 5 && currentMonth <= 8) { ism3 = true; }
       if (currentMonth >= 9 && currentMonth <= index - 1) { ism4 = true; }
       break;
-      default:
-        break;
+    default:
+      break;
   }
   return (
     <View style={quaterM.container}>
@@ -308,4 +306,4 @@ export default function GroupQuaterM({ groupConsult, date }:{ groupConsult:Group
       </View>
     </View>
   );
-};
+}

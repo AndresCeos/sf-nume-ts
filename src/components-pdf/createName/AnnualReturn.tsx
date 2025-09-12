@@ -1,44 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
-
-export const AnnualReturn: React.FC<{ annualReturn }> = ({ annualReturn }) => (
-  <>
-    <View style={aReturn.return_year}>
-      <Text>{annualReturn.yearToCalculate}</Text>
-    </View>
-    <View style={aReturn.return_age}>
-      <Text>
-        {annualReturn.age}
-        {' '}
-        años
-      </Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_top]}>
-      <Text>{annualReturn.F}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_sl_left]}>
-      <Text>{annualReturn.D}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_sl_mid]}>
-      <Text>{annualReturn.G}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_sl_rig]}>
-      <Text>{annualReturn.E}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_tl_left]}>
-      <Text>{annualReturn.A}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_tl_mid]}>
-      <Text>{annualReturn.B}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_tl_rig]}>
-      <Text>{annualReturn.C}</Text>
-    </View>
-    <View style={[aReturn.circle, aReturn.return_bottom]}>
-      <Text>{annualReturn.H}</Text>
-    </View>
-  </>
-);
+import { AnnualReturn } from '@/resources/Person';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 export const aReturn = StyleSheet.create({
   return_year: {
@@ -113,3 +74,44 @@ export const aReturn = StyleSheet.create({
     left: '75px',
   },
 });
+
+export default function AnnualReturnCN({ annualReturn }:{ annualReturn: AnnualReturn }) {
+  return (
+    <>
+      <View style={aReturn.return_year}>
+        <Text>{annualReturn.yearToCalculate}</Text>
+      </View>
+      <View style={aReturn.return_age}>
+        <Text>
+          {annualReturn.age}
+          {' '}
+          años
+        </Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_top]}>
+        <Text>{annualReturn.F}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_sl_left]}>
+        <Text>{annualReturn.D}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_sl_mid]}>
+        <Text>{annualReturn.G}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_sl_rig]}>
+        <Text>{annualReturn.E}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_tl_left]}>
+        <Text>{annualReturn.A}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_tl_mid]}>
+        <Text>{annualReturn.B}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_tl_rig]}>
+        <Text>{annualReturn.C}</Text>
+      </View>
+      <View style={[aReturn.circle, aReturn.return_bottom]}>
+        <Text>{annualReturn.H}</Text>
+      </View>
+    </>
+  );
+}

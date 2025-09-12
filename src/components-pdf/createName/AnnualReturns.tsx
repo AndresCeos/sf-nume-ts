@@ -1,6 +1,6 @@
 import Person, { SplittedDate } from '@/resources/Person';
 import { StyleSheet, View } from '@react-pdf/renderer';
-import { AnnualReturn } from './AnnualReturn';
+import AnnualReturn from './AnnualReturn';
 
 export const annualReturn = StyleSheet.create({
   container: {
