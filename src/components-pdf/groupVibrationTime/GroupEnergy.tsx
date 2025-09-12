@@ -1,10 +1,22 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import Group, { SplittedDate } from '@/resources/Group';
+import { StyleSheet, Text, View } from '@react-pdf/renderer';
+export const energy = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '260px',
+    left: '15px',
+    width: '356px',
+  },
+  text: {
+    position: 'absolute',
+    fontSize: '12px',
+  },
+});
 
-export const GroupEnergy: React.FC<{ groupConsult, newDate }> = ({ groupConsult, newDate }) => {
-  const currentYear = newDate.year();
-  const currentMonth = newDate.month() + 1;
-  const currentDay = newDate.date();
+export default function GroupEnergy({ groupConsult, date, newDate }: { groupConsult: Group, date: SplittedDate, newDate: Date }) {
+  const currentYear = date.year;
+  const currentMonth = date.month;
+  const currentDay = date.day;
 
   return (
     <View style={energy.container}>
@@ -22,41 +34,30 @@ export const GroupEnergy: React.FC<{ groupConsult, newDate }> = ({ groupConsult,
       </View>
       <View>
         <Text style={[energy.text, { top: 40, left: 140 }]}>
-          {groupConsult.calcCurrentQuater(newDate, currentYear)}
-          {groupConsult.calcCurrentQuaterISK(newDate, currentYear)}
+          {groupConsult.calcCurrentQuarter(newDate)}
+          {groupConsult.calcCurrentQuarterISK(newDate)}
         </Text>
       </View>
       <View>
         <Text style={[energy.text, { top: 50, left: 200 }]}>
-          {groupConsult.calcPersonalMonth(currentMonth, currentYear)}
-          {groupConsult.calcPersonalMonthISK(currentMonth, currentYear)}
+          {groupConsult.calcPersonalMonth(date)}
+          {groupConsult.calcPersonalMonthISK(date)}
         </Text>
       </View>
       <View>
         <Text style={[energy.text, { top: 65, left: 255 }]}>
-          {groupConsult.calcPersonalWeek(currentDay, currentMonth, currentYear)}
-          {groupConsult.calcPersonalWeekISK(currentDay, currentMonth, currentYear)}
+          {groupConsult.calcPersonalWeek(currentYear, currentMonth, currentDay)}
+          {groupConsult.calcPersonalWeekISK(currentYear, currentMonth, currentDay)}
         </Text>
       </View>
       <View>
         <Text style={[energy.text, { top: 75, left: 320 }]}>
-          {groupConsult.calcPersonalDay(currentDay, currentMonth, currentYear)}
-          {groupConsult.calcPersonalDayISK(currentDay, currentMonth, currentYear)}
+          {groupConsult.calcPersonalDay(date)}
+          {groupConsult.calcPersonalDayISK(date)}
         </Text>
       </View>
 
     </View>
   );
 };
-export const energy = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '260px',
-    left: '15px',
-    width: '356px',
-  },
-  text: {
-    position: 'absolute',
-    fontSize: '12px',
-  },
-});
+

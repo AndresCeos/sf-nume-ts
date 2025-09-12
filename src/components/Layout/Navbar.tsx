@@ -15,6 +15,7 @@ import GroupCalendarMonthPDF from '@/components-pdf/document/GroupCalendarMonthP
 import GroupCalendarPDF from '@/components-pdf/document/GroupCalendarPDF';
 import GroupCircleTimePDF from '@/components-pdf/document/GroupCircleTimePDF';
 import GroupPinnaclePDF from '@/components-pdf/document/GroupPinnaclePDF';
+import GroupVibrationTimePDF from '@/components-pdf/document/GroupVibrationTimePDF';
 import LifePathPDF from '@/components-pdf/document/LifePathPDF';
 import MonthPDF from '@/components-pdf/document/MonthPDF';
 import NamePDF from '@/components-pdf/document/NamePDF';
@@ -101,6 +102,7 @@ function Navbar() {
     'group_time_circle',
     'group_annual_calendar',
     'group_monthly_calendar',
+    'group_vibration_time',
   ];
   const location = useLocation();
   const path = location.pathname.split('/')[2];
@@ -160,6 +162,7 @@ function Navbar() {
       group_annual_calendar: GroupCalendarPDF,
       group_monthly_calendar: GroupCalendarMonthPDF,
       synastry_time_vibration: SynastryVibrationTimePDF,
+      group_vibration_time: GroupVibrationTimePDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
     console.log({ config });
@@ -235,6 +238,7 @@ function Navbar() {
           group_time_circle: { name: 'Círculo del Tiempo de Grupo', fn: GroupCircleTimePDF },
           group_annual_calendar: { name: 'Calendario Anual de Grupo', fn: GroupCalendarPDF },
           group_monthly_calendar: { name: 'Calendario Mensual de Grupo', fn: GroupCalendarMonthPDF },
+          group_vibration_time: { name: 'Vibración del Tiempo de Grupo', fn: GroupVibrationTimePDF },
         },
       };
 
