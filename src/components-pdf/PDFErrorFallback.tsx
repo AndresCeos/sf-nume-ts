@@ -1,11 +1,10 @@
 import { PDFError } from '@/types/pdf.types';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
-import React from 'react';
 
 interface PDFErrorFallbackProps {
   error: PDFError;
-  consultant?: any;
-  fallbackMessage?: string;
+  consultant: any;
+  fallbackMessage: string;
 }
 
 const styles = StyleSheet.create({
@@ -62,11 +61,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFErrorFallback: React.FC<PDFErrorFallbackProps> = ({
+export default function PDFErrorFallback({
   error,
   consultant,
   fallbackMessage = 'No se pudo generar este componente del reporte',
-}) => {
+}: PDFErrorFallbackProps) {
   const formatTimestamp = (timestamp: Date) => timestamp.toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'long',
@@ -129,8 +128,8 @@ const PDFErrorFallback: React.FC<PDFErrorFallbackProps> = ({
       {error.suggestions && error.suggestions.length > 0 && (
         <View style={styles.suggestions}>
           <Text style={styles.errorDetails}>Sugerencias para resolver:</Text>
-          {error.suggestions.map((suggestion, index) => (
-            <Text key={index} style={styles.suggestionItem}>
+          {error.suggestions.map((suggestion) => (
+            <Text style={styles.suggestionItem}>
               •
               {' '}
               {suggestion}
@@ -163,6 +162,4 @@ const PDFErrorFallback: React.FC<PDFErrorFallbackProps> = ({
       </Text>
     </View>
   );
-};
-
-export default PDFErrorFallback;
+}

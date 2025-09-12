@@ -1,45 +1,37 @@
 import {
   Document, Image, Page, Text, View,
 } from '@react-pdf/renderer';
-import React from 'react';
-import { currentDate } from '../resources';
 import { PDFDocumentProps, PDFPageConfig } from '../types/pdf.types';
 import { configReport } from './styles';
 
-export const PDF: React.FC<PDFDocumentProps> = ({
+export default function PDF({
   consultant,
   config,
   profile,
-  date,
   sidebar,
   synastry,
   groupConsult,
   newDate,
   month,
   logoURL,
-  createNameObj,
-}) => {
-  console.log({ config });
-  console.log(groupConsult);
-  console.log(profile.logoURL);
+}: PDFDocumentProps) {
+  if (!consultant) return null;
 
   const listOfPDF: PDFPageConfig[] = config.map((i) => {
     if (!Array.isArray(i)) {
       console.log('single');
-      return i({
-        consultant, newDate, synastry, groupConsult, month, createNameObj,
-      });
+      return null;
     }
     console.log('array');
     return i.map((x) => x({
-      consultant, synastry, groupConsult, newDate, month, createNameObj,
+      consultant, synastry, groupConsult, newDate, month,
     }));
   }).flat();
 
   return (
     <Document>
       {listOfPDF.map((e, i) => (
-        <Page key={i} size={[612, 795]} style={configReport.page}>
+        <Page size={[612, 795]} style={configReport.page}>
           {e.bg && <Image src={e.bg} style={configReport.pageBackground} />}
 
           <View style={configReport.header}>
@@ -50,7 +42,7 @@ export const PDF: React.FC<PDFDocumentProps> = ({
               <Text>{consultant.fullName}</Text>
             </View>
             <View style={configReport.header_date}>
-              <Text>{currentDate(date)}</Text>
+              <Text />
             </View>
             <View style={configReport.header_birth_date}>
               <Text>{consultant.getFormattedBirthDate()}</Text>
@@ -86,4 +78,4 @@ export const PDF: React.FC<PDFDocumentProps> = ({
       ))}
     </Document>
   );
-};
+}

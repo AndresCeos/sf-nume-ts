@@ -1,12 +1,36 @@
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
-import React from 'react';
 
-export const ActiveName: React.FC<{ table, start, consultant, nameCycles, date, position }> = ({
+export const pinnacleName = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: '20px',
+    left: '35px',
+    fontSize: '7px',
+    width: '536px',
+    // backgroundColor: 'red'
+  },
+  wrap: {
+    position: 'relative',
+  },
+  table: {
+    position: 'relative',
+    transform: 'rotate(-90deg)',
+  },
+});
+
+function ActiveName({
   table, start, consultant, nameCycles, date, position,
-}) => {
+}: {
+  table: any;
+  start: any;
+  consultant: any;
+  nameCycles: any;
+  date: any;
+  position: any;
+}) {
   const consultantAge = consultant.getYearsOld(date.year());
-  const isCycle = (i) => (i === consultantAge ? false : nameCycles.includes(i));
-  const bkConfig = (i, bg) => {
+  const isCycle = (i: any) => (i === consultantAge ? false : nameCycles.includes(i));
+  const bkConfig = (i: any, bg: any) => {
     if (i === consultantAge) {
       return '#e3ac5a';
     }
@@ -38,8 +62,8 @@ export const ActiveName: React.FC<{ table, start, consultant, nameCycles, date, 
             <Text style={{ fontSize: 8, marginLeft: 5, fontWeight: 'bold' }}>Ciclo del </Text>
             <Text style={{ fontSize: 8, marginLeft: 5, fontWeight: 'bold' }}>Nombre </Text>
           </View>
-          {table.map((el, i) => (
-            <View key={i} style={{ position: 'absolute', left: 40 + (i * 20), top: 0 }}>
+          {table.map((el: any, i: any) => (
+            <View style={{ position: 'absolute', left: 40 + (i * 20), top: 0 }}>
               <View style={{
                 width: 20, height: 20, backgroundColor: `${bkConfig(i + start, '#3200334d')}`, display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}
@@ -82,27 +106,9 @@ export const ActiveName: React.FC<{ table, start, consultant, nameCycles, date, 
       {/* <Text style={{ backgroundColor: 'red' }}>-</Text> */}
     </View>
   );
-};
+}
 
-export const pinnacleName = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: '20px',
-    left: '35px',
-    fontSize: '7px',
-    width: '536px',
-    // backgroundColor: 'red'
-  },
-  wrap: {
-    position: 'relative',
-  },
-  table: {
-    position: 'relative',
-    transform: 'rotate(-90deg)',
-  },
-});
-
-export const NameCycle: React.FC<{ consultant, date }> = ({ consultant, date }) => {
+export default function NameCycle({ consultant, date }: { consultant: any; date: any }) {
   const table = consultant.getNameSetting();
   const table1 = table.slice(0, 31);
   const table2 = table.slice(31, 62);
@@ -119,4 +125,4 @@ export const NameCycle: React.FC<{ consultant, date }> = ({ consultant, date }) 
       <ActiveName table={table4} start={93} consultant={consultant} nameCycles={nameCycles} date={date} position={3} />
     </View>
   );
-};
+}

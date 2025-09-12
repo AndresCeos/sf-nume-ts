@@ -31,7 +31,7 @@ import SynastryVibrationTimePDF from '@/components-pdf/document/SynastryVibratio
 import TimeVibrationPDF from '@/components-pdf/document/TimeVibrationPDF';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
-import { usePDFErrorHandler } from '@/hooks/usePDFErrorHandler';
+import usePDFErrorHandler from '@/hooks/usePDFErrorHandler';
 import Group from '@/resources/Group';
 import Person from '@/resources/Person';
 import Synastry from '@/resources/Synastry';

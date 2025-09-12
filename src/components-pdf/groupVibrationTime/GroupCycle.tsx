@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import Group, { SplittedDate } from '@/resources/Group';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 

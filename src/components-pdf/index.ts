@@ -46,13 +46,13 @@ export { default as GroupRetornos2 } from './groupPinnacle/GroupRetornos2';
 export { default as GroupRetornos3 } from './groupPinnacle/GroupRetornos3';
 
 // Group Vibration Time Components
-/* export { default as GroupCycle } from './groupVibrationTime/GroupCycle';
+export { default as GroupCycle } from './groupVibrationTime/GroupCycle';
 export { default as GroupEnergy } from './groupVibrationTime/GroupEnergy';
-export { default  GroupLine } from './groupVibrationTime/GroupLine';
+export { default as GroupLine } from './groupVibrationTime/GroupLine';
 export { default as GroupQuaterM } from './groupVibrationTime/GroupQuaterM';
 export { default as GroupQuaterY } from './groupVibrationTime/GroupQuaterY';
 export { default as GroupTimeCurve } from './groupVibrationTime/GroupTimeCurve';
-*/
+
 // Life Path Components
 export { default as LifePath9Years } from './lifePath/LifePath9Years';
 export { default as LifePathDialogs } from './lifePath/LifePathDialogs';

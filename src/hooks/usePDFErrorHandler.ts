@@ -1,3 +1,5 @@
+/* eslint-disable no-promise-executor-return */
+/* eslint-disable no-await-in-loop */
 import {
   ErrorHandlerConfig,
   PDFError, PDFErrorContext, PDFValidationResult,
@@ -12,7 +14,7 @@ const DEFAULT_ERROR_CONFIG: ErrorHandlerConfig = {
   fallbackComponents: {},
 };
 
-export const usePDFErrorHandler = (config: Partial<ErrorHandlerConfig> = {}) => {
+export default function usePDFErrorHandler(config: Partial<ErrorHandlerConfig> = {}) {
   const [errors, setErrors] = useState<PDFError[]>([]);
   const [warnings, setWarnings] = useState<PDFError[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -207,7 +209,7 @@ export const usePDFErrorHandler = (config: Partial<ErrorHandlerConfig> = {}) => 
   ): Promise<T> => {
     let lastError: Error;
 
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
       try {
         return await operation();
       } catch (error) {
@@ -256,4 +258,4 @@ export const usePDFErrorHandler = (config: Partial<ErrorHandlerConfig> = {}) => 
     // Configuration
     config: mergedConfig,
   };
-};
+}

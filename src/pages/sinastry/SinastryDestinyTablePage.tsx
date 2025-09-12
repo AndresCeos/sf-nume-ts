@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { getYear } from 'date-fns';
 import { useContext, useState } from 'react';
 import { TiPlus } from 'react-icons/ti';
@@ -32,7 +33,7 @@ function SinastryDestinyTable({
   const synastry = new Synastry(consultant, partner);
 
   const partnerDT = [];
-  for (let i = 0; i < table.length; i++) {
+  for (let i = 0; i < table.length; i += 1) {
     partnerDT.push({
       pmC: table[i].pmC,
       pmN: table[i].pmN,
@@ -87,6 +88,7 @@ function SinastryDestinyTable({
           Plano Emocional
         </div>
         <button
+          type="button"
           className={`${binomActive ? 'bg-gold' : 'bg-yellow'} h-10 font-bold mb-1 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl flex justify-center items-center absolute btn-destiny-synastry text-13 text-white px-2`}
           onClick={() => { setBinomActive(!binomActive); }}
         >
@@ -104,7 +106,7 @@ function SinastryDestinyTable({
       </div>
       {partnerDT.map((el, i) => (
         <>
-          <div key={`person1-${i}`} className="nameBreakdown">
+          <div className="nameBreakdown">
             <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
             }`}
@@ -122,29 +124,29 @@ function SinastryDestinyTable({
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmC}</strong>
-              <label className="h-6 w-7 leading-6 text-center text-10">
+              <p className="h-6 w-7 leading-6 text-center text-10">
                 {el.pmN}
                 /
                 {el.pmD}
-              </label>
+              </p>
             </div>
             <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMC}</strong>
-              <label className="h-4 text-center text-10">
+              <p className="h-4 text-center text-10">
                 {el.pMN}
                 /
                 {el.pMD}
-              </label>
+              </p>
             </div>
             <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfC}</strong>
-              <label className="h-4 text-center text-10">{singleC && `${el.pfN} / ${el.pfD}`}</label>
+              <p className="h-4 text-center text-10">{singleC && `${el.pfN} / ${el.pfD}`}</p>
             </div>
             <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
@@ -172,7 +174,7 @@ function SinastryDestinyTable({
             </div>
           </div>
 
-          <div key={`person2-${i}`} className="nameBreakdown">
+          <div className="nameBreakdown">
             <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
             }`}
@@ -190,29 +192,29 @@ function SinastryDestinyTable({
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCP}</strong>
-              <label className="h-6 w-7 leading-6 text-center text-10">
+              <p className="h-6 w-7 leading-6 text-center text-10">
                 {el.pmNP}
                 /
                 {el.pmDP}
-              </label>
+              </p>
             </div>
             <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCP}</strong>
-              <label className="h-4 text-center text-10">
+              <p className="h-4 text-center text-10">
                 {el.pMNP}
                 /
                 {el.pMDP}
-              </label>
+              </p>
             </div>
             <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCP}</strong>
-              <label className="h-4 text-center text-10">{singleP && `${el.pfNP}/${el.pfDP}`}</label>
+              <p className="h-4 text-center text-10">{singleP && `${el.pfNP}/${el.pfDP}`}</p>
             </div>
             <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
@@ -240,7 +242,7 @@ function SinastryDestinyTable({
             </div>
           </div>
 
-          <div key={`combined-${i}`} className="nameBreakdown">
+          <div className="nameBreakdown">
             <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-main-30'
             }`}
@@ -258,29 +260,29 @@ function SinastryDestinyTable({
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCPC}</strong>
-              <label className="h-6 w-7 leading-6 text-center text-10">
+              <p className="h-6 w-7 leading-6 text-center text-10">
                 {el.pmNPC}
                 /
                 {el.pmDPC}
-              </label>
+              </p>
             </div>
             <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCPC}</strong>
-              <label className="h-4 text-center text-10">
+              <p className="h-4 text-center text-10">
                 {el.pMNPC}
                 /
                 {el.pMDPC}
-              </label>
+              </p>
             </div>
             <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
             }`}
             >
               <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCPC}</strong>
-              <label className="h-4 text-center text-10">{(singleC && singleP) && `${el.pfNPC}/${el.pfDPC}`}</label>
+              <p className="h-4 text-center text-10">{(singleC && singleP) && `${el.pfNPC}/${el.pfDPC}`}</p>
             </div>
             <div className={`h-10 w-7 text-xs border-b border-r border-gray-400 flex items-center justify-center ${
               new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
