@@ -16,7 +16,7 @@ declare namespace Api {
 
   interface Consultant {
     id: string;
-    notes?: {};
+    notes?: NotesByDate;
     company?: string;
     date?: Date;
     email?: string;
@@ -115,4 +115,6 @@ declare namespace Api {
     scdLastName: string;
     birthDate: string;
   }
+  type NotesContentByPath = Record<string, string>; // e.g., { "camino": "...", "nombre": "..." }
+  type NotesByDate = Record<string, NotesContentByPath>; // e.g., { "2025-9-15": { ... } }
 }

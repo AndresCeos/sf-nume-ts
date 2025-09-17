@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import UniversalEnergyPerson from '@/components/Universal/universalEnergy/UniversalEnergyPerson';
 import UniversalEnergyValues from '@/components/Universal/universalEnergy/UniversalEnergyValues';
 import { useAuth } from '@/context/AuthProvider';
-import { Consultant } from '@/context/EnergyContext';
+import { EnergyConsultant } from '@/context/EnergyContext';
 import useEnergy from '@/hooks/useEnergy';
 
 function UniversalEnergy() {
@@ -17,7 +17,7 @@ function UniversalEnergy() {
     if (!userAuth) return;
     if ((consultants?.length ?? 0) > 0) return;
 
-    const peopleToSet: Consultant[] = [];
+    const peopleToSet: EnergyConsultant[] = [];
     peopleToSet.push({
       id: uuidv4(),
       name: `${userAuth?.user?.firstName} ${userAuth?.user?.lastName}`,

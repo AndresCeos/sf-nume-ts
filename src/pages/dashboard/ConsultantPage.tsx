@@ -1,12 +1,26 @@
 /* eslint-disable import/order */
-import SectionTitle from '@/components/SectionTitle';
 import ConsultantForm from '@/components/dashboard/consultant/ConsultantForm';
 import ConsultantList from '@/components/dashboard/consultant/ConsultantList';
+import ConsultantNotesModal from '@/components/dashboard/consultant/ConsultantNotesModal';
 import ConsultantProfile from '@/components/dashboard/consultant/ConsultantProfile';
+import NoConsultantSelected from '@/components/NoConsultantSelected';
+import SectionTitle from '@/components/SectionTitle';
+import { useAuth } from '@/context/AuthProvider';
+import useConsult from '@/hooks/useConsult';
 import { useState } from 'react';
 
 function ConsultantPage() {
   const [searchString, setSearchString] = useState('');
+  const [showNotesModal, setShowNotesModal] = useState(false);
+  const { consultant } = useConsult();
+  const { user: userAuth } = useAuth();
+
+  if (!consultant) return (<NoConsultantSelected />);
+
+  // Obtener las notas del consultor actual
+  const users = userAuth?.consultants;
+  const consultantInfo = users?.find((element) => element.id === consultant.id);
+  const consultantNotes = consultantInfo?.notes;
 
   return (
     <div className="page-content bg-home-background bg-cover">
@@ -77,10 +91,34 @@ function ConsultantPage() {
             }}
           />
           <div className="section-wrap px-2 py-7">
+            {/* Botón para ver notas */}
+            {consultantNotes && Object.keys(consultantNotes).length > 0 && (
+              <div className="mb-4">
+                <button
+                  type="button"
+                  className="bg-main rounded-full text-white px-4 py-2 flex items-center gap-2 font-bold hover:opacity-90 transition-opacity"
+                  onClick={() => setShowNotesModal(true)}
+                >
+                  <img
+                    src="/assets/navbar/notes.svg"
+                    alt="notas"
+                    className="w-4 h-4"
+                  />
+                  Ver Notas del Consultor
+                </button>
+              </div>
+            )}
             <ConsultantProfile />
           </div>
         </div>
       </div>
+
+      {/* Modal de notas del consultor */}
+      <ConsultantNotesModal
+        isOpen={showNotesModal}
+        setIsOpen={setShowNotesModal}
+        notes={consultantNotes || {}}
+      />
 
     </div>
   );

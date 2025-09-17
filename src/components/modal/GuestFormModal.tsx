@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import MyModal from '@/components/MyModal';
-import { Consultant } from '@/context/EnergyContext';
+import { EnergyConsultant } from '@/context/EnergyContext';
 import useForm from '@/hooks/useForm';
 
 type GuestFormModalProps = {
-  guest?: Consultant;
-  callback: (consultant: Partial<Consultant>) => void;
+  guest?: EnergyConsultant;
+  callback: (consultant: Partial<EnergyConsultant>) => void;
   children: React.ReactNode;
 };
 
