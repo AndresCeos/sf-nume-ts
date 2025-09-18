@@ -370,7 +370,7 @@ function Sidebar() {
             <li className="config-menu">
               <NavLink
                 end
-                to="/soporte"
+                to="/support"
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center bg-black bg-opacity-5 border-b border-white"
                 aria-current="page"
               >
@@ -425,7 +425,7 @@ function Sidebar() {
           <li className="my-1">
             <NavLink
               end
-              to="/politicas"
+              to="/polices"
               className="sidebar-link text-[13px]"
               aria-current="page"
             >

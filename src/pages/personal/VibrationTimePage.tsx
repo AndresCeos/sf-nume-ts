@@ -23,31 +23,31 @@ function VibrationTimePage() {
     <div className="page-content bg-home-background bg-cover">
       <div className="grid grid-cols-11 mt-8 mx-14 gap-6 pb-9 pt-10">
         <div className="col-span-8">
-          <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.energy.energy')} />
           <div className="section-wrap px-2 py-7">
             <ActiveEnergy />
           </div>
         </div>
         <div className="col-span-4 row-span-2 h-full">
-          <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} />
           <div className="section-wrap px-2 py-7">
             <QuarterPerMonth />
           </div>
         </div>
         <div className="col-span-8">
-          <SectionTitle title={t('vibrationTime.nineYearsCycle.nineYearsCycle')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.nineYearsCycle.nineYearsCycle')} />
           <div className="section-wrap px-2 py-7">
             <NineYearsCycle />
           </div>
         </div>
         <div className="col-span-full">
-          <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} />
           <div className="section-wrap px-2 p-7">
             <QuarterPerYear isGroup={false} isSynastry={false} />
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} />
           <div className="section-wrap px-2">
             <div className="grid grid-cols-3">
               <div className="col-start-1 border-r border-gray-500 px-4 py-8"><AnnualReturn size="xl" annualReturn={annualReturnLastYear} /></div>

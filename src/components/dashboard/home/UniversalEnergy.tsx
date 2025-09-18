@@ -25,16 +25,17 @@ function UniversalEnergy() {
       selected: true,
       order: 1,
     });
-
-    userAuth?.guests?.forEach((guest, index) => {
-      peopleToSet.push({
-        id: uuidv4(),
-        name: guest.name,
-        date: String(guest.date ?? ''),
-        selected: false,
-        order: index + 2,
+    if (userAuth?.guests) {
+      userAuth?.guests?.forEach((guest, index) => {
+        peopleToSet.push({
+          id: uuidv4(),
+          name: guest.name,
+          date: String(guest.date ?? ''),
+          selected: false,
+          order: index + 2,
+        });
       });
-    });
+    }
 
     fillConsultants(peopleToSet);
   }, [userAuth, consultants?.length]);
@@ -43,6 +44,7 @@ function UniversalEnergy() {
     () => (consultants || []).slice().sort((a, b) => (a?.order ?? 0) - (b?.order ?? 1)),
     [consultants],
   );
+  console.log(sortedConsultants);
 
   return (
     <div>

@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { TiPlus } from 'react-icons/ti';
-
 import DestinyTable from '@/components/personal/destinyTable/DestinyTable';
 import NumericValues from '@/components/personal/destinyTable/NumericValues';
+import SectionTitle from '@/components/SectionTitle';
 import useConsult from '@/hooks/useConsult';
 
 export default function DestinyTablePage() {
@@ -26,12 +25,7 @@ export default function DestinyTablePage() {
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10 relative">
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-gold p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('destinyTable.title')}
-          </div>
+          <SectionTitle title={t('destinyTable.title')} />
           <div className="pinnacle-wrap px-8 pb-3 pt-10">
             <DestinyTable
               table={table1}
@@ -78,12 +72,7 @@ export default function DestinyTablePage() {
           </div>
         </div>
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('destinyTable.numericValues.title')}
-          </div>
+          <SectionTitle title={t('destinyTable.numericValues.title')} />
           <NumericValues />
         </div>
       </div>

@@ -8,6 +8,7 @@ function ConsultantPicker() {
   const { user } = useAuth();
   const { consultant, selectConsultant } = useConsult();
   const { t } = useTranslation();
+  if (user?.consultants.length === 0) return null;
 
   const options = user?.consultants.map(({
     id, names, lastName, scdLastName,

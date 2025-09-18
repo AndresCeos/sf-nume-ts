@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { MdEdit } from 'react-icons/md';
+import { MdEdit, MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
 
 import { ConsultContext } from '@/context/ConsultContext';
@@ -13,6 +13,7 @@ export default function SelectGroup() {
 
   const [isAddFormActive, setIsAddFormActive] = useState(false);
   const [groupDataEmpty, setGroupDataEmpty] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     if (groupsAvailable.length === 0) {
@@ -24,6 +25,10 @@ export default function SelectGroup() {
 
   const handleEditGroup = () => {
     handleIsEditingConsultant(!isEditingConsultant);
+  };
+
+  const handleToggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
@@ -38,8 +43,35 @@ export default function SelectGroup() {
           Datos de Grupo
           <MdEdit className="text-xl text-white" />
         </div>
+        <div className="flex items-center gap-2">
+          {/* Botón de colapsar/expandir */}
+          <button
+            type="button"
+            onClick={handleToggleCollapse}
+            className="flex items-center gap-1 px-3 py-1 bg-main rounded-lg transition-colors duration-200 text-lg"
+            title={isCollapsed ? 'Mostrar' : 'Ocultar'}
+          >
+            {isCollapsed ? (
+              <>
+                <MdExpandMore className="text-lg" />
+                Mostrar
+              </>
+            ) : (
+              <>
+                <MdExpandLess className="text-lg" />
+                Ocultar
+              </>
+            )}
+          </button>
+        </div>
       </div>
-      <div className="pinnacle-wrap px-8 py-8">
+      <div
+        className={`pinnacle-wrap px-8 py-8 transition-all duration-300 ease-in-out overflow-hidden ${
+          isCollapsed
+            ? 'max-h-0 py-0 opacity-0'
+            : 'max-h-[2000px] opacity-100'
+        }`}
+      >
         <GroupFormInLine
           setIsAddFormActive={setIsAddFormActive}
           handleEditGroup={handleEditGroup}

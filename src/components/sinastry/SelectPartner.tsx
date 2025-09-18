@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { MdEdit } from 'react-icons/md';
+import { MdEdit, MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
 
 import { ConsultContext } from '@/context/ConsultContext';
@@ -11,6 +11,7 @@ export default function SelectPartner() {
   } = useContext(ConsultContext);
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     // Cambiar la lógica para usar partnerDataAvailable en lugar de partnersAvailable
@@ -29,6 +30,10 @@ export default function SelectPartner() {
     handleIsEditingConsultant(!isEditingConsultant);
   };
 
+  const handleToggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   // Verificar si el grupo activo ya tiene 2 parejas
   const activeGroupHasMaxPartners = activePartnerData && activePartnerData.partner && activePartnerData.partner.length >= 2;
 
@@ -44,23 +49,50 @@ export default function SelectPartner() {
           Datos de Pareja
           <MdEdit className="text-xl text-white" />
         </div>
-        {(partnerDataAvailable || []).length > 0 && !activeGroupHasMaxPartners ? (
+        <div className="flex items-center gap-2">
+          {/* Botón de colapsar/expandir */}
           <button
             type="button"
-            onClick={() => setIsAddFormActive(!isAddFormActive)}
-            className={`float-right ${
-              isAddFormActive ? 'bg-red-500' : 'bg-gold'
-            } px-4 font-bold h-11 mb-3 rounded-t-3xl rounded-bl-3xl ${
-              isEditingConsultant ? 'hidden' : ''
-            }`}
+            onClick={handleToggleCollapse}
+            className="flex items-center gap-1 px-3 py-1 bg-main rounded-lg transition-colors duration-200 text-lg"
+            title={isCollapsed ? 'Mostrar' : 'Ocultar'}
           >
-            {isAddFormActive
-              ? 'Cancelar'
-              : 'Crear Grupo de Pareja'}
+            {isCollapsed ? (
+              <>
+                <MdExpandMore className="text-lg" />
+                Mostrar
+              </>
+            ) : (
+              <>
+                <MdExpandLess className="text-lg" />
+                Ocultar
+              </>
+            )}
           </button>
-        ) : null}
+          {(partnerDataAvailable || []).length > 0 && !activeGroupHasMaxPartners ? (
+            <button
+              type="button"
+              onClick={() => setIsAddFormActive(!isAddFormActive)}
+              className={`${
+                isAddFormActive ? 'bg-red-500' : 'bg-gold'
+              } px-4 font-bold h-11 mb-3 rounded-t-3xl rounded-bl-3xl ${
+                isEditingConsultant ? 'hidden' : ''
+              }`}
+            >
+              {isAddFormActive
+                ? 'Cancelar'
+                : 'Crear Grupo de Pareja'}
+            </button>
+          ) : null}
+        </div>
       </div>
-      <div className="pinnacle-wrap px-8 py-8">
+      <div
+        className={`pinnacle-wrap px-8 py-8 transition-all duration-300 ease-in-out overflow-hidden ${
+          isCollapsed
+            ? 'max-h-0 py-0 opacity-0'
+            : 'max-h-[2000px] opacity-100'
+        }`}
+      >
         <PartnerFormInLine
           hasPartner={partnerEmpty}
           setIsAddFormActive={setIsAddFormActive}

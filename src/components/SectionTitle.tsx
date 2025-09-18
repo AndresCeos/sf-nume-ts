@@ -5,6 +5,7 @@ import { TiPlus } from 'react-icons/ti';
 type SectionTitleProps = {
   title: string;
   color?: string;
+  fontSize?: string;
   button?: {
     isActive: boolean;
     text: string;
@@ -12,14 +13,16 @@ type SectionTitleProps = {
   };
 };
 
-function SectionTitle({ title, color, button }: SectionTitleProps) {
+function SectionTitle({
+  title, color, button, fontSize,
+}: SectionTitleProps) {
   return (
     <div className="bg-black text-white text-xs font-bold h-8 flex justify-between items-center rounded-t-lg">
       <div className="flex items-center">
         <div className={cx('w-9 h-9 flex justify-center items-center rounded-full -ml-2 p-1', color)}>
           <TiPlus />
         </div>
-        <label className="ml-1">
+        <label className={cx('ml-1 text-', fontSize)}>
           {title}
         </label>
       </div>
@@ -40,6 +43,7 @@ function SectionTitle({ title, color, button }: SectionTitleProps) {
 SectionTitle.defaultProps = {
   color: 'bg-main-700',
   button: undefined,
+  fontSize: 'text-xs',
 };
 
 export default SectionTitle;

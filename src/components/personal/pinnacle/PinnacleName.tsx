@@ -11,7 +11,7 @@ export function PinnacleName({ isVerificationActive }: { isVerificationActive: b
   if (!consultant) return null;
 
   return (
-    <div className="pinnacle-wrap p-4">
+    <div className=" p-4">
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
         <label className="text-10">{t('pinnacle.name.name')}</label>
         <CircleNumber size="sm" appearance="blue-30" border="blue">

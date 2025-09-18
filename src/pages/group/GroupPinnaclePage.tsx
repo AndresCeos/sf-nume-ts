@@ -160,6 +160,7 @@ export default function GroupPinnaclePage() {
         >
           {/* Grupo - siempre visible, ancho fijo para 2 elementos */}
           <div className="group-container flex-shrink-0 w-1/3 min-w-0 mt-5 ml-6">
+
             <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
               <div className="flex items-center justify-center">
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">

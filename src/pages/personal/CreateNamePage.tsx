@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from 'react';
 import { MdEdit } from 'react-icons/md';
-import { TiPlus } from 'react-icons/ti';
 import Swal from 'sweetalert2';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -11,7 +10,7 @@ import NoConsultantSelected from '@/components/NoConsultantSelected';
 import makeConsultant from '@/api/useConsultant';
 import CreateNamePDF from '@/components-pdf/document/CreateNamePDF';
 import PDF from '@/components-pdf/document/PDF';
-import WrapTitle from '@/components/WrapTitle';
+import SectionTitle from '@/components/SectionTitle';
 import DestinyTableCreateName from '@/components/personal/createName/DestinyTableCreateName';
 import InclusionTable from '@/components/personal/createName/InclusionTable';
 import NameBreak from '@/components/personal/createName/NameBreak';
@@ -320,13 +319,7 @@ function CreateNamePage() {
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10">
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            Crear Nombre
-            <MdEdit className="ml-2 text-2xl" />
-          </div>
+          <SectionTitle title="Crear Nombre" />
           <div className="pinnacle-wrap px-8 py-8">
             {/* Selector de nombres guardados */}
             <div className="mb-6">
@@ -478,12 +471,11 @@ function CreateNamePage() {
         {hasCalculated && (
           <>
             <div className="col-span-8 mb-5">
-              <WrapTitle
+              <SectionTitle
                 title="Valores Numéricos del Nombre"
-                color="bg-blue"
                 button={{
                   handle: checkName,
-                  state: checkN,
+                  isActive: checkN,
                   text: 'Comprobación',
                 }}
               />
@@ -491,13 +483,12 @@ function CreateNamePage() {
             </div>
 
             <div className="col-span-4 row-span-2 mb-5">
-              <WrapTitle
+              <SectionTitle
                 title="Pináculo"
-                color="bg-blue"
                 button={{
-                  text: 'Comprobación',
                   handle: checkPinacle,
-                  state: checkP,
+                  isActive: checkP,
+                  text: 'Comprobación',
                 }}
               />
               <div className="pinnacle-wrap px-8 py-3">
@@ -506,18 +497,12 @@ function CreateNamePage() {
             </div>
 
             <div className="col-span-8 mb-5">
-              <WrapTitle
-                title="Tabla de inclusión"
-                color="bg-blue"
-              />
+              <SectionTitle title="Tabla de inclusión" />
               <InclusionTable createNameObj={createNameObj} />
             </div>
 
             <div className="col-span-12 mb-5">
-              <WrapTitle
-                title="Retornos Anuales"
-                color="bg-green"
-              />
+              <SectionTitle title="Retornos Anuales" />
               <div className="pinnacle-wrap overflow-hidden grid grid-cols-3">
                 <div className="px-5 py-8">
                   <AnnualReturn annualReturn={annualReturnPastYear} size="xs" />
@@ -532,18 +517,12 @@ function CreateNamePage() {
             </div>
 
             <div className="col-span-12 mb-5">
-              <WrapTitle
-                title="Desglose del Nombre"
-                color="bg-blue"
-              />
+              <SectionTitle title="Desglose del Nombre" />
               <NameBreak createNameObj={createNameObj} />
             </div>
 
             <div className="col-span-12 mb-5">
-              <WrapTitle
-                title="Ciclo del Nombre"
-                color="bg-blue"
-              />
+              <SectionTitle title="Ciclo del Nombre" />
               <DestinyTableCreateName createNameObj={createNameObj} />
             </div>
           </>
