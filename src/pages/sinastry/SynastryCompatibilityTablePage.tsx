@@ -39,7 +39,6 @@ function SynastryCompatibilityTablePage() {
 
       <div className="col-span-12 mx-14 mb-5">
         <SectionTitle title="Tabla de Compatibilidad" color="bg-red-day" />
-
         <div className="pinnacle-wrap grid grid-cols-12 px-4 py-8 w-full">
           <div className="col-start-1 col-span-3 row-start-1 bg-main border border-black text-white p-5 font-bold">Cuadro Comparativo</div>
           <div className="col-start-4 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">Persona 1</div>

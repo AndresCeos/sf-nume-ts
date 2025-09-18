@@ -64,6 +64,7 @@ export default function GroupVibrationTimePage() {
           </div>
         </div>
         <div className="col-span-4 row-span-2 h-full">
+
           <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} color="bg-group" />
           <div className="section-wrap px-2 py-7">
             <SynastryQuarterPerMonth synastry={groupPerson} />

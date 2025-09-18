@@ -25,6 +25,7 @@ function UniversalEnergy() {
       selected: true,
       order: 1,
     });
+    
     if (userAuth?.guests) {
       userAuth?.guests?.forEach((guest, index) => {
         peopleToSet.push({
@@ -44,6 +45,7 @@ function UniversalEnergy() {
     () => (consultants || []).slice().sort((a, b) => (a?.order ?? 0) - (b?.order ?? 1)),
     [consultants],
   );
+
   console.log(sortedConsultants);
 
   return (

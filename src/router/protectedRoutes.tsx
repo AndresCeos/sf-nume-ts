@@ -24,9 +24,11 @@ import PinnaclePage from '@/pages/personal/PinnaclePage';
 import TimeCirclePage from '@/pages/personal/TimeCirclePage';
 import VibrationTimePage from '@/pages/personal/VibrationTimePage';
 
+
 import ManualPage from '@/pages/dashboard/ManualPage';
 import PoliciesPage from '@/pages/dashboard/PoliciesPage';
 import SupportPage from '@/pages/dashboard/SupportPage';
+
 import GroupVibrationTimePage from '@/pages/group/GroupVibrationTime';
 import SinastryAnnualReturnsPage from '@/pages/sinastry/SinastryAnnualReturnsPage';
 import SinastryDestinyTablePage from '@/pages/sinastry/SinastryDestinyTablePage';
