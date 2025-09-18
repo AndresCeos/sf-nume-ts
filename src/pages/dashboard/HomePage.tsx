@@ -8,8 +8,8 @@ import EnergyProvider from '@/context/EnergyProvider';
 function HomePage() {
   const { user: userAuth } = useAuth();
   const { t } = useTranslation();
-  const { firstName, lastName } = userAuth?.user ?? {};
-  const names = `${firstName} ${lastName}`;
+  const { firstName } = userAuth?.user ?? {};
+  const names = `${firstName}`;
 
   return (
     <div className="page-content bg-home-background bg-cover grid grid-cols-2">

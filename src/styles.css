@@ -1264,6 +1264,9 @@ img {
 .text-13 {
   font-size: 13px
 }
+.text-9{
+  font-size: 9px;
+}
 .box-e {
   margin-bottom: 12px;
 }
@@ -6545,8 +6548,8 @@ left: 36px;
 .time-circle-name-month {
   position: absolute;
   position: absolute;
-  top: 120px;
-  left: 117px;
+  top: 115px;
+  left: 100px;
   transform: rotate(75deg);
 }
 

@@ -28,6 +28,7 @@ import SynastryDestinyPDF from '@/components-pdf/document/SynastryDestinityPDF';
 import SynastryPinnaclePDF from '@/components-pdf/document/SynastryPinnaclePDF';
 import SynastryVibrationTimePDF from '@/components-pdf/document/SynastryVibrationTimePDF';
 import TimeVibrationPDF from '@/components-pdf/document/TimeVibrationPDF';
+import ConsultantAddNoteModal from '@/components/dashboard/consultant/ConsultantAddNoteModal';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import usePDFErrorHandler from '@/hooks/usePDFErrorHandler';
@@ -62,6 +63,7 @@ function Navbar() {
   const [previewDocument, setPreviewDocument] = useState(false);
   const [isDownloadPDFEnabled, setIsDownloadPDFEnabled] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
+  const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
 
   // Error handling hook
   const {
@@ -290,8 +292,7 @@ function Navbar() {
   };
 
   const handleModal = () => {
-    console.log('handleModal');
-    // TODO: Implement modal handling
+    setIsNotesModalOpen(true);
   };
 
   const handleSelectedReports = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -637,6 +638,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
+      <ConsultantAddNoteModal isOpen={isNotesModalOpen} setIsOpen={setIsNotesModalOpen} />
       {
       (modal) ? (
         <ModalPDF

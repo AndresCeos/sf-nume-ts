@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { TiPlus } from 'react-icons/ti';
 
 import GuestFormModal from '@/components/modal/GuestFormModal';
-import { Consultant } from '@/context/EnergyContext';
+import { EnergyConsultant } from '@/context/EnergyContext';
 import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
 
 type UniversalEnergyPersonProps = {
-  person: Consultant;
+  person: EnergyConsultant;
   setActive: () => void;
-  handleUpdateGuest: (consultant: Partial<Consultant>) => void;
+  handleUpdateGuest: (consultant: Partial<EnergyConsultant>) => void;
 };
 
 function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: UniversalEnergyPersonProps) {

@@ -5,7 +5,7 @@ import SelectPartner from '@/components/sinastry/SelectPartner';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
 
-import { TiPlus } from 'react-icons/ti';
+import SectionTitle from '@/components/SectionTitle';
 
 export default function SinastryAnnualReturnsPage() {
   const { selectedPartnersAsPersons, calculationDate } = useContext(ConsultContext);
@@ -78,12 +78,8 @@ export default function SinastryAnnualReturnsPage() {
       <SelectPartner />
       <div className="grid grid-cols-12 mx-14 gap-6 mt-8 pt-10">
         <div className="col-span-12">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-green-s p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            9 Retornos
-          </div>
+          <SectionTitle title=" 9 Retornos" color="bg-red-day" />
+
           <div className="pinnacle-wrap grid grid-cols-3 p-1">
             <div className="bg-white p-4 h-80">
               <AnnualReturn

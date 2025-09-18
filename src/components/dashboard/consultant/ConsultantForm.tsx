@@ -26,6 +26,8 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
   const {
     names, lastName, scdLastName, date, nationality, gender, company, email, phone,
     handleInputChange, formError, setFormError, reset,
+    groupData,
+    partnerData,
   } = useForm(initialForm);
 
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
@@ -71,10 +73,12 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
       email,
       gender,
       group: [],
+      groupData,
       lastName,
       names,
       nationality,
       partner: [],
+      partnerData,
       phone,
       scdLastName,
     };
@@ -282,6 +286,8 @@ function ConsultantFormWrapper() {
     company: (isEditingConsultant && consultant) ? consultantData?.company : '',
     phone: (isEditingConsultant && consultant) ? consultantData?.phone : '',
     email: (isEditingConsultant && consultant) ? consultantData?.email : '',
+    groupData: (isEditingConsultant && consultant) ? consultantData?.groupData : [],
+    partnerData: (isEditingConsultant && consultant) ? consultantData?.partnerData : [],
   };
 
   return <ConsultantForm initialForm={initialForm} key={`${consultant?.id}_${isEditingConsultant}`} />;

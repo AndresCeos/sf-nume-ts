@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { TiPlus } from 'react-icons/ti';
-
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import AnnualReturn from '@/components/personal/vibrationTime/AnnualReturn';
+import SectionTitle from '@/components/SectionTitle';
 import useConsult from '@/hooks/useConsult';
 
 export default function AnnualReturnsPage() {
@@ -31,12 +30,7 @@ export default function AnnualReturnsPage() {
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 mx-14 pb-10 pt-10">
         <div className="col-span-13">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-green-s p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('annualReturns.title')}
-          </div>
+          <SectionTitle title={t('annualReturns.title')} />
           <div className="pinnacle-wrap grid grid-cols-3 p-1">
             {yearsData.map((data, index) => {
               const isCurrentYear = data.year === now;

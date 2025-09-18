@@ -2,14 +2,13 @@ import {
   useCallback, useContext,
   useState,
 } from 'react';
-import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import MetricsGrid from '@/components/partners/MetricsGrid';
 import PinnacleComponent from '@/components/partners/Pinnacle/Pinnacle';
 import AnnualReturn from '@/components/personal/pinnacle/AnnualReturn';
+import SectionTitle from '@/components/SectionTitle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
-import WrapTitle from '@/components/WrapTitle';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
 
@@ -137,13 +136,13 @@ export default function SynastryPinnaclePage() {
       <div className="grid grid-cols-12 mx-14 gap-6 mt-8 pt-10">
         {/* Synastry Metrics */}
         <div className="col-span-4 mb-1">
-          <WrapTitle
+          <SectionTitle
             title="Nombre de Pareja"
-            color="bg-blue"
+            color="bg-red-day"
             button={{
-              handle: toggles.checkName,
-              state: checkboxState.checkN,
               text: checkboxState.checkN ? 'Normal' : 'Comprobación',
+              handle: toggles.checkName,
+              isActive: checkboxState.checkN,
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
@@ -153,13 +152,14 @@ export default function SynastryPinnaclePage() {
 
         {/* Partner 1 Metrics */}
         <div className="col-span-4 mb-1">
-          <WrapTitle
+
+          <SectionTitle
             title={`Nombre: ${partner1.nameView}`}
-            color="bg-blue"
+            color=" bg-red-day"
             button={{
-              handle: toggles.checkName1,
-              state: checkboxState.checkN1,
               text: checkboxState.checkN1 ? 'Normal' : 'Comprobación',
+              handle: toggles.checkName1,
+              isActive: checkboxState.checkN1,
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-white shadow-sm">
@@ -169,13 +169,14 @@ export default function SynastryPinnaclePage() {
 
         {/* Partner 2 Metrics */}
         <div className="col-span-4 mb-1">
-          <WrapTitle
+
+          <SectionTitle
             title={`Nombre: ${partner2.nameView}`}
-            color="bg-blue"
+            color=" bg-red-day"
             button={{
-              handle: toggles.checkName2,
-              state: checkboxState.checkN2,
               text: checkboxState.checkN2 ? 'Normal' : 'Comprobación',
+              handle: toggles.checkName2,
+              isActive: checkboxState.checkN2,
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-white shadow-sm">
@@ -185,13 +186,14 @@ export default function SynastryPinnaclePage() {
 
         {/* Pinnacles */}
         <div className="col-span-4 mb-1">
-          <WrapTitle
+
+          <SectionTitle
             title="Pináculo de Pareja"
-            color="bg-blue"
+            color=" bg-red-day"
             button={{
               text: checkboxState.checkP1 ? 'Normal' : 'Comprobación',
               handle: toggles.checkPinacle1,
-              state: checkboxState.checkP1,
+              isActive: checkboxState.checkP1,
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
@@ -200,13 +202,14 @@ export default function SynastryPinnaclePage() {
         </div>
 
         <div className="col-span-4 mb-1">
-          <WrapTitle
+
+          <SectionTitle
             title={`Pináculo: ${partner1.nameView}`}
-            color="bg-blue"
+            color=" bg-red-day"
             button={{
               text: checkboxState.checkP2 ? 'Normal' : 'Comprobación',
               handle: toggles.checkPinacle2,
-              state: checkboxState.checkP2,
+              isActive: checkboxState.checkP2,
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 shadow-sm">
@@ -215,13 +218,14 @@ export default function SynastryPinnaclePage() {
         </div>
 
         <div className="col-span-4 mb-1">
-          <WrapTitle
+
+          <SectionTitle
             title={`Pináculo: ${partner2.nameView}`}
-            color="bg-blue"
+            color=" bg-red-day"
             button={{
               text: checkboxState.checkP ? 'Normal' : 'Comprobación',
               handle: toggles.checkPinacle,
-              state: checkboxState.checkP,
+              isActive: checkboxState.checkP,
             }}
           />
           <div className="pinnacle-wrap px-5 py-4 shadow-sm">
@@ -231,43 +235,32 @@ export default function SynastryPinnaclePage() {
 
         {/* Annual Returns */}
         <div className="col-span-4 mb-1">
-          <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
-            <div className="flex items-center pl-8">
-              Retorno de Pareja
-            </div>
-          </div>
+          <SectionTitle
+            title=" Retorno de Pareja"
+            color=" bg-red-day"
+          />
+
           <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
             <AnnualReturn annualReturn={annualReturns.synastry} current months size="xs" />
           </div>
         </div>
 
         <div className="col-span-4 mb-1">
-          <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
-            <div className="flex items-center">
-              <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-                <TiPlus className="text-2xl" />
-              </div>
-              Pináculo:
-              {' '}
-              {partner1.nameView}
-            </div>
-          </div>
+          <SectionTitle
+            title={`Pináculo: ${partner1.nameView}`}
+            color=" bg-red-day"
+          />
+
           <div className="pinnacle-wrap px-5 py-4">
             <AnnualReturn annualReturn={annualReturns.partner1} current months size="xs" />
           </div>
         </div>
 
         <div className="col-span-4 mb-1">
-          <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
-            <div className="flex items-center">
-              <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-                <TiPlus className="text-2xl" />
-              </div>
-              Pináculo:
-              {' '}
-              {partner2.nameView}
-            </div>
-          </div>
+          <SectionTitle
+            title={`Pináculo: ${partner2.nameView}`}
+            color=" bg-red-day"
+          />
           <div className="pinnacle-wrap px-5 py-4">
             <AnnualReturn annualReturn={annualReturns.partner2} current months size="xs" />
           </div>

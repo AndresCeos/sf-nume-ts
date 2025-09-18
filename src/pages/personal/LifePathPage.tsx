@@ -17,19 +17,19 @@ function LifePathPage() {
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid mt-8 mx-14 gap-4">
         <div className="col-span-12">
-          <SectionTitle title={t('lifePath.nineYearsCycle.title')} color="bg-green-s" />
+          <SectionTitle title={t('lifePath.nineYearsCycle.title')} />
           <div className="section-wrap px-2 py-7">
             <NineYearsCycle />
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title={t('lifePath.learningStage.title')} color="bg-green-s" />
+          <SectionTitle title={t('lifePath.learningStage.title')} />
           <div className="section-wrap px-2 py-7">
             <LearningStage />
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title={t('lifePath.hierarchyLine.title')} color="bg-green-s" />
+          <SectionTitle title={t('lifePath.hierarchyLine.title')} />
           <div className="section-wrap px-2 py-7">
             <HierarchyLine />
           </div>

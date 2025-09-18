@@ -22,14 +22,7 @@ export const sanitize = (text: string) => text
 
 export function pageNameBySlug(opts:{ name:string }) {
   switch (opts.name) {
-    // case 'pinaculo': return 'Pináculo'
-    // case 'nombre': return 'Análisis Numerológico del Nombre'
-    // case 'ajusteNombre': return 'Ajuste Numerológico del Nombre'
-    // case 'retornos': return 'Retornos Anuales'
-    // case 'destino': return 'Tabla del Destino'
-    // case 'sinastria': return 'Análisis Numerológico de Pareja'
-    // case 'retornosPareja': return 'Retornos Anuales en Pareja'
-
+    // Legacy personal keys
     case 'pinaculo': return 'Pináculo';
     case 'camino': return 'Camino de Vida';
     case 'nombre': return 'Nombre';
@@ -37,22 +30,48 @@ export function pageNameBySlug(opts:{ name:string }) {
     case 'destino': return 'Tabla del Destino';
     case 'tiempo': return 'Vibración de Tiempo';
     case 'retornos': return 'Retornos Anuales';
-    case 'circulo_tiempo': return 'Circulo del Tiempo';
+    case 'circulo_tiempo': return 'Círculo del Tiempo';
     case 'calendario': return 'Calendario Anual';
     case 'calendarioMensual': return 'Calendario Mensual';
 
-    case 'sinastria': return 'Sinastria Análisis';
-    case 'sinastria_vibracion': return 'Sinastria Vibración del Tiempo';
-    case 'sinastria_retornos': return 'Sinastria Retornos Anuales';
-    case 'sinastria_destino': return 'Sinastria Tabla del Destino Pareja';
-    case 'sinastria_compatibilidad': return 'Sinastria Tabla del Compatibilidad';
+    // Current personal route slugs
+    case 'pinnacle': return 'Pináculo';
+    case 'life_path': return 'Camino de Vida';
+    case 'name': return 'Nombre';
+    case 'create-name': return 'Crear Nombre';
+    case 'destiny_table': return 'Tabla del Destino';
+    case 'time_vibration': return 'Vibración del Tiempo';
+    case 'annual_returns': return 'Retornos Anuales';
+    case 'time_circle': return 'Círculo del Tiempo';
+    case 'annual_calendar': return 'Calendario Anual';
+    case 'monthly_calendar': return 'Calendario Mensual';
 
+    // Legacy partner keys
+    case 'sinastria': return 'Sinastría Análisis';
+    case 'sinastria_vibracion': return 'Sinastría Vibración del Tiempo';
+    case 'sinastria_retornos': return 'Sinastría Retornos Anuales';
+    case 'sinastria_destino': return 'Sinastría Tabla del Destino Pareja';
+    case 'sinastria_compatibilidad': return 'Sinastría Tabla de Compatibilidad';
+
+    // Current partner route slugs
+    case 'synastry_pinnacle': return 'Pináculo de Sinastría';
+    case 'synastry_annual_returns': return 'Retornos Anuales de Sinastría';
+    case 'synastry_destiny_table': return 'Tabla del Destino de Sinastría';
+    case 'synastry_compatibility_table': return 'Tabla de Compatibilidad de Sinastría';
+    case 'synastry_time_circle': return 'Círculo del Tiempo de Sinastría';
+    case 'synastry_monthly_calendar': return 'Calendario Mensual de Sinastría';
+    case 'synastry_annual_calendar': return 'Calendario Anual de Sinastría';
+    case 'synastry_time_vibration': return 'Vibración del Tiempo de Sinastría';
+
+    // Group keys (legacy and current)
     case 'group_pinnacle': return 'Grupo Pináculo';
-    case 'group_vibracion': return 'Grupo Vibración del Tiempo';
-    case 'group_retornos': return 'Grupo Retornos Anuales';
+    case 'group_vibracion': return 'Grupo Vibración del Tiempo'; // legacy
+    case 'group_retornos': return 'Grupo Retornos Anuales'; // legacy
     case 'group_time_circle': return 'Grupo Círculo del Tiempo';
     case 'group_monthly_calendar': return 'Grupo Calendario Mensual';
     case 'group_annual_calendar': return 'Grupo Calendario Anual';
+    case 'group_annual_returns': return 'Grupo Retornos Anuales';
+    case 'group_vibration_time': return 'Grupo Vibración del Tiempo';
     default: return 'Numerología';
   }
 }

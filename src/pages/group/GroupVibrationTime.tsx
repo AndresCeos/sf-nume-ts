@@ -58,37 +58,38 @@ export default function GroupVibrationTimePage() {
       <SelectGroup />
       <div className="grid grid-cols-11 mt-8 mx-14 gap-6 pb-9 pt-10">
         <div className="col-span-8">
-          <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-group" />
           <div className="section-wrap px-2 py-7">
             <SynastryActiveEnergy synastry={groupPerson} />
           </div>
         </div>
         <div className="col-span-4 row-span-2 h-full">
-          <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} color="bg-green-s" />
+
+          <SectionTitle title={t('vibrationTime.quarterMonth.quarterMonth')} color="bg-group" />
           <div className="section-wrap px-2 py-7">
             <SynastryQuarterPerMonth synastry={groupPerson} />
           </div>
         </div>
         <div className="col-span-8">
-          <SectionTitle title={t('vibrationTime.nineYearsCycle.nineYearsCycle')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.nineYearsCycle.nineYearsCycle')} color="bg-group" />
           <div className="section-wrap px-2 py-7">
             <SynastryNineYearsCycle synastry={groupPerson} />
           </div>
         </div>
         <div className="col-span-full">
-          <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.quarterYear.quarterYear')} color="bg-group" />
           <div className="section-wrap px-2 p-7">
             <SynastryQuarterPerYear synastry={groupPerson} />
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-group" />
           <div className="section-wrap px-2">
             <SynastryTimeCurve isPartner synastry={groupPerson} />
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-green-s" />
+          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-group" />
           <div className="section-wrap px-2">
             <GroupHierarchyLine groupConsult={groupPerson} />
           </div>

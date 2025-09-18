@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import ActiveNameComponents from '@/components/personal/name/ActiveNameComponents';
@@ -11,7 +10,7 @@ import FrequentNamePotential from '@/components/personal/name/FrequentNamePotent
 import InclusionTable from '@/components/personal/name/InclusionTable';
 import NameCycle from '@/components/personal/name/NameCycle';
 import NumericalValuesOfTheName from '@/components/personal/name/numericalValuesOfTheName';
-import WrapTitle from '@/components/WrapTitle';
+import SectionTitle from '@/components/SectionTitle';
 import useConsult from '@/hooks/useConsult';
 
 type UngroupName = {
@@ -74,12 +73,11 @@ function NamePage() {
     <div className="page-content bg-home-background bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10">
         <div className="col-span-5 mb-5">
-          <WrapTitle
+          <SectionTitle
             title={t('name.numericValues.title')}
-            color="bg-blue"
             button={{
               handle: checkName,
-              state: checkN,
+              isActive: checkN,
               text: 'Comprobación',
             }}
           />
@@ -87,64 +85,33 @@ function NamePage() {
             checkN={checkN}
           />
         </div>
-
         <div className="col-span-7 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('name.potential.title')}
-          </div>
+          <SectionTitle title={t('name.potential.title')} />
           <FrequentNamePotential />
         </div>
 
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('name.breakdown.title')}
-          </div>
+          <SectionTitle title={t('name.breakdown.title')} />
           <Breakdown />
         </div>
 
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('name.activeName.title')}
-          </div>
+          <SectionTitle title={t('name.activeName.title')} />
           <ActiveNameComponents />
         </div>
 
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('name.nameCycle.title')}
-          </div>
+          <SectionTitle title={t('name.nameCycle.title')} />
           <NameCycle />
         </div>
 
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('name.balanceExistential.title')}
-          </div>
+          <SectionTitle title={t('name.balanceExistential.title')} />
           <BalanceExistential />
         </div>
 
         <div className="col-span-12 mb-5">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-blue p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('name.inclusionTable.title')}
-          </div>
+          <SectionTitle title={t('name.inclusionTable.title')} />
           <InclusionTable />
         </div>
       </div>
