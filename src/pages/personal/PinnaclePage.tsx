@@ -60,6 +60,7 @@ function PinnaclePage() {
               handle: handlePinnacleNameVerification,
               isActive: isPinnacleNameVerificationActive,
             }}
+            fontSize="text-9"
           />
           <div className="section-wrap p-4">
             <PinnacleName isVerificationActive={isPinnacleNameVerificationActive} />
@@ -67,7 +68,7 @@ function PinnaclePage() {
         </div>
 
         <div className="col-span-6 row-span-2">
-          <SectionTitle title={t('pinnacle.bridge.bridge')} color="bg-green-s" />
+          <SectionTitle title={t('pinnacle.bridge.bridge')} />
           <div className="section-wrap grid grid-cols-4">
             <div className={cx(
               'py-3 px-2 border-b border-solid border-gray-300',
@@ -128,7 +129,7 @@ function PinnaclePage() {
         </div>
 
         <div className="col-span-1 row-span-2 col-start-4 row-start-4">
-          <SectionTitle title={t('pinnacle.frequency.frequency')} />
+          <SectionTitle title={t('pinnacle.frequency.frequency')} fontSize="text-9" />
           <div className="section-wrap grid grid-cols-1 p-4">
             <PinnacleFrequency />
           </div>

@@ -19,7 +19,7 @@ function AnnualCalendar() {
     <div className="page-content bg-home-background bg-cover">
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
         <div className="col-span-12">
-          <SectionTitle title={t('annualCalendar.annualCalendar')} color="bg-green-s" />
+          <SectionTitle title={t('annualCalendar.annualCalendar')} />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">
             <div className="col-start-1 row-start-1 col-end-3 flex items-center justify-center">
               <div className="text-xl text-black font-bold px-2">

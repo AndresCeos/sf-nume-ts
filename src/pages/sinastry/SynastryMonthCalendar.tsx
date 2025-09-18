@@ -1,13 +1,12 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { TiPlus } from 'react-icons/ti';
-
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 
 import PartnerSingleMonth from '@/components/partners/calendar/PartnerSingleMonth';
+import SectionTitle from '@/components/SectionTitle';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
 import Universal from '@/resources/Universal';
@@ -62,14 +61,8 @@ export default function SynastryMonthCalendarPage() {
       <SelectPartner />
       <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
         <div className="col-span-12">
-          <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-            <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-green-600 p-2">
-              <TiPlus className="text-2xl" />
-            </div>
-            {t('monthCalendar.title')}
-            {' '}
-            {calculationDate.year}
-          </div>
+          <SectionTitle title={t('monthCalendar.title')} color="bg-red-day" />
+
           <div className="pinnacle-wrap gird grid-cols-2 px-4 py-8 w-full">
             <div className="col-start-1 row-start-1 col-end-3 flex items-center justify-start">
               <div className="text-xl text-black font-bold px-2">

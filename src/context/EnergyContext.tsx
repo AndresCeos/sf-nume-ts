@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export interface Consultant {
+export interface EnergyConsultant {
   id?: string;
   name: string;
   date: string;
@@ -9,11 +9,11 @@ export interface Consultant {
 }
 
 export interface EnergyContextInterface {
-  consultants: Consultant[];
-  fillConsultants: (consultants: Consultant[]) => void;
-  consultantSelected?: Consultant;
+  consultants: EnergyConsultant[];
+  fillConsultants: (consultants: EnergyConsultant[]) => void;
+  consultantSelected?: EnergyConsultant;
   selectConsultant: (consultantId: string) => void;
-  updateConsultant: (consultant: Partial<Consultant>) => void;
+  updateConsultant: (consultant: Partial<EnergyConsultant>) => void;
 }
 
 export const energyContextDefaults: EnergyContextInterface = {

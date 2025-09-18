@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { TiPlus } from 'react-icons/ti';
 
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -10,6 +9,7 @@ import pc from '@/assets/PC.png';
 import pd from '@/assets/PD.png';
 import pn from '@/assets/PN.png';
 import pne from '@/assets/PNe.png';
+import SectionTitle from '@/components/SectionTitle';
 
 function SynastryCompatibilityTablePage() {
   const { consultant, activePartnerData, selectedPartnersAsPersons } = useContext(ConsultContext);
@@ -38,12 +38,8 @@ function SynastryCompatibilityTablePage() {
       <SelectPartner />
 
       <div className="col-span-12 mx-14 mb-5">
-        <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
-          <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-red-day p-2">
-            <TiPlus className="text-2xl" />
-          </div>
-          Tabla de Compatibilidad
-        </div>
+        <SectionTitle title="Tabla de Compatibilidad" color="bg-red-day" />
+
         <div className="pinnacle-wrap grid grid-cols-12 px-4 py-8 w-full">
           <div className="col-start-1 col-span-3 row-start-1 bg-main border border-black text-white p-5 font-bold">Cuadro Comparativo</div>
           <div className="col-start-4 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">Persona 1</div>

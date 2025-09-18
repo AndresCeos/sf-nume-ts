@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Consultant, EnergyContext, EnergyContextInterface } from './EnergyContext';
+import { EnergyConsultant, EnergyContext, EnergyContextInterface } from './EnergyContext';
 
 function EnergyProvider({ children }: any) {
-  const [consultants, setConsultants] = useState<Consultant[]>([]);
-  const [consultantSelected, setConsultantSelected] = useState<Consultant | undefined>(undefined);
+  const [consultants, setConsultants] = useState<EnergyConsultant[]>([]);
+  const [consultantSelected, setConsultantSelected] = useState<EnergyConsultant | undefined>(undefined);
 
-  const fillConsultants = (consultantsToSet: Consultant[]) => {
+  const fillConsultants = (consultantsToSet: EnergyConsultant[]) => {
     setConsultants(consultantsToSet);
     setConsultantSelected(consultantsToSet[0]);
   };
@@ -20,7 +20,7 @@ function EnergyProvider({ children }: any) {
     setConsultantSelected(consultantToSet);
   };
 
-  const updateConsultant = (consultant: Partial<Consultant>) => {
+  const updateConsultant = (consultant: Partial<EnergyConsultant>) => {
     const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
     const consultantToSet = consultantsToSet.find((consultantToFind) => consultantToFind.id === consultant.id);
     if (consultantToSet) {

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import UniversalEnergyPerson from '@/components/Universal/universalEnergy/UniversalEnergyPerson';
 import UniversalEnergyValues from '@/components/Universal/universalEnergy/UniversalEnergyValues';
 import { useAuth } from '@/context/AuthProvider';
-import { Consultant } from '@/context/EnergyContext';
+import { EnergyConsultant } from '@/context/EnergyContext';
 import useEnergy from '@/hooks/useEnergy';
 
 function UniversalEnergy() {
@@ -17,7 +17,7 @@ function UniversalEnergy() {
     if (!userAuth) return;
     if ((consultants?.length ?? 0) > 0) return;
 
-    const peopleToSet: Consultant[] = [];
+    const peopleToSet: EnergyConsultant[] = [];
     peopleToSet.push({
       id: uuidv4(),
       name: `${userAuth?.user?.firstName} ${userAuth?.user?.lastName}`,
@@ -25,16 +25,17 @@ function UniversalEnergy() {
       selected: true,
       order: 1,
     });
-
-    userAuth?.guests?.forEach((guest, index) => {
-      peopleToSet.push({
-        id: uuidv4(),
-        name: guest.name,
-        date: String(guest.date ?? ''),
-        selected: false,
-        order: index + 2,
+    if (userAuth?.guests) {
+      userAuth?.guests?.forEach((guest, index) => {
+        peopleToSet.push({
+          id: uuidv4(),
+          name: guest.name,
+          date: String(guest.date ?? ''),
+          selected: false,
+          order: index + 2,
+        });
       });
-    });
+    }
 
     fillConsultants(peopleToSet);
   }, [userAuth, consultants?.length]);
@@ -43,6 +44,7 @@ function UniversalEnergy() {
     () => (consultants || []).slice().sort((a, b) => (a?.order ?? 0) - (b?.order ?? 1)),
     [consultants],
   );
+  console.log(sortedConsultants);
 
   return (
     <div>

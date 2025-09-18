@@ -377,7 +377,7 @@ function LearningStage() {
   return (
     <div>
       <div className="col-span-24 mb-10">
-        <div className="pinnacle-wrap px-8 py-8">
+        <div className="px-8 py-8">
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pb-2">
             <div className="col-span-3 text-13 font-black pt-3">
               1. Etapa de Vida
