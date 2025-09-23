@@ -242,7 +242,6 @@ export default function LifePathQuarters({ consultant, now }: { consultant: Pers
     default:
       break;
   }
-  console.log(ism4);
 
   return (
     <View style={lifePath.container}>

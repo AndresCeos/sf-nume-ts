@@ -52,15 +52,11 @@ export default function DestinityTable({
   consultant, newDate, nameCycles, nameSubCycles, table, slice = 0, start = 0,
 }: DestinityTableProps) {
   const single = consultant.getSingle();
-  console.log({
-    consultant, newDate, table, slice, start,
-  });
 
   const consultantAge = consultant.getYearsOld(newDate.year);
   const isCycle = (i: number) => (i === consultantAge ? false : nameCycles.includes(i));
   const isSubCycle = (i: number) => (i === consultantAge ? false : nameSubCycles.includes(i));
   const bkConfig = (i: number, bg: string) => {
-    console.log({ i, consultantAge });
     if (i === consultantAge) {
       return '#b95253cc';
     }

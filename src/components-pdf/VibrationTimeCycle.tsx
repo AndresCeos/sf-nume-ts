@@ -99,7 +99,6 @@ export default function VibrationTimeCycle({ consultant, date }: { consultant: P
   nineYearCycle.forEach((year: number) => {
     personalYears.push(consultant.calcPersonalYear(year));
   });
-  console.log(personalYears);
 
   return (
     <View style={cycle.container}>

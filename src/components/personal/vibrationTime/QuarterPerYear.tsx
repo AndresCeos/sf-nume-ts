@@ -9,8 +9,6 @@ export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boole
   const nineYearCycle = consultant.getNineYearCycle(calculationDate);
   const bornFirst = consultant.getDayOfBirth();
   const newDate = calculationDate;
-  console.log(listOfMonths.length);
-  console.log('nineYearCycle', nineYearCycle);
   return (
     <div
       id="destinityTable"

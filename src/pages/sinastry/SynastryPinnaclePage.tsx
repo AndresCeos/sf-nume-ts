@@ -64,7 +64,7 @@ export default function SynastryPinnaclePage() {
 
   if (!activePartnerData || !selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10">
+      <div className="page-content bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
           <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
@@ -130,10 +130,10 @@ export default function SynastryPinnaclePage() {
   };
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
+    <div className="page-content bg-cover pb-10">
       <SelectPartner />
 
-      <div className="grid grid-cols-12 mx-14 gap-6 mt-8 pt-10">
+      <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
         {/* Synastry Metrics */}
         <div className="col-span-4 mb-1">
           <SectionTitle

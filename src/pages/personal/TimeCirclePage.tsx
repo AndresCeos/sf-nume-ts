@@ -12,7 +12,7 @@ function TimeCirclePage() {
   const universal = new Universal();
   if (!consultant) return (<NoConsultantSelected />);
   return (
-    <div className="page-content bg-home-background bg-cover grid grid-cols-12">
+    <div className="page-content bg-cover grid grid-cols-12">
       <div className="col-span-6 flex justify-center items-center py-5 my-5">
         <TimeCircle consultant={consultant} />
       </div>

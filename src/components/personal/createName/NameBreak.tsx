@@ -35,7 +35,6 @@ export default function NameBreak({ createNameObj }: NameBreakProps) {
         ungroupNameI,
       },
     ];
-    console.log(tables * split, count);
     tables += 1;
   } while (count < ungroupName.length);
   return (

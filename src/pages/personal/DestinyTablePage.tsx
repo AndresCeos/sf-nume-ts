@@ -22,8 +22,8 @@ export default function DestinyTablePage() {
   const nameSubCycles = consultant.calcNameSubCycles();
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10 relative">
+    <div className="page-content bg-cover pb-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pt-10 relative">
         <div className="col-span-12 mb-5">
           <SectionTitle title={t('destinyTable.title')} />
           <div className="pinnacle-wrap px-8 pb-3 pt-10">

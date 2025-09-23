@@ -12,7 +12,7 @@ function HomePage() {
   const names = `${firstName}`;
 
   return (
-    <div className="page-content bg-home-background bg-cover grid grid-cols-2">
+    <div className=" bg-cover grid grid-cols-2">
       <div className="h-36 mt-20 pl-14 pt-11 pb-7 bg-white bg-opacity-50 w-full relative rounded-tr-3xl rounded-br-3xl">
         <h2 className="font-black mt-0 mb-2 text-main-700 text-2xl">
           {t('home.title', { name: names })}

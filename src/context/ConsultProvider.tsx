@@ -66,7 +66,6 @@ function ConsultProvider({ children }: any) {
       scdLastName: newConsultant.scdLastName || '',
       birthDate: newConsultant.date?.toString() || '',
     });
-    console.log(newConsultant.date?.toString());
     setConsultant(newConsultantPerson);
     setActiveConsultant(newConsultant);
 
@@ -74,7 +73,6 @@ function ConsultProvider({ children }: any) {
     setPartnersAvailable(newConsultant.partner as Api.Partner[] || []);
 
     // Load partnerData from consultant
-    console.log('DEBUG - selectConsultant - newConsultant.partnerData:', newConsultant.partnerData);
     setPartnerDataAvailable(newConsultant.partnerData || []);
     setActivePartnerData(null);
     setSelectedPartnersAsPersons([]);
@@ -89,7 +87,6 @@ function ConsultProvider({ children }: any) {
 
   // Memoize selectActiveConsultant function
   const selectActiveConsultant = useCallback((newActiveConsultant: Api.Consultant) => {
-    console.log('DEBUG - selectActiveConsultant - newActiveConsultant.partnerData:', newActiveConsultant.partnerData);
     setActiveConsultant(newActiveConsultant);
     // Actualizar también la lista de partners disponibles
     setPartnersAvailable(newActiveConsultant.partner || []);
@@ -229,7 +226,6 @@ function ConsultProvider({ children }: any) {
     // Si hay un partner activo, actualizarlo también
     if (activePartner) {
       const updatedActivePartner = updatedConsultant.partner?.find((p) => p.id === activePartner.id);
-      console.log('Debug - updatedActivePartner found:', updatedActivePartner);
       if (updatedActivePartner) {
         const updatedPartnerPerson = new Person({
           id: updatedActivePartner.id || '',
@@ -239,7 +235,6 @@ function ConsultProvider({ children }: any) {
           birthDate: updatedActivePartner.date?.toString() || '',
           yearMet: 0, // Api.Partner no tiene yearMeet, se establece en 0
         });
-        console.log('Debug - setting new activePartner:', updatedPartnerPerson);
         setActivePartner(updatedPartnerPerson);
       }
     }

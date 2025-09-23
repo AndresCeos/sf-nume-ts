@@ -18,7 +18,7 @@ function GroupAnnualCalendar() {
   if (!consultant) return (<NoConsultantSelected />);
   if (!activeGroup) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -32,7 +32,7 @@ function GroupAnnualCalendar() {
 
   if (!selectedGroup || selectedGroup.length === 0) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -53,9 +53,9 @@ function GroupAnnualCalendar() {
   const allMonths = getAllMonths();
 
   return (
-    <div className="page-content bg-home-background bg-cover">
+    <div className="page-content bg-cover">
       <SelectGroup />
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
         <div className="col-span-12">
           <SectionTitle title={t('annualCalendar.annualCalendar')} color="bg-group" />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">

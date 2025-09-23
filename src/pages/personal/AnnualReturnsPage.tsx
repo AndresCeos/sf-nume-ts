@@ -27,8 +27,8 @@ export default function AnnualReturnsPage() {
   const yearsData = Array.from({ length: 9 }, (_, index) => generateYearData(index - 4));
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
-      <div className="grid grid-cols-12 mt-8 mx-14 pb-10 pt-10">
+    <div className="page-content bg-cover pb-10">
+      <div className="grid grid-cols-12 mt-8 pb-10 pt-10">
         <div className="col-span-13">
           <SectionTitle title={t('annualReturns.title')} />
           <div className="pinnacle-wrap grid grid-cols-3 p-1">

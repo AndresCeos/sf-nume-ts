@@ -45,7 +45,6 @@ export default function SynastryDestinityTable({
   const singleC = consultant.getSingle();
   const singleP = partner.getSingle();
   const partnerDT = [];
-  // console.log( { table, start, consultant, startP, partner, tableP } )
   for (let i = 0; i < table.length; i += 1) {
     partnerDT.push({
       pmC: table[i].pmC,

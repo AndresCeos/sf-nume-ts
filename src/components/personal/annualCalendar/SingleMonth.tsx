@@ -22,7 +22,6 @@ function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
 
   if (!consultant) return null;
   const u = new Universal();
-  console.log(calculationDate);
 
   const personalMonth = { ...calculationDate, month: selectedMonth };
 
@@ -57,8 +56,6 @@ function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(parseInt(event.target.value, 10));
   };
-
-  console.log(getMonthName(personalMonth.month), 'personalMonth.month', personalMonth.month);
 
   return (
     <div className="p-6">

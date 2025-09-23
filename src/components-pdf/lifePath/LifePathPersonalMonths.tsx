@@ -63,11 +63,6 @@ export default function LifePathPersonalMonths({ consultant, now, newDate }: { c
   const indexMonth = allMonths.findIndex((i:string) => i === 'Enero');
   const actualMonth = capitalize(newDate.toLocaleString('es-ES', { month: 'long' }));
 
-  console.log('actualMonth', actualMonth);
-  console.log('indexMonth', indexMonth);
-  console.log('listOfMonths', listOfMonths);
-  console.log('allMonths', allMonths);
-
   switch (indexMonth) {
     case 0:
       quarterOne = [listOfMonths[0], listOfMonths[1], listOfMonths[2], listOfMonths[3], listOfMonths[4]];
