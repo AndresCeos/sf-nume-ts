@@ -11,7 +11,7 @@ function Pinnacle({ size, isVerificationActive }: PinnacleProps) {
   if (!consultant) return null;
 
   return (
-    <div id="pinnacle" className={`relative ${size}`}>
+    <div id="pinnacle" className={`relative !text-${size}`}>
 
       <img id="pinnacle-img" src="/assets/pinnacle.svg" className="absolute top-0 left-0 right-0 mx-auto" alt="background" />
 

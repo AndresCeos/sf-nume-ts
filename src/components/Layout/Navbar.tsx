@@ -110,6 +110,7 @@ function Navbar() {
   const path = location.pathname.split('/')[2];
   const groupPath = location.pathname.split('/')[1];
   const existDownloadPDF = () => reportList.includes(path);
+  const isCreateName = path === 'create-name';
   console.log({ path });
   const {
     handleIsEditingConsultant,
@@ -532,7 +533,7 @@ function Navbar() {
                 <button
                   type="button"
                   className={cx(
-                    isDownloadPDFEnabled ? 'button-nav-bar' : 'button-nav-bar--disabled',
+                    isDownloadPDFEnabled || isCreateName ? 'button-nav-bar' : 'button-nav-bar--disabled',
                   )}
                   onClick={handleModal}
                 >

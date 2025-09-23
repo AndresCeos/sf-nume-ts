@@ -52,12 +52,12 @@ export default function Breakdown() {
   }
   return (
     <div className="pinnacle-wrap px-8 py-8">
-      {ungroupNames.map((ungroup) => (
+      {ungroupNames.map((ungroup, index) => (
         <NameBreakdown
           name={ungroup.name}
           values={ungroup.values}
           total={ungroup.total}
-          description={`N${ungroup.name.length + 1}`}
+          description={`N${index + 1}`}
         />
       ))}
       <NameBreakdown

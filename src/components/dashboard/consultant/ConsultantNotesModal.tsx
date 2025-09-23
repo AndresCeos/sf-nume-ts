@@ -1,4 +1,5 @@
-import { formatDate, pageNameBySlug } from '@/utils/constants';
+import { formatDate, getTheRoute, pageNameBySlug } from '@/utils/constants';
+import { NavLink } from 'react-router-dom';
 import NotesModal from './NotesModal';
 
 type ConsultantNotesModalProps = {
@@ -63,14 +64,16 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
                 <div className="grid gap-3">
                   {Object.entries(note.content).map(([path, content]) => (
                     <div key={path} className="p-3 bg-white rounded-lg border-2 border-gray-200">
-                      <div className="font-semibold text-sm text-gray-700 mb-1">
-                        Página:
-                        {' '}
-                        {pageNameBySlug({ name: path })}
-                      </div>
-                      <div className="text-sm text-gray-600 whitespace-pre-wrap">
-                        {content}
-                      </div>
+                      <NavLink to={`/${getTheRoute(path)}`}>
+                        <div className="font-semibold text-sm text-gray-700 mb-1">
+                          Página:
+                          {' '}
+                          {pageNameBySlug({ name: path })}
+                        </div>
+                        <div className="text-sm text-gray-600 whitespace-pre-wrap">
+                          {content}
+                        </div>
+                      </NavLink>
                     </div>
                   ))}
                 </div>
