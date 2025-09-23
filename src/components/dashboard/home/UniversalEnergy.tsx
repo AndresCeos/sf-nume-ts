@@ -25,7 +25,7 @@ function UniversalEnergy() {
       selected: true,
       order: 1,
     });
-    
+
     if (userAuth?.guests) {
       userAuth?.guests?.forEach((guest, index) => {
         peopleToSet.push({
