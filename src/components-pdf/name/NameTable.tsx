@@ -51,9 +51,7 @@ type UnGroupName = {
 
 export default function NameTable({ consultant }: { consultant: Person }) {
   const { name, lastName, scdLastName } = consultant;
-  console.log(name);
   const names = name.split(' ');
-  console.log(names);
   const unGroupNames = names.map((el: string) => ({
     name: consultant.getUngroupName(el),
     values: consultant.getUngroupNameValues(el),

@@ -20,7 +20,7 @@ function SynastryCompatibilityTablePage() {
 
   if (!activePartnerData || !selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
-      <div className="grid grid-cols-12 mx-14 gap-6 mt-8 pt-10">
+      <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
         <SelectPartner />
         <div className="col-span-12 text-center">
           <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la tabla de compatibilidad</strong>
@@ -34,10 +34,10 @@ function SynastryCompatibilityTablePage() {
   const partner2 = selectedPartnersAsPersons[1];
 
   return (
-    <div className="page-content bg-home-background grid grid-cols-12 gap-6 mt-8 pt-10">
+    <div className="page-content bg-cover grid grid-cols-12 gap-6 mt-8 pt-10">
       <SelectPartner />
 
-      <div className="col-span-12 mx-14 mb-5">
+      <div className="col-span-12 mb-5">
         <SectionTitle title="Tabla de Compatibilidad" color="bg-red-day" />
         <div className="pinnacle-wrap grid grid-cols-12 px-4 py-8 w-full">
           <div className="col-start-1 col-span-3 row-start-1 bg-main border border-black text-white p-5 font-bold">Cuadro Comparativo</div>

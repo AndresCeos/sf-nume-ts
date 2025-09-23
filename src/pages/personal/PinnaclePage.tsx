@@ -10,10 +10,14 @@ import PinnacleFrequency from '@/components/personal/pinnacle/PinnacleFrequency'
 import PinnacleName from '@/components/personal/pinnacle/PinnacleName';
 import TimeCurve from '@/components/personal/pinnacle/TimeCurve';
 import useConsult from '@/hooks/useConsult';
+import { useState } from 'react';
 
 function PinnaclePage() {
   const { consultant, calculationDate } = useConsult();
   const { t } = useTranslation();
+  const [isPinnacleVerificationActive, setIsPinnacleVerificationActive] = useState(false);
+  const [isPinnacleNameVerificationActive, setIsPinnacleNameVerificationActive] = useState(false);
+  const [isCurveTimeVerificationActive, setIsCurveTimeVerificationActive] = useState(false);
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -21,14 +25,15 @@ function PinnaclePage() {
   const activeScdStage = consultant.getDoubleLifeStageNumber(calculationDate);
   const secondStage = consultant.hasDoubleStage();
 
-  const isPinnacleVerificationActive = false; // TODO: implement
-  const handlePinnacleVerification = () => { // TODO: implement
-    console.log('not implemented');
+  const handlePinnacleVerification = () => {
+    setIsPinnacleVerificationActive(!isPinnacleVerificationActive);
   };
 
-  const isPinnacleNameVerificationActive = false; // TODO: implement
-  const handlePinnacleNameVerification = () => { // TODO: implement
-    console.log('not implemented');
+  const handlePinnacleNameVerification = () => {
+    setIsPinnacleNameVerificationActive(!isPinnacleNameVerificationActive);
+  };
+  const handleCurveTimeVerification = () => { // TODO: implement
+    setIsCurveTimeVerificationActive(!isCurveTimeVerificationActive);
   };
 
   const annualReturnCurrent = consultant.annualReturn(calculationDate);
@@ -36,9 +41,9 @@ function PinnaclePage() {
   const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
-    <div className="page-content bg-home-background bg-cover">
-      <div className="grid grid-cols-10 mt-8 mx-14 gap-4">
-        <div className="col-start-1 col-end-4 row-span-6">
+    <div className="page-content bg-cover">
+      <div className="grid grid-cols-10 grid-rows-12 mt-8 mx-14 gap-4">
+        <div className="col-span-3 row-span-6">
           <SectionTitle
             title={t('pinnacle.title')}
             button={{
@@ -47,12 +52,12 @@ function PinnaclePage() {
               isActive: isPinnacleVerificationActive,
             }}
           />
-          <div className="section-wrap px-2 py-7">
+          <div className="section-wrap px-2 py-7 h-560">
             <Pinnacle size="sm" isVerificationActive={isPinnacleVerificationActive} />
           </div>
         </div>
 
-        <div className="col-start-4 col-end-5 row-span-3">
+        <div className="col-span-1 row-span-3">
           <SectionTitle
             title={t('pinnacle.name.name')}
             button={{
@@ -62,12 +67,12 @@ function PinnaclePage() {
             }}
             fontSize="text-9"
           />
-          <div className="section-wrap p-4">
+          <div className="section-wrap">
             <PinnacleName isVerificationActive={isPinnacleNameVerificationActive} />
           </div>
         </div>
 
-        <div className="col-start-5 col-end-11 row-span-3">
+        <div className="col-span-6 row-span-2">
           <SectionTitle title={t('pinnacle.bridge.bridge')} />
           <div className="section-wrap grid grid-cols-4">
             <div className={cx(
@@ -113,32 +118,39 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-start-5 col-end-11 row-span-4">
+        <div className="col-span-6 col-start-5 row-span-4">
           <SectionTitle title={t('pinnacle.annualReturns.annualReturns')} />
           <div className="section-wrap grid grid-cols-3">
-            <div className="px-5 py-8 border-b border-solid border-gray-300">
+            <div className="px-1 py-8 border-b border-solid border-gray-300">
               <AnnualReturn size="xs" annualReturn={annualReturnLastYear} />
             </div>
-            <div className="px-5 py-8 border-b border-solid border-gray-300 bg-active-radial bg-opacity-15">
+            <div className="px-1 py-8 border-b border-solid border-gray-300 bg-active-radial bg-opacity-15">
               <AnnualReturn size="xs" annualReturn={annualReturnCurrent} current />
             </div>
-            <div className="px-5 py-8">
+            <div className="px-1 py-8">
               <AnnualReturn size="xs" annualReturn={annualReturnNextYear} />
             </div>
           </div>
         </div>
 
-        <div className="col-start-4 col-end-5 row-span-2">
+        <div className="col-span-1 row-span-2 col-start-4 row-start-4">
           <SectionTitle title={t('pinnacle.frequency.frequency')} fontSize="text-9" />
-          <div className="section-wrap grid grid-cols-1 p-4">
+          <div className="section-wrap grid grid-cols-1 p-3">
             <PinnacleFrequency />
           </div>
         </div>
 
         <div className="col-span-10 mb-10">
-          <SectionTitle title={t('pinnacle.timeCurve.timeCurve')} />
+          <SectionTitle
+            title={t('pinnacle.timeCurve.timeCurve')}
+            button={{
+              text: t('pinnacle.verification') as string,
+              handle: handleCurveTimeVerification,
+              isActive: isCurveTimeVerificationActive,
+            }}
+          />
           <div className="section-wrap px-8 py-8">
-            <TimeCurve isPartner={false} />
+            <TimeCurve isPartner={false} isVerificationActive={isCurveTimeVerificationActive} />
           </div>
         </div>
 

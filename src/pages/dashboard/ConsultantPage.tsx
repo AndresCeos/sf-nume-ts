@@ -23,21 +23,16 @@ function ConsultantPage() {
   const consultantNotes = consultantInfo?.notes;
 
   return (
-    <div className="page-content bg-home-background bg-cover">
-      <div className="mt-8 ml-14 flex justify-start items-center pt-10">
+    <div className="page-content bg-cover">
+      <div className="mt-8 flex justify-start items-center pt-10">
         <img src="/assets/welcome.png" className="w-16" alt="welcome" />
         <h2 className="font-black mt-0 mb-2 text-main text-2xl">¿A quién vas a consultar hoy?</h2>
       </div>
-      <div className="grid grid-cols-10 mt-8 mx-14 gap-4">
+      <div className="grid grid-cols-10 mt-8 gap-4">
         <div className="col-span-6">
           <div className="mb-5">
             <SectionTitle
               title="Agregar Consultante"
-              button={{
-                isActive: false,
-                text: '',
-                handle: () => { },
-              }}
             />
             <div className="section-wrap px-2 py-7">
               <ConsultantForm />
@@ -46,11 +41,6 @@ function ConsultantPage() {
           <div className="mb-5">
             <SectionTitle
               title="Historrial"
-              button={{
-                isActive: false,
-                text: '',
-                handle: () => { },
-              }}
             />
             <div className="section-wrap px-2 py-7 users-wrap">
               <div className="users-search rounded-3xl relative mb-6">
@@ -84,11 +74,6 @@ function ConsultantPage() {
         <div className="col-span-4">
           <SectionTitle
             title="Perfil del Consultante"
-            button={{
-              isActive: false,
-              text: '',
-              handle: () => { },
-            }}
           />
           <div className="section-wrap px-2 py-7">
             {/* Botón para ver notas */}

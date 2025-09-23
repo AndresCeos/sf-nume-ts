@@ -24,7 +24,6 @@ function GroupSingleMonth({ month, showMonthSelector = false, consultant }: Grou
 
   if (!consultant) return null;
   const u = new Universal();
-  console.log(calculationDate);
 
   const personalMonth = { ...calculationDate, month: selectedMonth };
 
@@ -59,8 +58,6 @@ function GroupSingleMonth({ month, showMonthSelector = false, consultant }: Grou
   const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(parseInt(event.target.value, 10));
   };
-
-  console.log(getMonthName(personalMonth.month), 'personalMonth.month', personalMonth.month);
 
   return (
     <div className="p-6">
@@ -205,8 +202,8 @@ function GroupSingleMonth({ month, showMonthSelector = false, consultant }: Grou
                 {day}
                 <br />
                 <span className="text-xl flex justify-center text-black font-bold">
-                  {consultant.calcPersonalDay(calculationDate)}
-                  {consultant.calcPersonalDayISK(calculationDate)}
+                  {consultant.calcPersonalDay({ ...calculationDate, month, day })}
+                  {consultant.calcPersonalDayISK({ ...calculationDate, month, day })}
                   /
                   {u.calcUniversalDay({ ...calculationDate, month, day })}
                   {u.calcUniversalDayISK({ ...calculationDate, month, day })}

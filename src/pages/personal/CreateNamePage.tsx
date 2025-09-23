@@ -90,7 +90,6 @@ function CreateNamePage() {
   };
 
   const createNameObj = new Person(createNameData);
-  console.log(createNameObj.calcMaturity());
 
   const annualReturnPastYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
   const annualReturnCurrent = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year });
@@ -167,8 +166,6 @@ function CreateNamePage() {
 
       // Actualizar el contexto para reflejar los cambios inmediatamente
       selectActiveConsultant(updatedConsultant);
-
-      console.log('Nombre guardado exitosamente:', newCreateName);
 
       // Mostrar mensaje de éxito con SweetAlert
       Swal.fire({
@@ -316,8 +313,8 @@ function CreateNamePage() {
   };
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10">
+    <div className="page-content bg-cover pb-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
         <div className="col-span-12 mb-5">
           <SectionTitle title="Crear Nombre" />
           <div className="pinnacle-wrap px-8 py-8">

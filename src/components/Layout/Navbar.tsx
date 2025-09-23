@@ -55,7 +55,6 @@ function Navbar() {
   } = userAuth?.user ?? {};
   const { logo, website, phone } = userAuth?.company ?? {};
 
-  console.log(userAuth?.company);
   /** Variables para Reportes PDF */
   const [modal, setModal] = useState(false);
   const [availableReports, setAvailableReports] = useState<any>({});
@@ -111,7 +110,7 @@ function Navbar() {
   const groupPath = location.pathname.split('/')[1];
   const existDownloadPDF = () => reportList.includes(path);
   const isCreateName = path === 'create-name';
-  console.log({ path });
+
   const {
     handleIsEditingConsultant,
     activeConsultant,
@@ -168,7 +167,6 @@ function Navbar() {
       group_vibration_time: GroupVibrationTimePDF,
     };
     const config = [Object.entries(reports).filter((i) => i[0] === path)[0][1] as unknown as PDFPageConfig];
-    console.log({ config });
     const profile = new Person({
       id: '0',
       name: firstName || '',

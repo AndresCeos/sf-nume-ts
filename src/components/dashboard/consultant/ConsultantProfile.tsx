@@ -54,33 +54,6 @@ function ConsultantProfile() {
             {consultantInfo?.company || '-'}
           </li>
         </div>
-        <div className="py-3 border-t-2 border-t-gray-300">
-          {consultantInfo?.notes
-                      && (
-                      <button
-                        type="button"
-                        className="bg-main rounded-full text-white p-4 mb-4 flex items-center gap-2 font-bold hover:opacity-90"
-                        onClick={() => setShowModal(true)}
-                      >
-                        <img
-                          src="/assets/navbar/notes.svg"
-                          alt="notas"
-                        />
-                        Abrir Notas
-                      </button>
-                      )}
-          <div className="text-13 text-main font-bold py-2">
-            <p>Datos de Contacto</p>
-          </div>
-          <div className="text-13 leading-7">
-            <strong>Teléfono: </strong>
-            {consultantInfo?.phone || '-'}
-          </div>
-          <div className="text-13 leading-7">
-            <strong>Correo Electrónico: </strong>
-            {consultantInfo?.email || '-'}
-          </div>
-        </div>
       </div>
       <div>
         {showModal

@@ -61,7 +61,6 @@ export default function usePDFErrorHandler(config: Partial<ErrorHandlerConfig> =
     // Log to server if configured
     if (mergedConfig.logToServer) {
       // TODO: Implement server logging
-      console.log('Would log to server:', error);
     }
   }, [mergedConfig]);
 

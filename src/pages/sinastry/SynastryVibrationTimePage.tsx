@@ -34,9 +34,9 @@ export default function SynastryVibrationTimePage() {
 
   const synastry = new Synastry(partner1, partner2);
   return (
-    <div className="page-content bg-home-background bg-cover">
+    <div className="page-content bg-cover">
       <SelectPartner />
-      <div className="grid grid-cols-11 mt-8 mx-14 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-11 mt-8 gap-6 pb-9 pt-10">
         <div className="col-span-8">
 
           <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-red-day" />

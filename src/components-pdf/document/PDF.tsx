@@ -86,7 +86,6 @@ export default function PDF({
         try {
           // Handle single component
           if (!Array.isArray(configItem)) {
-            console.log('Processing single component at index:', index);
             const result = configItem({
               consultant,
               newDate,
@@ -108,7 +107,6 @@ export default function PDF({
           }
 
           // Handle array of components
-          console.log('Processing array of components at index:', index);
           return configItem.map((component: any, componentIndex: number) => {
             try {
               const result = component({
@@ -197,8 +195,6 @@ export default function PDF({
       .filter(Boolean), // Remove any null/undefined results
     [config, consultant, newDate, synastry, groupConsult, month, partnerYear, groupYear],
   );
-
-  console.log('Generated PDF components:', listOfPDF);
 
   // If no valid components were generated, show error
   if (listOfPDF.length === 0) {

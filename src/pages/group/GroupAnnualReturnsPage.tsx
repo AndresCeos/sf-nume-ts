@@ -18,7 +18,7 @@ export default function GroupAnnualReturnsPage() {
 
   if (!activeGroup) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -32,7 +32,7 @@ export default function GroupAnnualReturnsPage() {
 
   if (!selectedGroup || selectedGroup.length === 0) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -68,9 +68,9 @@ export default function GroupAnnualReturnsPage() {
   const yearsData = Array.from({ length: 9 }, (_, index) => generateYearData(index - 4));
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10 px-4">
+    <div className="page-content bg-cover pb-10 px-4">
       <SelectGroup />
-      <div className="grid grid-cols-12 mt-8 mx-4 pb-10 pt-10">
+      <div className="grid grid-cols-12 mt-8 pb-10 pt-10">
         <div className="col-span-13">
           <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
             <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">

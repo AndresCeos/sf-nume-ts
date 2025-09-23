@@ -19,10 +19,8 @@ export default function PDF({
 
   const listOfPDF: PDFPageConfig[] = config.map((i) => {
     if (!Array.isArray(i)) {
-      console.log('single');
       return null;
     }
-    console.log('array');
     return i.map((x) => x({
       consultant, synastry, groupConsult, newDate, month,
     }));

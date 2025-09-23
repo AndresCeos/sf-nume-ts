@@ -6,8 +6,9 @@ import {
 
 function LastConsult() {
   const { activeConsultant } = useConsult();
+
   let lastTime = '-';
-  if (activeConsultant?.notes) {
+  if (activeConsultant?.notes && Object.keys(activeConsultant?.notes).length > 0) {
     const date = Object.keys(activeConsultant?.notes)[Object.keys(activeConsultant?.notes).length - 1];
     const dateObj = new Date(date);
     lastTime = `${getDate(dateObj)}/${getMonth(dateObj) + 1}/${getYear(dateObj)}`;

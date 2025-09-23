@@ -39,7 +39,7 @@ function SynastryTimeCirclePage() {
   const synastryPerson = new Synastry(partner1, partner2);
 
   return (
-    <div className="page-content bg-home-background bg-cover grid grid-cols-12">
+    <div className="page-content bg-cover grid grid-cols-12">
       <SelectPartner />
       <div className="col-span-6 flex justify-center items-center py-5 my-5">
         <TimeCircle consultant={synastryPerson} />

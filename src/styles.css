@@ -90,6 +90,8 @@ img {
   .page-content{
     min-height: calc(100vh - 85px);
     padding-top: 41px;
+    max-width: 1094px;
+    margin: auto;
   }
   .sidebar-link{
     @apply text-[13px] pl-3 pr-1 py-2 flex items-center border-b border-grayNc;
@@ -772,7 +774,6 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
   font-weight: bold;
   width: 13%;
   height: 8%;
@@ -784,7 +785,7 @@ img {
 }
 
 .pinnacle-letter[data-letter="B"] {
-  font-size: 52px;
+  font-size: 27px;
   top: 36%;
   left: 29%;
   width: 21%;
@@ -1863,6 +1864,10 @@ top: 134px;
 
 .w-220 {
   max-width: 220px;
+}
+.h-560 {
+  height: 560px;
+  max-height: 560px;
 }
 
 .arrow-down-line {

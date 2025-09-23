@@ -20,8 +20,8 @@ function VibrationTimePage() {
   const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
-    <div className="page-content bg-home-background bg-cover">
-      <div className="grid grid-cols-11 mt-8 mx-14 gap-6 pb-9 pt-10">
+    <div className="page-content bg-cover">
+      <div className="grid grid-cols-11 mt-8 gap-6 pb-9 pt-10">
         <div className="col-span-8">
           <SectionTitle title={t('vibrationTime.energy.energy')} />
           <div className="section-wrap px-2 py-7">

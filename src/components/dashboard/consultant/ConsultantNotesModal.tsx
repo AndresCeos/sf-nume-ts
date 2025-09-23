@@ -1,4 +1,3 @@
-
 import { formatDate, getTheRoute, pageNameBySlug } from '@/utils/constants';
 import { NavLink } from 'react-router-dom';
 import NotesModal from './NotesModal';

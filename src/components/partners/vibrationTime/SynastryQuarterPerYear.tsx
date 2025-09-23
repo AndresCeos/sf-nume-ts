@@ -10,8 +10,6 @@ export default function SynastryQuarterPerYear({ synastry }: { synastry: Synastr
   const indexOfMonth = listOfMonths.findIndex((element) => element === 'Enero');
   const nineYearCycle = synastry.getNineYearCycle(calculationDate.year);
   const newDate = calculationDate;
-  console.log(listOfMonths.length);
-  console.log('nineYearCycle', nineYearCycle);
   return (
     <div
       id="destinityTable"

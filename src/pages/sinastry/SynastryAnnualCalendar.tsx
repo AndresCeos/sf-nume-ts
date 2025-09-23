@@ -20,7 +20,7 @@ function SynastryAnnualCalendar() {
 
   if (!activePartnerData) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -34,7 +34,7 @@ function SynastryAnnualCalendar() {
 
   if (!selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -57,9 +57,9 @@ function SynastryAnnualCalendar() {
   const allMonths = getAllMonths();
 
   return (
-    <div className="page-content bg-home-background bg-cover">
+    <div className="page-content bg-cover">
       <SelectPartner />
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
         <div className="col-span-12">
           <SectionTitle title={t('annualCalendar.annualCalendar')} color="bg-red-day" />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">

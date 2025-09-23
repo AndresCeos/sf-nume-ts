@@ -4,7 +4,6 @@ import GroupAnnualReturns from '../groupAnnualReturns/GroupAnnualReturns';
 import GroupData from '../groupPinnacle/GroupData';
 
 export default function GroupAnnualReturnsPDF({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
-  console.log(groupConsult);
   return {
     bg: sPinnacle,
     children:
