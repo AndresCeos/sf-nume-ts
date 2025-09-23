@@ -1,3 +1,5 @@
+import { includes } from 'lodash';
+
 // eslint-disable-next-line prefer-destructuring
 const env = import.meta.env;
 
@@ -75,6 +77,45 @@ export function pageNameBySlug(opts:{ name:string }) {
     default: return 'Numerología';
   }
 }
+export const getUrlLegacy = (path: string): string => {
+  switch (path) {
+    case 'pinaculo': return 'personal/pinnacle';
+    case 'camino': return 'personal/life_path';
+    case 'nombre': return 'personal/name';
+    case 'crear_nombre': return 'personal/create-name';
+    case 'destino': return 'personal/destiny_table';
+    case 'tiempo': return 'personal/time_vibration';
+    case 'retornos': return 'personal/annual_returns';
+    case 'circulo_tiempo': return 'personal/time_circle';
+    case 'calendario': return 'personal/annual_calendar';
+    case 'calendarioMensual': return 'personal/monthly_calendar';
+    case 'sinastria': return 'partner/synastry_pinnacle';
+    case 'sinastria_vibracion': return 'partner/synastry_time_vibration';
+    case 'sinastria_retornos': return 'partner/synastry_annual_returns';
+    case 'sinastria_destino': return 'partner/synastry_destiny_table';
+    case 'sinastria_compatibilidad': return 'partner/synastry_compatibility_table';
+    case 'group_vibration': return 'group/group_vibration_time';
+    case 'group_retornos': return 'group/group_annual_returns';
+    default: return `personal/${path}`;
+  }
+};
+export const getTheRoute = (path: string): string => {
+  // First check if there's a legacy route match
+  const legacyRoute = getUrlLegacy(path);
+  if (legacyRoute !== `personal/${path}`) {
+    return legacyRoute;
+  }
+
+  // If no legacy match, proceed with regular route checks
+  if (includes(path, 'synastry')) {
+    return `partner/${path}`;
+  }
+  if (includes(path, 'group')) {
+    return `group/${path}`;
+  }
+  return `personal/${path}`;
+};
+
 export const ciclePhrases: Record<number, string[]> = {
   1: [
     'Independencia',

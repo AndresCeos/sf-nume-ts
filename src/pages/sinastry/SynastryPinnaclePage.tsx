@@ -241,7 +241,7 @@ export default function SynastryPinnaclePage() {
           />
 
           <div className="pinnacle-wrap px-5 py-4 bg-active-radial shadow-sm">
-            <AnnualReturn annualReturn={annualReturns.synastry} current months size="xs" />
+            <AnnualReturn annualReturn={annualReturns.synastry} current months size="xl" />
           </div>
         </div>
 
@@ -252,7 +252,7 @@ export default function SynastryPinnaclePage() {
           />
 
           <div className="pinnacle-wrap px-5 py-4">
-            <AnnualReturn annualReturn={annualReturns.partner1} current months size="xs" />
+            <AnnualReturn annualReturn={annualReturns.partner1} current months size="xl" />
           </div>
         </div>
 
@@ -262,7 +262,7 @@ export default function SynastryPinnaclePage() {
             color=" bg-red-day"
           />
           <div className="pinnacle-wrap px-5 py-4">
-            <AnnualReturn annualReturn={annualReturns.partner2} current months size="xs" />
+            <AnnualReturn annualReturn={annualReturns.partner2} current months size="xl" />
           </div>
         </div>
       </div>

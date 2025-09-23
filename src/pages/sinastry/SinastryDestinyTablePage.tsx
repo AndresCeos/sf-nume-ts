@@ -1,6 +1,10 @@
 /* eslint-disable max-len */
 import { getYear } from 'date-fns';
-import { useContext, useState } from 'react';
+import {
+  useContext,
+  useEffect, useRef,
+  useState,
+} from 'react';
 import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -17,6 +21,7 @@ interface SinastryDestinyTableComponent {
   partner: any;
   tableP: any[];
   startP: number;
+  currentYearRef?: React.RefObject<HTMLDivElement> | null;
 }
 
 function SinastryDestinyTable({
@@ -26,6 +31,7 @@ function SinastryDestinyTable({
   partner,
   tableP,
   startP,
+  currentYearRef = null,
 }: SinastryDestinyTableComponent) {
   const [binomActive, setBinomActive] = useState(false);
   const singleC = consultant.getSingle();
@@ -104,214 +110,223 @@ function SinastryDestinyTable({
           Núm. Destino
         </div>
       </div>
-      {partnerDT.map((el, i) => (
-        <>
-          <div className="nameBreakdown">
-            <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
-            }`}
-            >
-              {consultant.getYearOfBirth() + i + start}
-            </div>
-            <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
-            }`}
-            >
-              {i + start}
-            </div>
-            <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmC}</strong>
-              <p className="h-6 w-7 leading-6 text-center text-10">
-                {el.pmN}
-                /
-                {el.pmD}
-              </p>
-            </div>
-            <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMC}</strong>
-              <p className="h-4 text-center text-10">
-                {el.pMN}
-                /
-                {el.pMD}
-              </p>
-            </div>
-            <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfC}</strong>
-              <p className="h-4 text-center text-10">{singleC && `${el.pfN} / ${el.pfD}`}</p>
-            </div>
-            <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
-            } ${binomActive && 'text-xs'}`}
-            >
-              {binomActive ? (
-                <strong>
-                  {reduceNumber(el.pmD + el.pMD + el.pfD)}
+      {partnerDT.map((el, i) => {
+        const isCurrentYear = new Date().getFullYear() === consultant.getYearOfBirth() + i + start;
+        return (
+          <>
+            <div className="nameBreakdown">
+              <div
+                ref={isCurrentYear ? currentYearRef : null}
+                className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
+                  isCurrentYear ? 'bg-red-50' : 'bg-main-30'
+                }`}
+              >
+                {consultant.getYearOfBirth() + i + start}
+              </div>
+              <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
+              }`}
+              >
+                {i + start}
+              </div>
+              <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmC}</strong>
+                <p className="h-6 w-7 leading-6 text-center text-10">
+                  {el.pmN}
                   /
-                  {reduceNumber(el.pmN + el.pMN + el.pfN)}
-                </strong>
-              ) : <strong>{reduceNumber(el.pmD + el.pMD + el.pfD)}</strong>}
-            </div>
-            <div className={`mt-5 h-10 w-7 text-13 font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
-            }`}
-            >
-              {consultant.calcPersonalYear(consultant.getYearOfBirth() + i + start)}
-            </div>
-            <div className={`h-10 w-7 text-13 font-bold border-b border-r border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              {reduceNumber(el.pmD + el.pMD + el.pfD + consultant.calcPersonalYear(consultant.getYearOfBirth() + i + start))}
-            </div>
-          </div>
-
-          <div className="nameBreakdown">
-            <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
-            }`}
-            >
-              {partner.getYearOfBirth() + i + startP}
-            </div>
-            <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
-            }`}
-            >
-              {i + startP}
-            </div>
-            <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCP}</strong>
-              <p className="h-6 w-7 leading-6 text-center text-10">
-                {el.pmNP}
-                /
-                {el.pmDP}
-              </p>
-            </div>
-            <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCP}</strong>
-              <p className="h-4 text-center text-10">
-                {el.pMNP}
-                /
-                {el.pMDP}
-              </p>
-            </div>
-            <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCP}</strong>
-              <p className="h-4 text-center text-10">{singleP && `${el.pfNP}/${el.pfDP}`}</p>
-            </div>
-            <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
-            } ${binomActive && 'text-xs'}`}
-            >
-              {binomActive ? (
-                <strong>
-                  {reduceNumber(el.pmNP + el.pMNP + el.pfNP)}
+                  {el.pmD}
+                </p>
+              </div>
+              <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMC}</strong>
+                <p className="h-4 text-center text-10">
+                  {el.pMN}
                   /
-                  {reduceNumber(el.pmDP + el.pMDP + el.pfDP)}
-                </strong>
-              ) : <strong>{reduceNumber(el.pmDP + el.pMDP + el.pfDP)}</strong>}
+                  {el.pMD}
+                </p>
+              </div>
+              <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfC}</strong>
+                <p className="h-4 text-center text-10">{singleC && `${el.pfN} / ${el.pfD}`}</p>
+              </div>
+              <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
+              } ${binomActive && 'text-xs'}`}
+              >
+                {binomActive ? (
+                  <strong>
+                    {reduceNumber(el.pmD + el.pMD + el.pfD)}
+                    /
+                    {reduceNumber(el.pmN + el.pMN + el.pfN)}
+                  </strong>
+                ) : <strong>{reduceNumber(el.pmD + el.pMD + el.pfD)}</strong>}
+              </div>
+              <div className={`mt-5 h-10 w-7 text-13 font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
+              }`}
+              >
+                {consultant.calcPersonalYear(consultant.getYearOfBirth() + i + start)}
+              </div>
+              <div className={`h-10 w-7 text-13 font-bold border-b border-r border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                {reduceNumber(el.pmD + el.pMD + el.pfD + consultant.calcPersonalYear(consultant.getYearOfBirth() + i + start))}
+              </div>
             </div>
-            <div className={`mt-5 h-10 w-7 text-13 font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
-            }`}
-            >
-              {partner.calcPersonalYear(partner.getYearOfBirth() + i + startP)}
-            </div>
-            <div className={`h-10 w-7 text-13 font-bold border-b border-r border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
-            }`}
-            >
-              {reduceNumber(el.pmDP + el.pMDP + el.pfDP + partner.calcPersonalYear(partner.getYearOfBirth() + i + startP))}
-            </div>
-          </div>
 
-          <div className="nameBreakdown">
-            <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-main-30'
-            }`}
-            >
-              {consultant.getYearOfBirth() + i + start}
+            <div className="nameBreakdown">
+              <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
+              }`}
+              >
+                {partner.getYearOfBirth() + i + startP}
+              </div>
+              <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
+              }`}
+              >
+                {i + startP}
+              </div>
+              <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCP}</strong>
+                <p className="h-6 w-7 leading-6 text-center text-10">
+                  {el.pmNP}
+                  /
+                  {el.pmDP}
+                </p>
+              </div>
+              <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCP}</strong>
+                <p className="h-4 text-center text-10">
+                  {el.pMNP}
+                  /
+                  {el.pMDP}
+                </p>
+              </div>
+              <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCP}</strong>
+                <p className="h-4 text-center text-10">{singleP && `${el.pfNP}/${el.pfDP}`}</p>
+              </div>
+              <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
+              } ${binomActive && 'text-xs'}`}
+              >
+                {binomActive ? (
+                  <strong>
+                    {reduceNumber(el.pmNP + el.pMNP + el.pfNP)}
+                    /
+                    {reduceNumber(el.pmDP + el.pMDP + el.pfDP)}
+                  </strong>
+                ) : <strong>{reduceNumber(el.pmDP + el.pMDP + el.pfDP)}</strong>}
+              </div>
+              <div className={`mt-5 h-10 w-7 text-13 font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
+              }`}
+              >
+                {partner.calcPersonalYear(partner.getYearOfBirth() + i + startP)}
+              </div>
+              <div className={`h-10 w-7 text-13 font-bold border-b border-r border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+              }`}
+              >
+                {reduceNumber(el.pmDP + el.pMDP + el.pfDP + partner.calcPersonalYear(partner.getYearOfBirth() + i + startP))}
+              </div>
             </div>
-            <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              {reduceNumber(i + start + i + startP)}
+
+            <div className="nameBreakdown">
+              <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-main-30'
+              }`}
+              >
+                {consultant.getYearOfBirth() + i + start}
+              </div>
+              <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                {reduceNumber(i + start + i + startP)}
+              </div>
+              <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCPC}</strong>
+                <p className="h-6 w-7 leading-6 text-center text-10">
+                  {el.pmNPC}
+                  /
+                  {el.pmDPC}
+                </p>
+              </div>
+              <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCPC}</strong>
+                <p className="h-4 text-center text-10">
+                  {el.pMNPC}
+                  /
+                  {el.pMDPC}
+                </p>
+              </div>
+              <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCPC}</strong>
+                <p className="h-4 text-center text-10">{(singleC && singleP) && `${el.pfNPC}/${el.pfDPC}`}</p>
+              </div>
+              <div className={`h-10 w-7 text-xs border-b border-r border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                <strong>
+                  {reduceNumber(el.pmNPC + el.pMNPC + el.pfNPC)}
+                  /
+                  {reduceNumber(el.pmDPC + el.pMDPC + el.pfDPC)}
+                </strong>
+              </div>
+              <div className={`mt-5 h-10 w-7 text-xs font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                {synastry.calcPersonalYear(consultant.getYearOfBirth() + i + start)}
+              </div>
+              <div className={`h-10 w-7 text-xs font-bold border-b border-r border-gray-400 flex items-center justify-center ${
+                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+              }`}
+              >
+                {reduceNumber(el.pmDPC + el.pMDPC + el.pfDPC + synastry.calcPersonalYear(consultant.getYearOfBirth() + i + start))}
+              </div>
             </div>
-            <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCPC}</strong>
-              <p className="h-6 w-7 leading-6 text-center text-10">
-                {el.pmNPC}
-                /
-                {el.pmDPC}
-              </p>
-            </div>
-            <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCPC}</strong>
-              <p className="h-4 text-center text-10">
-                {el.pMNPC}
-                /
-                {el.pMDPC}
-              </p>
-            </div>
-            <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCPC}</strong>
-              <p className="h-4 text-center text-10">{(singleC && singleP) && `${el.pfNPC}/${el.pfDPC}`}</p>
-            </div>
-            <div className={`h-10 w-7 text-xs border-b border-r border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              <strong>
-                {reduceNumber(el.pmNPC + el.pMNPC + el.pfNPC)}
-                /
-                {reduceNumber(el.pmDPC + el.pMDPC + el.pfDPC)}
-              </strong>
-            </div>
-            <div className={`mt-5 h-10 w-7 text-xs font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              {synastry.calcPersonalYear(consultant.getYearOfBirth() + i + start)}
-            </div>
-            <div className={`h-10 w-7 text-xs font-bold border-b border-r border-gray-400 flex items-center justify-center ${
-              new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
-            }`}
-            >
-              {reduceNumber(el.pmDPC + el.pMDPC + el.pfDPC + synastry.calcPersonalYear(consultant.getYearOfBirth() + i + start))}
-            </div>
-          </div>
-        </>
-      ))}
+          </>
+        );
+      })}
     </div>
   );
 }
+
+SinastryDestinyTable.defaultProps = {
+  currentYearRef: null,
+};
 
 export default function SinastryDestinyTablePage() {
   const {
@@ -320,6 +335,30 @@ export default function SinastryDestinyTablePage() {
   const [partnerActive, setPartnerActive] = useState<boolean>(true);
   const [personOneActive, setPersonOneActive] = useState<boolean>(false);
   const [personTwoActive, setPersonTwoActive] = useState<boolean>(false);
+  const currentYearRef = useRef<HTMLDivElement>(null);
+
+  // Función para hacer scroll al año actual
+  const scrollToCurrentYear = () => {
+    if (currentYearRef.current) {
+      currentYearRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
+
+  // Effect para hacer scroll al año actual cuando se carga la página
+  useEffect(() => {
+    if (selectedPartnersAsPersons && selectedPartnersAsPersons.length >= 2) {
+      // Pequeño delay para asegurar que el DOM esté renderizado
+      const timer = setTimeout(() => {
+        scrollToCurrentYear();
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [selectedPartnersAsPersons]);
 
   if (!consultant) {
     return <NoConsultantSelected />;
@@ -348,6 +387,7 @@ export default function SinastryDestinyTablePage() {
   const ageMeetP1 = yearMeet - getYear(person1.birthDate);
   const destinyTableP1 = person1.getDestinityTable();
   const tableFromMeetP1 = destinyTableP1.slice(ageMeetP1);
+  console.log(tableFromMeetP1);
 
   // Calculate age when they met for person2
   const ageMeetP2 = yearMeet - getYear(person2.birthDate);
@@ -359,22 +399,30 @@ export default function SinastryDestinyTablePage() {
   const synastryTable2P1 = tableFromMeetP1.slice(11, 22);
   const synastryTable3P1 = tableFromMeetP1.slice(22, 33);
   const synastryTable4P1 = tableFromMeetP1.slice(33, 44);
+  const synastryTable5P1 = tableFromMeetP1.slice(44, 55);
+  const synastryTable6P1 = tableFromMeetP1.slice(55, 66);
 
   const synastryTable1P2 = tableFromMeetP2.slice(0, 11);
   const synastryTable2P2 = tableFromMeetP2.slice(11, 22);
   const synastryTable3P2 = tableFromMeetP2.slice(22, 33);
   const synastryTable4P2 = tableFromMeetP2.slice(33, 44);
+  const synastryTable5P2 = tableFromMeetP2.slice(44, 55);
+  const synastryTable6P2 = tableFromMeetP2.slice(55, 66);
 
   // Full lifetime tables for individual view
   const fullTable1P1 = destinyTableP1.slice(0, 30);
   const fullTable2P1 = destinyTableP1.slice(30, 60);
   const fullTable3P1 = destinyTableP1.slice(60, 90);
   const fullTable4P1 = destinyTableP1.slice(90, 120);
+  const fullTable5P1 = destinyTableP1.slice(120, 150);
+  const fullTable6P1 = destinyTableP1.slice(150, 180);
 
   const fullTable1P2 = destinyTableP2.slice(0, 30);
   const fullTable2P2 = destinyTableP2.slice(30, 60);
   const fullTable3P2 = destinyTableP2.slice(60, 90);
   const fullTable4P2 = destinyTableP2.slice(90, 120);
+  const fullTable5P2 = destinyTableP2.slice(120, 150);
+  const fullTable6P2 = destinyTableP2.slice(150, 180);
 
   // Name cycles for both persons
   const nameCyclesP1 = person1.calcNameCycles();
@@ -450,6 +498,7 @@ export default function SinastryDestinyTablePage() {
                   partner={person2}
                   tableP={synastryTable1P2}
                   startP={0 + ageMeetP2}
+                  currentYearRef={currentYearRef}
                 />
                 <SinastryDestinyTable
                   table={synastryTable2P1}
@@ -458,6 +507,7 @@ export default function SinastryDestinyTablePage() {
                   partner={person2}
                   tableP={synastryTable2P2}
                   startP={11 + ageMeetP2}
+                  currentYearRef={currentYearRef}
                 />
                 <SinastryDestinyTable
                   table={synastryTable3P1}
@@ -466,6 +516,7 @@ export default function SinastryDestinyTablePage() {
                   partner={person2}
                   tableP={synastryTable3P2}
                   startP={22 + ageMeetP2}
+                  currentYearRef={currentYearRef}
                 />
                 <SinastryDestinyTable
                   table={synastryTable4P1}
@@ -474,6 +525,25 @@ export default function SinastryDestinyTablePage() {
                   partner={person2}
                   tableP={synastryTable4P2}
                   startP={33 + ageMeetP2}
+                  currentYearRef={currentYearRef}
+                />
+                <SinastryDestinyTable
+                  table={synastryTable5P1}
+                  start={44 + ageMeetP1}
+                  consultant={person1}
+                  partner={person2}
+                  tableP={synastryTable5P2}
+                  startP={44 + ageMeetP2}
+                  currentYearRef={currentYearRef}
+                />
+                <SinastryDestinyTable
+                  table={synastryTable6P1}
+                  start={55 + ageMeetP1}
+                  consultant={person1}
+                  partner={person2}
+                  tableP={synastryTable6P2}
+                  startP={55 + ageMeetP2}
+                  currentYearRef={currentYearRef}
                 />
               </>
             )}
@@ -507,6 +577,20 @@ export default function SinastryDestinyTablePage() {
                   nameCycles={nameCyclesP1}
                   nameSubCycles={nameSubCyclesP1}
                 />
+                <DestinyTable
+                  table={fullTable5P1}
+                  start={120}
+                  consultant={person1}
+                  nameCycles={nameCyclesP1}
+                  nameSubCycles={nameSubCyclesP1}
+                />
+                <DestinyTable
+                  table={fullTable6P1}
+                  start={150}
+                  consultant={person1}
+                  nameCycles={nameCyclesP1}
+                  nameSubCycles={nameSubCyclesP1}
+                />
               </>
             )}
             {personTwoActive && (
@@ -535,6 +619,20 @@ export default function SinastryDestinyTablePage() {
                 <DestinyTable
                   table={fullTable4P2}
                   start={90}
+                  consultant={person2}
+                  nameCycles={nameCyclesP2}
+                  nameSubCycles={nameSubCyclesP2}
+                />
+                <DestinyTable
+                  table={fullTable5P2}
+                  start={120}
+                  consultant={person2}
+                  nameCycles={nameCyclesP2}
+                  nameSubCycles={nameSubCyclesP2}
+                />
+                <DestinyTable
+                  table={fullTable6P2}
+                  start={150}
                   consultant={person2}
                   nameCycles={nameCyclesP2}
                   nameSubCycles={nameSubCyclesP2}
