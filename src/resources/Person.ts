@@ -170,7 +170,7 @@ class Person {
   }
 
   calcAgeDigit(): number {
-    return reduceNumber(this.getYearsOld());
+    return reduceNumber((this.getYearOfBirth() - 1) + this.getYearsOld());
   }
 
   /** ======================Pinnacle Calcs ==================== */
