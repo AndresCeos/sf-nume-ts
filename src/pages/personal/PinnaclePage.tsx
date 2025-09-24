@@ -57,7 +57,7 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-span-1 row-span-3">
+        <div className="col-start-4 col-end-5 row-span-3">
           <SectionTitle
             title={t('pinnacle.name.name')}
             button={{
@@ -72,7 +72,7 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-span-6 row-span-2">
+        <div className="col-start-5 col-end-11 row-span-3">
           <SectionTitle title={t('pinnacle.bridge.bridge')} />
           <div className="section-wrap grid grid-cols-4">
             <div className={cx(
@@ -118,7 +118,7 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-span-6 col-start-5 row-span-4">
+        <div className="col-start-5 col-end-11 row-span-4">
           <SectionTitle title={t('pinnacle.annualReturns.annualReturns')} />
           <div className="section-wrap grid grid-cols-3">
             <div className="px-1 py-8 border-b border-solid border-gray-300">
@@ -133,7 +133,7 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-span-1 row-span-2 col-start-4 row-start-4">
+        <div className="col-start-4 col-end-5 row-span-2">
           <SectionTitle title={t('pinnacle.frequency.frequency')} fontSize="text-9" />
           <div className="section-wrap grid grid-cols-1 p-3">
             <PinnacleFrequency />
