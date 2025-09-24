@@ -70,8 +70,8 @@ function NamePage() {
   };
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pt-10">
+    <div className="page-content bg-cover pb-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
         <div className="col-span-5 mb-5">
           <SectionTitle
             title={t('name.numericValues.title')}

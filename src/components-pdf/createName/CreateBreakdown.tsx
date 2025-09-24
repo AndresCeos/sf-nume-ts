@@ -65,7 +65,6 @@ export default function CreateBreakdown({ consultant }: { consultant: Person }) 
         ungroupNameI,
       },
     ];
-    console.log(tables * split, count);
     tables += 1;
   } while (count < ungroupName.length);
 

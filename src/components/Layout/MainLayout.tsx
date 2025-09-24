@@ -7,7 +7,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
       <Navbar />
       <div className="app">
         <Sidebar />
-        <section className="app-content">
+        <section className="app-content bg-home-background">
           {children}
         </section>
       </div>

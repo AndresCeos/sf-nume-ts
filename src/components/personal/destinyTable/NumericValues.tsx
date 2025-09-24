@@ -63,7 +63,7 @@ export default function NumericValues() {
                 </svg>
               </div>
               <div className="w-10 h-10 text-2xl font-black text-black flex justify-center items-center bg-white border border-main rounded-full inner-shadow">
-                {consultant.calcOneDigitYearsOld()}
+                {consultant.calcAgeDigit()}
               </div>
               <p className="text-13 ml-3">
                 {t('destinyTable.numericValues.ageDigit')}

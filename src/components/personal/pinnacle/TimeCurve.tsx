@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import useConsult from '@/hooks/useConsult';
 
-function TimeCurve({ isPartner }: { isPartner: boolean }) {
+function TimeCurve({ isPartner, isVerificationActive }: { isPartner: boolean, isVerificationActive: boolean }) {
   const { consultant, calculationDate } = useConsult();
   const { t } = useTranslation();
 
@@ -193,8 +193,7 @@ function TimeCurve({ isPartner }: { isPartner: boolean }) {
         <div className="m-auto col-start-11 col-end-13 row-start-4 relative w-full h-full">
           <div className="absolute z-10 centered-axis-x">
             <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-green border border-green rounded-full inner-shadow">
-              {consultant.calcLifeStage(4)}
-              {consultant.calcLifeStageISK(4)}
+              {(!isVerificationActive) ? `${consultant.calcLifeStage(4)}${consultant.calcLifeStageISK(4)}` : `${consultant.getHCheck()}${consultant.getHISK()}`}
             </div>
           </div>
         </div>

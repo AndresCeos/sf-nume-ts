@@ -151,7 +151,6 @@ export const synastryCalendar = StyleSheet.create({
   },
 });
 export function DaysOfTheWeek({ month, synastry, date }: { month: number, synastry: Synastry, date: SplittedDate }) {
-  console.log('month', month);
   const daysCustom = synastry.getDaysOfWeekCustom(month, date.year);
   return (
     <>

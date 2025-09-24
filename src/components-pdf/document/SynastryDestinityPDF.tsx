@@ -10,7 +10,6 @@ export default function SynastryDestinityPDF({ synastry, date, partnerYear }: { 
   const ageMeet = partnerYear - synastry.consultant.birthDate.getFullYear();
   const t = synastry.consultant.getDestinityTable();
   const table = t.slice(ageMeet);
-  // console.log(table)
 
   const table1 = table.slice(0, 11);
   const table2 = table.slice(11, 22);
@@ -19,8 +18,6 @@ export default function SynastryDestinityPDF({ synastry, date, partnerYear }: { 
   const table5 = table.slice(44, 55);
   const table6 = table.slice(55, 66);
 
-  // console.log( moment(synastry.partner.yearMeet).year() )
-  // console.log( partner.birthDate.year() )
   // const ageMeetP = moment(synastry.partner.yearMeet).year() - partner.birthDate.year()
   const ageMeetP = partnerYear - synastry.partner.birthDate.getFullYear();
 

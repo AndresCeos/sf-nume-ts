@@ -45,8 +45,6 @@ function UniversalEnergy() {
     [consultants],
   );
 
-  console.log(sortedConsultants);
-
   return (
     <div>
       <div className="mt-14 mb-5 text-center">

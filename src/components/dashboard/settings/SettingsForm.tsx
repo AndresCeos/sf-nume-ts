@@ -17,7 +17,6 @@ function SettingsForm() {
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
   const [isLoading, setIsLoading] = useState(false);
 
-  // console.log(userAuth);
   const initialForm = {
     firstName: profile?.firstName,
     lastName: profile?.lastName,
@@ -82,7 +81,7 @@ function SettingsForm() {
       phone: phoneCompany,
       webSite: website,
     };
-    console.log(newProfile);
+
     setIsLoading(true);
     updateProfileSync.mutateAsync(newProfile).then(() => {
       setFormStatus(FORM_STATUS_INITIAL_STATE);

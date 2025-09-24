@@ -49,7 +49,6 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
     // Convert to ISO date string format (YYYY-MM-DD) for calculations
     const isoDate = new Date(date).toISOString().split('T')[0];
     callback({ ...guest?.id && { id: guest.id }, name, date: isoDate });
-    console.log('guest', { ...guest?.id && { id: guest.id }, name, date: isoDate });
     setIsOpen(false);
   };
 

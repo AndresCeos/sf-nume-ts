@@ -87,7 +87,7 @@ export default function GroupPinnaclePage() {
 
   if (!activeGroup) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -101,7 +101,7 @@ export default function GroupPinnaclePage() {
 
   if (!selectedGroup || selectedGroup.length === 0) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -132,7 +132,7 @@ export default function GroupPinnaclePage() {
   ];
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+    <div className="page-content bg-cover pb-10 px-4 mx-auto">
       <SelectGroup />
       <div className="mx-auto px-5 py-6">
         {/* Leyenda de navegación */}
@@ -178,7 +178,7 @@ export default function GroupPinnaclePage() {
                 {`Pináculo: ${activeGroup.name}`}
               </div>
             </div>
-            <GroupPinnacle main="bg-active-radial" consultant={GroupPerson} size="small" />
+            <GroupPinnacle main="bg-active-radial" consultant={GroupPerson} size="lg" />
             <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5">
               <div className="flex items-center justify-center">
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
@@ -187,7 +187,7 @@ export default function GroupPinnaclePage() {
                 {`Retorno: ${activeGroup.name}`}
               </div>
             </div>
-            <div className="pinnacle-wrap bg-active-radial">
+            <div className="pinnacle-wrap bg-active-radial p-4">
               <AnnualReturn annualReturn={annualReturn} current months size="xl" />
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function GroupPinnaclePage() {
                   {`Pináculo: ${member.name}`}
                 </div>
               </div>
-              <GroupPinnacle main="bg-white" consultant={member} size="small" />
+              <GroupPinnacle main="bg-white" consultant={member} size="lg" />
               <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
                 <div className="flex items-center justify-center">
                   <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
@@ -221,7 +221,7 @@ export default function GroupPinnaclePage() {
                   {`Retorno: ${member.name}`}
                 </div>
               </div>
-              <div className="pinnacle-wrap bg-white">
+              <div className="pinnacle-wrap bg-white p-4">
                 <AnnualReturn annualReturn={member.annualReturn(calculationDate)} current months size="xl" />
               </div>
             </div>

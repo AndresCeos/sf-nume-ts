@@ -15,7 +15,6 @@ export const data = StyleSheet.create({
   },
 });
 export default function GroupAnnualReturns({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
-  console.log(groupConsult);
   const annualReturnCurrent = groupConsult.annualReturn(date.year);
   const personalYear = groupConsult.calcPersonalYear(date.year);
   const yearsOld = groupConsult.getYearsOld(date.year);

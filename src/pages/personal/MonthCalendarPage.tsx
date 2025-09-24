@@ -14,8 +14,8 @@ export default function MonthCalendarPage() {
   if (!consultant) return (<NoConsultantSelected />);
   const u = new Universal();
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
+    <div className="page-content bg-cover pb-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
         <div className="col-span-12">
           <SectionTitle title={t('monthCalendar.title')} />
 

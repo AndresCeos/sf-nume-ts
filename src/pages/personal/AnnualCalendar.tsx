@@ -14,10 +14,9 @@ function AnnualCalendar() {
   if (!consultant) return (<NoConsultantSelected />);
   const u = new Universal();
   const allMonths = getAllMonths();
-  console.log(allMonths);
   return (
-    <div className="page-content bg-home-background bg-cover">
-      <div className="grid grid-cols-12 mt-8 mx-14 gap-6 pb-9 pt-10">
+    <div className="page-content bg-cover">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
         <div className="col-span-12">
           <SectionTitle title={t('annualCalendar.annualCalendar')} />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">

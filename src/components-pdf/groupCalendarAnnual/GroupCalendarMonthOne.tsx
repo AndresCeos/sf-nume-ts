@@ -151,7 +151,6 @@ export const groupCalendar = StyleSheet.create({
   },
 });
 export function DaysOfTheWeek({ month, groupConsult, date }: { month: number, groupConsult: Group, date: SplittedDate }) {
-  console.log('month', month);
   const daysCustom = groupConsult.getDaysOfWeekCustom(month, date.year);
   return (
     <>

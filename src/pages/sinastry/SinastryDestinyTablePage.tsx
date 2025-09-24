@@ -366,7 +366,7 @@ export default function SinastryDestinyTablePage() {
 
   if (!activePartnerData || !selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10">
+      <div className="page-content bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
           <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la tabla de destino de sinastría</strong>
@@ -449,10 +449,10 @@ export default function SinastryDestinyTablePage() {
   };
 
   return (
-    <div className="page-content bg-home-background bg-cover pb-10">
+    <div className="page-content bg-cover pb-10">
       <SelectPartner />
 
-      <div className="grid grid-cols-12 mx-14 gap-6 mt-8 pt-10">
+      <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
         <div className="col-span-12 mb-5 relative">
           <div className="bg-black text-white text-base font-bold h-8 flex justify-between items-center rounded-tl-2xl rounded-tr-2xl">
             <div className="flex justify-center items-center">

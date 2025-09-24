@@ -17,7 +17,7 @@ function GroupTimeCirclePage() {
   if (!consultant) return (<NoConsultantSelected />);
   if (!activeGroup) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -31,7 +31,7 @@ function GroupTimeCirclePage() {
 
   if (!selectedGroup || selectedGroup.length === 0) {
     return (
-      <div className="page-content bg-home-background bg-cover pb-10 px-4 mx-auto">
+      <div className="page-content bg-cover pb-10 px-4 mx-auto">
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
@@ -50,7 +50,7 @@ function GroupTimeCirclePage() {
   const GroupPerson = new Group(selectedGroup, activeGroup.lastInit);
 
   return (
-    <div className="page-content bg-home-background bg-cover grid grid-cols-12">
+    <div className="page-content bg-cover grid grid-cols-12">
       <SelectGroup />
       <div className="col-span-6 flex justify-center items-center py-5 my-5">
         <TimeCircle consultant={GroupPerson} />
