@@ -1,27 +1,17 @@
 import { createContext } from 'react';
 
-export interface EnergyConsultant {
-  id?: string;
-  name: string;
-  date: string;
-  selected?: boolean;
-  order?: number;
-}
-
 export interface EnergyContextInterface {
-  consultants: EnergyConsultant[];
-  fillConsultants: (consultants: EnergyConsultant[]) => void;
-  consultantSelected?: EnergyConsultant;
-  selectConsultant: (consultantId: string) => void;
-  updateConsultant: (consultant: Partial<EnergyConsultant>) => void;
+  guestEnergy?: Api.GuestEnergy;
+  setGuestEnergy: (guestEnergy: Api.GuestEnergy) => void;
+  updateGuestEnergy: (guestEnergy: Partial<Api.GuestEnergy>) => void;
+  clearGuestEnergy: () => void;
 }
 
 export const energyContextDefaults: EnergyContextInterface = {
-  consultants: [],
-  consultantSelected: undefined,
-  fillConsultants: () => { },
-  selectConsultant: () => { },
-  updateConsultant: () => { },
+  guestEnergy: undefined,
+  setGuestEnergy: () => { },
+  updateGuestEnergy: () => { },
+  clearGuestEnergy: () => { },
 };
 
 export const EnergyContext = createContext<EnergyContextInterface>(energyContextDefaults);

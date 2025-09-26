@@ -31,6 +31,7 @@ declare namespace Api {
     partnerData?: PartnerData[];
     phone?: string;
     scdLastName?: string;
+    guestEnergy?: GuestEnergy[];
   }
   interface User {
     avatar: string;
@@ -43,6 +44,13 @@ declare namespace Api {
     lastName: string;
     phone: string;
     scdLastName: string;
+  }
+
+  interface GuestEnergy {
+    id: string;
+    gest: Guest;
+    guestGroup: GroupData;
+    guestPartner: PartnerData;
   }
 
   interface Guest {
@@ -114,6 +122,7 @@ declare namespace Api {
     lastName: string;
     scdLastName: string;
     birthDate: string;
+    isPerson: boolean;
   }
   type NotesContentByPath = Record<string, string>; // e.g., { "camino": "...", "nombre": "..." }
   type NotesByDate = Record<string, NotesContentByPath>; // e.g., { "2025-9-15": { ... } }

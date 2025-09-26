@@ -1,12 +1,14 @@
-import Person from '@/resources/Person';
-import ActiveName from '../name/ActiveName';
+import Person, { SplittedDate } from '@/resources/Person';
+import CreateNameActiveName from './CreateNameActiveName';
 
 type DestinyTableCreateNameProps = {
   createNameObj: Person;
+  calculationDate: SplittedDate;
 };
-
-export default function DestinyTableCreateName({ createNameObj }: DestinyTableCreateNameProps) {
+export default function DestinyTableCreateName({ createNameObj, calculationDate }: DestinyTableCreateNameProps) {
+  const age = createNameObj.getYearsOld(calculationDate.year);
   const table = createNameObj.getNameSetting();
+  console.log('table', table);
   let table1: any[] = [];
   let table2: any[] = [];
   let table3: any[] = [];
@@ -29,12 +31,12 @@ export default function DestinyTableCreateName({ createNameObj }: DestinyTableCr
     <div className="pinnacle-wrap px-8 py-8">
 
       <div>
-        <ActiveName table={table1} start={0} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
-        <ActiveName table={table2} start={31} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
-        <ActiveName table={table3} start={62} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
-        <ActiveName table={table4} start={93} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
-        <ActiveName table={table5} start={124} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
-        <ActiveName table={table6} start={155} nameCycles={nameCycles} nameSubCycles={nameSubCycles} />
+        <CreateNameActiveName table={table1} start={0} nameCycles={nameCycles} nameSubCycles={nameSubCycles} consultant={createNameObj} age={age} />
+        <CreateNameActiveName table={table2} start={31} nameCycles={nameCycles} nameSubCycles={nameSubCycles} consultant={createNameObj} age={age} />
+        <CreateNameActiveName table={table3} start={62} nameCycles={nameCycles} nameSubCycles={nameSubCycles} consultant={createNameObj} age={age} />
+        <CreateNameActiveName table={table4} start={93} nameCycles={nameCycles} nameSubCycles={nameSubCycles} consultant={createNameObj} age={age} />
+        <CreateNameActiveName table={table5} start={124} nameCycles={nameCycles} nameSubCycles={nameSubCycles} consultant={createNameObj} age={age} />
+        <CreateNameActiveName table={table6} start={155} nameCycles={nameCycles} nameSubCycles={nameSubCycles} consultant={createNameObj} age={age} />
       </div>
 
     </div>

@@ -1,43 +1,65 @@
-import { useState } from 'react';
-import { EnergyConsultant, EnergyContext, EnergyContextInterface } from './EnergyContext';
+import { useEffect, useState } from 'react';
+import { EnergyContext, EnergyContextInterface } from './EnergyContext';
 
 function EnergyProvider({ children }: any) {
-  const [consultants, setConsultants] = useState<EnergyConsultant[]>([]);
-  const [consultantSelected, setConsultantSelected] = useState<EnergyConsultant | undefined>(undefined);
+  const [guestEnergy, setGuestEnergyState] = useState<Api.GuestEnergy | undefined>(undefined);
 
-  const fillConsultants = (consultantsToSet: EnergyConsultant[]) => {
-    setConsultants(consultantsToSet);
-    setConsultantSelected(consultantsToSet[0]);
+  // Cargar guestEnergy desde localforage al inicializar
+  useEffect(() => {
+    const loadGuestEnergy = async () => {
+      try {
+        const { default: localforage } = await import('localforage');
+        const storedGuestEnergy = await localforage.getItem<Api.GuestEnergy>('guestEnergy');
+        if (storedGuestEnergy) {
+          setGuestEnergyState(storedGuestEnergy);
+        }
+      } catch (error) {
+        console.error('Error loading guestEnergy from localforage:', error);
+      }
+    };
+
+    loadGuestEnergy();
+  }, []);
+
+  const setGuestEnergy = async (guestEnergyData: Api.GuestEnergy) => {
+    try {
+      const { default: localforage } = await import('localforage');
+      setGuestEnergyState(guestEnergyData);
+      await localforage.setItem('guestEnergy', guestEnergyData);
+    } catch (error) {
+      console.error('Error saving guestEnergy to localforage:', error);
+    }
   };
 
-  const selectConsultant = (consultantId: string) => {
-    const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
-    const consultantToSet = consultantsToSet.find((consultantToFind) => consultantToFind.id === consultantId);
-    if (consultantToSet) {
-      consultantToSet.selected = true;
+  const updateGuestEnergy = async (updatedData: Partial<Api.GuestEnergy>) => {
+    if (!guestEnergy) return;
+
+    try {
+      const { default: localforage } = await import('localforage');
+      const updatedGuestEnergy = { ...guestEnergy, ...updatedData };
+      setGuestEnergyState(updatedGuestEnergy);
+      await localforage.setItem('guestEnergy', updatedGuestEnergy);
+    } catch (error) {
+      console.error('Error updating guestEnergy in localforage:', error);
     }
-    setConsultants(consultantsToSet);
-    setConsultantSelected(consultantToSet);
   };
 
-  const updateConsultant = (consultant: Partial<EnergyConsultant>) => {
-    const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
-    const consultantToSet = consultantsToSet.find((consultantToFind) => consultantToFind.id === consultant.id);
-    if (consultantToSet) {
-      consultantToSet.name = consultant?.name || '';
-      consultantToSet.date = consultant.date || '';
-      consultantToSet.selected = true;
+  const clearGuestEnergy = async () => {
+    try {
+      const { default: localforage } = await import('localforage');
+      setGuestEnergyState(undefined);
+      await localforage.removeItem('guestEnergy');
+    } catch (error) {
+      console.error('Error clearing guestEnergy from localforage:', error);
     }
-    setConsultants(consultantsToSet);
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value: EnergyContextInterface = {
-    consultants,
-    consultantSelected,
-    fillConsultants,
-    selectConsultant,
-    updateConsultant,
+    guestEnergy,
+    setGuestEnergy,
+    updateGuestEnergy,
+    clearGuestEnergy,
   };
 
   return (

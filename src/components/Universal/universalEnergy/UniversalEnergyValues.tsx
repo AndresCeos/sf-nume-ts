@@ -20,7 +20,7 @@ function UniversalEnergyValues() {
         {_.toUpper(t('home.energy') as string)}
         <br />
         <div className="font-black">
-          {_.toUpper(t('home.personal') as string)}
+          {_.toUpper(t('home.universal') as string)}
         </div>
       </li>
       <li className="rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 inner-shadow mt-3 mb-6 font-black text-[13px] text-center">
