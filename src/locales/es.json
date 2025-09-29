@@ -60,6 +60,28 @@
       "name" : "Nombre",
       "birthDate": "Fecha de nacimiento",
       "save": "Guardar"
+    },
+    "partner": {
+      "selectTitle": "Seleccionar Pareja",
+      "noPartnersTitle": "No hay Parejas Disponibles",
+      "selectLabel": "Selecciona una pareja:",
+      "selectPlaceholder": "Elige una pareja...",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "noPartnersMessage": "No tienes parejas creadas aún",
+      "noPartnersSubMessage": "Crea tu primera pareja para comenzar",
+      "createPartner": "Crear Pareja"
+    },
+    "group": {
+      "selectTitle": "Seleccionar Grupo",
+      "noGroupsTitle": "No hay Grupos Disponibles",
+      "selectLabel": "Selecciona un grupo:",
+      "selectPlaceholder": "Elige un grupo...",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "noGroupsMessage": "No tienes grupos creados aún",
+      "noGroupsSubMessage": "Crea tu primer grupo para comenzar",
+      "createGroup": "Crear Grupo"
     }
   },
   "loginPage": {
@@ -75,7 +97,14 @@
     "title": "Bienvenid@ {{name}}",
     "subtitle": "a tu Software de Numerología",
     "energy": "Energía",
+    "person": "Persona",
     "personal": "Personal",
+    "partner": "Pareja",
+    "partneral": "Pareja",
+    "selectPartner": "Seleccionar Pareja",
+    "group": "Grupo",
+    "groupal": "Grupo",
+    "selectGroup": "Seleccionar Grupo",
     "universal": "Universal",
     "day": "Día",
     "week": "Sem",

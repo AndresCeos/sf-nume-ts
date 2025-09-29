@@ -31,7 +31,7 @@ declare namespace Api {
     partnerData?: PartnerData[];
     phone?: string;
     scdLastName?: string;
-    guestEnergy?: GuestEnergy[];
+    guestEnergy?: GuestEnergy;
   }
   interface User {
     avatar: string;
@@ -47,10 +47,8 @@ declare namespace Api {
   }
 
   interface GuestEnergy {
-    id: string;
-    gest: Guest;
-    guestGroup: GroupData;
-    guestPartner: PartnerData;
+    guestGroup?: GroupData;
+    guestPartner?: PartnerData;
   }
 
   interface Guest {

@@ -54,7 +54,41 @@ function ConsultantList({ searchUser }: Props) {
     });
   };
 
-  const search = users?.filter((user) => user?.names?.includes(searchUser));
+  const search = Array.isArray(users) ? users.filter((user) => user?.names?.includes(searchUser)) : [];
+
+  // Si no hay consultantes, mostrar mensaje
+  if (!Array.isArray(users) || users.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-8 text-center">
+        <img
+          src="/assets/welcome.png"
+          className="w-12 mb-3 opacity-50"
+          alt="welcome"
+        />
+        <p className="text-gray-600 text-sm">
+          No tienes consultantes registrados aún
+        </p>
+        <p className="text-gray-500 text-xs mt-1">
+          Usa el formulario de arriba para agregar tu primer consultante
+        </p>
+      </div>
+    );
+  }
+
+  // Si hay consultantes pero no coinciden con la búsqueda
+  if (search && search.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-6 text-center">
+        <p className="text-gray-600 text-sm">
+          No se encontraron consultantes con ese nombre
+        </p>
+        <p className="text-gray-500 text-xs mt-1">
+          Intenta con otro término de búsqueda
+        </p>
+      </div>
+    );
+  }
+
   return (
     <ul>
       {

@@ -4,41 +4,40 @@ import { useTranslation } from 'react-i18next';
 
 import { TiPlus } from 'react-icons/ti';
 
-import GuestFormModal from '@/components/modal/GuestFormModal';
+import personImg from '@/assets/pp.png';
+
+// import GuestFormModal from '@/components/modal/GuestFormModal';
 import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
 
 type UniversalEnergyPersonProps = {
   person: Person;
   setActive: () => void;
-  handleUpdateGuest: (consultant: Partial<Api.GuestEnergy>) => void;
+  // handleUpdateGuest: (consultant: Partial<Api.Guest>) => void; // Desactivado
+  selected: boolean;
 };
 
-function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: UniversalEnergyPersonProps) {
+function UniversalEnergyPerson({
+  person, setActive, /* handleUpdateGuest, */ selected,
+}: UniversalEnergyPersonProps) {
   const { calculationYear } = useConsult();
   const { t } = useTranslation();
   const {
-    id, name, date, selected, order,
+    /* id, */ name, birthDate,
   } = person;
 
-  let energy;
-  if (name && date) {
-    energy = new Person({
-      id: id ?? '', name, lastName: '', scdLastName: '', birthDate: date,
-    });
-  }
-  const day = Number(energy?.getDayOfBirth());
-  const month = Number(energy?.getMonthOfBirth());
+  const day = Number(person?.getDayOfBirth());
+  const month = Number(person?.getMonthOfBirth());
 
   return (
     <ul className={cx(
       'flex flex-col items-center',
       { 'opacity-25': !name },
-      `order-${order}`,
+      'order-1',
     )}
     >
       <li className="mb-2">
-        <img src="/assets/ic-universal.svg" alt="personal_disabled" />
+        <img src={personImg} width={55} height={55} alt="personal_disabled" />
       </li>
       <li
         className={cx('text-center cursor-pointer', {
@@ -55,35 +54,29 @@ function UniversalEnergyPerson({ person, setActive, handleUpdateGuest }: Univers
         </button>
       </li>
       <li className={cx('rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 text-[13px] inner-shadow mt-3 mb-6 font-black')}>
-        {(!name && !date) && (
-          <GuestFormModal callback={handleUpdateGuest}>
+        {/* Modal de edición desactivado */}
+        {(!name && !birthDate) && (
+          <div className="flex items-center justify-center">
             <TiPlus />
-          </GuestFormModal>
+          </div>
         )}
-        {(name && date) && (
-          <GuestFormModal
-            callback={handleUpdateGuest}
-            guest={{
-              id,
-              name,
-              date,
-            }}
-          >
+        {(name && birthDate) && (
+          <div className="flex items-center justify-center">
             {name}
-          </GuestFormModal>
+          </div>
         )}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalDay({ day, month, year: calculationYear })}
+        {person && person.calcPersonalDay({ day, month, year: calculationYear })}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalWeek({ day, month, year: calculationYear })}
+        {person && person.calcPersonalWeek({ day, month, year: calculationYear })}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalMonth({ day, month, year: calculationYear })}
+        {person && person.calcPersonalMonth({ day, month, year: calculationYear })}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {energy && energy.calcPersonalYear(calculationYear)}
+        {person && person.calcPersonalYear(calculationYear)}
       </li>
     </ul>
   );

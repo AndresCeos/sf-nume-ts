@@ -65,6 +65,13 @@ class Synastry {
     return yearToCalculate - Number(this.yearMet);
   }
 
+  getDayOfBirth():number {
+    const consultantBirthDate = this.consultant.getBirthDate();
+    const partnerBirthDate = this.partner.getBirthDate();
+    const sumBirthDates = getDate(consultantBirthDate) + getDate(partnerBirthDate);
+    return reduceNumber(sumBirthDates);
+  }
+
   getMonthOfBirth():number {
     const consultantBirthDate = this.consultant.getBirthDate();
     const partnerBirthDate = this.partner.getBirthDate();
