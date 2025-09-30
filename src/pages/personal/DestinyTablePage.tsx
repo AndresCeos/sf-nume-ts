@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
+import NoConsultantSelected from '@/components/NoConsultantSelected';
 import DestinyTable from '@/components/personal/destinyTable/DestinyTable';
 import NumericValues from '@/components/personal/destinyTable/NumericValues';
 import SectionTitle from '@/components/SectionTitle';
@@ -8,7 +9,7 @@ import useConsult from '@/hooks/useConsult';
 export default function DestinyTablePage() {
   const { t } = useTranslation();
   const { consultant } = useConsult();
-  if (!consultant) return null;
+  if (!consultant) return (<NoConsultantSelected />);
 
   const table = consultant.getDestinityTable();
   const table1 = table.slice(0, 30);
