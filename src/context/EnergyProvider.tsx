@@ -1,43 +1,30 @@
-import { useState } from 'react';
-import { EnergyConsultant, EnergyContext, EnergyContextInterface } from './EnergyContext';
+import Group from '@/resources/Group';
+import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
+import { useCallback, useState } from 'react';
+import { EnergyContext, EnergyContextInterface } from './EnergyContext';
 
 function EnergyProvider({ children }: any) {
-  const [consultants, setConsultants] = useState<EnergyConsultant[]>([]);
-  const [consultantSelected, setConsultantSelected] = useState<EnergyConsultant | undefined>(undefined);
+  // Nuevo: estado para manejo de selección activa
+  const [activeSelection, setActiveSelectionState] = useState<Person | Synastry | Group | undefined>(undefined);
+  const [selectedType, setSelectedTypeState] = useState<'universal' | 'person' | 'partner' | 'group' | undefined>(undefined);
 
-  const fillConsultants = (consultantsToSet: EnergyConsultant[]) => {
-    setConsultants(consultantsToSet);
-    setConsultantSelected(consultantsToSet[0]);
-  };
+  // Funciones para manejo de selección activa (estabilizadas con useCallback)
+  const setActiveSelection = useCallback((selection: Person | Synastry | Group | undefined) => {
+    setActiveSelectionState(selection);
+  }, []);
 
-  const selectConsultant = (consultantId: string) => {
-    const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
-    const consultantToSet = consultantsToSet.find((consultantToFind) => consultantToFind.id === consultantId);
-    if (consultantToSet) {
-      consultantToSet.selected = true;
-    }
-    setConsultants(consultantsToSet);
-    setConsultantSelected(consultantToSet);
-  };
-
-  const updateConsultant = (consultant: Partial<EnergyConsultant>) => {
-    const consultantsToSet = consultants.map((c) => ({ ...c, selected: false }));
-    const consultantToSet = consultantsToSet.find((consultantToFind) => consultantToFind.id === consultant.id);
-    if (consultantToSet) {
-      consultantToSet.name = consultant?.name || '';
-      consultantToSet.date = consultant.date || '';
-      consultantToSet.selected = true;
-    }
-    setConsultants(consultantsToSet);
-  };
+  const setSelectedType = useCallback((type: 'universal' | 'person' | 'partner' | 'group' | undefined) => {
+    setSelectedTypeState(type);
+  }, []);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value: EnergyContextInterface = {
-    consultants,
-    consultantSelected,
-    fillConsultants,
-    selectConsultant,
-    updateConsultant,
+    // Nuevo: funciones de selección activa
+    activeSelection,
+    setActiveSelection,
+    selectedType,
+    setSelectedType,
   };
 
   return (

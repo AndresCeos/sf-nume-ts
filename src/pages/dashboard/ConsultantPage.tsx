@@ -3,7 +3,6 @@ import ConsultantForm from '@/components/dashboard/consultant/ConsultantForm';
 import ConsultantList from '@/components/dashboard/consultant/ConsultantList';
 import ConsultantNotesModal from '@/components/dashboard/consultant/ConsultantNotesModal';
 import ConsultantProfile from '@/components/dashboard/consultant/ConsultantProfile';
-import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
@@ -15,18 +14,22 @@ function ConsultantPage() {
   const { consultant } = useConsult();
   const { user: userAuth } = useAuth();
 
-  if (!consultant) return (<NoConsultantSelected />);
+  console.log('consultant', consultant);
+  console.log('userAuth', userAuth);
 
   // Obtener las notas del consultor actual
   const users = userAuth?.consultants;
-  const consultantInfo = users?.find((element) => element.id === consultant.id);
+  const consultantInfo = (consultant && Array.isArray(users)) ? users.find((element) => element.id === consultant?.id) : null;
   const consultantNotes = consultantInfo?.notes;
 
   return (
     <div className="page-content bg-cover">
       <div className="mt-8 flex justify-start items-center pt-10">
         <img src="/assets/welcome.png" className="w-16" alt="welcome" />
-        <h2 className="font-black mt-0 mb-2 text-main text-2xl">¿A quién vas a consultar hoy?</h2>
+        <div>
+          <h2 className="font-black mt-0 mb-1 text-main text-2xl">Gestión de Consultantes</h2>
+          <p className="text-gray-600 text-sm">Agrega nuevos consultantes y gestiona tu historial</p>
+        </div>
       </div>
       <div className="grid grid-cols-10 mt-8 gap-4">
         <div className="col-span-6">
@@ -40,7 +43,7 @@ function ConsultantPage() {
           </div>
           <div className="mb-5">
             <SectionTitle
-              title="Historrial"
+              title="Historial"
             />
             <div className="section-wrap px-2 py-7 users-wrap">
               <div className="users-search rounded-3xl relative mb-6">

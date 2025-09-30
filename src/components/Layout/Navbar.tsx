@@ -291,6 +291,9 @@ function Navbar() {
   };
 
   const handleModal = () => {
+    if (!isDownloadPDFEnabled) {
+      return;
+    }
     setIsNotesModalOpen(true);
   };
 

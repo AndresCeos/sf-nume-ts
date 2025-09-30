@@ -1,27 +1,22 @@
+import Group from '@/resources/Group';
+import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 import { createContext } from 'react';
 
-export interface EnergyConsultant {
-  id?: string;
-  name: string;
-  date: string;
-  selected?: boolean;
-  order?: number;
-}
-
 export interface EnergyContextInterface {
-  consultants: EnergyConsultant[];
-  fillConsultants: (consultants: EnergyConsultant[]) => void;
-  consultantSelected?: EnergyConsultant;
-  selectConsultant: (consultantId: string) => void;
-  updateConsultant: (consultant: Partial<EnergyConsultant>) => void;
+  // Nuevo: manejo de selección activa para TimeCircle (solo tipos compatibles)
+  activeSelection?: Person | Synastry | Group;
+  setActiveSelection: (selection: Person | Synastry | Group | undefined) => void;
+  selectedType?: 'universal' | 'person' | 'partner' | 'group';
+  setSelectedType: (type: 'universal' | 'person' | 'partner' | 'group' | undefined) => void;
 }
 
 export const energyContextDefaults: EnergyContextInterface = {
-  consultants: [],
-  consultantSelected: undefined,
-  fillConsultants: () => { },
-  selectConsultant: () => { },
-  updateConsultant: () => { },
+  // Nuevo: valores por defecto para selección activa
+  activeSelection: undefined,
+  setActiveSelection: () => { },
+  selectedType: undefined,
+  setSelectedType: () => { },
 };
 
 export const EnergyContext = createContext<EnergyContextInterface>(energyContextDefaults);
