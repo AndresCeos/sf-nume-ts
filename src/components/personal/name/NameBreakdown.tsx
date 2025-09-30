@@ -3,10 +3,11 @@ type NameBreakdownProps = {
   values: any;
   total: any;
   description: string;
+  checkBreakdown: boolean;
 };
 
 export default function NameBreakdown({
-  name, values, total, description,
+  name, values, total, description, checkBreakdown,
 }: NameBreakdownProps) {
   const hasValues = () => values !== undefined;
 
@@ -58,7 +59,7 @@ export default function NameBreakdown({
                 {total[0].v !== 0 ? total[0].v : ''}
               </div>
               <div className="text-13 w-30 h-30 font-bold bg-main text-white rounded-md inner-shadow">
-                {total[0].L}
+                {checkBreakdown ? total[0].checkL : total[0].L}
               </div>
               <div className="text-13 w-30 h-30 bg-gold bg-opacity-10 rounded-md inner-shadow">
                 {total[0].c !== 0 ? total[0].c : ''}

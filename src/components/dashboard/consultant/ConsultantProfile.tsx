@@ -13,8 +13,24 @@ function ConsultantProfile() {
   const { user: userAuth } = useAuth();
   const users = userAuth?.consultants;
 
-  if (!consultant) return null;
-  const consultantInfo = users?.find((element) => element.id === consultant.id);
+  if (!consultant) {
+    return (
+      <div className="flex flex-col items-center justify-center py-8 text-center">
+        <img
+          src="/assets/welcome.png"
+          className="w-16 mb-4 opacity-50"
+          alt="welcome"
+        />
+        <h3 className="text-main text-lg font-bold mb-2">
+          Selecciona un consultante
+        </h3>
+        <p className="text-gray-600 text-sm">
+          Elige un consultante del historial para ver su perfil completo
+        </p>
+      </div>
+    );
+  }
+  const consultantInfo = Array.isArray(users) ? users.find((element) => element.id === consultant.id) : null;
   return (
     <div>
       <div className="flex">

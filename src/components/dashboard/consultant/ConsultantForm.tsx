@@ -18,8 +18,6 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
   const [isLoading, setIsLoading] = useState(false);
   const { consultant } = useConsult();
 
-  if (!consultant) return <div>Consultant not found</div>;
-
   const {
     handleIsEditingConsultant, isEditingConsultant,
   } = useConsult();
@@ -28,6 +26,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     handleInputChange, formError, setFormError, reset,
     groupData,
     partnerData,
+    guestEnergy,
   } = useForm(initialForm);
 
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
@@ -81,10 +80,11 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
       partnerData,
       phone,
       scdLastName,
+      guestEnergy,
     };
     setIsLoading(true);
     if (isEditingConsultant) {
-      const consultantToEdit = handleConsultants.updateConsultant(consultant.id, newConsultant);
+      const consultantToEdit = handleConsultants.updateConsultant(consultant?.id || '', newConsultant);
       addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
         handleIsEditingConsultant(false);
         setFormStatus(FORM_STATUS_INITIAL_STATE);
@@ -274,7 +274,7 @@ function ConsultantFormWrapper() {
   const { isEditingConsultant, consultant } = useConsult();
   const { user: userAuth } = useAuth();
   const users = userAuth?.consultants;
-  const consultantData = users?.find((element) => element.id === consultant?.id);
+  const consultantData = Array.isArray(users) ? users.find((element) => element.id === consultant?.id) : null;
 
   const initialForm = {
     names: (isEditingConsultant && consultant) ? consultantData?.names : '',
@@ -288,6 +288,10 @@ function ConsultantFormWrapper() {
     email: (isEditingConsultant && consultant) ? consultantData?.email : '',
     groupData: (isEditingConsultant && consultant) ? consultantData?.groupData : [],
     partnerData: (isEditingConsultant && consultant) ? consultantData?.partnerData : [],
+    guestEnergy: (isEditingConsultant && consultant) ? consultantData?.guestEnergy : {
+      guestPartner: undefined,
+      guestGroup: undefined,
+    },
   };
 
   return <ConsultantForm initialForm={initialForm} key={`${consultant?.id}_${isEditingConsultant}`} />;

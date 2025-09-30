@@ -7,6 +7,7 @@ import { formatDate } from '@/utils/constants';
 
 function UniversalEnergyValues() {
   const { consultationDate, calculationDate, calculationYear } = useConsult();
+
   const { t } = useTranslation();
 
   const u = new Universal();
@@ -14,14 +15,18 @@ function UniversalEnergyValues() {
   return (
     <ul className="flex flex-col items-center relative">
       <li className="mb-2">
-        <img src="/assets/ic-universal.svg" alt="universal" />
+        <img src="/assets/ic-universal.svg" alt="universal" width={55} height={55} />
       </li>
-      <li className="text-center text-main-700">
+      <li
+        className="text-center cursor-pointer text-black"
+      >
+
         {_.toUpper(t('home.energy') as string)}
         <br />
         <div className="font-black">
-          {_.toUpper(t('home.personal') as string)}
+          {_.toUpper(t('home.universal') as string)}
         </div>
+
       </li>
       <li className="rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 inner-shadow mt-3 mb-6 font-black text-[13px] text-center">
         {formatDate({ date: consultationDate, format: 'short' })}

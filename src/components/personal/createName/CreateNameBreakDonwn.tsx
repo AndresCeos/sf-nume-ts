@@ -1,5 +1,5 @@
-import useConsult from '@/hooks/useConsult';
-import NameBreakdown from './NameBreakdown';
+import NameBreakdown from '@/components/personal/name/NameBreakdown';
+import Person from '@/resources/Person';
 
 type UngroupName = {
   v: number;
@@ -7,13 +7,13 @@ type UngroupName = {
   c: number;
 };
 
-export default function Breakdown({ checkBreakdown }: { checkBreakdown: boolean }) {
-  const { consultant } = useConsult();
+export default function CreateNameBreakDown({ consultant, checkBreakdown }: { consultant: Person, checkBreakdown: boolean }) {
   if (!consultant) return null;
   const {
     name, lastName, scdLastName, nameView,
   } = consultant;
   const names = nameView.toLocaleLowerCase().split(' ');
+  console.log('names', names);
 
   const ungroupNames = names.map((el: string) => ({
     name: consultant.getUngroupName(el),
@@ -50,38 +50,37 @@ export default function Breakdown({ checkBreakdown }: { checkBreakdown: boolean 
   for (let index = ungroupName.length; index < 28; index += 1) {
     ungroupName.push({} as UngroupName);
   }
-  console.log(ungroupNameT, 'ungroupNameT');
   return (
     <div className="pinnacle-wrap px-8 py-8">
       {ungroupNames.map((ungroup, index) => (
         <NameBreakdown
-          checkBreakdown={checkBreakdown}
           name={ungroup.name}
           values={ungroup.values}
           total={ungroup.total}
           description={`N${index + 1}`}
+          checkBreakdown={checkBreakdown}
         />
       ))}
       <NameBreakdown
-        checkBreakdown={checkBreakdown}
         name={ungroupLast}
         values={ungroupLastV}
         total={ungroupLastT}
         description="AP"
+        checkBreakdown={checkBreakdown}
       />
       <NameBreakdown
-        checkBreakdown={checkBreakdown}
         name={ungroupSCDLast}
         values={ungroupSCDLastV}
         total={ungroupSCDLastT}
         description="AM"
+        checkBreakdown={checkBreakdown}
       />
       <NameBreakdown
-        checkBreakdown={checkBreakdown}
         name={ungroupName}
         values={ungroupNameV}
         total={ungroupNameT}
         description="NA"
+        checkBreakdown={checkBreakdown}
       />
     </div>
   );

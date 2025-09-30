@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import MyModal from '@/components/MyModal';
-import { EnergyConsultant } from '@/context/EnergyContext';
 import useForm from '@/hooks/useForm';
 
 type GuestFormModalProps = {
-  guest?: EnergyConsultant;
-  callback: (consultant: Partial<EnergyConsultant>) => void;
+  guest?: { name: string, date: string };
+  callback: (consultant: { name: string, date: string }) => void;
   children: React.ReactNode;
 };
 
@@ -29,11 +28,8 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
   const openModal = () => setIsOpen(true);
 
   const getInputDateValue = (value: string) => {
-    // If empty, return empty string to avoid invalid time
     if (!value) return '';
-    // If already in yyyy-MM-dd, keep it
     if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-    // Try to parse
     const parsed = new Date(value);
     if (Number.isNaN(parsed.getTime())) return '';
     try {
@@ -46,9 +42,8 @@ function GuestFormModal({ guest, callback, children }: GuestFormModalProps) {
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isFormValid) return;
-    // Convert to ISO date string format (YYYY-MM-DD) for calculations
     const isoDate = new Date(date).toISOString().split('T')[0];
-    callback({ ...guest?.id && { id: guest.id }, name, date: isoDate });
+    callback({ name, date: isoDate });
     setIsOpen(false);
   };
 

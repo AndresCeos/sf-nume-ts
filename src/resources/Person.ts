@@ -1208,6 +1208,7 @@ class Person {
       ungroupNameV += vowelsValues(letter);
       ungroupNameC += consonantValues(letter);
     }
+    const checkReduced = reduceNumber(ungroupNameV) + reduceNumber(ungroupNameC);
 
     return [{
       v: reduceNumber(ungroupNameV),
@@ -1216,6 +1217,7 @@ class Person {
       vA: ungroupNameV,
       LA: ungroupNameV + ungroupNameC,
       cA: ungroupNameC,
+      checkL: checkReduced,
     }];
   }
 
