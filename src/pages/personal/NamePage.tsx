@@ -23,6 +23,7 @@ function NamePage() {
   const { consultant } = useConsult();
   const { t } = useTranslation();
   const [checkN, setcheckN] = useState(false);
+  const [checkBreakdown, setcheckBreakdown] = useState(false);
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -69,6 +70,14 @@ function NamePage() {
     }
   };
 
+  const checkBreakdownFunction = () => {
+    if (checkBreakdown) {
+      setcheckBreakdown(false);
+    } else {
+      setcheckBreakdown(true);
+    }
+  };
+
   return (
     <div className="page-content bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
@@ -91,8 +100,15 @@ function NamePage() {
         </div>
 
         <div className="col-span-12 mb-5">
-          <SectionTitle title={t('name.breakdown.title')} />
-          <Breakdown />
+          <SectionTitle
+            title={t('name.breakdown.title')}
+            button={{
+              handle: checkBreakdownFunction,
+              isActive: checkBreakdown,
+              text: 'Comprobación',
+            }}
+          />
+          <Breakdown checkBreakdown={checkBreakdown} />
         </div>
 
         <div className="col-span-12 mb-5">

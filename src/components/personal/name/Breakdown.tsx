@@ -7,7 +7,7 @@ type UngroupName = {
   c: number;
 };
 
-export default function Breakdown() {
+export default function Breakdown({ checkBreakdown }: { checkBreakdown: boolean }) {
   const { consultant } = useConsult();
   if (!consultant) return null;
   const {
@@ -50,10 +50,12 @@ export default function Breakdown() {
   for (let index = ungroupName.length; index < 28; index += 1) {
     ungroupName.push({} as UngroupName);
   }
+  console.log(ungroupNameT, 'ungroupNameT');
   return (
     <div className="pinnacle-wrap px-8 py-8">
       {ungroupNames.map((ungroup, index) => (
         <NameBreakdown
+          checkBreakdown={checkBreakdown}
           name={ungroup.name}
           values={ungroup.values}
           total={ungroup.total}
@@ -61,18 +63,21 @@ export default function Breakdown() {
         />
       ))}
       <NameBreakdown
+        checkBreakdown={checkBreakdown}
         name={ungroupLast}
         values={ungroupLastV}
         total={ungroupLastT}
         description="AP"
       />
       <NameBreakdown
+        checkBreakdown={checkBreakdown}
         name={ungroupSCDLast}
         values={ungroupSCDLastV}
         total={ungroupSCDLastT}
         description="AM"
       />
       <NameBreakdown
+        checkBreakdown={checkBreakdown}
         name={ungroupName}
         values={ungroupNameV}
         total={ungroupNameT}

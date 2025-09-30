@@ -1,3 +1,6 @@
+import groupImg from '@/assets/group.png';
+import partnerImg from '@/assets/partner.png';
+import personImg from '@/assets/pp.png';
 import UniversalEnergyGroup from '@/components/Universal/universalEnergy/UniversalEnergyGroup';
 import UniversalEnergyPartner from '@/components/Universal/universalEnergy/UniversalEnergyPartner';
 import UniversalEnergyPerson from '@/components/Universal/universalEnergy/UniversalEnergyPerson';
@@ -5,19 +8,32 @@ import UniversalEnergyValues from '@/components/Universal/universalEnergy/Univer
 import useConsult from '@/hooks/useConsult';
 import useEnergy from '@/hooks/useEnergy';
 import { useEffect } from 'react';
-
 // Componente para mostrar secciones deshabilitadas
 function DisabledEnergyComponent({
   title,
   subtitle,
+  type,
 }: {
   title: string;
   subtitle: string;
+  type: string;
 }) {
   return (
     <ul className="flex flex-col items-center relative opacity-50">
       <li className="mb-2">
-        <img src="/assets/ic-universal.svg" alt="disabled" className="grayscale" />
+        <img
+          src={
+            (() => {
+              if (type === 'person') return personImg;
+              if (type === 'partner') return partnerImg;
+              return groupImg;
+            })()
+          }
+          alt="disabled"
+          className="grayscale"
+          width={55}
+          height={55}
+        />
       </li>
       <li className="text-center text-main-700">
         {title}
@@ -99,6 +115,7 @@ function UniversalEnergy() {
           />
         ) : (
           <DisabledEnergyComponent
+            type="person"
             title="PERSONA"
             subtitle="PERSONAL"
           />
@@ -112,6 +129,7 @@ function UniversalEnergy() {
           />
         ) : (
           <DisabledEnergyComponent
+            type="partner"
             title="PAREJA"
             subtitle="PAREJA"
           />
@@ -125,6 +143,7 @@ function UniversalEnergy() {
           />
         ) : (
           <DisabledEnergyComponent
+            type="group"
             title="GRUPO"
             subtitle="GRUPO"
           />

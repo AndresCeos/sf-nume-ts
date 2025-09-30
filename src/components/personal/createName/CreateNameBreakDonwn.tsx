@@ -7,7 +7,7 @@ type UngroupName = {
   c: number;
 };
 
-export default function CreateNameBreakDown({ consultant }: { consultant: Person }) {
+export default function CreateNameBreakDown({ consultant, checkBreakdown }: { consultant: Person, checkBreakdown: boolean }) {
   if (!consultant) return null;
   const {
     name, lastName, scdLastName, nameView,
@@ -58,6 +58,7 @@ export default function CreateNameBreakDown({ consultant }: { consultant: Person
           values={ungroup.values}
           total={ungroup.total}
           description={`N${index + 1}`}
+          checkBreakdown={checkBreakdown}
         />
       ))}
       <NameBreakdown
@@ -65,18 +66,21 @@ export default function CreateNameBreakDown({ consultant }: { consultant: Person
         values={ungroupLastV}
         total={ungroupLastT}
         description="AP"
+        checkBreakdown={checkBreakdown}
       />
       <NameBreakdown
         name={ungroupSCDLast}
         values={ungroupSCDLastV}
         total={ungroupSCDLastT}
         description="AM"
+        checkBreakdown={checkBreakdown}
       />
       <NameBreakdown
         name={ungroupName}
         values={ungroupNameV}
         total={ungroupNameT}
         description="NA"
+        checkBreakdown={checkBreakdown}
       />
     </div>
   );

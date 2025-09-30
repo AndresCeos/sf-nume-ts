@@ -11,12 +11,12 @@ import makeConsultant from '@/api/useConsultant';
 import CreateNamePDF from '@/components-pdf/document/CreateNamePDF';
 import PDF from '@/components-pdf/document/PDF';
 import SectionTitle from '@/components/SectionTitle';
+import CreateNameBreakDown from '@/components/personal/createName/CreateNameBreakDonwn';
 import DestinyTableCreateName from '@/components/personal/createName/DestinyTableCreateName';
 import InclusionTable from '@/components/personal/createName/InclusionTable';
 import NameBreak from '@/components/personal/createName/NameBreak';
 import NumericValues from '@/components/personal/createName/NumericValues';
 import PinnacleCreateName from '@/components/personal/createName/PinnacleCreateName';
-import CreateNameBreakDown from '@/components/personal/createName/createNameBreakDonwn';
 import AnnualReturn from '@/components/personal/vibrationTime/AnnualReturn';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
@@ -56,6 +56,7 @@ function CreateNamePage() {
   const [selectedSavedName, setSelectedSavedName] = useState<string>('');
   const [checkN, setcheckN] = useState(false);
   const [checkP, setcheckP] = useState(false);
+  const [checkBreakdown, setcheckBreakdown] = useState(false);
 
   // Limpiar variables de cálculo cuando cambia el consultor
   useEffect(() => {
@@ -76,17 +77,6 @@ function CreateNamePage() {
       setIsPerson(true);
     }
   }, [activeConsultant?.id]);
-
-  // Inicializar inputs con datos del consultant
-  useEffect(() => {
-    if (consultant && !hasCalculated) {
-      const {
-        name: nameConsultant, lastName: lastNameConsultant, scdLastName: scdLastNameConsultant, birthDate: birthDateConsultant,
-      } = consultant;
-      setInputName(`${nameConsultant} ${lastNameConsultant} ${scdLastNameConsultant}`);
-      setInputDate(birthDateConsultant);
-    }
-  }, [consultant, hasCalculated]);
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -118,6 +108,8 @@ function CreateNamePage() {
     const valid = /^[a-zA-Z ñÑ]+$/;
     if (inputName === '' || !valid.test(inputName)) return false;
     if (inputDate === null) return false;
+    if ((inputLastName === '' && isPerson) || (isPerson && !valid.test(inputLastName))) return false;
+    if ((inputScdLastName === '' && isPerson) || (isPerson && !valid.test(inputScdLastName))) return false;
     return true;
   };
 
@@ -150,6 +142,9 @@ function CreateNamePage() {
 
   // Función para calcular
   const handleCalculate = () => {
+    if (!isValid()) {
+      return;
+    }
     setCalculatedName(inputName);
     setCalculatedLastName(inputLastName);
     setCalculatedScdLastName(inputScdLastName);
@@ -512,6 +507,7 @@ function CreateNamePage() {
                       value={inputLastName}
                       onChange={handleInputChange}
                       className="rounded"
+                      required
                     />
                   </div>
                   <div className="form-group w-1/2">
@@ -526,6 +522,7 @@ function CreateNamePage() {
                       value={inputScdLastName}
                       onChange={handleInputChange}
                       className="rounded"
+                      required
                     />
                   </div>
                 </div>
@@ -628,9 +625,16 @@ function CreateNamePage() {
             </div>
 
             <div className="col-span-12 mb-5">
-              <SectionTitle title="Desglose del Nombre" />
+              <SectionTitle
+                title="Desglose del Nombre"
+                button={{
+                  handle: () => setcheckBreakdown(!checkBreakdown),
+                  isActive: checkBreakdown,
+                  text: 'Comprobación',
+                }}
+              />
               {(createNameData.isPerson) ? (
-                <CreateNameBreakDown consultant={createNameObj} />
+                <CreateNameBreakDown consultant={createNameObj} checkBreakdown={checkBreakdown} />
               ) : (
                 <NameBreak createNameObj={createNameObj} />
               )}
