@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" tsc && cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" vite build",
     "preview": "vite preview",
     "env:init": "cpy .env.example . --rename=.env",
     "lint": "eslint --max-warnings=0 \"src/**/**.ts\" \"src/**/**.tsx\"",
@@ -68,6 +68,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
     "cpy-cli": "^4.2.0",
+    "cross-env": "^10.1.0",
     "eslint": "^8.31.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
