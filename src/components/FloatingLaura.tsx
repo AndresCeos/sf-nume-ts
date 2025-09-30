@@ -1,37 +1,70 @@
-import glosario from '@/resources/glosario.json';
-import { useMemo, useState } from 'react';
+import {
+  memo, useCallback, useMemo, useState,
+} from 'react';
 import Modal from 'react-modal';
+
+// Lazy load del glosario para evitar cargar todo al inicio
+const loadGlosario = async () => {
+  const { default: glosario } = await import('@/resources/glosario.json');
+  return glosario;
+};
 
 interface FloatingLauraProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
+function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTerm, setSelectedTerm] = useState<string | null>(null);
   const [selectedDefinition, setSelectedDefinition] = useState<string>('');
+  const [glosarioData, setGlosarioData] = useState<Record<string, string> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Cargar glosario solo cuando se abre el modal
+  const loadGlosarioData = useCallback(async () => {
+    if (!glosarioData && !isLoading) {
+      setIsLoading(true);
+      try {
+        const data = await loadGlosario();
+        setGlosarioData(data as Record<string, string>);
+      } catch (error) {
+        console.error('Error loading glosario:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }, [glosarioData, isLoading]);
+
+  // Cargar datos cuando se abre el modal
+  useMemo(() => {
+    if (isOpen && !glosarioData) {
+      loadGlosarioData();
+    }
+  }, [isOpen, glosarioData, loadGlosarioData]);
+
+  // Optimización: debounce para búsqueda
   const filteredTerms = useMemo(() => {
-    if (!searchTerm.trim()) return [];
+    if (!searchTerm.trim() || !glosarioData) return [];
 
-    const glosarioData = glosario as Record<string, string>;
-    return Object.keys(glosarioData).filter((key) => key.toLowerCase().includes(searchTerm.toLowerCase()));
-  }, [searchTerm]);
+    const searchLower = searchTerm.toLowerCase();
+    return Object.keys(glosarioData).filter((key) => key.toLowerCase().includes(searchLower));
+  }, [searchTerm, glosarioData]);
 
-  const handleTermClick = (term: string) => {
-    const glosarioData = glosario as Record<string, string>;
+  const handleTermClick = useCallback((term: string) => {
+    if (!glosarioData) return;
+
     const definition = glosarioData[term];
     if (definition) {
       setSelectedTerm(term);
       setSelectedDefinition(definition);
     }
-  };
+  }, [glosarioData]);
 
-  const handleBackToSearch = () => {
+  const handleBackToSearch = useCallback(() => {
     setSelectedTerm(null);
     setSelectedDefinition('');
-  };
+  }, []);
 
   return (
     <Modal
@@ -107,7 +140,13 @@ export default function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
             </div>
 
             <div className="floating-laura-results">
-              {searchTerm.trim() && filteredTerms.length === 0 && (
+              {isLoading && (
+                <p className="floating-laura-placeholder">
+                  Cargando glosario...
+                </p>
+              )}
+
+              {!isLoading && searchTerm.trim() && filteredTerms.length === 0 && (
                 <p className="floating-laura-no-results">
                   No se encontraron términos que coincidan con &quot;
                   {searchTerm}
@@ -115,7 +154,7 @@ export default function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
                 </p>
               )}
 
-              {filteredTerms.length > 0 && (
+              {!isLoading && filteredTerms.length > 0 && (
                 <div className="floating-laura-terms-list">
                   {filteredTerms.map((term) => (
                     <button
@@ -130,7 +169,7 @@ export default function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
                 </div>
               )}
 
-              {!searchTerm.trim() && (
+              {!isLoading && !searchTerm.trim() && (
                 <p className="floating-laura-placeholder">
                   Escribe un término para buscar en el glosario
                 </p>
@@ -142,3 +181,6 @@ export default function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
     </Modal>
   );
 }
+
+// Memoizar el componente para evitar re-renders innecesarios
+export default memo(FloatingLaura);
