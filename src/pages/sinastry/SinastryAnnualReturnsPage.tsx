@@ -5,10 +5,13 @@ import SelectPartner from '@/components/sinastry/SelectPartner';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
 
+import NoConsultantSelected from '@/components/NoConsultantSelected';
 import SectionTitle from '@/components/SectionTitle';
 
 export default function SinastryAnnualReturnsPage() {
-  const { selectedPartnersAsPersons, calculationDate } = useContext(ConsultContext);
+  const { consultant, selectedPartnersAsPersons, calculationDate } = useContext(ConsultContext);
+
+  if (!consultant) return (<NoConsultantSelected />);
 
   // Verificar que tengamos al menos 2 personas en el grupo de parejas
   if (!selectedPartnersAsPersons || selectedPartnersAsPersons.length < 2) {
