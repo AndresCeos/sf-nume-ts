@@ -49,7 +49,7 @@ function Notifications() {
 
 function Navbar() {
   const { user: userAuth } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     firstName, lastName, scdLastName, birthDate, email,
   } = userAuth?.user ?? {};
@@ -459,6 +459,12 @@ function Navbar() {
     // The user can try again by clicking the generate button
   };
 
+  const toggleLanguage = () => {
+    const currentLang = i18n.language;
+    const newLang = currentLang === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(newLang);
+  };
+
   return (
     <>
       <nav className="app-navbar">
@@ -619,11 +625,21 @@ function Navbar() {
                 <Notifications />
               </li>
               <li className="flex items-center justify-center ml-6">
-                <img
-                  src="https://www.worldometers.info/img/flags/small/tn_mx-flag.gif"
-                  className="w-8"
-                  alt="country"
-                />
+                <button
+                  type="button"
+                  onClick={toggleLanguage}
+                  className="hover:opacity-80 transition-opacity cursor-pointer"
+                  title={i18n.language === 'es' ? 'Change to English' : 'Cambiar a Español'}
+                >
+                  <img
+                    src={i18n.language === 'es'
+                      ? 'https://www.worldometers.info/img/flags/small/tn_mx-flag.gif'
+                      : 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif'
+                    }
+                    className="w-8"
+                    alt={i18n.language === 'es' ? 'Español - México' : 'English - USA'}
+                  />
+                </button>
               </li>
               <li className="flex items-center justify-center mx-4 text-white">|</li>
               <li className="flex items-center justify-center text-sm text-white max-w-[110px]">

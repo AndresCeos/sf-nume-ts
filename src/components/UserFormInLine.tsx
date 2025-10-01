@@ -1,10 +1,12 @@
 import { MdEdit } from 'react-icons/md';
 
+import { useTranslation } from 'react-i18next';
 import add_user_main from '../assets/icons/add_user_main.svg';
 
 export default function UserFormInline({
   name, birthDate, age,
 }: { name: string, birthDate: string, age: string }) {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-12">
       <div className="form-group-inline col-span-5 items-center justify-center">
@@ -14,7 +16,7 @@ export default function UserFormInline({
         <p className="font-bold mb-1 mr-2 text-13 flex">
           <MdEdit className="text-xl text-gray-400" />
           {' '}
-          Nombre
+          {t('forms.name')}
         </p>
         <input
           type="text"
@@ -27,7 +29,7 @@ export default function UserFormInline({
         <p className="font-bold mb-1 mr-2 text-13 w-full">
           <MdEdit className="text-xl text-gray-400" />
           {' '}
-          Fecha de Nacimiento
+          {t('forms.birthDate')}
         </p>
         <input
           type="text"

@@ -9,6 +9,8 @@
   "selectConsultantToContinue": "Selecciona un consultante para continuar",
   "birthDate": "Fecha de nacimiento",
   "age": "Edad",
+  "show": "Mostrar",
+  "hide": "Ocultar",
   "consultDate": "Fecha de consulta",
   "navbar": {
     "enterData": "Ingresar\n datos",
@@ -63,14 +65,31 @@
     },
     "partner": {
       "selectTitle": "Seleccionar Pareja",
+      "partnerData": "Datos de Pareja",
       "noPartnersTitle": "No hay Parejas Disponibles",
       "selectLabel": "Selecciona una pareja:",
       "selectPlaceholder": "Elige una pareja...",
       "cancel": "Cancelar",
       "save": "Guardar",
+      "saving": "Guardando...",
       "noPartnersMessage": "No tienes parejas creadas aún",
       "noPartnersSubMessage": "Crea tu primera pareja para comenzar",
-      "createPartner": "Crear Pareja"
+      "createPartner": "Crear Pareja",
+      "editPartner": "Editar Pareja",
+      "namePartner": "Nombre de la Pareja",
+      "namePlaceholder": "Ej: Pareja Principal, Ex Pareja, etc.",
+      "createdAt": "Fecha de Creación",
+      "yearMeet": "Año en que se conocieron",
+      "partnerInfo": "Información de Pareja",
+      "partnerInfoMessage": "Después de crear la pareja, podrás agregar hasta 2 personas.\nCada grupo representa una relación específica con su propio año de encuentro.",
+      "assignParner": "Asignar Pareja",
+      "partner": "Pareja",
+      "addMember": "Agregar Integrante a la Pareja",
+      "noPartnerMembers": "Esta parejano cuenta con integrantes",
+      "maxPartnerMembers": "Esta pareja ya tiene el máximo de 2 integrantes permitidos",
+      "partnerMembers": "Integrantes de la pareja",
+      "years": "años",
+      "meeting": "Encuentro"
     },
     "group": {
       "selectTitle": "Seleccionar Grupo",
@@ -176,6 +195,15 @@
       "title": "Línea de Jerarquía del Diálogo Energético"
     }
   },
+  "forms": {
+    "names": "Nombre (s)",
+    "name": "Nombre",
+    "paternalSurname": "Apellido Paterno",
+    "maternalSurname": "Apellido Materno",
+    "birthDate": "Fecha de Nacimiento",
+    "createdAt": "Fecha de Creaciòn",
+    "yearMeet": "Año de encuentro"
+  },
   "name": {
     "title": "Nombre",
     "numericValues":{
@@ -236,6 +264,49 @@
       "personalNumber": "Número Personal",
       "maturity": "Madurez"
     }
+  },
+  "createName": {
+    "title": "Crear Nombre",
+    "savedNames": "Nombres Guardados",
+    "savedNamesCount": "{{count}} nombre",
+    "savedNamesCount_plural": "{{count}} nombres",
+    "selectSavedName": "Seleccionar un nombre guardado...",
+    "noSavedNames": "No hay nombres guardados",
+    "noSavedNamesMessage": "Los nombres que guardes aparecerán aquí",
+    "name": "Nombre",
+    "birthDate": "Fecha de Nacimiento",
+    "paternalSurname": "Apellido Paterno",
+    "maternalSurname": "Apellido Materno",
+    "isPerson": "Es una persona (desmarcar si es empresa, producto, etc.)",
+    "calculate": "Calcular",
+    "save": "Guardar",
+    "generatePDF": "Generar PDF",
+    "deleteName": "Eliminar Nombre",
+    "clearSelection": "Limpiar Selección",
+    "person": "Persona",
+    "company": "Empresa/Producto",
+    "invalidData": "Ingresa datos validos.",
+    "verification": "Comprobación",
+    "numericValues": "Valores Numéricos del Nombre",
+    "pinnacle": "Pináculo",
+    "inclusionTable": "Tabla de inclusión",
+    "annualReturns": "Retornos Anuales",
+    "breakdown": "Desglose del Nombre",
+    "nameCycle": "Ciclo del Nombre",
+    "deleteConfirmTitle": "¿Estás seguro?",
+    "deleteConfirmText": "¿Deseas eliminar el nombre \"{{name}}\"?",
+    "deleteConfirmButton": "Sí, eliminar",
+    "cancelButton": "Cancelar",
+    "deletedTitle": "¡Eliminado!",
+    "deletedText": "El nombre ha sido eliminado exitosamente.",
+    "savedTitle": "¡Guardado exitosamente!",
+    "savedText": "El nombre ha sido guardado correctamente.",
+    "errorTitle": "Error",
+    "errorSaveText": "No se pudo guardar el nombre. Por favor, inténtalo de nuevo.",
+    "errorDeleteText": "No se pudo eliminar el nombre. Por favor, inténtalo de nuevo.",
+    "noConsultantError": "No hay consultor seleccionado.",
+    "nameNotFoundError": "No se encontró el nombre a eliminar.",
+    "acceptButton": "Aceptar"
   },
   "annualReturns":{
     "title": "9 Curva del tiempo"
@@ -323,6 +394,63 @@
     "edit": "Editar",
     "delete": "Eliminar",
     "cancel": "Cancelar",
-    "add": "Agregar"
+    "add": "Agregar",
+    "verification": "Comprobación"
+  },
+  "sinastry": {
+    "selectPartnerWithMembers": "Selecciona un grupo de parejas con al menos 2 personas para ver esta información",
+    "selectPartnerWithMembersMinimum": "Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría",
+    "selectPartnerForDestinyTable": "Selecciona un grupo de parejas con al menos 2 miembros para ver la tabla de destino de sinastría",
+    "selectPartnerForCompatibilityTable": "Selecciona un grupo de parejas con al menos 2 miembros para ver la tabla de compatibilidad",
+    "noPartnerSelected": "No hay pareja seleccionada",
+    "noPartnerSelectedMessage": "Por favor, selecciona o crea una pareja para ver el calendario anual.",
+    "notEnoughMembers": "No hay suficientes miembros en la pareja",
+    "notEnoughMembersMessage": "La pareja \"{name}\" necesita al menos 2 miembros para ver el calendario anual.",
+    "noMembersInPartner": "No hay miembros en la pareja",
+    "noMembersInPartnerMessage": "La pareja \"{name}\" no tiene miembros. Agrega miembros para ver la información de calendario.",
+    "noPartnerForTimeCircle": "No hay pareja seleccionada",
+    "noPartnerForTimeCircleMessage": "Por favor, selecciona o crea una pareja con al menos 2 miembros para ver la información del círculo del tiempo.",
+    "returns": "9 Retornos",
+    "destinyTable": {
+      "title": "Tabla del Destino de la Pareja",
+      "year": "Año",
+      "age": "Edad",
+      "mentalPlane": "Plano Mental",
+      "physicalPlane": "Plano Físico",
+      "emotionalPlane": "Plano Emocional",
+      "spiritualPlane": "Plano Espiritual",
+      "binomials": "Binomios",
+      "personalYear": "Año Personal",
+      "destinyNumber": "Núm. Destino",
+      "partner": "Pareja",
+      "person1": "Persona 1",
+      "person2": "Persona 2"
+    },
+    "compatibilityTable": {
+      "title": "Tabla de Compatibilidad",
+      "comparativeTable": "Cuadro Comparativo",
+      "person1": "Persona 1",
+      "person2": "Persona 2",
+      "numericConnection": "Conexión Numérica",
+      "soulNumber": "Número del Alma",
+      "soulExpression": "Número de Expresión del Alma",
+      "namePower": "Número de Poder del Nombre",
+      "personalNumber": "Número Personal",
+      "personalityNumber": "Número de la Personalidad",
+      "subconscious": "Número del Subconsciente",
+      "destinyNumber": "Número del Destino",
+      "maturity": "Número de la Madurez",
+      "naturalPartner": "Pareja Natural",
+      "compatiblePartner": "Pareja Compatible",
+      "challengePartner": "Pareja Desafío",
+      "neutralPartner": "Pareja Neutral"
+    },
+    "pinnacle": {
+      "partnerName": "Nombre de Pareja",
+      "partnerPinnacle": "Pináculo de Pareja",
+      "partnerReturn": "Retorno de Pareja",
+      "verification": "Comprobación",
+      "normal": "Normal"
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdEdit, MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
 
@@ -12,6 +13,7 @@ export default function SelectPartner() {
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Cambiar la lógica para usar partnerDataAvailable en lugar de partnersAvailable
@@ -46,7 +48,7 @@ export default function SelectPartner() {
           >
             <TiPlus className="text-2xl" />
           </div>
-          Datos de Pareja
+          {t('modal.partner.partnerData')}
           <MdEdit className="text-xl text-white" />
         </div>
         <div className="flex items-center gap-2">
@@ -55,17 +57,17 @@ export default function SelectPartner() {
             type="button"
             onClick={handleToggleCollapse}
             className="flex items-center gap-1 px-3 py-1 bg-main rounded-lg transition-colors duration-200 text-lg"
-            title={isCollapsed ? 'Mostrar' : 'Ocultar'}
+            title={isCollapsed ? t('show') || undefined : t('hide') || undefined}
           >
             {isCollapsed ? (
               <>
                 <MdExpandMore className="text-lg" />
-                Mostrar
+                {t('show')}
               </>
             ) : (
               <>
                 <MdExpandLess className="text-lg" />
-                Ocultar
+                {t('hide')}
               </>
             )}
           </button>
@@ -80,8 +82,8 @@ export default function SelectPartner() {
               }`}
             >
               {isAddFormActive
-                ? 'Cancelar'
-                : 'Crear Grupo de Pareja'}
+                ? t('modal.partner.cancel')
+                : t('modal.partner.createPartner')}
             </button>
           ) : null}
         </div>

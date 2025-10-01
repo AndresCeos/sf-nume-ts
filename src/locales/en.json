@@ -2,16 +2,360 @@
   "login": "Login",
   "consultant": "Consultant",
   "select": "Select",
-  "noOptions": "No matches found",
+  "noOptions": "No matches",
   "somethingWentWrong": "Oops, something went wrong :(",
-  "tryAgain": "Try again",
+  "tryAgain": "Try Again",
   "loading": "Loading...",
   "selectConsultantToContinue": "Select a consultant to continue",
   "birthDate": "Birth date",
   "age": "Age",
+  "show": "Show",
+  "hide": "Hide",
   "consultDate": "Consultation date",
-  "annualCalendar": {
-    "selectMonth": "Select Month"
+  "navbar": {
+    "enterData": "Enter\n data",
+    "updateData": "Update\n data",
+    "changeDate": "Change\n date",
+    "partnerData": "Partner\n data",
+    "groupData": "Group\n data",
+    "notes": "Consultation\n notes",
+    "saveReport": "Save\n report",
+    "printReports": "Print\n reports",
+    "helloMessage": "Hello! <strong>{{name}}</strong>"
+  },
+  "sidebar": {
+    "home": "Home",
+    "licenseNumber": "License {{number}}",
+    "consultant": "Consultant",
+    "personalNumerology": "Personal Numerology",
+    "pinnacle": "Pinnacle",
+    "lifePath": "Life Path",
+    "name": "Name",
+    "createName": "Create Name",
+    "destinyTable": "Destiny Table",
+    "timeVibration": "Time Vibration",
+    "annualReturns": "Annual Returns",
+    "timeCircle": "Time Circle",
+    "annualCalendar": "Annual Calendar",
+    "monthlyCalendar": "Monthly Calendar",
+    "partnerNumerology": "Partner Numerology",
+    "analysis": "Analysis",
+    "destinyTableP": "Destiny Table P.",
+    "compatibilityTable": "Compatibility Table",
+    "groupNumerology": "Group Numerology",
+    "settings": "Settings",
+    "support": "Support",
+    "logout": "Logout",
+    "userManual": "User Manual",
+    "policiesAndPrivacy": "Policies and Privacy",
+    "contact": "Contact"
+  },
+  "modal": {
+    "date": {
+      "title": "Select the date you want to consult",
+      "select": "Select",
+      "today": "Today",
+      "cancel": "Cancel"
+    },
+    "guest": {
+      "title": "Personal energy",
+      "name" : "Name",
+      "birthDate": "Birth date",
+      "save": "Save"
+    },
+    "partner": {
+      "selectTitle": "Select Partner",
+      "partnerData": "Partner Data",
+      "noPartnersTitle": "No Partners Available",
+      "selectLabel": "Select a partner:",
+      "selectPlaceholder": "Choose a partner...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving...",
+      "noPartnersMessage": "You don't have any partners created yet",
+      "noPartnersSubMessage": "Create your first partner to get started",
+      "createPartner": "Create Partner",
+      "editPartner": "Edit Partner",
+      "namePartner": "Partner Name",
+      "namePlaceholder": "E.g.: Main Partner, Ex Partner, etc.",
+      "createdAt": "Creation Date",
+      "yearMeet": "Year they met",
+      "partnerInfo": "Partner Information",
+      "partnerInfoMessage": "After creating the partner, you can add up to 2 people.\nEach group represents a specific relationship with its own meeting year.",
+      "assignParner": "Assign Partner",
+      "partner": "Partner",
+      "addMember": "Add Member to the Couple",
+      "noPartnerMembers": "This couple has no members",
+      "maxPartnerMembers": "This couple already has the maximum of 2 allowed members",
+      "partnerMembers": "Couple Members",
+      "years": "years",
+      "meeting": "Meeting"
+    },
+    "group": {
+      "selectTitle": "Select Group",
+      "noGroupsTitle": "No Groups Available",
+      "selectLabel": "Select a group:",
+      "selectPlaceholder": "Choose a group...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "noGroupsMessage": "You don't have any groups created yet",
+      "noGroupsSubMessage": "Create your first group to get started",
+      "createGroup": "Create Group"
+    }
+  },
+  "loginPage": {
+    "title": "If you want to understand the Universe, think in terms of energy, frequency and vibration.",
+    "subtitle": "Nikola Tesla",
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "enter": "Enter",
+    "forgotPassword": "Forgot your password?"
+  },
+  "home": {
+    "title": "Welcome {{name}}",
+    "subtitle": "to your Numerology Software",
+    "energy": "Energy",
+    "person": "Person",
+    "personal": "Personal",
+    "partner": "Partner",
+    "partneral": "Partner",
+    "selectPartner": "Select Partner",
+    "group": "Group",
+    "groupal": "Group",
+    "selectGroup": "Select Group",
+    "universal": "Universal",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year"
+  },
+  "pinnacle": {
+    "title": "Pinnacle",
+    "pinnacle": {
+      "absences": "Absences"
+    },
+    "verification": "Verification",
+    "name": {
+      "name": "Name",
+      "soul": "Soul",
+      "expression": "Expression",
+      "maturity": "Maturity"
+    },
+    "bridge": {
+      "bridge": "Bridges by stage",
+      "bridgeX": "Bridge {{stage}}",
+      "duration": "{{amount}} years"
+    },
+    "annualReturns": {
+      "annualReturns": "Annual Returns",
+      "personalYear": "Personal Year",
+      "year": "Year",
+      "years": "Years",
+      "age": "Age",
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "frequency": {
+      "frequency": "Frequency",
+      "reaction": "Reaction",
+      "synthesis": "Synthesis",
+      "gift": "Gift"
+    },
+    "timeCurve": {
+      "timeCurve": "Time Curve",
+      "fromBirthToX": "From birth to {{age}}",
+      "fromNowOn": "From now on"
+    }
+  },
+  "lifePath": {
+    "title": "Life Path",
+    "nineYearsCycle": {
+      "title": "9-Year Cycle",
+      "yearX": "Year {{year}}",
+      "plusNineYears": "+9 years"
+    },
+    "learningStage": {
+      "title": "Learning Stage",
+      "stage": "Stage",
+      "year": "Year",
+      "quarter": "Quarter"
+    },
+    "hierarchyLine": {
+      "title": "Hierarchy Line of Energy Dialogue"
+    }
+  },
+  "forms": {
+    "names": "Name (s)",
+    "name": "Name",
+    "paternalSurname": "Paternal Surname",
+    "maternalSurname": "Maternal Surname",
+    "birthDate": "Birth Date",
+    "createdAt": "Created At",
+    "yearMeet": "Meeting year"
+  },
+  "name": {
+    "title": "Name",
+    "numericValues":{
+      "title": "Numeric Values of Name",
+      "name": "Name",
+      "soul": "Soul",
+      "expression": "Expression"
+    },
+    "potential":{
+      "title": "Frequent Potential of Name",
+      "letterCycle": "Letter cycle",
+      "importantAges": "Important ages",
+      "personalYear": "Personal Year",
+      "ageDigit": "Age Digit",
+      "personalNumber": "Personal Number",
+      "maturity": "Maturity"
+    },
+    "breakdown":{
+      "title": "Name Breakdown"
+    },
+    "activeName":{
+      "title": "Active Name",
+      "vowels": "Vowels",
+      "consonants": "Consonants",
+      "totals": "Totals",
+      "soulNumber": "Soul Number",
+      "expressionNumber": "Expression Number",
+      "powerOfNameNumber": "Power of Name Number",
+      "absentValues": "Absent Values",
+      "initials": "Initials",
+      "activeName": "Active Name"
+    },
+    "nameCycle":{
+      "title": "Name Cycle"
+    },
+    "balanceExistential":{
+      "title": "Balance of Existential Planes",
+      "firstPlace": "1st Place",
+      "secondPlace": "2nd Place",
+      "thirdPlace": "3rd Place",
+      "fourthPlace": "4th Place"
+    },
+    "inclusionTable":{
+      "title": "Inclusion Table",
+      "houses": "Houses",
+      "inhabitants": "Inhabitants"
+    }
+  },
+  "destinyTable":{
+    "title": "Destiny Table",
+    "numericValues": {
+      "title": "Numeric Values of Name",
+      "letterTotal": "Total letters",
+      "nameCycles": "Name Cycles",
+      "nameSubCycles": "Name Sub-cycles",
+      "personalYear": "Personal Year",
+      "ageDigit": "Age Digit",
+      "personalNumber": "Personal Number",
+      "maturity": "Maturity"
+    }
+  },
+  "createName": {
+    "title": "Create Name",
+    "savedNames": "Saved Names",
+    "savedNamesCount": "{{count}} name",
+    "savedNamesCount_plural": "{{count}} names",
+    "selectSavedName": "Select a saved name...",
+    "noSavedNames": "No saved names",
+    "noSavedNamesMessage": "Names you save will appear here",
+    "name": "Name",
+    "birthDate": "Birth Date",
+    "paternalSurname": "Paternal Surname",
+    "maternalSurname": "Maternal Surname",
+    "isPerson": "Is a person (uncheck if company, product, etc.)",
+    "calculate": "Calculate",
+    "save": "Save",
+    "generatePDF": "Generate PDF",
+    "deleteName": "Delete Name",
+    "clearSelection": "Clear Selection",
+    "person": "Person",
+    "company": "Company/Product",
+    "invalidData": "Enter valid data.",
+    "verification": "Verification",
+    "numericValues": "Numeric Values of Name",
+    "pinnacle": "Pinnacle",
+    "inclusionTable": "Inclusion table",
+    "annualReturns": "Annual Returns",
+    "breakdown": "Name Breakdown",
+    "nameCycle": "Name Cycle",
+    "deleteConfirmTitle": "Are you sure?",
+    "deleteConfirmText": "Do you want to delete the name \"{{name}}\"?",
+    "deleteConfirmButton": "Yes, delete",
+    "cancelButton": "Cancel",
+    "deletedTitle": "Deleted!",
+    "deletedText": "The name has been deleted successfully.",
+    "savedTitle": "Saved successfully!",
+    "savedText": "The name has been saved successfully.",
+    "errorTitle": "Error",
+    "errorSaveText": "Could not save the name. Please try again.",
+    "errorDeleteText": "Could not delete the name. Please try again.",
+    "noConsultantError": "No consultant selected.",
+    "nameNotFoundError": "Name to delete was not found.",
+    "acceptButton": "Accept"
+  },
+  "annualReturns":{
+    "title": "9 Time Curve"
+  },
+  "vibrationTime":{
+    "title":"Time Vibration",
+    "energy":{
+      "energy":"Active Energies",
+      "stage":"Current Stage",
+      "year":"Personal Year",
+      "quarter":"Quarter",
+      "month":"Personal Month",
+      "week": "Personal Week",
+      "day":"Personal Day"
+    },
+    "quarterMonth":{
+      "quarterMonth":"Quarters by Months"
+    },
+    "nineYearsCycle":{
+      "nineYearsCycle":"9-Year Cycle",
+      "stage": "Stage"
+    },
+    "quarterYear":{
+      "quarterYear":"Quarters by Year",
+      "calendarYear":"Calendar year",
+      "personlYear":"Personal year"
+    },
+    "annualReturns":{
+      "annualReturns":"Time Analysis"
+    }
+  },
+  "timeCircle":{
+    "consult":"You are consulting:"
+  },
+  "annualCalendar":{
+    "annualCalendar":"Annual Calendar",
+    "selectMonth":"Month of interest",
+    "personalYear":"Personal Year",
+    "universalYear":"Universal Year",
+    "quarter":"Quarter",
+    "firstWeek":"1st Week",
+    "secondWeek":"2nd Week",
+    "thirdWeek":"3rd Week",
+    "quarterWeek":"4th Week"
+  },
+  "monthCalendar":{
+    "title":"Monthly Calendar",
+    "personalYear":"Personal Year",
+    "universalYear":"Universal Year"
   },
   "group": {
     "title": "Group Management",
@@ -21,7 +365,7 @@
     "name": "Group Name",
     "namePlaceholder": "Enter group name",
     "description": "Description",
-    "descriptionPlaceholder": "Enter group description",
+    "descriptionPlaceholder": "Enter a group description",
     "date": "Creation Date",
     "created": "Created",
     "members": "Members",
@@ -41,39 +385,8 @@
     "memberScdLastName": "Second Last Name",
     "memberScdLastNamePlaceholder": "Enter second last name",
     "memberBirthDate": "Birth Date",
-    "memberDateInit": "Init Year",
+    "memberDateInit": "Start Year",
     "birthDate": "Birth Date"
-  },
-  "modal": {
-    "partner": {
-      "selectTitle": "Select Partner",
-      "noPartnersTitle": "No Partners Available",
-      "selectLabel": "Select a partner:",
-      "selectPlaceholder": "Choose a partner...",
-      "cancel": "Cancel",
-      "save": "Save",
-      "noPartnersMessage": "You don't have any partners created yet",
-      "noPartnersSubMessage": "Create your first partner to get started",
-      "createPartner": "Create Partner"
-    },
-    "group": {
-      "selectTitle": "Select Group",
-      "noGroupsTitle": "No Groups Available",
-      "selectLabel": "Select a group:",
-      "selectPlaceholder": "Choose a group...",
-      "cancel": "Cancel",
-      "save": "Save",
-      "noGroupsMessage": "You don't have any groups created yet",
-      "noGroupsSubMessage": "Create your first group to get started",
-      "createGroup": "Create Group"
-    }
-  },
-  "home": {
-    "person": "Person",
-    "personal": "Personal",
-    "partner": "Partner",
-    "partneral": "Partner",
-    "selectPartner": "Select Partner"
   },
   "common": {
     "create": "Create",
@@ -81,6 +394,63 @@
     "edit": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",
-    "add": "Add"
+    "add": "Add",
+    "verification": "Verification"
+  },
+  "sinastry": {
+    "selectPartnerWithMembers": "Select a partner group with at least 2 people to view this information",
+    "selectPartnerWithMembersMinimum": "Select a partner group with at least 2 members to view the synastry",
+    "selectPartnerForDestinyTable": "Select a partner group with at least 2 members to view the synastry destiny table",
+    "selectPartnerForCompatibilityTable": "Select a partner group with at least 2 members to view the compatibility table",
+    "noPartnerSelected": "No partner selected",
+    "noPartnerSelectedMessage": "Please select or create a partner to view the annual calendar.",
+    "notEnoughMembers": "Not enough members in the partner",
+    "notEnoughMembersMessage": "The partner \"{name}\" needs at least 2 members to view the annual calendar.",
+    "noMembersInPartner": "No members in the partner",
+    "noMembersInPartnerMessage": "The partner \"{name}\" has no members. Add members to view calendar information.",
+    "noPartnerForTimeCircle": "No partner selected",
+    "noPartnerForTimeCircleMessage": "Please select or create a partner with at least 2 members to view time circle information.",
+    "returns": "9 Returns",
+    "destinyTable": {
+      "title": "Partner Destiny Table",
+      "year": "Year",
+      "age": "Age",
+      "mentalPlane": "Mental Plane",
+      "physicalPlane": "Physical Plane",
+      "emotionalPlane": "Emotional Plane",
+      "spiritualPlane": "Spiritual Plane",
+      "binomials": "Binomials",
+      "personalYear": "Personal Year",
+      "destinyNumber": "Destiny No.",
+      "partner": "Partner",
+      "person1": "Person 1",
+      "person2": "Person 2"
+    },
+    "compatibilityTable": {
+      "title": "Compatibility Table",
+      "comparativeTable": "Comparative Table",
+      "person1": "Person 1",
+      "person2": "Person 2",
+      "numericConnection": "Numeric Connection",
+      "soulNumber": "Soul Number",
+      "soulExpression": "Soul Expression Number",
+      "namePower": "Name Power Number",
+      "personalNumber": "Personal Number",
+      "personalityNumber": "Personality Number",
+      "subconscious": "Subconscious Number",
+      "destinyNumber": "Destiny Number",
+      "maturity": "Maturity Number",
+      "naturalPartner": "Natural Partner",
+      "compatiblePartner": "Compatible Partner",
+      "challengePartner": "Challenge Partner",
+      "neutralPartner": "Neutral Partner"
+    },
+    "pinnacle": {
+      "partnerName": "Partner Name",
+      "partnerPinnacle": "Partner Pinnacle",
+      "partnerReturn": "Partner Return",
+      "verification": "Verification",
+      "normal": "Normal"
+    }
   }
 }

@@ -4,6 +4,7 @@ import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
+import { useTranslation } from 'react-i18next';
 import add_user_group from '../../assets/icons/add_user_group.svg';
 
 type FormStatus = {
@@ -39,6 +40,7 @@ export default function GroupMemberForm({
 
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
+  const { t } = useTranslation();
 
   const initialForm = {
     name: isEditing && memberToEdit ? memberToEdit.name : '',
@@ -216,7 +218,7 @@ export default function GroupMemberForm({
       <div className="flex w-full mt-3">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Fecha de Nacimiento
+            {t('forms.birthDate')}
             <span className="text-red-800">*</span>
           </p>
           <input
