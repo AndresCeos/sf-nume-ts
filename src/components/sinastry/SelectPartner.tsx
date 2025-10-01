@@ -39,9 +39,6 @@ export default function SelectPartner() {
     setIsCollapsed(!isCollapsed);
   };
 
-  // Verificar si el grupo activo ya tiene 2 parejas
-  const activeGroupHasMaxPartners = activePartnerData && activePartnerData.partner && activePartnerData.partner.length >= 2;
-
   return (
     <div className="grid mt-8 mx-14 col-span-12 mb-10 ">
       <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
@@ -74,21 +71,7 @@ export default function SelectPartner() {
               </>
             )}
           </button>
-          {(partnerDataAvailable || []).length > 0 && !activeGroupHasMaxPartners ? (
-            <button
-              type="button"
-              onClick={() => setIsAddFormActive(!isAddFormActive)}
-              className={`${
-                isAddFormActive ? 'bg-red-500' : 'bg-gold'
-              } px-4 font-bold h-11 mb-3 rounded-t-3xl rounded-bl-3xl ${
-                isEditingConsultant ? 'hidden' : ''
-              }`}
-            >
-              {isAddFormActive
-                ? 'Cancelar'
-                : 'Crear Grupo de Pareja'}
-            </button>
-          ) : null}
+
         </div>
       </div>
       <div
