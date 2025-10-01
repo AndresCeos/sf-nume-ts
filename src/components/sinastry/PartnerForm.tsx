@@ -55,6 +55,29 @@ export default function PartnerForm({
     reset,
   } = useForm(initialForm);
 
+  // Función para validar formato de fecha en tiempo real
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputDate = e.target.value;
+
+    // Si el campo está vacío, permitir que se borre
+    if (!inputDate) {
+      handleInputChange(e.target);
+      return;
+    }
+
+    // Validar que sea una fecha válida
+    const dateObj = new Date(inputDate);
+    const year = dateObj.getFullYear();
+
+    // Validar que el año sea de 4 dígitos y esté en un rango razonable
+    if (Number.isNaN(year) || year < 1900 || year > 2100) {
+      // No permitir fechas inválidas, pero sí mostrar el error en la validación
+      return;
+    }
+
+    handleInputChange(e.target);
+  };
+
   const isFormValid = () => {
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
@@ -80,6 +103,18 @@ export default function PartnerForm({
     if (!date) {
       validationMsgs = { ...validationMsgs, date: 'Requerido' };
       isValid = false;
+    } else {
+      // Validar que la fecha tenga un año de 4 dígitos
+      const dateObj = new Date(date);
+      const year = dateObj.getFullYear();
+
+      if (Number.isNaN(year) || year < 1900 || year > 2100) {
+        validationMsgs = { ...validationMsgs, date: 'El año debe ser de 4 dígitos y estar entre 1900-2100' };
+        isValid = false;
+      } else if (dateObj > new Date()) {
+        validationMsgs = { ...validationMsgs, date: 'La fecha no puede ser futura' };
+        isValid = false;
+      }
     }
 
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
@@ -226,8 +261,10 @@ export default function PartnerForm({
             type="date"
             name="date"
             className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={(e) => handleInputChange(e.target)}
+            onChange={handleDateChange}
             value={date}
+            min="1900-01-01"
+            max="2100-12-31"
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.date) && (
             <span className="form-error">{formStatus.validationMsgs.date}</span>

@@ -51,6 +51,7 @@ export default function PartnerFormInLine({
 
     return updatedPartnerData;
   }, [activePartnerData, partnerDataAvailable]);
+  console.log('currentActivePartnerData', currentActivePartnerData);
 
   // Obtener el primer partner del grupo activo para mostrar en la UI
   /* const currentActivePartner = useMemo(() => {
@@ -108,6 +109,7 @@ export default function PartnerFormInLine({
   const selectedPartner = (e: React.ChangeEvent<HTMLSelectElement>) => { // TODO: Revisar esta función
     const partnerDataId = e.target.value;
     const selectedPartnerData = (partnerDataAvailable || []).find((p) => p.id === partnerDataId);
+    console.log('selectedPartnerData', selectedPartnerData);
     if (selectedPartnerData) {
       selectActivePartnerData(selectedPartnerData);
     }

@@ -1310,10 +1310,10 @@ img {
   font-size: 10px;
   color: #333;
 }
-[descriptionTop]:after {
+[descriptiontop]:after {
   width: 16px;
   text-align: center;
-  content: attr(descriptionTop);
+  content: attr(descriptiontop);
   font-size: 13px;
   color: #7e7e7e;
   right: -15px;
@@ -1321,10 +1321,10 @@ img {
   position: absolute
 }
 
-[descriptionBottom]:after {
+[descriptionbottom]:after {
   width: 16px;
   text-align: center;
-  content: attr(descriptionBottom);
+  content: attr(descriptionbottom);
   font-size: 13px;
   color: #7e7e7e;
   right: -15px;
@@ -1332,10 +1332,10 @@ img {
   position: absolute
 }
 
-[descriptionBottom]:after {
+[descriptionbottom]:after {
   width: 16px;
   text-align: center;
-  content: attr(descriptionBottom);
+  content: attr(descriptionbottom);
   font-size: 13px;
   color: #7e7e7e;
   left: 15px;
@@ -1343,10 +1343,10 @@ img {
   position: absolute
 }
 
-[descriptionRight]:after {
+[descriptionright]:after {
   width: 16px;
   text-align: center;
-  content: attr(descriptionRight);
+  content: attr(descriptionright);
   font-size: 13px;
   color: #7e7e7e;
   right: 8px;
@@ -1354,10 +1354,10 @@ img {
   position: absolute
 }
 
-[descriptionLeft]:after {
+[descriptionleft]:after {
   width: 16px;
   text-align: center;
-  content: attr(descriptionLeft);
+  content: attr(descriptionleft);
   font-size: 13px;
   color: #7e7e7e;
   right: 8px;

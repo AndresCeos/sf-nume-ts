@@ -33,6 +33,7 @@ export default function SynastryPinnaclePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons, calculationDate,
   } = useContext(ConsultContext);
+  console.log('selectedPartnersAsPersons', selectedPartnersAsPersons);
 
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({
     checkP1: false,
@@ -69,6 +70,14 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-12 text-center mt-8">
           <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
         </div>
+      </div>
+    );
+  }
+
+  if (selectedPartnersAsPersons.length < 2) {
+    return (
+      <div className="col-span-12 text-center mt-8">
+        <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
       </div>
     );
   }

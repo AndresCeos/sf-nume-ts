@@ -9,6 +9,11 @@ export default function SelectPartner() {
   const {
     partnerDataAvailable, activePartnerData, consultant, isEditingConsultant, handleIsEditingConsultant,
   } = useContext(ConsultContext);
+  console.log('partnerDataAvailable', partnerDataAvailable);
+  console.log('activePartnerData', activePartnerData);
+  console.log('consultant', consultant);
+  console.log('isEditingConsultant', isEditingConsultant);
+  console.log('handleIsEditingConsultant', handleIsEditingConsultant);
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -17,7 +22,7 @@ export default function SelectPartner() {
     // Cambiar la lógica para usar partnerDataAvailable en lugar de partnersAvailable
     // Agregar verificación de seguridad para evitar errores de undefined
     const partnerDataArray = partnerDataAvailable || [];
-    if (partnerDataArray.length === 0) {
+    if (partnerDataArray.length < 2) {
       setPartnerEmpty(true);
     } else {
       setPartnerEmpty(false);

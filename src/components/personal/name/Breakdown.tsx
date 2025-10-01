@@ -50,7 +50,7 @@ export default function Breakdown({ checkBreakdown }: { checkBreakdown: boolean 
   for (let index = ungroupName.length; index < 28; index += 1) {
     ungroupName.push({} as UngroupName);
   }
-  console.log(ungroupNameT, 'ungroupNameT');
+
   return (
     <div className="pinnacle-wrap px-8 py-8">
       {ungroupNames.map((ungroup, index) => (

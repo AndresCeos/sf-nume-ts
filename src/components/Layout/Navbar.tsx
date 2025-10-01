@@ -490,7 +490,7 @@ function Navbar() {
               <li className="flex items-center justify-center">
                 <Link
                   className="button-nav-bar"
-                  to="/consultante"
+                  to="/consultant"
                   onClick={handlerEdit}
                 >
                   <img
