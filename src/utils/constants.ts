@@ -115,3 +115,10 @@ export const getTheRoute = (path: string): string => {
   }
   return `personal/${path}`;
 };
+export const licenseTypes = (licenseId: string) => {
+  switch (licenseId) {
+    case '425': return '3 año';
+    case '424': return '1 años';
+    default: return 'N/A';
+  }
+};

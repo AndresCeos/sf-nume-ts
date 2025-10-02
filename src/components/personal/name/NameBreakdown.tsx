@@ -16,7 +16,7 @@ export default function NameBreakdown({
   return (
     <div className="nameBreakdown flex mb-4 justify-center">
       <div className="mr-3">
-        <div className="text-13 w-30 h-30 font-bold">V </div>
+        <div className="text-13 w-30 h-30 font-bold">V</div>
         <div className="text-13 h-30 font-bold">
           {description}
           {' '}
@@ -25,7 +25,7 @@ export default function NameBreakdown({
       </div>
 
       { name.map((el: any, i: number, row: any) => (
-        <div className="destinityValue border-l border-gray-500">
+        <div className="destinityValue border-l border-gray-500" key={el.timestamp}>
           <div className={`text-13 w-30 h-30 bg-black bg-opacity-10 border-t border-gray-500 ${i + 1 === row.length ? 'border-r' : ''}`}>
             {el.v !== 0 ? el.v : ''}
           </div>

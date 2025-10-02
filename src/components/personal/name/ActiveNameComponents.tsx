@@ -61,7 +61,7 @@ export default function ActiveNameComponents() {
               {t('name.activeName.vowels')}
             </div>
             {ungroupNames.map((ungroup) => (
-              <div className="flex items-center">
+              <div className="flex items-center" key={ungroup.name.length}>
                 <div className="border border-blue w-10 h-10 rounded-sm flex items-center justify-center text-xl font-bold inner-shadow mx-2">
                   {ungroup.total[0].v}
                 </div>

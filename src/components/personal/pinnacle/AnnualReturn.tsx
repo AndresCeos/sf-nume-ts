@@ -128,13 +128,13 @@ function AnnualReturn({
               <img src="/assets/annual-polygon-active.svg" className="absolute w-full h-full object-contain top-1" alt="bk" />
             ) : ''}
 
-          <CircleNumber size="xs" appearance="white" border="red" position="vf" borderWidth={current ? '4' : '1'}>
+          <CircleNumber size="xs" appearance="white" border="red" position="vf" borderwidth={current ? '4' : '1'}>
             {annualReturn.F}
           </CircleNumber>
           <CircleNumber size="xs" appearance="white" border="red" position="vd">
             {annualReturn.D}
           </CircleNumber>
-          <CircleNumber size="xs" appearance="white" border="red" position="vg" borderWidth={current ? '4' : '1'}>
+          <CircleNumber size="xs" appearance="white" border="red" position="vg" borderwidth={current ? '4' : '1'}>
             {annualReturn.G}
           </CircleNumber>
           <CircleNumber size="xs" appearance="white" border="red" position="ve">
@@ -143,7 +143,7 @@ function AnnualReturn({
           <CircleNumber size="xs" appearance="white" border="purple" position="va">
             {annualReturn.A}
           </CircleNumber>
-          <CircleNumber size="xs" appearance="purple-30" border={current ? 'main' : 'purple'} position="vb" borderWidth={current ? '4' : '1'}>
+          <CircleNumber size="xs" appearance="purple-30" border={current ? 'main' : 'purple'} position="vb" borderwidth={current ? '4' : '1'}>
             {annualReturn.B}
           </CircleNumber>
           <CircleNumber size="xs" appearance="white" border="purple" position="vc">

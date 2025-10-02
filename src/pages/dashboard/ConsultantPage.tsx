@@ -14,9 +14,6 @@ function ConsultantPage() {
   const { consultant } = useConsult();
   const { user: userAuth } = useAuth();
 
-  console.log('consultant', consultant);
-  console.log('userAuth', userAuth);
-
   // Obtener las notas del consultor actual
   const users = userAuth?.consultants;
   const consultantInfo = (consultant && Array.isArray(users)) ? users.find((element) => element.id === consultant?.id) : null;

@@ -17,10 +17,10 @@ type BridgeState = {
   stageDoubleStart: string;
   stageDoubleEnd: string;
   hasDouble: boolean;
-  descriptionTop: string;
-  descriptionBottom: string;
-  descriptionRight: string;
-  descriptionLeft: string;
+  descriptiontop: string;
+  descriptionbottom: string;
+  descriptionright: string;
+  descriptionleft: string;
 };
 
 type BridgeProps = {
@@ -46,10 +46,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       stageDoubleStart: `0 - ${consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth()}`,
       stageDoubleEnd: `${consultant.calcDoubleLifeStageDuration(6) - consultant.getYearOfBirth()} - ${consultant.calcDoubleLifeStageDuration(7) - consultant.getYearOfBirth()}`,
       hasDouble: consultant.hasDoubleStage(),
-      descriptionBottom: 'K',
-      descriptionTop: 'E',
-      descriptionRight: 'B',
-      descriptionLeft: 'A',
+      descriptionbottom: 'K',
+      descriptiontop: 'E',
+      descriptionright: 'B',
+      descriptionleft: 'A',
     },
     2: {
       top: `${consultant.getF()}${consultant.getFISK()}`,
@@ -62,10 +62,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       stageDoubleStart: `${consultant.calcDoubleLifeStageDuration(1) - consultant.getYearOfBirth()} - ${consultant.calcDoubleLifeStageDuration(2) - consultant.getYearOfBirth()}`,
       stageDoubleEnd: `${consultant.calcDoubleLifeStageDuration(5) - consultant.getYearOfBirth()} - ${consultant.calcDoubleLifeStageDuration(6) - consultant.getYearOfBirth()}`,
       hasDouble: consultant.hasDoubleStage(),
-      descriptionTop: 'L',
-      descriptionLeft: 'F',
-      descriptionRight: 'C',
-      descriptionBottom: 'B',
+      descriptiontop: 'L',
+      descriptionleft: 'F',
+      descriptionright: 'C',
+      descriptionbottom: 'B',
     },
     3: {
       top: `${consultant.getG()}${consultant.getGISK()}`,
@@ -78,10 +78,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       stageDoubleStart: `${consultant.calcDoubleLifeStageDuration(2) - consultant.getYearOfBirth()} - ${consultant.calcDoubleLifeStageDuration(3) - consultant.getYearOfBirth()}`,
       stageDoubleEnd: `${consultant.calcDoubleLifeStageDuration(4) - consultant.getYearOfBirth()} - ${consultant.calcDoubleLifeStageDuration(5) - consultant.getYearOfBirth()}`,
       hasDouble: consultant.hasDoubleStage(),
-      descriptionTop: 'M',
-      descriptionLeft: 'G',
-      descriptionRight: 'F',
-      descriptionBottom: 'E',
+      descriptiontop: 'M',
+      descriptionleft: 'G',
+      descriptionright: 'F',
+      descriptionbottom: 'E',
     },
     4: {
       top: showVerification ? `${consultant.getHCheck()}${consultant.getHISK()}` : `${consultant.getH()}${consultant.getHISKCheck()}`,
@@ -94,10 +94,10 @@ function Bridge({ stage, showVerification }: BridgeProps) {
       stageDoubleStart: `${consultant.calcDoubleLifeStageDuration(3) - consultant.getYearOfBirth()} - ${consultant.calcDoubleLifeStageDuration(4) - consultant.getYearOfBirth()}`,
       stageDoubleEnd: '',
       hasDouble: consultant.hasDoubleStage(),
-      descriptionBottom: 'N',
-      descriptionTop: 'H',
-      descriptionRight: 'C',
-      descriptionLeft: 'A',
+      descriptionbottom: 'N',
+      descriptiontop: 'H',
+      descriptionright: 'C',
+      descriptionleft: 'A',
     },
   };
 
@@ -105,19 +105,19 @@ function Bridge({ stage, showVerification }: BridgeProps) {
     <>
       <div className="w-full flex items-center justify-center bg-opacity-100">
         <div className="grid grid-cols-3 mt-3 gap-2 bridge-wrap relative">
-          <CircleNumber size="xs" appearance="green" border="green" position="et" descriptionTop={bridgeState[stage].descriptionTop}>
+          <CircleNumber size="xs" appearance="green" border="green" position="et" descriptiontop={bridgeState[stage].descriptiontop}>
             {bridgeState[stage].top}
           </CircleNumber>
-          <CircleNumber size="xs" appearance="white" border="purple" position="el" descriptionLeft={bridgeState[stage].descriptionLeft}>
+          <CircleNumber size="xs" appearance="white" border="purple" position="el" descriptionleft={bridgeState[stage].descriptionleft}>
             {bridgeState[stage].left}
           </CircleNumber>
           <CircleNumber size="xs" appearance="gold" border="gold" position="ec">
             {bridgeState[stage].center}
           </CircleNumber>
-          <CircleNumber size="xs" appearance="white" border="main" position="er" descriptionRight={bridgeState[stage].descriptionRight}>
+          <CircleNumber size="xs" appearance="white" border="main" position="er" descriptionright={bridgeState[stage].descriptionright}>
             {bridgeState[stage].right}
           </CircleNumber>
-          <CircleNumber size="xs" appearance="white" border="red" position="eb" descriptionBottom={bridgeState[stage].descriptionBottom}>
+          <CircleNumber size="xs" appearance="white" border="red" position="eb" descriptionbottom={bridgeState[stage].descriptionbottom}>
             {bridgeState[stage].bottom}
           </CircleNumber>
         </div>

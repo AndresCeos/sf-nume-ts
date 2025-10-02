@@ -8,7 +8,7 @@ import PartnerFormInLine from './PartnerFormInLine';
 
 export default function SelectPartner() {
   const {
-    partnerDataAvailable, activePartnerData, consultant, isEditingConsultant, handleIsEditingConsultant,
+    partnerDataAvailable, consultant, isEditingConsultant, handleIsEditingConsultant,
   } = useContext(ConsultContext);
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
@@ -19,7 +19,7 @@ export default function SelectPartner() {
     // Cambiar la lógica para usar partnerDataAvailable en lugar de partnersAvailable
     // Agregar verificación de seguridad para evitar errores de undefined
     const partnerDataArray = partnerDataAvailable || [];
-    if (partnerDataArray.length === 0) {
+    if (partnerDataArray.length < 2) {
       setPartnerEmpty(true);
     } else {
       setPartnerEmpty(false);
@@ -35,9 +35,6 @@ export default function SelectPartner() {
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
-
-  // Verificar si el grupo activo ya tiene 2 parejas
-  const activeGroupHasMaxPartners = activePartnerData && activePartnerData.partner && activePartnerData.partner.length >= 2;
 
   return (
     <div className="grid mt-8 mx-14 col-span-12 mb-10 ">
@@ -71,21 +68,6 @@ export default function SelectPartner() {
               </>
             )}
           </button>
-          {(partnerDataAvailable || []).length > 0 && !activeGroupHasMaxPartners ? (
-            <button
-              type="button"
-              onClick={() => setIsAddFormActive(!isAddFormActive)}
-              className={`${
-                isAddFormActive ? 'bg-red-500' : 'bg-gold'
-              } px-4 font-bold h-11 mb-3 rounded-t-3xl rounded-bl-3xl ${
-                isEditingConsultant ? 'hidden' : ''
-              }`}
-            >
-              {isAddFormActive
-                ? t('modal.partner.cancel')
-                : t('modal.partner.createPartner')}
-            </button>
-          ) : null}
         </div>
       </div>
       <div
