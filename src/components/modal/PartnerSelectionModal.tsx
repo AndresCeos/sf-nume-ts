@@ -46,7 +46,6 @@ function PartnerSelectionModal({
 
     const selectedPartner = partnerData.find((p) => p.id === selectedPartnerId);
 
-    console.log('selectedPartner', selectedPartner);
     if (selectedPartner) {
       const newConsultant: Api.Consultant = {
         ...activeConsultant,

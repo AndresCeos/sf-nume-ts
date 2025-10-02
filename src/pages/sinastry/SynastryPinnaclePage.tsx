@@ -73,6 +73,14 @@ export default function SynastryPinnaclePage() {
     );
   }
 
+  if (selectedPartnersAsPersons.length < 2) {
+    return (
+      <div className="col-span-12 text-center mt-8">
+        <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
+      </div>
+    );
+  }
+
   // Use the already converted Person objects from context
   const partner1 = selectedPartnersAsPersons[0];
   const partner2 = selectedPartnersAsPersons[1];

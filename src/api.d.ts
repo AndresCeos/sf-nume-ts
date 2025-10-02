@@ -59,6 +59,8 @@ declare namespace Api {
   interface License {
     id: number;
     status: 0 | 1;
+    expirationDate: string;
+    licenseId: string;
   }
 
   interface UserResponse {
