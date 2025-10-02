@@ -3,19 +3,20 @@ import NameBreakdown from './NameBreakdown';
 
 type NameBreakProps = {
   createNameObj: Person;
-
+  checkBreakdown: boolean;
 };
 
 type UngroupName = {
   v: number;
   L: string;
   c: number;
+  checkL?: string;
 };
 type Ungroup = {
   ungroupNameI: UngroupName[];
 };
 
-export default function NameBreak({ createNameObj }: NameBreakProps) {
+export default function NameBreak({ createNameObj, checkBreakdown }: NameBreakProps) {
   const ungroupName = createNameObj.getUngroupName();
   const ungroupNameT = createNameObj.getUngroupNameTotal();
 
@@ -64,7 +65,7 @@ export default function NameBreak({ createNameObj }: NameBreakProps) {
                           ${ungroup.length > 1 ? 'mb-4' : ''}
                         `}
             >
-              {ungroupNameT[0].L}
+              {checkBreakdown ? ungroupNameT[0].checkL : ungroupNameT[0].L}
             </div>
             <div className={`
                           text-13 w-30 h-30 bg-gold bg-opacity-10 rounded-md inner-shadow

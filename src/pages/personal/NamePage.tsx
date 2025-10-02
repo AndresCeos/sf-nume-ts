@@ -81,7 +81,7 @@ function NamePage() {
   return (
     <div className="page-content bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
-        <div className="col-span-5 mb-5">
+        <div className="col-span-5">
           <SectionTitle
             title={t('name.numericValues.title')}
             button={{
@@ -94,7 +94,7 @@ function NamePage() {
             checkN={checkN}
           />
         </div>
-        <div className="col-span-7 mb-5">
+        <div className="col-span-7">
           <SectionTitle title={t('name.potential.title')} />
           <FrequentNamePotential />
         </div>

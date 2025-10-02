@@ -5,6 +5,7 @@ type UngroupName = {
   v: number;
   L: string;
   c: number;
+  checkL?: string;
 };
 
 export default function Breakdown({ checkBreakdown }: { checkBreakdown: boolean }) {

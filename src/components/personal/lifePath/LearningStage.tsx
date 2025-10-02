@@ -15,7 +15,7 @@ import useConsult from '@/hooks/useConsult';
 interface QuarterData {
   id: string;
   months: string;
-  value: number;
+  value: string;
   isActive: boolean;
 }
 
@@ -48,11 +48,11 @@ function LearningStage() {
     };
 
     const karmic = {
-      q1: Number(consultant.getQuarterOneISK()),
-      q2: Number(consultant.getQuarterTwoISK(currentYear)),
-      q3: Number(consultant.getQuarterThreeISK(currentYear)),
-      q2Last: Number(consultant.getQuarterTwoISK(lastYear)),
-      q3Last: Number(consultant.getQuarterThreeISK(lastYear)),
+      q1: consultant.getQuarterOneISK(),
+      q2: consultant.getQuarterTwoISK(currentYear),
+      q3: consultant.getQuarterThreeISK(currentYear),
+      q2Last: consultant.getQuarterTwoISK(lastYear),
+      q3Last: consultant.getQuarterThreeISK(lastYear),
     };
 
     return { current, karmic };
@@ -74,19 +74,19 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3 + karmic.q3,
+            value: `${current.q3}${karmic.q3}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
         );
@@ -96,25 +96,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[index - 1]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth === 0,
           },
         );
@@ -125,25 +125,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 3 && currentMonth <= 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[0]} - ${listOfMonths3[index - 1]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 2,
           },
         );
@@ -153,25 +153,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth === 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[0]} - ${listOfMonths3[index - 1]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 7,
           },
         );
@@ -181,19 +181,19 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
         );
@@ -203,25 +203,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 6 && currentMonth <= 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[12]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[index - 1]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth === 5,
           },
         );
@@ -231,25 +231,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 7 && currentMonth <= 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[12]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[5]} - ${listOfMonths3[index - 1]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 6,
           },
         );
@@ -259,25 +259,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth === 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[12]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[5]} - ${listOfMonths3[index - 1]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 7,
           },
         );
@@ -287,19 +287,19 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
         );
@@ -309,25 +309,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 10 && currentMonth <= 11,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q4',
             months: ` ${listOfMonths3[index - 1]}`,
-            value: current.q3 + karmic.q3,
+            value: `${current.q3}${karmic.q3}`,
             isActive: currentMonth === 9,
           },
         );
@@ -337,25 +337,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth === 11,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[9]} - ${listOfMonths3[index - 1]}`,
-            value: current.q3 + karmic.q3,
+            value: `${current.q3}${karmic.q3}`,
             isActive: currentMonth >= 9 && currentMonth <= 10,
           },
         );
@@ -370,7 +370,7 @@ function LearningStage() {
   const quarters = calculateQuarters();
   const activeStage = consultant.getLifeStageNumber(calculationDate);
   const currentWeek = Math.ceil(getDate(newDate) / 7) as WeekNumber;
-
+  console.log('quarters', quarters);
   // Calculate cycle years
   const cycle = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i);
 

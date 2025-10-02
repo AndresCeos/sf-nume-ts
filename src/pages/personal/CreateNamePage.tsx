@@ -636,7 +636,7 @@ function CreateNamePage() {
               {(createNameData.isPerson) ? (
                 <CreateNameBreakDown consultant={createNameObj} checkBreakdown={checkBreakdown} />
               ) : (
-                <NameBreak createNameObj={createNameObj} />
+                <NameBreak createNameObj={createNameObj} checkBreakdown={checkBreakdown} />
               )}
             </div>
 

@@ -1,7 +1,7 @@
 interface QuarterData {
   id: string;
   months: string;
-  value: number;
+  value: string;
   isActive: boolean;
 }
 

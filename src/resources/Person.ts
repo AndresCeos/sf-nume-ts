@@ -50,7 +50,7 @@ type Appearance = {
 type Appearances = {
   [key: number]: Appearance,
 };
-type NameSettings = {
+export type NameSettings = {
   pmN?: number,
   pmD?: number,
   pmC?: string,

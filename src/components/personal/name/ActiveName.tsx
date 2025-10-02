@@ -13,6 +13,7 @@ export default function ActiveName({
   const { consultationDate: newDate, consultant } = useConsult();
 
   if (!consultant) return null;
+  if (table.length === 0) return null;
 
   const consultantAge = consultant.getYearsOld(newDate.getFullYear());
   const isCycle = (i: number) => (i === consultantAge ? false : nameCycles.includes(i));

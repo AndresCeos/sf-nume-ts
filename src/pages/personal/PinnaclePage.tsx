@@ -41,8 +41,8 @@ function PinnaclePage() {
   const annualReturnNextYear = consultant.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
 
   return (
-    <div className="page-content bg-cover">
-      <div className="grid grid-cols-10 grid-rows-12 mt-8 mx-14 gap-4">
+    <div className="page-content bg-cover pb-10">
+      <div className="grid grid-cols-10 grid-rows-12 mt-8 gap-4">
         <div className="col-span-3 row-span-6">
           <SectionTitle
             title={t('pinnacle.title')}
@@ -72,11 +72,11 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-span-6 row-span-2">
+        <div className="col-span-6 row-span-3">
           <SectionTitle title={t('pinnacle.bridge.bridge')} />
-          <div className="section-wrap grid grid-cols-4">
+          <div className="section-wrap grid grid-cols-4 h-[285px]">
             <div className={cx(
-              'py-3 px-2 border-b border-solid border-gray-300',
+              'py-5 px-2 border-b border-solid border-gray-300',
               (activeStage === 1 || activeStage === 7) || (secondStage && (activeScdStage === 1 || activeScdStage === 7)) ? 'bg-active-radial' : 'border-r border-gray-200',
             )}
             >
@@ -86,7 +86,7 @@ function PinnaclePage() {
               <Bridge stage={1} />
             </div>
             <div className={cx(
-              'py-3 px-2 border-b border-solid border-gray-300',
+              'py-5 px-2 border-b border-solid border-gray-300',
               (activeStage === 2 || activeStage === 6) || (secondStage && (activeScdStage === 2 || activeScdStage === 6)) ? 'bg-active-radial' : 'border-r border-gray-200',
             )}
             >
@@ -96,7 +96,7 @@ function PinnaclePage() {
               <Bridge stage={2} />
             </div>
             <div className={cx(
-              'py-3 px-2 border-b border-solid border-gray-300',
+              'py-5 px-2 border-b border-solid border-gray-300',
               (activeStage === 3 || activeStage === 5) || (secondStage && (activeScdStage === 3 || activeScdStage === 5)) ? 'bg-active-radial' : 'border-r border-gray-200',
             )}
             >
@@ -106,7 +106,7 @@ function PinnaclePage() {
               <Bridge stage={3} />
             </div>
             <div className={cx(
-              'py-3 px-2 border-b border-solid border-gray-300',
+              'py-5 px-2 border-b border-solid border-gray-300',
               activeStage === 4 || (secondStage && activeScdStage === 4) ? 'bg-active-radial' : null,
             )}
             >
@@ -133,9 +133,9 @@ function PinnaclePage() {
           </div>
         </div>
 
-        <div className="col-span-1 row-span-2 col-start-4 row-start-4">
+        <div className="col-span-1 row-span-2 col-start-4 row-start-4 ">
           <SectionTitle title={t('pinnacle.frequency.frequency')} fontSize="text-9" />
-          <div className="section-wrap grid grid-cols-1 p-3">
+          <div className="section-wrap grid grid-cols-1 p-3 h-[285px]">
             <PinnacleFrequency />
           </div>
         </div>
