@@ -7,13 +7,8 @@ import PartnerFormInLine from './PartnerFormInLine';
 
 export default function SelectPartner() {
   const {
-    partnerDataAvailable, activePartnerData, consultant, isEditingConsultant, handleIsEditingConsultant,
+    partnerDataAvailable, consultant, isEditingConsultant, handleIsEditingConsultant,
   } = useContext(ConsultContext);
-  console.log('partnerDataAvailable', partnerDataAvailable);
-  console.log('activePartnerData', activePartnerData);
-  console.log('consultant', consultant);
-  console.log('isEditingConsultant', isEditingConsultant);
-  console.log('handleIsEditingConsultant', handleIsEditingConsultant);
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);

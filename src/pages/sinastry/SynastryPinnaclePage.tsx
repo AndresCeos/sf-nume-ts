@@ -33,7 +33,6 @@ export default function SynastryPinnaclePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons, calculationDate,
   } = useContext(ConsultContext);
-  console.log('selectedPartnersAsPersons', selectedPartnersAsPersons);
 
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({
     checkP1: false,

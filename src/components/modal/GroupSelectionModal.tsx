@@ -46,7 +46,6 @@ function GroupSelectionModal({
 
     const selectedGroup = groupData.find((g) => g.id === selectedGroupId);
 
-    console.log('selectedGroup', selectedGroup);
     if (selectedGroup) {
       const newConsultant: Api.Consultant = {
         ...activeConsultant,
