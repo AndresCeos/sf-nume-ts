@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import { formatDate } from '@/utils/constants';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ConsultantModalNotes from './ConsultantModalNotes';
 import LastConsult from './LastConsult';
 
@@ -12,6 +13,7 @@ function ConsultantProfile() {
   const [showModal, setShowModal] = useState(false);
   const { user: userAuth } = useAuth();
   const users = userAuth?.consultants;
+  const { t } = useTranslation();
 
   if (!consultant) {
     return (
@@ -44,7 +46,8 @@ function ConsultantProfile() {
         </div>
       </div>
       <div className=" px-7 text-13 leading-7">
-        Fecha de nacimiento:
+        {t('forms.birthDate')}
+        :
         <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long' }) : '-'}</strong>
         <div className="flex justify-between mb-1">
           <div className="text-13 leading-7">

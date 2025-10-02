@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Person from '@/resources/Person';
 import { reduceNumber } from '@/utils/numbers';
@@ -29,6 +30,7 @@ export default function DestinyTable({
   nameCycles,
   nameSubCycles,
 }: DestinyTableProps) {
+  const { t } = useTranslation();
   const single = consultant.getSingle();
   const [binomActive, setBinomActive] = useState(false);
   const consultantAge = consultant.getYearsOld();
@@ -52,19 +54,19 @@ export default function DestinyTable({
       <div className="destinity-table flex mb-8 justify-center">
         <div className="w-32 z-0">
           <div className="h-6 w-32 text-13 font-black bg-main-30 border-t border-gray-400 border-l border-r flex items-center justify-start px-1">
-            Año
+            {t('destinyTable.year')}
           </div>
           <div className="h-6 text-13 font-black bg-black bg-opacity-10 border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-            Edad
+            {t('destinyTable.age')}
           </div>
           <div className="h-12 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-            Plano Mental
+            {t('destinyTable.mentalPlane')}
           </div>
           <div className="h-12 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-            Plano Físico
+            {t('destinyTable.physicalPlane')}
           </div>
           <div className="h-12 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-            Plano Emocional
+            {t('destinyTable.emotionalPlane')}
           </div>
           <button
             type="button"
@@ -75,17 +77,17 @@ export default function DestinyTable({
               setBinomActive(!binomActive);
             }}
           >
-            Binomios
+            {t('destinyTable.binomials')}
           </button>
           <div className="h-10 text-13 font-black bg-pink border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-            Plano Espiritual
+            {t('destinyTable.spiritualPlane')}
           </div>
           {/* <div className='h-10 text-13 font-black bg-gray-300 text-gray-500 border-b border-gray-400 border-l border-r px-1'>Ciclo del<br/>Nombre </div> */}
           <div className="mt-5 h-10 text-13 font-black bg-gray bg-opacity-15 border-b border-l border-r border-t border-gray-400 flex items-center justify-start px-1">
-            Año Personal
+            {t('destinyTable.personalYear')}
           </div>
           <div className="h-10 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-            Núm. Destino
+            {t('destinyTable.destinyNumber')}
           </div>
         </div>
         {table.map((el: DestinyTableValuesProps, i: number) => (

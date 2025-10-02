@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import add_user_main from '../../assets/icons/add_user_main.svg';
 
 type FormStatus = {
@@ -37,6 +37,8 @@ export default function PartnerForm({
 
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
+
+  const { t } = useTranslation();
 
   const initialForm = {
     names: isEditing && partnerToEdit ? partnerToEdit.names : '',
@@ -85,23 +87,23 @@ export default function PartnerForm({
     const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
 
     if (!names) {
-      validationMsgs = { ...validationMsgs, names: 'Requerido' };
+      validationMsgs = { ...validationMsgs, names: t('validation.required') };
       isValid = false;
     } else if (!names.match(letters)) {
-      validationMsgs = { ...validationMsgs, name: 'No válido' };
+      validationMsgs = { ...validationMsgs, name: t('validation.invalid') };
       isValid = false;
     }
 
     if (!lastName) {
-      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, lastName: t('validation.required') };
       isValid = false;
     } else if (!lastName.match(letters)) {
-      validationMsgs = { ...validationMsgs, lastName: 'No válido' };
+      validationMsgs = { ...validationMsgs, lastName: t('validation.invalid') };
       isValid = false;
     }
 
     if (!date) {
-      validationMsgs = { ...validationMsgs, date: 'Requerido' };
+      validationMsgs = { ...validationMsgs, date: t('validation.required') };
       isValid = false;
     } else {
       // Validar que la fecha tenga un año de 4 dígitos
@@ -187,7 +189,7 @@ export default function PartnerForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar la pareja');
+      setFormError(err instanceof Error ? err.message : t('errors.savePartner') as string);
     } finally {
       setIsLoading(false);
     }
@@ -197,13 +199,13 @@ export default function PartnerForm({
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
       <h2 className="flex justify-center items-center text-xl font-bold">
         <img src={add_user_main} className="mr-3" alt="add_user_main" />
-        {isEditing ? 'Editar Pareja' : 'Asignar Pareja'}
+        {isEditing ? t('modal.partner.editPartner') : t('modal.partner.assignPartner')}
       </h2>
 
       <div className="flex w-full mt-6">
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Nombre(s)
+            {t('forms.names')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -221,7 +223,7 @@ export default function PartnerForm({
 
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Apellido Paterno
+            {t('forms.paternalSurname')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -238,7 +240,9 @@ export default function PartnerForm({
         </div>
 
         <div className="form-group w-1/3">
-          <p className="font-bold mb-1">Apellido Materno</p>
+          <p className="font-bold mb-1">
+            {t('forms.maternalSurname')}
+          </p>
           <input
             id="partner-scdLastName"
             type="text"
@@ -253,7 +257,7 @@ export default function PartnerForm({
       <div className="flex w-full mt-3">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Fecha de Nacimiento
+            {t('forms.birthDate')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -278,7 +282,7 @@ export default function PartnerForm({
           className="btn-save w-32"
           disabled={isLoading}
         >
-          {isLoading ? 'Guardando...' : 'Guardar'}
+          {isLoading ? t('modal.partner.saving') : t('modal.partner.save')}
         </button>
 
         {isEditing && (
@@ -288,7 +292,7 @@ export default function PartnerForm({
             onClick={closeForm}
             disabled={isLoading}
           >
-            Cancelar
+            {t('modal.partner.cancel')}
           </button>
         )}
       </div>

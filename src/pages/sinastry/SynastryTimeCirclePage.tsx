@@ -25,8 +25,8 @@ function SynastryTimeCirclePage() {
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay pareja seleccionada</h3>
-            <p className="text-gray-600">Por favor, selecciona o crea una pareja con al menos 2 miembros para ver la información del círculo del tiempo.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('sinastry.noPartnerForTimeCircle')}</h3>
+            <p className="text-gray-600">{t('sinastry.noPartnerForTimeCircleMessage')}</p>
           </div>
         </div>
       </div>

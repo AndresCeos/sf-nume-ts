@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-// import { useTranslation } from 'react-i18next';
-
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdEdit } from 'react-icons/md';
 import Swal from 'sweetalert2';
 
@@ -28,6 +27,7 @@ import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
 
 function CreateNamePage() {
+  const { t } = useTranslation();
   const { user: userAuth } = useAuth();
   const {
     consultant, activeConsultant, calculationDate, selectActiveConsultant, consultationDate,
@@ -116,7 +116,7 @@ function CreateNamePage() {
   // Solo mostrar error de validación si el usuario ha intentado calcular o si hay datos inválidos
   if ((!isValid() && hasCalculated)) {
     return (
-      <div className="col-span-12 text-center font-bold">Ingresa datos validos.</div>
+      <div className="col-span-12 text-center font-bold">{t('createName.invalidData')}</div>
     );
   }
 
@@ -187,18 +187,18 @@ function CreateNamePage() {
 
       // Mostrar mensaje de éxito con SweetAlert
       Swal.fire({
-        title: '¡Guardado exitosamente!',
-        text: 'El nombre ha sido guardado correctamente.',
+        title: t('createName.savedTitle') as string,
+        text: t('createName.savedText') as string,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('createName.acceptButton') as string,
       });
     } catch (error) {
       console.error('Error al guardar el nombre:', error);
       Swal.fire({
-        title: 'Error',
-        text: 'No se pudo guardar el nombre. Por favor, inténtalo de nuevo.',
+        title: t('createName.errorTitle') as string,
+        text: t('createName.errorSaveText') as string,
         icon: 'error',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('createName.acceptButton') as string,
       });
     }
   };
@@ -257,10 +257,10 @@ function CreateNamePage() {
     try {
       if (!activeConsultant) {
         Swal.fire({
-          title: 'Error',
-          text: 'No hay consultor seleccionado.',
+          title: t('createName.errorTitle') as string,
+          text: t('createName.noConsultantError') as string,
           icon: 'error',
-          confirmButtonText: 'Aceptar',
+          confirmButtonText: t('createName.acceptButton') as string,
         });
         return;
       }
@@ -269,24 +269,24 @@ function CreateNamePage() {
       const nameToDelete = createNames.find((name: any) => name.id === id);
       if (!nameToDelete) {
         Swal.fire({
-          title: 'Error',
-          text: 'No se encontró el nombre a eliminar.',
+          title: t('createName.errorTitle') as string,
+          text: t('createName.nameNotFoundError') as string,
           icon: 'error',
-          confirmButtonText: 'Aceptar',
+          confirmButtonText: t('createName.acceptButton') as string,
         });
         return;
       }
 
       // Confirmar eliminación con SweetAlert
       const result = await Swal.fire({
-        title: '¿Estás seguro?',
-        text: `¿Deseas eliminar el nombre "${nameToDelete.name}"?`,
+        title: t('createName.deleteConfirmTitle') as string,
+        text: t('createName.deleteConfirmText', { name: nameToDelete.name }) as string,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: t('createName.deleteConfirmButton') as string,
+        cancelButtonText: t('createName.cancelButton') as string,
       });
 
       if (result.isConfirmed) {
@@ -309,19 +309,19 @@ function CreateNamePage() {
         setSelectedSavedName('');
 
         Swal.fire({
-          title: '¡Eliminado!',
-          text: 'El nombre ha sido eliminado exitosamente.',
+          title: t('createName.deletedTitle') as string,
+          text: t('createName.deletedText') as string,
           icon: 'success',
-          confirmButtonText: 'Aceptar',
+          confirmButtonText: t('createName.acceptButton') as string,
         });
       }
     } catch (error) {
       console.error('Error al eliminar el nombre:', error);
       Swal.fire({
-        title: 'Error',
-        text: 'No se pudo eliminar el nombre. Por favor, inténtalo de nuevo.',
+        title: t('createName.errorTitle') as string,
+        text: t('createName.errorDeleteText') as string,
         icon: 'error',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('createName.acceptButton') as string,
       });
     }
   };
@@ -368,20 +368,19 @@ function CreateNamePage() {
     <div className="page-content bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
         <div className="col-span-12 mb-5">
-          <SectionTitle title="Crear Nombre" />
+          <SectionTitle title={t('createName.title')} />
           <div className="pinnacle-wrap px-8 py-8">
             {/* Selector de nombres guardados */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-bold text-gray-800">
-                  Nombres Guardados
+                  {t('createName.savedNames')}
                 </h3>
                 {createNames.length > 0 && (
                   <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
                     {createNames.length}
                     {' '}
-                    nombre
-                    {createNames.length !== 1 ? 's' : ''}
+                    {createNames.length === 1 ? t('createName.savedNamesCount', { count: createNames.length }) : t('createName.savedNamesCount_plural', { count: createNames.length })}
                   </span>
                 )}
               </div>
@@ -395,7 +394,7 @@ function CreateNamePage() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white cursor-pointer hover:border-gray-400 transition-colors"
                     >
                       <option value="" className="text-gray-500">
-                        Seleccionar un nombre guardado...
+                        {t('createName.selectSavedName')}
                       </option>
                       {createNames.map((savedName: any) => (
                         <option key={savedName.id} value={savedName.id} className="py-2">
@@ -413,7 +412,7 @@ function CreateNamePage() {
                           {' '}
                           •
                           {' '}
-                          {savedName.isPerson ? '👤 Persona' : '🏢 Empresa/Producto'}
+                          {savedName.isPerson ? `👤 ${t('createName.person')}` : `🏢 ${t('createName.company')}`}
                         </option>
                       ))}
                     </select>
@@ -434,7 +433,7 @@ function CreateNamePage() {
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
-                        Eliminar Nombre
+                        {t('createName.deleteName')}
                       </button>
                       <button
                         type="button"
@@ -447,15 +446,15 @@ function CreateNamePage() {
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        Limpiar Selección
+                        {t('createName.clearSelection')}
                       </button>
                     </div>
                   )}
                 </div>
               ) : (
                 <div className="text-center py-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-                  <p className="text-gray-600 font-medium">No hay nombres guardados</p>
-                  <p className="text-gray-500 text-sm mt-1">Los nombres que guardes aparecerán aquí</p>
+                  <p className="text-gray-600 font-medium">{t('createName.noSavedNames')}</p>
+                  <p className="text-gray-500 text-sm mt-1">{t('createName.noSavedNamesMessage')}</p>
                 </div>
               )}
             </div>
@@ -466,7 +465,7 @@ function CreateNamePage() {
                   <p className="font-bold mb-1 ">
                     <MdEdit className="text-xl" />
                     {' '}
-                    Nombre
+                    {t('createName.name')}
                   </p>
                   <input
                     type="text"
@@ -480,7 +479,7 @@ function CreateNamePage() {
                   <p className="font-bold mb-1">
                     <MdEdit className="text-xl" />
                     {' '}
-                    Fecha de Nacimiento:
+                    {t('createName.birthDate')}:
                   </p>
                   <input
                     type="date"
@@ -499,7 +498,7 @@ function CreateNamePage() {
                     <p className="font-bold mb-1">
                       <MdEdit className="text-xl" />
                       {' '}
-                      Apellido Paterno
+                      {t('createName.paternalSurname')}
                     </p>
                     <input
                       type="text"
@@ -514,7 +513,7 @@ function CreateNamePage() {
                     <p className="font-bold mb-1">
                       <MdEdit className="text-xl" />
                       {' '}
-                      Apellido Materno
+                      {t('createName.maternalSurname')}
                     </p>
                     <input
                       type="text"
@@ -540,7 +539,7 @@ function CreateNamePage() {
                     className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                   />
                   <span className="text-gray-700 font-medium">
-                    Es una persona (desmarcar si es empresa, producto, etc.)
+                    {t('createName.isPerson')}
                   </span>
                 </label>
               </div>
@@ -553,7 +552,7 @@ function CreateNamePage() {
                   disabled={!isValid()}
                   className={`btn-save ${!isValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Calcular
+                  {t('createName.calculate')}
                 </button>
                 <button
                   type="button"
@@ -561,7 +560,7 @@ function CreateNamePage() {
                   disabled={!isValid() || !hasCalculated}
                   className={`btn-save ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Guardar
+                  {t('createName.save')}
                 </button>
                 <button
                   type="button"
@@ -569,7 +568,7 @@ function CreateNamePage() {
                   onClick={handleGeneratePDF}
                   disabled={!isValid() || !hasCalculated}
                 >
-                  Generar PDF
+                  {t('createName.generatePDF')}
                 </button>
               </div>
             </div>
@@ -580,11 +579,11 @@ function CreateNamePage() {
           <>
             <div className="col-span-8 mb-5">
               <SectionTitle
-                title="Valores Numéricos del Nombre"
+                title={t('createName.numericValues')}
                 button={{
                   handle: checkName,
                   isActive: checkN,
-                  text: 'Comprobación',
+                  text: t('createName.verification'),
                 }}
               />
               <NumericValues createNameObj={createNameObj} checkN={checkN} />
@@ -592,11 +591,11 @@ function CreateNamePage() {
 
             <div className="col-span-4 row-span-2 mb-5">
               <SectionTitle
-                title="Pináculo"
+                title={t('createName.pinnacle')}
                 button={{
                   handle: checkPinacle,
                   isActive: checkP,
-                  text: 'Comprobación',
+                  text: t('createName.verification'),
                 }}
               />
               <div className="pinnacle-wrap px-8 py-3">
@@ -605,12 +604,12 @@ function CreateNamePage() {
             </div>
 
             <div className="col-span-8 mb-5">
-              <SectionTitle title="Tabla de inclusión" />
+              <SectionTitle title={t('createName.inclusionTable')} />
               <InclusionTable createNameObj={createNameObj} />
             </div>
 
             <div className="col-span-12 mb-5">
-              <SectionTitle title="Retornos Anuales" />
+              <SectionTitle title={t('createName.annualReturns')} />
               <div className="pinnacle-wrap overflow-hidden grid grid-cols-3">
                 <div className="px-5 py-8">
                   <AnnualReturn annualReturn={annualReturnPastYear} size="xs" />
@@ -626,11 +625,11 @@ function CreateNamePage() {
 
             <div className="col-span-12 mb-5">
               <SectionTitle
-                title="Desglose del Nombre"
+                title={t('createName.breakdown')}
                 button={{
                   handle: () => setcheckBreakdown(!checkBreakdown),
                   isActive: checkBreakdown,
-                  text: 'Comprobación',
+                  text: t('createName.verification'),
                 }}
               />
               {(createNameData.isPerson) ? (
@@ -641,7 +640,7 @@ function CreateNamePage() {
             </div>
 
             <div className="col-span-12 mb-5">
-              <SectionTitle title="Ciclo del Nombre" />
+              <SectionTitle title={t('createName.nameCycle')} />
               <DestinyTableCreateName createNameObj={createNameObj} calculationDate={calculationDate} />
             </div>
           </>
