@@ -187,18 +187,18 @@ function CreateNamePage() {
 
       // Mostrar mensaje de éxito con SweetAlert
       Swal.fire({
-        title: t('createName.savedTitle'),
-        text: t('createName.savedText'),
+        title: t('createName.savedTitle') as string,
+        text: t('createName.savedText') as string,
         icon: 'success',
-        confirmButtonText: t('createName.acceptButton'),
+        confirmButtonText: t('createName.acceptButton') as string,
       });
     } catch (error) {
       console.error('Error al guardar el nombre:', error);
       Swal.fire({
-        title: t('createName.errorTitle'),
-        text: t('createName.errorSaveText'),
+        title: t('createName.errorTitle') as string,
+        text: t('createName.errorSaveText') as string,
         icon: 'error',
-        confirmButtonText: t('createName.acceptButton'),
+        confirmButtonText: t('createName.acceptButton') as string,
       });
     }
   };
@@ -257,10 +257,10 @@ function CreateNamePage() {
     try {
       if (!activeConsultant) {
         Swal.fire({
-          title: t('createName.errorTitle'),
-          text: t('createName.noConsultantError'),
+          title: t('createName.errorTitle') as string,
+          text: t('createName.noConsultantError') as string,
           icon: 'error',
-          confirmButtonText: t('createName.acceptButton'),
+          confirmButtonText: t('createName.acceptButton') as string,
         });
         return;
       }
@@ -269,24 +269,24 @@ function CreateNamePage() {
       const nameToDelete = createNames.find((name: any) => name.id === id);
       if (!nameToDelete) {
         Swal.fire({
-          title: t('createName.errorTitle'),
-          text: t('createName.nameNotFoundError'),
+          title: t('createName.errorTitle') as string,
+          text: t('createName.nameNotFoundError') as string,
           icon: 'error',
-          confirmButtonText: t('createName.acceptButton'),
+          confirmButtonText: t('createName.acceptButton') as string,
         });
         return;
       }
 
       // Confirmar eliminación con SweetAlert
       const result = await Swal.fire({
-        title: t('createName.deleteConfirmTitle'),
-        text: t('createName.deleteConfirmText', { name: nameToDelete.name }),
+        title: t('createName.deleteConfirmTitle') as string,
+        text: t('createName.deleteConfirmText', { name: nameToDelete.name }) as string,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: t('createName.deleteConfirmButton'),
-        cancelButtonText: t('createName.cancelButton'),
+        confirmButtonText: t('createName.deleteConfirmButton') as string,
+        cancelButtonText: t('createName.cancelButton') as string,
       });
 
       if (result.isConfirmed) {
@@ -309,19 +309,19 @@ function CreateNamePage() {
         setSelectedSavedName('');
 
         Swal.fire({
-          title: t('createName.deletedTitle'),
-          text: t('createName.deletedText'),
+          title: t('createName.deletedTitle') as string,
+          text: t('createName.deletedText') as string,
           icon: 'success',
-          confirmButtonText: t('createName.acceptButton'),
+          confirmButtonText: t('createName.acceptButton') as string,
         });
       }
     } catch (error) {
       console.error('Error al eliminar el nombre:', error);
       Swal.fire({
-        title: t('createName.errorTitle'),
-        text: t('createName.errorDeleteText'),
+        title: t('createName.errorTitle') as string,
+        text: t('createName.errorDeleteText') as string,
         icon: 'error',
-        confirmButtonText: t('createName.acceptButton'),
+        confirmButtonText: t('createName.acceptButton') as string,
       });
     }
   };

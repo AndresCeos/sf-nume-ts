@@ -130,6 +130,73 @@
     "month": "Mes",
     "year": "Año"
   },
+  "universalEnergy": {
+    "personTitle": "PERSONA",
+    "personSubtitle": "PERSONAL",
+    "partnerTitle": "PAREJA",
+    "partnerSubtitle": "PAREJA",
+    "groupTitle": "GRUPO",
+    "groupSubtitle": "GRUPO"
+  },
+  "reports": {
+    "personal": {
+      "pinnacle": "Pináculo",
+      "lifePath": "Camino de Vida",
+      "name": "Nombre",
+      "destinyTable": "Tabla del Destino",
+      "vibrationTime": "Vibración del tiempo",
+      "annualReturns": "Retornos Anuales",
+      "timeCircle": "Circulo del Tiempo",
+      "annualCalendar": "Calendario Anual",
+      "monthlyCalendar": "Calendario Mensual"
+    },
+    "partner": {
+      "synastryPinnacle": "Pináculo de Sinastria",
+      "synastryLifePath": "Camino de Vida de Sinastria",
+      "synastryDestinyTable": "Tabla del Destino de Sinastria",
+      "synastryCompatibilityTable": "Tabla de Compatibilidad de Sinastria",
+      "synastryVibrationTime": "Vibración del tiempo de Sinastria",
+      "synastryAnnualReturns": "Retornos Anuales de Sinastria",
+      "synastryTimeCircle": "Circulo del Tiempo de Sinastria",
+      "synastryAnnualCalendar": "Calendario Anual de Sinastria",
+      "synastryMonthlyCalendar": "Calendario Mensual de Sinastria"
+    },
+    "group": {
+      "groupPinnacle": "Pináculo de Grupo",
+      "groupLifePath": "Camino de Vida de Grupo",
+      "groupDestinyTable": "Tabla del Destino de Grupo",
+      "groupCompatibilityTable": "Tabla de Compatibilidad de Grupo",
+      "groupVibrationTime": "Vibración del tiempo de Grupo",
+      "groupAnnualReturns": "Retornos Anuales de Grupo",
+      "groupTimeCircle": "Circulo del Tiempo de Grupo",
+      "groupAnnualCalendar": "Calendario Anual de Grupo",
+      "groupMonthlyCalendar": "Calendario Mensual de Grupo"
+    },
+    "errors": {
+      "notAvailable": "No Disponible",
+      "noReportsAvailable": "No hay reportes disponibles",
+      "noReportsFound": "No se encontraron reportes para la ruta: {{path}}",
+      "modalOpenError": "Error al abrir el modal de reportes",
+      "reportSelectionError": "Error al seleccionar reporte",
+      "previewError": "Error al activar vista previa",
+      "generateError": "Error al generar el reporte PDF",
+      "selectConsultant": "Selecciona un consultante para ver el reporte",
+      "selectPartner": "Selecciona una pareja para ver el reporte",
+      "selectGroup": "Selecciona un grupo para ver el reporte",
+      "insufficientData": "Datos insuficientes para generar el reporte"
+    }
+  },
+  "hierarchyLine": {
+    "dialogue": "Diálogo",
+    "challenge": "Reto",
+    "np": "NP",
+    "stage": "Etapa",
+    "personalYear": "AP",
+    "quarter": "Cuatrimestre",
+    "personalMonth": "MP",
+    "personalWeek": "SP",
+    "personalDay": "DP"
+  },
   "pinnacle": {
     "title": "Pináculo",
     "pinnacle": {
@@ -189,7 +256,16 @@
       "title": "Etapa de Aprendizaje",
       "stage": "Etapa",
       "year": "Año",
-      "quarter": "Cuatrimestre"
+      "quarter": "Cuatrimestre",
+      "lifeStage": "1. Etapa de Vida",
+      "personalYear": "2. Año Personal",
+      "nineYearCycle": "CICLO DE 9 AÑOS",
+      "quarters": "3. Cuatrimestres",
+      "quartersLabel": "CUATRIMESTRES",
+      "personalMonths": "4. Meses Personales",
+      "personalMonthsLabel": "MESES PERSONALES",
+      "personalWeeks": "5. Semanas Personales",
+      "personalWeeksLabel": "SEMANAS PERSONALES"
     },
     "hierarchyLine": {
       "title": "Línea de Jerarquía del Diálogo Energético"
@@ -244,7 +320,15 @@
       "firstPlace": "1er Lugar",
       "secondPlace": "2do Lugar",
       "thirdPlace": "3er Lugar",
-      "fourthPlace": "4to Lugar"
+      "fourthPlace": "4to Lugar",
+      "physicalPlane": "Plano Físico",
+      "physicalPlaneValues": "(Valores 4/22 y 5)",
+      "mentalPlane": "Plano Mental",
+      "mentalPlaneValues": "(Valores 1 y 8)",
+      "emotionalPlane": "Plano Emocional",
+      "emotionalPlaneValues": "(Valores 2/11, 3 y 6)",
+      "spiritualPlane": "Plano Espiritual",
+      "spiritualPlaneValues": "(Valores 7 y 9)"
     },
     "inclusionTable":{
       "title": "Tabla de Inclusión",
@@ -254,6 +338,15 @@
   },
   "destinyTable":{
     "title": "Tabla del Destino",
+    "year": "Año",
+    "age": "Edad",
+    "mentalPlane": "Plano Mental",
+    "physicalPlane": "Plano Físico",
+    "emotionalPlane": "Plano Emocional",
+    "spiritualPlane": "Plano Espiritual",
+    "binomials": "Binomios",
+    "personalYear": "Año Personal",
+    "destinyNumber": "Núm. Destino",
     "numericValues": {
       "title": "Valores Numéricos del Nombre",
       "letterTotal": "Total de letras",
@@ -386,7 +479,63 @@
     "memberScdLastNamePlaceholder": "Ingrese el segundo apellido",
     "memberBirthDate": "Fecha de Nacimiento",
     "memberDateInit": "Año de Inicio",
-    "birthDate": "Fecha de Nacimiento"
+    "birthDate": "Fecha de Nacimiento",
+    "validation": {
+      "nameRequired": "Debe ingresar el nombre del grupo.",
+      "dateRequired": "Debe ingresar la fecha de creación del grupo.",
+      "memberNameRequired": "Debe ingresar el nombre del integrante.",
+      "memberLastNameRequired": "Debe ingresar el apellido del integrante.",
+      "memberBirthDateRequired": "Debe ingresar la fecha de nacimiento del integrante.",
+      "memberDateInitRequired": "Debe ingresar el año de inicio del integrante.",
+      "invalidDate": "Fecha no válida",
+      "invalidYear": "Año no válido"
+    },
+    "errors": {
+      "saveGroup": "Error al guardar el grupo",
+      "saveMember": "Error al guardar el integrante",
+      "deleteGroup": "No se pudo eliminar el grupo. Por favor, inténtalo de nuevo.",
+      "deleteMember": "No se pudo eliminar el integrante. Por favor, inténtalo de nuevo."
+    },
+    "alerts": {
+      "areYouSure": "¿Estás seguro?",
+      "confirmDeleteGroup": "¿Estás seguro de que quieres eliminar el grupo {{groupName}}?",
+      "confirmDeleteMember": "¿Estás seguro de que quieres eliminar a {{memberName}} del grupo?",
+      "yesDelete": "Sí, eliminar",
+      "deleting": "Eliminando...",
+      "deletingGroupMessage": "Por favor espera mientras se elimina el grupo.",
+      "deletingMemberMessage": "Por favor espera mientras se elimina el integrante.",
+      "deleted": "¡Eliminado!",
+      "groupDeletedSuccessfully": "El grupo {{groupName}} ha sido eliminado exitosamente.",
+      "memberDeletedSuccessfully": "{{memberName}} ha sido eliminado del grupo exitosamente.",
+      "error": "Error"
+    }
+  },
+  "consultant": {
+    "notes": {
+      "title": "Notas de Consulta",
+      "addNote": "Agregar Nota",
+      "noteLabel": "Nota",
+      "notePlaceholder": "Escribe tu nota aquí...",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "cancel": "Cancelar",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar esta nota?",
+      "yesDelete": "Sí, eliminar",
+      "deleting": "Eliminando...",
+      "deleted": "¡Eliminado!",
+      "deletedSuccessfully": "La nota ha sido eliminada exitosamente.",
+      "error": "Error",
+      "deleteError": "No se pudo eliminar la nota. Por favor, inténtalo de nuevo."
+    },
+    "list": {
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar este consultante?",
+      "yesDelete": "Sí, eliminar",
+      "deleting": "Eliminando...",
+      "deleted": "¡Eliminado!",
+      "deletedSuccessfully": "El consultante ha sido eliminado exitosamente.",
+      "error": "Error",
+      "deleteError": "No se pudo eliminar el consultante. Por favor, inténtalo de nuevo."
+    }
   },
   "common": {
     "create": "Crear",
@@ -395,7 +544,41 @@
     "delete": "Eliminar",
     "cancel": "Cancelar",
     "add": "Agregar",
-    "verification": "Comprobación"
+    "verification": "Comprobación",
+    "pinnacle": "Pináculo",
+    "thisMember": "este miembro",
+    "persons": "personas)"
+  },
+  "validation": {
+    "required": "Requerido",
+    "invalid": "No válido",
+    "invalidYear": "Año no válido"
+  },
+  "errors": {
+    "savePartnerGroup": "Error al guardar el grupo de parejas",
+    "savePartner": "Error al guardar la pareja",
+    "deleteError": "No se pudo eliminar la pareja. Por favor, inténtalo de nuevo."
+  },
+  "alerts": {
+    "areYouSure": "¿Estás seguro?",
+    "confirmDeletePartner": "¿Estás seguro de que quieres eliminar a {{partnerName}} del grupo?",
+    "yesDelete": "Sí, eliminar",
+    "deleting": "Eliminando...",
+    "deletingMessage": "Por favor espera mientras se elimina la pareja.",
+    "deleted": "¡Eliminado!",
+    "deletedSuccessfully": "{{partnerName}} ha sido eliminado del grupo exitosamente.",
+    "error": "Error"
+  },
+  "placeholders": {
+    "yearExample": "Ej: 2020"
+  },
+  "quarters": {
+    "monthRange": "De {{from}} a {{to}}",
+    "inMonth": "En {{month}}"
+  },
+  "headers": {
+    "calendarYear": "Año calendario",
+    "personalYear": "Año personal"
   },
   "sinastry": {
     "selectPartnerWithMembers": "Selecciona un grupo de parejas con al menos 2 personas para ver esta información",

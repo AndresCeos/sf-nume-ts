@@ -156,7 +156,7 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Nombre: ${partner1.nameView}`}
+            title={`${t('forms.name')}: ${partner1.nameView}`}
             color=" bg-red-day"
             button={{
               text: checkboxState.checkN1 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
@@ -173,7 +173,7 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Nombre: ${partner2.nameView}`}
+            title={`${t('forms.name')}: ${partner2.nameView}`}
             color=" bg-red-day"
             button={{
               text: checkboxState.checkN2 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
@@ -206,7 +206,7 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Pináculo: ${partner1.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner1.nameView}`}
             color=" bg-red-day"
             button={{
               text: checkboxState.checkP2 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
@@ -222,7 +222,7 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Pináculo: ${partner2.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner2.nameView}`}
             color=" bg-red-day"
             button={{
               text: checkboxState.checkP ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
@@ -249,7 +249,7 @@ export default function SynastryPinnaclePage() {
 
         <div className="col-span-4 mb-1">
           <SectionTitle
-            title={`Pináculo: ${partner1.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner1.nameView}`}
             color=" bg-red-day"
           />
 
@@ -260,7 +260,7 @@ export default function SynastryPinnaclePage() {
 
         <div className="col-span-4 mb-1">
           <SectionTitle
-            title={`Pináculo: ${partner2.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner2.nameView}`}
             color=" bg-red-day"
           />
           <div className="pinnacle-wrap px-5 py-4">

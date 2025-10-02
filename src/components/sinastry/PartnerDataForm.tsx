@@ -74,20 +74,20 @@ export default function PartnerDataForm({
     const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
     if (!name) {
-      validationMsgs = { ...validationMsgs, name: 'Requerido' };
+      validationMsgs = { ...validationMsgs, name: t('validation.required') };
       isValid = false;
     } else if (!name.match(letters)) {
-      validationMsgs = { ...validationMsgs, name: 'No válido' };
+      validationMsgs = { ...validationMsgs, name: t('validation.invalid') };
       isValid = false;
     }
 
     if (!date) {
-      validationMsgs = { ...validationMsgs, date: 'Requerido' };
+      validationMsgs = { ...validationMsgs, date: t('validation.required') };
       isValid = false;
     }
 
     if (!yearMeet || yearMeet < 1900 || yearMeet > new Date().getFullYear()) {
-      validationMsgs = { ...validationMsgs, yearMeet: 'Año no válido' };
+      validationMsgs = { ...validationMsgs, yearMeet: t('validation.invalidYear') };
       isValid = false;
     }
 
@@ -139,7 +139,7 @@ export default function PartnerDataForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar el grupo de parejas');
+      setFormError(err instanceof Error ? err.message : t('errors.savePartnerGroup') as string);
     } finally {
       setIsLoading(false);
     }
@@ -206,7 +206,7 @@ export default function PartnerDataForm({
             className="rounded border-[#C4C4C4] border w-11/12"
             onChange={(e) => handleInputChange(e.target)}
             value={yearMeet}
-            placeholder="Ej: 2020"
+            placeholder={t('placeholders.yearExample') as string}
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.yearMeet) && (
             <span className="form-error">{formStatus.validationMsgs.yearMeet}</span>

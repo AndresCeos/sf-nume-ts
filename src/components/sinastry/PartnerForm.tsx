@@ -64,23 +64,23 @@ export default function PartnerForm({
     const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
 
     if (!names) {
-      validationMsgs = { ...validationMsgs, names: 'Requerido' };
+      validationMsgs = { ...validationMsgs, names: t('validation.required') };
       isValid = false;
     } else if (!names.match(letters)) {
-      validationMsgs = { ...validationMsgs, name: 'No válido' };
+      validationMsgs = { ...validationMsgs, name: t('validation.invalid') };
       isValid = false;
     }
 
     if (!lastName) {
-      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, lastName: t('validation.required') };
       isValid = false;
     } else if (!lastName.match(letters)) {
-      validationMsgs = { ...validationMsgs, lastName: 'No válido' };
+      validationMsgs = { ...validationMsgs, lastName: t('validation.invalid') };
       isValid = false;
     }
 
     if (!date) {
-      validationMsgs = { ...validationMsgs, date: 'Requerido' };
+      validationMsgs = { ...validationMsgs, date: t('validation.required') };
       isValid = false;
     }
 
@@ -154,7 +154,7 @@ export default function PartnerForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar la pareja');
+      setFormError(err instanceof Error ? err.message : t('errors.savePartner') as string);
     } finally {
       setIsLoading(false);
     }

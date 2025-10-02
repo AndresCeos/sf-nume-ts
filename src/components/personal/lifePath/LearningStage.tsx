@@ -2,6 +2,7 @@ import {
   getDate,
   getYear,
 } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import { capitalize } from '@/utils/numbers';
 
@@ -22,6 +23,7 @@ interface QuarterData {
 type WeekNumber = 1 | 2 | 3 | 4;
 
 function LearningStage() {
+  const { t } = useTranslation();
   const { consultant, consultationDate, calculationDate } = useConsult();
 
   if (!consultant) return null;
@@ -380,7 +382,7 @@ function LearningStage() {
         <div className="px-8 py-8">
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pb-2">
             <div className="col-span-3 text-13 font-black pt-3">
-              1. Etapa de Vida
+              {t('lifePath.learningStage.lifeStage')}
             </div>
             <div className="col-span-7 flex justify-between">
               {[1, 2, 3, 4, 5, 6, 7].map((stage) => (
@@ -391,11 +393,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pt-4 pb-2">
             <div className="col-span-3 text-13 font-black pt-3">
-              2. Año Personal
+              {t('lifePath.learningStage.personalYear')}
             </div>
             <div className="col-span-7 grid grid-cols-10 gap-x-6 border-4 border-b-0 border-secondary">
               <div className="bg-purple-30 text-13 font-bold flex items-center justify-center col-span-10 h-7">
-                CICLO DE 9 AÑOS
+                {t('lifePath.learningStage.nineYearCycle')}
               </div>
 
               {cycle.map((year) => (
@@ -406,11 +408,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pt-3 pb-12">
             <div className="col-span-3 text-13 font-black pt-3">
-              3. Cuatrimestres
+              {t('lifePath.learningStage.quarters')}
             </div>
             <div className="col-span-7 border-4 border-b-0 border-green">
               <div className="bg-green-30 text-13 font-bold flex items-center justify-center h-7">
-                CUATRIMESTRES
+                {t('lifePath.learningStage.quartersLabel')}
               </div>
 
               <div className="flex justify-between mt-5">
@@ -428,11 +430,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pt-4 pb-12">
             <div className="col-span-3 text-13 font-black pt-3 h-7">
-              4. Meses Personales
+              {t('lifePath.learningStage.personalMonths')}
             </div>
             <div className="col-span-7 border-4 border-b-0 border-gold">
               <div className="bg-gold-30 text-13 font-bold flex items-center justify-center h-7">
-                MESES PERSONALES
+                {t('lifePath.learningStage.personalMonthsLabel')}
               </div>
               <PathMonth />
             </div>
@@ -440,11 +442,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 mb-3 pt-3 pb-12">
             <div className="col-span-3 text-13 font-black pt-3 h-7">
-              5. Semanas Personales
+              {t('lifePath.learningStage.personalWeeks')}
             </div>
             <div className="col-span-7 border-4 border-b-0 border-blue-week">
               <div className="bg-blue-week text-13 font-bold flex items-center justify-center h-7">
-                SEMANAS PERSONALES
+                {t('lifePath.learningStage.personalWeeksLabel')}
                 {' '}
                 {currentWeek}
               </div>

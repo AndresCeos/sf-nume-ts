@@ -129,23 +129,23 @@ export default function PartnerFormInLine({
   };
   const handleRemovePartner = async (partnerId: string) => {
     const partnerToRemove = currentActivePartnerData?.partner?.find((p) => p.id === partnerId);
-    const partnerName = partnerToRemove ? `${partnerToRemove.names} ${partnerToRemove.lastName}` : 'este miembro';
+    const partnerName = partnerToRemove ? `${partnerToRemove.names} ${partnerToRemove.lastName}` : t('common.thisMember');
 
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
-      text: `¿Estás seguro de que quieres eliminar a ${partnerName} del grupo?`,
+      title: t('alerts.areYouSure') as string,
+      text: t('alerts.confirmDeletePartner', { partnerName }) as string,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t('alerts.yesDelete') as string,
+      cancelButtonText: t('common.cancel') as string,
     });
     if (result.isConfirmed) {
       try {
         Swal.fire({
-          title: 'Eliminando...',
-          text: 'Por favor espera mientras se elimina la pareja.',
+          title: t('alerts.deleting') as string,
+          text: t('alerts.deletingMessage') as string,
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
@@ -172,15 +172,15 @@ export default function PartnerFormInLine({
         updateConsultantPartners(updatedConsultant);
 
         Swal.fire(
-          '¡Eliminado!',
-          `${partnerName} ha sido eliminado del grupo exitosamente.`,
+          t('alerts.deleted') as string,
+          t('alerts.deletedSuccessfully', { partnerName }) as string,
           'success',
         );
       } catch (error) {
         console.error('Error al eliminar pareja:', error);
         Swal.fire(
-          'Error',
-          'No se pudo eliminar la pareja. Por favor, inténtalo de nuevo.',
+          t('alerts.error') as string,
+          t('errors.deleteError') as string,
           'error',
         );
       }
@@ -273,7 +273,7 @@ export default function PartnerFormInLine({
                   (
                   {partnerData.partner?.length || 0}
                   {' '}
-                  personas)
+                  {t('common.persons')}
                 </option>
               ))}
             </select>

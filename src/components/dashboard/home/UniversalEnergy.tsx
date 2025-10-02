@@ -8,6 +8,8 @@ import UniversalEnergyValues from '@/components/Universal/universalEnergy/Univer
 import useConsult from '@/hooks/useConsult';
 import useEnergy from '@/hooks/useEnergy';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 // Componente para mostrar secciones deshabilitadas
 function DisabledEnergyComponent({
   title,
@@ -64,6 +66,7 @@ function DisabledEnergyComponent({
 function UniversalEnergy() {
   const { consultant } = useConsult();
   const { setActiveSelection, selectedType, setSelectedType } = useEnergy();
+  const { t } = useTranslation();
 
   // Resetear la selección cuando cambie el consultante
   useEffect(() => {
@@ -116,8 +119,8 @@ function UniversalEnergy() {
         ) : (
           <DisabledEnergyComponent
             type="person"
-            title="PERSONA"
-            subtitle="PERSONAL"
+            title={t('universalEnergy.personTitle')}
+            subtitle={t('universalEnergy.personSubtitle')}
           />
         )}
 
@@ -130,8 +133,8 @@ function UniversalEnergy() {
         ) : (
           <DisabledEnergyComponent
             type="partner"
-            title="PAREJA"
-            subtitle="PAREJA"
+            title={t('universalEnergy.partnerTitle')}
+            subtitle={t('universalEnergy.partnerSubtitle')}
           />
         )}
 
@@ -144,8 +147,8 @@ function UniversalEnergy() {
         ) : (
           <DisabledEnergyComponent
             type="group"
-            title="GRUPO"
-            subtitle="GRUPO"
+            title={t('universalEnergy.groupTitle')}
+            subtitle={t('universalEnergy.groupSubtitle')}
           />
         )}
       </div>
