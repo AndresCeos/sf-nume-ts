@@ -1,5 +1,4 @@
 import Person, { SplittedDate } from '@/resources/Person';
-import { ciclePhrases } from '@/utils/constants';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 export const lifePath = StyleSheet.create({
@@ -122,9 +121,10 @@ export const lifePath = StyleSheet.create({
   },
 });
 
-export default function LifePath9Years({ consultant, now }: { consultant: Person, now: SplittedDate }) {
+export default function LifePath9Years({ consultant, now, translations }: { consultant: Person, now: SplittedDate, translations: { yearLabel: string, cycles: Record<number, string[]> } }) {
   const personalYear = consultant.calcPersonalYear(now.year);
   const yearOfBirth = consultant.getYearOfBirth();
+  const cyclePhrases = translations.cycles[personalYear] || [];
 
   return (
     <View style={lifePath.container}>
@@ -134,14 +134,14 @@ export default function LifePath9Years({ consultant, now }: { consultant: Person
         </View>
         <View style={[lifePath.item, lifePath.currentYearVibration]}>
           <Text>
-            Año
+            {translations.yearLabel}
             {personalYear}
           </Text>
         </View>
         <View style={[lifePath.phrase, lifePath.currentYearPhrase]}>
-          <Text>{ciclePhrases[personalYear][0]}</Text>
-          <Text>{ciclePhrases[personalYear][1]}</Text>
-          <Text>{ciclePhrases[personalYear][2]}</Text>
+          <Text>{cyclePhrases[0]}</Text>
+          <Text>{cyclePhrases[1]}</Text>
+          <Text>{cyclePhrases[2]}</Text>
         </View>
         {(now.year - 27 > yearOfBirth)
           && (
@@ -153,7 +153,7 @@ export default function LifePath9Years({ consultant, now }: { consultant: Person
               <Text>{personalYear}</Text>
             </View>
             <View style={[lifePath.phrase, lifePath.currentYearPhrase_1]}>
-              <Text>{ciclePhrases[personalYear][3]}</Text>
+              <Text>{cyclePhrases[3]}</Text>
             </View>
           </>
           )}
@@ -167,7 +167,7 @@ export default function LifePath9Years({ consultant, now }: { consultant: Person
               <Text>{personalYear}</Text>
             </View>
             <View style={[lifePath.phrase, lifePath.currentYearPhrase_2]}>
-              <Text>{ciclePhrases[personalYear][4]}</Text>
+              <Text>{cyclePhrases[4]}</Text>
             </View>
           </>
           )}
@@ -181,7 +181,7 @@ export default function LifePath9Years({ consultant, now }: { consultant: Person
               <Text>{personalYear}</Text>
             </View>
             <View style={[lifePath.phrase, lifePath.currentYearPhrase_3]}>
-              <Text>{ciclePhrases[personalYear][5]}</Text>
+              <Text>{cyclePhrases[5]}</Text>
             </View>
           </>
           )}
@@ -192,7 +192,7 @@ export default function LifePath9Years({ consultant, now }: { consultant: Person
           <Text>{personalYear}</Text>
         </View>
         <View style={[lifePath.phrase, lifePath.currentYearPhrase_4]}>
-          <Text>{ciclePhrases[personalYear][6]}</Text>
+          <Text>{cyclePhrases[6]}</Text>
         </View>
       </View>
     </View>
