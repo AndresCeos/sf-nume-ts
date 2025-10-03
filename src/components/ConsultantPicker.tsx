@@ -35,7 +35,7 @@ function ConsultantPicker() {
   return (
     <div className="selectConsultant flex items-center">
       <img src="/assets/ic-search.svg" className="mx-2 drop-shadow-sm" alt="consultant search" />
-      {t('consultant')}
+      {t('consultant_n')}
       :
       <Select
         options={options as never}

@@ -7,6 +7,7 @@ import makeConsultant from '@/api/useConsultant';
 import { ConsultContext } from '@/context/ConsultContext';
 import useConsultants from '@/hooks/useConsultants';
 import Person from '@/resources/Person';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import add_user_main from '../../assets/icons/add_user_main.svg';
 import c_delete from '../../assets/icons/c_delete.svg';
@@ -37,6 +38,8 @@ export default function PartnerFormInLine({
   } = useContext(ConsultContext);
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
+
+  const { t } = useTranslation();
 
   // Usar variables del contexto global en lugar de locales
 
@@ -126,23 +129,23 @@ export default function PartnerFormInLine({
   };
   const handleRemovePartner = async (partnerId: string) => {
     const partnerToRemove = currentActivePartnerData?.partner?.find((p) => p.id === partnerId);
-    const partnerName = partnerToRemove ? `${partnerToRemove.names} ${partnerToRemove.lastName}` : 'este miembro';
+    const partnerName = partnerToRemove ? `${partnerToRemove.names} ${partnerToRemove.lastName}` : t('common.thisMember');
 
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
-      text: `¿Estás seguro de que quieres eliminar a ${partnerName} del grupo?`,
+      title: t('alerts.areYouSure') as string,
+      text: t('alerts.confirmDeletePartner', { partnerName }) as string,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t('alerts.yesDelete') as string,
+      cancelButtonText: t('common.cancel') as string,
     });
     if (result.isConfirmed) {
       try {
         Swal.fire({
-          title: 'Eliminando...',
-          text: 'Por favor espera mientras se elimina la pareja.',
+          title: t('alerts.deleting') as string,
+          text: t('alerts.deletingMessage') as string,
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
@@ -169,15 +172,15 @@ export default function PartnerFormInLine({
         updateConsultantPartners(updatedConsultant);
 
         Swal.fire(
-          '¡Eliminado!',
-          `${partnerName} ha sido eliminado del grupo exitosamente.`,
+          t('alerts.deleted') as string,
+          t('alerts.deletedSuccessfully', { partnerName }) as string,
           'success',
         );
       } catch (error) {
         console.error('Error al eliminar pareja:', error);
         Swal.fire(
-          'Error',
-          'No se pudo eliminar la pareja. Por favor, inténtalo de nuevo.',
+          t('alerts.error') as string,
+          t('errors.deleteError') as string,
           'error',
         );
       }
@@ -252,7 +255,7 @@ export default function PartnerFormInLine({
               <img src={add_user_main} className="w-6 h-6 mr-3 text-gray-400" alt="add_user_main" />
               <MdEdit className="text-gray-400 mr-2" />
             </button>
-            <p className="font-bold text-sm mr-3">Grupo de Parejas:</p>
+            <p className="font-bold text-sm mr-3">{t('modal.partner.partnerData')}</p>
             <select
               onChange={selectedPartner}
               className="border rounded px-3 py-2 flex-1"
@@ -260,7 +263,7 @@ export default function PartnerFormInLine({
             >
               {!currentActivePartnerData && (
                 <option value="">
-                  Selecciona un grupo de parejas
+                  {t('modal.partner.selectLabel')}
                 </option>
               )}
               {(partnerDataAvailable || []).map((partnerData: Api.PartnerData) => (
@@ -270,7 +273,7 @@ export default function PartnerFormInLine({
                   (
                   {partnerData.partner?.length || 0}
                   {' '}
-                  personas)
+                  {t('common.persons')}
                 </option>
               ))}
             </select>
@@ -287,7 +290,7 @@ export default function PartnerFormInLine({
             onClick={handleCreateGroup}
             className="btn-save w-50 text-sm"
           >
-            Crear Grupo de Parejas
+            {t('modal.partner.createPartner')}
           </button>
         </div>
 
@@ -297,7 +300,7 @@ export default function PartnerFormInLine({
             <div className="flex flex-row gap-4 w-full">
               <div className="flex items-center w-1/2">
                 <MdEdit className="text-gray-400 mr-2" />
-                <p className="font-bold text-sm mr-3">Nombre</p>
+                <p className="font-bold text-sm mr-3">{t('forms.name')}</p>
                 <input
                   value={currentActivePartnerData.name}
                   type="text"
@@ -308,7 +311,7 @@ export default function PartnerFormInLine({
 
               <div className="flex items-center w-1/2">
                 <MdEdit className="text-gray-400 mr-2" />
-                <p className="font-bold text-sm mr-3">Fecha de Creación</p>
+                <p className="font-bold text-sm mr-3">{t('forms.createdAt')}</p>
                 <input
                   value={currentActivePartnerData.date}
                   type="text"
@@ -321,7 +324,10 @@ export default function PartnerFormInLine({
             <div className="flex flex-row gap-4 w-full">
               <div className="flex items-center w-1/2">
                 <MdEdit className="text-gray-400 mr-2" />
-                <p className="font-bold text-sm mr-3">Parejas:</p>
+                <p className="font-bold text-sm mr-3">
+                  {t('modal.partner.partner')}
+                  :
+                </p>
                 <input
                   value={currentActivePartnerData.partner?.length || 0}
                   type="text"
@@ -332,7 +338,7 @@ export default function PartnerFormInLine({
 
               <div className="flex items-center w-1/2">
                 <MdEdit className="text-gray-400 mr-2" />
-                <p className="font-bold text-sm mr-3">Año de Encuentro:</p>
+                <p className="font-bold text-sm mr-3">{t('forms.yearMeet')}</p>
                 <input
                   value={currentActivePartnerData.yearMeet}
                   type="text"
@@ -352,20 +358,20 @@ export default function PartnerFormInLine({
               onClick={handleAddPartner}
               className="bg-gold text-white px-6 py-2 rounded-lg font-medium"
             >
-              Agregar Pareja al Grupo
+              {t('modal.partner.addMember')}
             </button>
           </div>
         )}
         {hasNoPartners && !currentActivePartnerData && (
           <div className="text-sm text-gray-600 text-center bg-gray-50 p-3 rounded">
-            Este grupo no tiene parejas
+            {t('modal.partner.noPartnerMembers')}
           </div>
         )}
 
         {/* Limit Message */}
         {currentActivePartnerData && currentActivePartnerData.partner && currentActivePartnerData.partner.length >= 2 && (
           <div className="text-sm text-gray-600 text-center bg-gray-50 p-3 rounded">
-            Este grupo ya tiene el máximo de 2 parejas permitidas
+            {t('modal.partner.maxPartnerMembers')}
           </div>
         )}
       </div>
@@ -378,7 +384,8 @@ export default function PartnerFormInLine({
           {/* Partners Header */}
           <div className="bg-black text-white rounded-t-lg px-4 py-3 flex items-center justify-between">
             <h3 className="font-bold">
-              Parejas del Grupo:
+              {t('modal.partner.partnerMembers')}
+              :
               {' '}
               {currentActivePartnerData.name}
             </h3>
@@ -388,7 +395,7 @@ export default function PartnerFormInLine({
                 onClick={handleAddPartner}
                 className="bg-gold text-white px-4 py-1 rounded text-sm"
               >
-                Agregar Pareja
+                {t('modal.partner.addMember')}
               </button>
             )}
           </div>
@@ -425,7 +432,12 @@ export default function PartnerFormInLine({
                         •
                         {partnerPerson.getYearsOld()}
                         {' '}
-                        años • Encuentro:
+                        {t('modal.partners.year')}
+                        {' '}
+                        •
+                        {t('modal.partners.meeting')}
+                        {' '}
+                        :
                         {currentActivePartnerData.yearMeet}
                       </div>
                     </div>

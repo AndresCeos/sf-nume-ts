@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import add_user_main from '../../assets/icons/add_user_main.svg';
 
 type FormStatus = {
@@ -37,6 +37,8 @@ export default function PartnerDataForm({
 
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
+
+  const { t } = useTranslation();
 
   const initialForm = {
     name: isEditing && partnerDataToEdit ? partnerDataToEdit.name : '',
@@ -72,20 +74,20 @@ export default function PartnerDataForm({
     const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
     if (!name) {
-      validationMsgs = { ...validationMsgs, name: 'Requerido' };
+      validationMsgs = { ...validationMsgs, name: t('validation.required') };
       isValid = false;
     } else if (!name.match(letters)) {
-      validationMsgs = { ...validationMsgs, name: 'No válido' };
+      validationMsgs = { ...validationMsgs, name: t('validation.invalid') };
       isValid = false;
     }
 
     if (!date) {
-      validationMsgs = { ...validationMsgs, date: 'Requerido' };
+      validationMsgs = { ...validationMsgs, date: t('validation.required') };
       isValid = false;
     }
 
     if (!yearMeet || yearMeet < 1900 || yearMeet > new Date().getFullYear()) {
-      validationMsgs = { ...validationMsgs, yearMeet: 'Año no válido' };
+      validationMsgs = { ...validationMsgs, yearMeet: t('validation.invalidYear') };
       isValid = false;
     }
 
@@ -137,7 +139,7 @@ export default function PartnerDataForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar el grupo de parejas');
+      setFormError(err instanceof Error ? err.message : t('errors.savePartnerGroup') as string);
     } finally {
       setIsLoading(false);
     }
@@ -147,13 +149,13 @@ export default function PartnerDataForm({
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
       <h2 className="flex justify-center items-center text-xl font-bold">
         <img src={add_user_main} className="mr-3" alt="add_user_main" />
-        {isEditing ? 'Editar Grupo de Parejas' : 'Crear Grupo de Parejas'}
+        {isEditing ? t('modal.partner.editPartner') : t('modal.partner.createPartner')}
       </h2>
 
       <div className="flex w-full mt-6">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Nombre del Grupo
+            {t('modal.partner.namePartner')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -163,7 +165,7 @@ export default function PartnerDataForm({
             className="rounded border-[#C4C4C4] border w-11/12"
             onChange={(e) => handleInputChange(e.target)}
             value={name}
-            placeholder="Ej: Pareja Principal, Ex Pareja, etc."
+            placeholder={t('modal.partner.namePlaceholder') || undefined}
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.name) && (
             <span className="form-error">{formStatus.validationMsgs.name}</span>
@@ -172,7 +174,7 @@ export default function PartnerDataForm({
 
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Fecha de Creación
+            {t('modal.partner.createdAt')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -192,7 +194,7 @@ export default function PartnerDataForm({
       <div className="flex w-full mt-3">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Año en que se conocieron
+            {t('modal.partner.yearMeet')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -204,7 +206,7 @@ export default function PartnerDataForm({
             className="rounded border-[#C4C4C4] border w-11/12"
             onChange={(e) => handleInputChange(e.target)}
             value={yearMeet}
-            placeholder="Ej: 2020"
+            placeholder={t('placeholders.yearExample') as string}
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.yearMeet) && (
             <span className="form-error">{formStatus.validationMsgs.yearMeet}</span>
@@ -215,11 +217,11 @@ export default function PartnerDataForm({
       <div className="flex w-full mt-6 justify-center">
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 w-full max-w-md">
           <p className="text-sm text-blue-800 font-medium mb-2">
-            💡 Información del Grupo
+            💡
+            {t('modal.partner.partnerInfo')}
           </p>
           <p className="text-xs text-blue-600">
-            Después de crear el grupo, podrás agregar hasta 2 parejas.
-            Cada grupo representa una relación específica con su propio año de encuentro.
+            {t('modal.partner.partnerInfoMessage')}
           </p>
         </div>
       </div>
@@ -230,7 +232,7 @@ export default function PartnerDataForm({
           className="btn-save w-32"
           disabled={isLoading}
         >
-          {isLoading ? 'Guardando...' : 'Guardar'}
+          {isLoading ? t('modal.partner.saving') : t('modal.partner.save')}
         </button>
 
         <button
@@ -239,7 +241,7 @@ export default function PartnerDataForm({
           onClick={closeForm}
           disabled={isLoading}
         >
-          Cancelar
+          {t('modal.partner.cancel')}
         </button>
       </div>
     </form>

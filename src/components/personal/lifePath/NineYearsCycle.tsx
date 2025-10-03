@@ -1,12 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
 import useConsult from '@/hooks/useConsult';
-import cyclePhrases from '@/resources/CyclePhrases';
 
 function NineYearsCycle() {
   const { consultant, consultationDate } = useConsult();
-  const { i18n, t } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   if (!consultant) return null;
 
@@ -23,11 +21,11 @@ function NineYearsCycle() {
       </div>
       <div className="col-start-1 col-span-2 row-start-5 h-9 arrow-down-cycle" />
       <div className="col-start-1 col-span-2 row-start-6 text-13 font-bold">
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][0]}
+        {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.0`)}
         <br />
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][1]}
+        {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.1`)}
         <br />
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][2]}
+        {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.2`)}
       </div>
       {(consultationDate.getFullYear() - 27 > consultant.getYearOfBirth())
         && (
@@ -44,7 +42,7 @@ function NineYearsCycle() {
             <div className="col-start-4 col-span-2 row-start-6 h-9 arrow-down-cycle" />
             <div className="col-start-4 col-span-2 row-start-7 text-13 font-bold">
               <div className="col-start-7 col-span-2 row-start-6 text-13 font-bold">
-                {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][3]}
+                {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.3`)}
               </div>
             </div>
             <div className="col-start-6 row-start-1 text-13 font-medium">
@@ -69,7 +67,7 @@ function NineYearsCycle() {
             </div>
             <div className="col-start-7 col-span-2 row-start-5 h-9 arrow-down-cycle" />
             <div className="col-start-7 col-span-2 row-start-6 text-13 font-bold">
-              {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][4]}
+              {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.4`)}
             </div>
             <div className="col-start-9 row-start-1 text-13 font-medium">
               {t('lifePath.nineYearsCycle.plusNineYears')}
@@ -94,7 +92,7 @@ function NineYearsCycle() {
             <div className="col-start-10 col-span-2 row-start-5 h-9 arrow-down-line" />
             <div className="col-start-10 col-span-2 row-start-6 h-9 arrow-down-cycle" />
             <div className="col-start-10 col-span-2 row-start-7 text-13 font-bold">
-              {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][5]}
+              {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.5`)}
             </div>
             <div className="col-start-12 row-start-1 text-13 font-medium">
               {t('lifePath.nineYearsCycle.plusNineYears')}
@@ -115,7 +113,7 @@ function NineYearsCycle() {
       </div>
       <div className="col-start-13 col-span-2 row-start-5 h-9 arrow-down-cycle" />
       <div className="col-start-13 col-span-2 row-start-6 text-13 font-bold">
-        {cyclePhrases[language as never][consultant.calcPersonalYear(consultationDate.getFullYear())][6]}
+        {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.6`)}
       </div>
 
     </div>

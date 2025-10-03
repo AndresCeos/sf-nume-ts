@@ -9,32 +9,36 @@ export default function BalanceExistential() {
   const { t } = useTranslation();
 
   const appearances = consultant.getAppearances();
-  const balanceExistential = {
-    'Plano Físico': {
+  const balanceExistential = [
+    {
+      name: t('name.balanceExistential.physicalPlane'),
       v: appearances[4].a + appearances[5].a,
       c: 'bg-red border-red',
       cT: 'text-red',
-      d: '(Valores 4/22 y 5)',
+      d: t('name.balanceExistential.physicalPlaneValues'),
     },
-    'Plano Mental': {
+    {
+      name: t('name.balanceExistential.mentalPlane'),
       v: appearances[1].a + appearances[8].a,
       c: 'bg-green border-green',
       cT: 'text-green',
-      d: '(Valores 1 y 8)',
+      d: t('name.balanceExistential.mentalPlaneValues'),
     },
-    'Plano Emocional': {
+    {
+      name: t('name.balanceExistential.emotionalPlane'),
       v: appearances[2].a + appearances[3].a + appearances[6].a,
       c: 'bg-blue-30 border-blue',
       cT: 'text-blue',
-      d: '(Valores 2/11, 3 y 6)',
+      d: t('name.balanceExistential.emotionalPlaneValues'),
     },
-    'Plano Espiritual': {
+    {
+      name: t('name.balanceExistential.spiritualPlane'),
       v: appearances[7].a + appearances[9].a,
       c: 'bg-main-40 border-main',
       cT: 'text-main',
-      d: '(Valores 7 y 9)',
+      d: t('name.balanceExistential.spiritualPlaneValues'),
     },
-  };
+  ];
 
   return (
     <div className="pinnacle-wrap px-8 py-8">
@@ -54,19 +58,19 @@ export default function BalanceExistential() {
           </div>
         </div>
         <div className="flex">
-          {Object.entries(balanceExistential).map((el) => (
+          {balanceExistential.map((el) => (
             <div
-              key={`${el[0]}-${el[1].v}-${el[1].c}-${el[1].cT}-${el[1].d}`}
+              key={`${el.name}-${el.v}-${el.c}-${el.cT}-${el.d}`}
               className="balanceExistential flex justify-center items-center flex-col w-1/4"
-              data-value={el[1].v}
+              data-value={el.v}
             >
               <div
-                className={`h-10 w-10 text-xl font-bold flex justify-center items-center bg-white border border-gray-500 rounded-md inner-shadow my-4 ${el[1].c}`}
+                className={`h-10 w-10 text-xl font-bold flex justify-center items-center bg-white border border-gray-500 rounded-md inner-shadow my-4 ${el.c}`}
               >
-                {el[1].v}
+                {el.v}
               </div>
-              <div className={`text-13 font-bold ${el[1].cT}`}>{el[0]}</div>
-              <div className="text-13 text-gray-500">{el[1].d}</div>
+              <div className={`text-13 font-bold ${el.cT}`}>{el.name}</div>
+              <div className="text-13 text-gray-500">{el.d}</div>
               {/* <div className='text-13 text-gray-500 h-5'>{el[1].v} </div>
                 <div className='h-10 w-10 text-xl font-bold flex justify-center items-center bg-purple-30 border border-main rounded-md inner-shadow'>{el[0]} </div>
                 <div className='h-10 w-10 text-xl font-bold flex justify-center items-center bg-gray-300 border border-gray-500 rounded-md inner-shadow'>{el[1].a} </div> */}

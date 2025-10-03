@@ -87,7 +87,7 @@ function NamePage() {
             button={{
               handle: checkName,
               isActive: checkN,
-              text: 'Comprobación',
+              text: t('common.verification'),
             }}
           />
           <NumericalValuesOfTheName
@@ -105,7 +105,7 @@ function NamePage() {
             button={{
               handle: checkBreakdownFunction,
               isActive: checkBreakdown,
-              text: 'Comprobación',
+              text: t('common.verification'),
             }}
           />
           <Breakdown checkBreakdown={checkBreakdown} />

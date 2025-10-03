@@ -5,6 +5,7 @@ import {
   useEffect, useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -34,6 +35,7 @@ function SinastryDestinyTable({
   currentYearRef = null,
 }: SinastryDestinyTableComponent) {
   const [binomActive, setBinomActive] = useState(false);
+  const { t } = useTranslation();
   const singleC = consultant.getSingle();
   const singleP = partner.getSingle();
   const synastry = new Synastry(consultant, partner);
@@ -79,35 +81,35 @@ function SinastryDestinyTable({
     <div className="destinity-table flex mb-8 justify-center">
       <div className="w-32 z-0">
         <div className="h-6 w-32 text-13 font-black bg-main-30 border-t border-gray-400 border-l border-r flex items-center justify-start px-1">
-          Año
+          {t('sinastry.destinyTable.year')}
         </div>
         <div className="h-6 text-13 font-black bg-black bg-opacity-10 border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-          Edad
+          {t('sinastry.destinyTable.age')}
         </div>
         <div className="h-12 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-          Plano Mental
+          {t('sinastry.destinyTable.mentalPlane')}
         </div>
         <div className="h-12 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-          Plano Físico
+          {t('sinastry.destinyTable.physicalPlane')}
         </div>
         <div className="h-12 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-          Plano Emocional
+          {t('sinastry.destinyTable.emotionalPlane')}
         </div>
         <button
           type="button"
           className={`${binomActive ? 'bg-gold' : 'bg-yellow'} h-10 font-bold mb-1 rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl flex justify-center items-center absolute btn-destiny-synastry text-13 text-white px-2`}
           onClick={() => { setBinomActive(!binomActive); }}
         >
-          Binomios
+          {t('sinastry.destinyTable.binomials')}
         </button>
         <div className="h-10 text-13 font-black bg-pink border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-          Plano Espiritual
+          {t('sinastry.destinyTable.spiritualPlane')}
         </div>
         <div className="mt-5 h-10 text-13 font-black bg-gray bg-opacity-15 border-b border-l border-r border-t border-gray-400 flex items-center justify-start px-1">
-          Año Personal
+          {t('sinastry.destinyTable.personalYear')}
         </div>
         <div className="h-10 text-13 font-black bg-white border-b border-l border-r border-gray-400 flex items-center justify-start px-1">
-          Núm. Destino
+          {t('sinastry.destinyTable.destinyNumber')}
         </div>
       </div>
       {partnerDT.map((el, i) => {
@@ -332,6 +334,7 @@ export default function SinastryDestinyTablePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
   const [partnerActive, setPartnerActive] = useState<boolean>(true);
   const [personOneActive, setPersonOneActive] = useState<boolean>(false);
   const [personTwoActive, setPersonTwoActive] = useState<boolean>(false);
@@ -369,7 +372,7 @@ export default function SinastryDestinyTablePage() {
       <div className="page-content bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
-          <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la tabla de destino de sinastría</strong>
+          <strong>{t('sinastry.selectPartnerForDestinyTable')}</strong>
         </div>
       </div>
     );
@@ -458,7 +461,7 @@ export default function SinastryDestinyTablePage() {
               <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-red-day p-2">
                 <TiPlus className="text-2xl" />
               </div>
-              Tabla del Destino de la Pareja
+              {t('sinastry.destinyTable.title')}
             </div>
             <div className="flex justify-center items-center">
               <button
@@ -467,7 +470,7 @@ export default function SinastryDestinyTablePage() {
                 }`}
                 onClick={selectPartner}
               >
-                Pareja
+                {t('sinastry.destinyTable.partner')}
               </button>
               <button
                 type="button"
@@ -475,7 +478,7 @@ export default function SinastryDestinyTablePage() {
                 }`}
                 onClick={selectPersonOne}
               >
-                Persona 1
+                {t('sinastry.destinyTable.person1')}
               </button>
               <button
                 type="button"
@@ -483,7 +486,7 @@ export default function SinastryDestinyTablePage() {
                 }`}
                 onClick={selectPersonTwo}
               >
-                Persona 2
+                {t('sinastry.destinyTable.person2')}
               </button>
             </div>
           </div>

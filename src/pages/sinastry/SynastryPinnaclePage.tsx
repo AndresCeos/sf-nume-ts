@@ -2,6 +2,7 @@ import {
   useCallback, useContext,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import MetricsGrid from '@/components/partners/MetricsGrid';
@@ -33,6 +34,7 @@ export default function SynastryPinnaclePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons, calculationDate,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   const [checkboxState, setCheckboxState] = useState<CheckboxState>({
     checkP1: false,
@@ -67,7 +69,7 @@ export default function SynastryPinnaclePage() {
       <div className="page-content bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
-          <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
+          <strong>{t('sinastry.selectPartnerWithMembersMinimum')}</strong>
         </div>
       </div>
     );
@@ -145,10 +147,10 @@ export default function SynastryPinnaclePage() {
         {/* Synastry Metrics */}
         <div className="col-span-4 mb-1">
           <SectionTitle
-            title="Nombre de Pareja"
+            title={t('sinastry.pinnacle.partnerName')}
             color="bg-red-day"
             button={{
-              text: checkboxState.checkN ? 'Normal' : 'Comprobación',
+              text: checkboxState.checkN ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
               handle: toggles.checkName,
               isActive: checkboxState.checkN,
             }}
@@ -162,10 +164,10 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Nombre: ${partner1.nameView}`}
+            title={`${t('forms.name')}: ${partner1.nameView}`}
             color=" bg-red-day"
             button={{
-              text: checkboxState.checkN1 ? 'Normal' : 'Comprobación',
+              text: checkboxState.checkN1 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
               handle: toggles.checkName1,
               isActive: checkboxState.checkN1,
             }}
@@ -179,10 +181,10 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Nombre: ${partner2.nameView}`}
+            title={`${t('forms.name')}: ${partner2.nameView}`}
             color=" bg-red-day"
             button={{
-              text: checkboxState.checkN2 ? 'Normal' : 'Comprobación',
+              text: checkboxState.checkN2 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
               handle: toggles.checkName2,
               isActive: checkboxState.checkN2,
             }}
@@ -196,10 +198,10 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title="Pináculo de Pareja"
+            title={t('sinastry.pinnacle.partnerPinnacle')}
             color=" bg-red-day"
             button={{
-              text: checkboxState.checkP1 ? 'Normal' : 'Comprobación',
+              text: checkboxState.checkP1 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
               handle: toggles.checkPinacle1,
               isActive: checkboxState.checkP1,
             }}
@@ -212,10 +214,10 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Pináculo: ${partner1.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner1.nameView}`}
             color=" bg-red-day"
             button={{
-              text: checkboxState.checkP2 ? 'Normal' : 'Comprobación',
+              text: checkboxState.checkP2 ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
               handle: toggles.checkPinacle2,
               isActive: checkboxState.checkP2,
             }}
@@ -228,10 +230,10 @@ export default function SynastryPinnaclePage() {
         <div className="col-span-4 mb-1">
 
           <SectionTitle
-            title={`Pináculo: ${partner2.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner2.nameView}`}
             color=" bg-red-day"
             button={{
-              text: checkboxState.checkP ? 'Normal' : 'Comprobación',
+              text: checkboxState.checkP ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
               handle: toggles.checkPinacle,
               isActive: checkboxState.checkP,
             }}
@@ -244,7 +246,7 @@ export default function SynastryPinnaclePage() {
         {/* Annual Returns */}
         <div className="col-span-4 mb-1">
           <SectionTitle
-            title=" Retorno de Pareja"
+            title={t('sinastry.pinnacle.partnerReturn')}
             color=" bg-red-day"
           />
 
@@ -255,7 +257,7 @@ export default function SynastryPinnaclePage() {
 
         <div className="col-span-4 mb-1">
           <SectionTitle
-            title={`Pináculo: ${partner1.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner1.nameView}`}
             color=" bg-red-day"
           />
 
@@ -266,7 +268,7 @@ export default function SynastryPinnaclePage() {
 
         <div className="col-span-4 mb-1">
           <SectionTitle
-            title={`Pináculo: ${partner2.nameView}`}
+            title={`${t('common.pinnacle')}: ${partner2.nameView}`}
             color=" bg-red-day"
           />
           <div className="pinnacle-wrap px-5 py-4">

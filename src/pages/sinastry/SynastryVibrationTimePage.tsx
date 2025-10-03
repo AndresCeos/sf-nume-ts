@@ -23,7 +23,7 @@ export default function SynastryVibrationTimePage() {
       <div className="page-content bg-home-background bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
-          <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
+          <strong>{t('sinastry.selectPartnerWithMembersMinimum')}</strong>
         </div>
       </div>
     );

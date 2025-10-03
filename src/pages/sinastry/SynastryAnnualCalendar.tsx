@@ -24,8 +24,8 @@ function SynastryAnnualCalendar() {
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay pareja seleccionada</h3>
-            <p className="text-gray-600">Por favor, selecciona o crea una pareja para ver el calendario anual.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('sinastry.noPartnerSelected')}</h3>
+            <p className="text-gray-600">{t('sinastry.noPartnerSelectedMessage')}</p>
           </div>
         </div>
       </div>
@@ -38,11 +38,9 @@ function SynastryAnnualCalendar() {
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay suficientes miembros en la pareja</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('sinastry.notEnoughMembers')}</h3>
             <p className="text-gray-600">
-              La pareja &quot;
-              {activePartnerData.name}
-              &quot; necesita al menos 2 miembros para ver el calendario anual.
+              {t('sinastry.notEnoughMembersMessage', { name: activePartnerData.name })}
             </p>
           </div>
         </div>
