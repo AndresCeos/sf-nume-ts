@@ -51,7 +51,7 @@ export default function SelectGroup() {
             type="button"
             onClick={handleToggleCollapse}
             className="flex items-center gap-1 px-3 py-1 bg-main rounded-lg transition-colors duration-200 text-lg"
-            title={isCollapsed ? t('show') : t('hide')}
+            title={isCollapsed ? (t('show') as string) : (t('hide') as string)}
           >
             {isCollapsed ? (
               <>

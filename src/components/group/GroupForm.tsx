@@ -128,7 +128,7 @@ export default function GroupForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : t('group.errors.saveGroup'));
+      setFormError(err instanceof Error ? err.message : t('group.errors.saveGroup') || '');
     } finally {
       setIsLoading(false);
     }

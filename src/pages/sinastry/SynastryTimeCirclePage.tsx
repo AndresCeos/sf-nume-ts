@@ -78,7 +78,7 @@ function SynastryTimeCirclePage() {
         </div>
         <div className="mt-5 text-center text-2xl">
           <div>{t('timeCircle.consult')}</div>
-          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long', locale: t('locale') })}</div>
+          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long', locale: t('locale') as string })}</div>
         </div>
 
       </div>

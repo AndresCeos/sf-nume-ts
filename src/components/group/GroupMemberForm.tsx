@@ -229,7 +229,7 @@ export default function GroupMemberForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : t('group.errors.errorSavingMember'));
+      setFormError(err instanceof Error ? err.message : t('group.errors.errorSavingMember') || '');
     } finally {
       setIsLoading(false);
     }

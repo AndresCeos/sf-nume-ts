@@ -40,22 +40,22 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
 
     // Mostrar confirmación con SweetAlert2
     const result = await Swal.fire({
-      title: t('group.alerts.areYouSure'),
-      text: t('group.alerts.confirmDeleteMember', { memberName }),
+      title: t('group.alerts.areYouSure') as string,
+      text: t('group.alerts.confirmDeleteMember', { memberName }) as string,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: t('group.alerts.yesDelete'),
-      cancelButtonText: t('group.cancel'),
+      confirmButtonText: t('group.alerts.yesDelete') as string,
+      cancelButtonText: t('group.cancel') as string,
     });
 
     if (result.isConfirmed) {
       try {
         // Mostrar loading
         Swal.fire({
-          title: t('group.alerts.deleting'),
-          text: t('group.alerts.deletingMember'),
+          title: t('group.alerts.deleting') as string,
+          text: t('group.alerts.deletingMember') as string,
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
@@ -81,7 +81,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
 
         // Cerrar loading y mostrar mensaje de éxito
         Swal.fire(
-          t('group.alerts.deleted'),
+          t('group.alerts.deleted') as string,
           `${memberName} ${t('group.alerts.memberDeletedSuccess')}`,
           'success',
         );
@@ -90,8 +90,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
 
         // Mostrar mensaje de error
         Swal.fire(
-          t('group.alerts.error'),
-          t('group.errors.deleteMember'),
+          t('group.alerts.error') as string,
+          t('group.errors.deleteMember') as string,
           'error',
         );
       }
@@ -161,7 +161,10 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
                       •
                       {memberPerson.getYearsOld()}
                       {' '}
-                      {t('group.years')} • {t('group.start')}
+                      {t('group.years')}
+                      {' '}
+                      •
+                      {t('group.start')}
                       {member.dateInit}
                     </div>
                   </div>
