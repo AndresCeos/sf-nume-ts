@@ -11,7 +11,7 @@ import PDFErrorFallback from '../PDFErrorFallback';
 import { configReport } from '../styles';
 
 export default function PDF({
-  consultant, config, profile, sidebar, synastry, groupConsult, newDate, month, logoURL, date, partnerYear, groupYear,
+  consultant, config, profile, sidebar, synastry, groupConsult, newDate, month, logoURL, date, partnerYear, groupYear, locale,
 }: PDFDocumentProps) {
   // Validate required props
   const validationErrors = useMemo(() => {
@@ -242,7 +242,7 @@ export default function PDF({
               <Text>{consultant?.fullName || 'N/A'}</Text>
             </View>
             <View style={configReport.header_date}>
-              <Text>{formatDate({ date: newDate || new Date(), format: 'long' }) || 'N/A'}</Text>
+              <Text>{formatDate({ date: newDate || new Date(), format: 'long', locale }) || 'N/A'}</Text>
             </View>
             <View style={configReport.header_birth_date}>
               <Text>{consultant?.getFormattedBirthDate?.() || 'N/A'}</Text>

@@ -5,6 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { HiArrowRight } from 'react-icons/hi';
 import { TiPlus } from 'react-icons/ti';
 
@@ -21,6 +22,7 @@ export default function GroupPinnaclePage() {
   const {
     consultant, activeGroup, selectedGroup, calculationDate,
   } = useConsult();
+  const { t } = useTranslation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -91,8 +93,8 @@ export default function GroupPinnaclePage() {
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay grupo seleccionado</h3>
-            <p className="text-gray-600">Por favor, selecciona o crea un grupo para ver la información de pinnacle.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('group.noGroupSelected')}</h3>
+            <p className="text-gray-600">{t('group.noGroupSelectedMessage')}</p>
           </div>
         </div>
       </div>
@@ -105,11 +107,9 @@ export default function GroupPinnaclePage() {
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay miembros en el grupo</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('group.noMembersInGroup')}</h3>
             <p className="text-gray-600">
-              El grupo &quot;
-              {activeGroup.name}
-              &quot; no tiene miembros. Agrega miembros para ver la información de pinnacle.
+              {t('group.noMembersInGroupMessage', { groupName: activeGroup.name })}
             </p>
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function GroupPinnaclePage() {
           <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-lg px-4 py-2 shadow-sm">
             <HiArrowRight className="text-blue-600 text-lg" />
             <p className="text-sm text-gray-700 font-medium">
-              Arrastra o desliza hacia la derecha para ver más contenido
+              {t('group.dragToSeeMore')}
             </p>
           </div>
         </div>
@@ -166,7 +166,7 @@ export default function GroupPinnaclePage() {
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
                   <TiPlus className="text-2xl" />
                 </div>
-                {`Nombre: ${activeGroup.name}`}
+                {`${t('group.nameLabel')} ${activeGroup.name}`}
               </div>
             </div>
             <GroupPinnacleName main="bg-active-radial" Consultant={GroupPerson} />
@@ -175,7 +175,7 @@ export default function GroupPinnaclePage() {
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
                   <TiPlus className="text-2xl" />
                 </div>
-                {`Pináculo: ${activeGroup.name}`}
+                {`${t('group.pinnacleLabel')} ${activeGroup.name}`}
               </div>
             </div>
             <GroupPinnacle main="bg-active-radial" consultant={GroupPerson} size="lg" />
@@ -184,7 +184,7 @@ export default function GroupPinnaclePage() {
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
                   <TiPlus className="text-2xl" />
                 </div>
-                {`Retorno: ${activeGroup.name}`}
+                {`${t('group.returnLabel')} ${activeGroup.name}`}
               </div>
             </div>
             <div className="pinnacle-wrap bg-active-radial p-4">
@@ -200,7 +200,7 @@ export default function GroupPinnaclePage() {
                   <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
                     <TiPlus className="text-2xl" />
                   </div>
-                  {`Nombre: ${member.name}`}
+                  {`${t('group.nameLabel')} ${member.name}`}
                 </div>
               </div>
               <GroupPinnacleName main="" Consultant={member} />
@@ -209,7 +209,7 @@ export default function GroupPinnaclePage() {
                   <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
                     <TiPlus className="text-2xl" />
                   </div>
-                  {`Pináculo: ${member.name}`}
+                  {`${t('group.pinnacleLabel')} ${member.name}`}
                 </div>
               </div>
               <GroupPinnacle main="bg-white" consultant={member} size="lg" />
@@ -218,7 +218,7 @@ export default function GroupPinnaclePage() {
                   <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
                     <TiPlus className="text-2xl" />
                   </div>
-                  {`Retorno: ${member.name}`}
+                  {`${t('group.returnLabel')} ${member.name}`}
                 </div>
               </div>
               <div className="pinnacle-wrap bg-white p-4">

@@ -44,6 +44,7 @@ export interface PDFDocumentProps {
   logoURL?: string;
   partnerYear: number;
   groupYear: number;
+  locale?: string;
 }
 
 // Annual Return Types

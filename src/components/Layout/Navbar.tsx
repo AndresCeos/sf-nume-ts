@@ -199,6 +199,7 @@ function Navbar() {
         synastry={synastryObject}
         partnerYear={activePartnerData?.yearMeet ?? 0}
         groupYear={activeGroup?.lastInit ?? 0}
+        locale={t('locale') as string}
       />
     )).toBlob();
     saveAs(blob, `${consultant?.fullName} - ${path}.pdf`);
@@ -424,6 +425,7 @@ function Navbar() {
             month={calculationDate.month}
             partnerYear={activePartnerData?.yearMeet ?? 0}
             groupYear={activeGroup?.lastInit ?? 0}
+            locale={t('locale') as string}
           />
         </PDFViewer>
       );

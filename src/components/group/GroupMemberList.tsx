@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdEdit } from 'react-icons/md';
 import Swal from 'sweetalert2';
 
@@ -18,6 +19,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   const { activeConsultant, updateConsultantGroups, groupsAvailable } = useContext(ConsultContext);
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
+  const { t } = useTranslation();
 
   // Obtener la versión más actualizada del grupo desde el contexto
   const currentActiveGroup = groupsAvailable.find((g) => g.id === activeGroup.id) || activeGroup;
@@ -34,26 +36,26 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   const handleRemoveMember = async (memberId: string) => {
     // Buscar el miembro para mostrar su nombre en la confirmación
     const memberToRemove = currentActiveGroup.members?.find((m) => m.id === memberId);
-    const memberName = memberToRemove ? `${memberToRemove.name} ${memberToRemove.lastName}` : 'este miembro';
+    const memberName = memberToRemove ? `${memberToRemove.name} ${memberToRemove.lastName}` : t('common.thisMember');
 
     // Mostrar confirmación con SweetAlert2
     const result = await Swal.fire({
-      title: '¿Estás seguro?',
-      text: `¿Estás seguro de que quieres eliminar a ${memberName} del grupo?`,
+      title: t('group.alerts.areYouSure') as string,
+      text: t('group.alerts.confirmDeleteMember', { memberName }) as string,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t('group.alerts.yesDelete') as string,
+      cancelButtonText: t('group.cancel') as string,
     });
 
     if (result.isConfirmed) {
       try {
         // Mostrar loading
         Swal.fire({
-          title: 'Eliminando...',
-          text: 'Por favor espera mientras se elimina el miembro.',
+          title: t('group.alerts.deleting') as string,
+          text: t('group.alerts.deletingMember') as string,
           allowOutsideClick: false,
           didOpen: () => {
             Swal.showLoading();
@@ -79,8 +81,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
 
         // Cerrar loading y mostrar mensaje de éxito
         Swal.fire(
-          '¡Eliminado!',
-          `${memberName} ha sido eliminado del grupo exitosamente.`,
+          t('group.alerts.deleted') as string,
+          `${memberName} ${t('group.alerts.memberDeletedSuccess')}`,
           'success',
         );
       } catch (error) {
@@ -88,8 +90,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
 
         // Mostrar mensaje de error
         Swal.fire(
-          'Error',
-          'No se pudo eliminar el miembro. Por favor, inténtalo de nuevo.',
+          t('group.alerts.error') as string,
+          t('group.errors.deleteMember') as string,
           'error',
         );
       }
@@ -130,7 +132,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
           onClick={() => setIsAddMemberActive(true)}
           className="bg-gold text-white px-4 py-2 rounded text-sm font-medium"
         >
-          Agregar Miembro
+          {t('group.addMember')}
         </button>
       </div>
 
@@ -159,7 +161,10 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
                       •
                       {memberPerson.getYearsOld()}
                       {' '}
-                      años • Inicio:
+                      {t('group.years')}
+                      {' '}
+                      •
+                      {t('group.start')}
                       {member.dateInit}
                     </div>
                   </div>
@@ -187,8 +192,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
       ) : (
         <div className="text-center py-8 text-gray-500">
           <img src={add_user_group} className="w-16 h-16 mx-auto mb-4 opacity-50" alt="no members" />
-          <p>No hay miembros en este grupo</p>
-          <p className="text-sm">Haz clic en &quot;Agregar Miembro&quot; para comenzar</p>
+          <p>{t('group.noMembersInThisGroup')}</p>
+          <p className="text-sm">{t('group.clickToAddMember')}</p>
         </div>
       )}
     </div>

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import SectionTitle from '@/components/SectionTitle';
 import SettingsForm from '@/components/dashboard/settings/SettingsForm';
 import { useAuth } from '@/context/AuthProvider';
@@ -5,6 +7,7 @@ import { formatDate, licenseTypes } from '@/utils/constants';
 
 function SettingsPage() {
   const { user: userAuth } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <div className="page-content bg-cover">
@@ -38,7 +41,7 @@ function SettingsPage() {
               <p className="text-13 font-bold text-gray-400">
                 Fecha de expiración:
                 {' '}
-                <span className="text-13 text-black">{userAuth?.license.expirationDate ? formatDate({ date: userAuth?.license.expirationDate, format: 'long' }) : 'N/A'}</span>
+                <span className="text-13 text-black">{userAuth?.license.expirationDate ? formatDate({ date: userAuth?.license.expirationDate, format: 'long', locale: t('locale') as string }) : 'N/A'}</span>
               </p>
               <p className="text-13 font-bold text-gray-400">
                 Tipo de Licencia:

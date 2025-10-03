@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import { useContext, useState } from 'react';
 
@@ -21,6 +21,7 @@ type PartnerSingleMonthProps = {
 function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: PartnerSingleMonthProps) {
   const { calculationDate } = useContext(ConsultContext);
   const [selectedMonth, setSelectedMonth] = useState(month);
+  const { t } = useTranslation();
 
   if (!consultant) return null;
   const u = new Universal();

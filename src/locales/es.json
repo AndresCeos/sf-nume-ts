@@ -1,4 +1,5 @@
 {
+  "locale": "es-MX",
   "login": "Inicio de sesión",
   "consultant_n": "Consultante",
   "select": "Seleccionar",
@@ -538,7 +539,7 @@
     }
   },
   "timeCircle":{
-    "consult":"Estas Consultando el:"
+    "consult":"Estás Consultando el:"
   },
   "annualCalendar":{
     "annualCalendar":"Calendario Anual",
@@ -565,6 +566,7 @@
     "namePlaceholder": "Ingrese el nombre del grupo",
     "description": "Descripción",
     "descriptionPlaceholder": "Ingrese una descripción del grupo",
+    "descriptionOfGroup": "Descripción del Grupo",
     "date": "Fecha de Creación",
     "created": "Creado",
     "members": "Miembros",
@@ -586,6 +588,33 @@
     "memberBirthDate": "Fecha de Nacimiento",
     "memberDateInit": "Año de Inicio",
     "birthDate": "Fecha de Nacimiento",
+    "noGroupSelected": "No hay grupo seleccionado",
+    "noGroupSelectedMessage": "Por favor, selecciona o crea un grupo para ver la información de pinnacle.",
+    "noMembersInGroup": "No hay miembros en el grupo",
+    "noMembersInGroupMessage": "El grupo \"{{groupName}}\" no tiene miembros. Agrega miembros para ver la información de pinnacle.",
+    "selectAGroup": "Selecciona un grupo",
+    "membersCount": "miembros)",
+    "groupData": "Datos de Grupo",
+    "groupOf": "Grupo:",
+    "creationDate": "Fecha de Creación:",
+    "lastYearIntegration": "Último Año de integración:",
+    "membersOfGroup": "Miembros del Grupo:",
+    "noMembersInThisGroup": "No hay miembros en este grupo",
+    "clickToAddMember": "Haz clic en \"Agregar Miembro\" para comenzar",
+    "addMemberToGroup": "Agregar Miembro al Grupo",
+    "names": "Nombre(s)",
+    "paternalLastName": "Apellido Paterno",
+    "maternalLastName": "Apellido Materno",
+    "yearStartInGroup": "Año de Inicio en el Grupo",
+    "saving": "Guardando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "years": "años",
+    "start": "Inicio:",
+    "dragToSeeMore": "Arrastra o desliza hacia la derecha para ver más contenido",
+    "nameLabel": "Nombre:",
+    "pinnacleLabel": "Pináculo:",
+    "returnLabel": "Retorno:",
     "validation": {
       "nameRequired": "Debe ingresar el nombre del grupo.",
       "dateRequired": "Debe ingresar la fecha de creación del grupo.",
@@ -594,13 +623,21 @@
       "memberBirthDateRequired": "Debe ingresar la fecha de nacimiento del integrante.",
       "memberDateInitRequired": "Debe ingresar el año de inicio del integrante.",
       "invalidDate": "Fecha no válida",
-      "invalidYear": "Año no válido"
+      "invalidYear": "Año no válido",
+      "yearMustBe4Digits": "El año debe tener 4 dígitos",
+      "invalidYearValue": "Año no válido",
+      "dateCantBeFuture": "La fecha no puede ser futura",
+      "yearBetween1900And2100": "El año debe estar entre 1900-2100",
+      "required": "Requerido",
+      "notValid": "No válido",
+      "invalidYearOrOutOfRange": "Año no válido o fuera del rango 1900-actualidad"
     },
     "errors": {
       "saveGroup": "Error al guardar el grupo",
       "saveMember": "Error al guardar el integrante",
       "deleteGroup": "No se pudo eliminar el grupo. Por favor, inténtalo de nuevo.",
-      "deleteMember": "No se pudo eliminar el integrante. Por favor, inténtalo de nuevo."
+      "deleteMember": "No se pudo eliminar el integrante. Por favor, inténtalo de nuevo.",
+      "errorSavingMember": "Error al guardar el miembro"
     },
     "alerts": {
       "areYouSure": "¿Estás seguro?",
@@ -613,7 +650,9 @@
       "deleted": "¡Eliminado!",
       "groupDeletedSuccessfully": "El grupo {{groupName}} ha sido eliminado exitosamente.",
       "memberDeletedSuccessfully": "{{memberName}} ha sido eliminado del grupo exitosamente.",
-      "error": "Error"
+      "error": "Error",
+      "deletingMember": "Por favor espera mientras se elimina el miembro.",
+      "memberDeletedSuccess": "ha sido eliminado del grupo exitosamente."
     }
   },
   "consultant": {
