@@ -5,8 +5,10 @@ import UniversalEnergyGroup from '@/components/Universal/universalEnergy/Univers
 import UniversalEnergyPartner from '@/components/Universal/universalEnergy/UniversalEnergyPartner';
 import UniversalEnergyPerson from '@/components/Universal/universalEnergy/UniversalEnergyPerson';
 import UniversalEnergyValues from '@/components/Universal/universalEnergy/UniversalEnergyValues';
+import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import useEnergy from '@/hooks/useEnergy';
+import Person from '@/resources/Person';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -65,21 +67,37 @@ function DisabledEnergyComponent({
 
 function UniversalEnergy() {
   const { consultant } = useConsult();
-  const { setActiveSelection, selectedType, setSelectedType } = useEnergy();
+  const { user: userAuth } = useAuth();
+  const {
+    setActiveSelection,
+    selectedType,
+    setSelectedType,
+    activeSelection,
+  } = useEnergy();
   const { t } = useTranslation();
 
-  // Resetear la selección cuando cambie el consultante
+  const userPerson = new Person({
+    id: userAuth?.user.id?.toString() || '',
+    name: userAuth?.user.firstName || '',
+    lastName: userAuth?.user.lastName || '',
+    scdLastName: userAuth?.user.scdLastName || '',
+    birthDate: userAuth?.user.birthDate?.toString() || '',
+  });
+
+  // Resetear la selección cuando cambie el consultante - pero mantener userPerson por defecto
   useEffect(() => {
-    setActiveSelection(undefined);
-    setSelectedType(undefined);
-  }, [consultant, setActiveSelection, setSelectedType]);
+    // Solo resetear si no hay una selección activa
+    if (!activeSelection) {
+      setActiveSelection(userPerson);
+      setSelectedType('person');
+    }
+  }, [consultant, setActiveSelection, setSelectedType, userPerson, activeSelection]);
 
   // Funciones para manejar la selección activa
   const handlePersonSelect = () => {
-    if (consultant) {
-      setActiveSelection(consultant);
-      setSelectedType('person');
-    }
+    // Usar userPerson del contexto en lugar de consultant
+    setActiveSelection(userPerson);
+    setSelectedType('person');
   };
 
   const handlePartnerSelect = () => {
@@ -110,19 +128,11 @@ function UniversalEnergy() {
         <UniversalEnergyValues />
 
         {/* Personal - habilitado solo si hay consultante */}
-        {consultant ? (
-          <UniversalEnergyPerson
-            person={consultant}
-            setActive={handlePersonSelect}
-            selected={selectedType === 'person'}
-          />
-        ) : (
-          <DisabledEnergyComponent
-            type="person"
-            title={t('universalEnergy.personTitle')}
-            subtitle={t('universalEnergy.personSubtitle')}
-          />
-        )}
+        <UniversalEnergyPerson
+          person={userPerson}
+          setActive={handlePersonSelect}
+          selected={selectedType === 'person'}
+        />
 
         {/* Pareja - habilitado solo si hay consultante */}
         {consultant ? (
