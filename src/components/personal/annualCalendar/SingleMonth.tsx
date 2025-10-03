@@ -1,6 +1,5 @@
-import { t } from 'i18next';
-
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { capitalize } from 'lodash';
 
@@ -19,6 +18,7 @@ type SingleMonthsProps = {
 function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
   const { consultant, calculationDate } = useConsult();
   const [selectedMonth, setSelectedMonth] = useState(month);
+  const { t } = useTranslation();
 
   if (!consultant) return null;
   const u = new Universal();

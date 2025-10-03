@@ -1,5 +1,5 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -15,6 +15,7 @@ function SynastryAnnualCalendar() {
   const {
     consultant, calculationDate, activePartnerData, selectedPartnersAsPersons,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
 

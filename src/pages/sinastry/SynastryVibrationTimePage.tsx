@@ -8,13 +8,14 @@ import SectionTitle from '@/components/SectionTitle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
-import { t } from 'i18next';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function SynastryVibrationTimePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
 

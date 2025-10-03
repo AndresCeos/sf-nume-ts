@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
@@ -34,6 +35,7 @@ export default function GroupForm({
   const { handleIsEditingConsultant, updateConsultantGroups } = useConsult();
   const handleConsultants = useConsultants();
   const addConsultantAsync = makeConsultant();
+  const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
@@ -60,20 +62,20 @@ export default function GroupForm({
     const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
     if (!name) {
-      validationMsgs = { ...validationMsgs, name: 'Requerido' };
+      validationMsgs = { ...validationMsgs, name: t('group.validation.required') };
       isValid = false;
     } else if (!name.match(letters)) {
-      validationMsgs = { ...validationMsgs, name: 'No válido' };
+      validationMsgs = { ...validationMsgs, name: t('group.validation.notValid') };
       isValid = false;
     }
 
     if (!description) {
-      validationMsgs = { ...validationMsgs, description: 'Requerido' };
+      validationMsgs = { ...validationMsgs, description: t('group.validation.required') };
       isValid = false;
     }
 
     if (!date) {
-      validationMsgs = { ...validationMsgs, date: 'Requerido' };
+      validationMsgs = { ...validationMsgs, date: t('group.validation.required') };
       isValid = false;
     }
 
@@ -126,7 +128,7 @@ export default function GroupForm({
 
       closeForm();
     } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Error al guardar el grupo');
+      setFormError(err instanceof Error ? err.message : t('group.errors.saveGroup'));
     } finally {
       setIsLoading(false);
     }
@@ -136,13 +138,13 @@ export default function GroupForm({
     <form className="block w-full mt-3" onSubmit={handleOnSubmit}>
       <h2 className="flex justify-center items-center text-xl font-bold">
         <img src={add_user_group} className="mr-3" alt="add_user_group" />
-        {isEditing ? 'Editar Grupo' : 'Crear Grupo'}
+        {isEditing ? t('group.editGroup') : t('group.createGroup')}
       </h2>
 
       <div className="flex w-full mt-6">
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Nombre del Grupo
+            {t('group.name')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -160,7 +162,7 @@ export default function GroupForm({
 
         <div className="form-group w-1/2">
           <p className="font-bold mb-1">
-            Fecha de Creación
+            {t('group.date')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -180,7 +182,7 @@ export default function GroupForm({
       <div className="flex w-full mt-3">
         <div className="form-group w-full">
           <p className="font-bold mb-1">
-            Descripción del Grupo
+            {t('group.descriptionOfGroup')}
             <span className="text-red-800">*</span>
           </p>
           <textarea
@@ -203,7 +205,7 @@ export default function GroupForm({
           className="btn-save w-32"
           disabled={isLoading}
         >
-          {isLoading ? 'Guardando...' : 'Guardar'}
+          {isLoading ? t('group.saving') : t('group.save')}
         </button>
 
         <button
@@ -212,7 +214,7 @@ export default function GroupForm({
           onClick={closeForm}
           disabled={isLoading}
         >
-          Cancelar
+          {t('group.cancel')}
         </button>
       </div>
 

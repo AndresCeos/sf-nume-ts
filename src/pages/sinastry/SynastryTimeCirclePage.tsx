@@ -1,5 +1,5 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import TimeCircle from '@/components/partners/timeCircle/TimeCircle';
@@ -14,6 +14,7 @@ function SynastryTimeCirclePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons, calculationDate, consultationDate,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   const universal = new Universal();
 
@@ -77,7 +78,7 @@ function SynastryTimeCirclePage() {
         </div>
         <div className="mt-5 text-center text-2xl">
           <div>{t('timeCircle.consult')}</div>
-          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long' })}</div>
+          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long', locale: t('locale') })}</div>
         </div>
 
       </div>

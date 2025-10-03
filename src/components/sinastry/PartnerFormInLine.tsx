@@ -432,10 +432,10 @@ export default function PartnerFormInLine({
                         •
                         {partnerPerson.getYearsOld()}
                         {' '}
-                        {t('modal.partners.year')}
+                        {t('modal.partner.years')}
                         {' '}
                         •
-                        {t('modal.partners.meeting')}
+                        {t('modal.partner.meeting')}
                         {' '}
                         :
                         {currentActivePartnerData.yearMeet}

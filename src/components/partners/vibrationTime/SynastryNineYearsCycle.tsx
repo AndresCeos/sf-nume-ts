@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
@@ -9,6 +9,7 @@ import SynastryStageOne from './SynastryStageOne';
 
 function SynastryNineYearsCycle({ synastry }: { synastry: Synastry | Group }) {
   const { calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!synastry) return null;
 
   const nineYearCycle = synastry.getNineYearCycleStage(calculationDate.year);

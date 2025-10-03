@@ -5,8 +5,9 @@ const env = import.meta.env;
 
 export default env;
 
-export function formatDate(opts: { date: Date | string, format: 'short' | 'long' }) {
-  return new Date(opts.date).toLocaleDateString('es-MX', {
+export function formatDate(opts: { date: Date | string, format: 'short' | 'long', locale?: string }) {
+  const locale = opts.locale || 'es-MX';
+  return new Date(opts.date).toLocaleDateString(locale, {
     day: '2-digit',
     month: opts.format === 'long' ? 'long' : 'short',
     year: 'numeric',

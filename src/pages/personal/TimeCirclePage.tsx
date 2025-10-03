@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import TimeCircle from '@/components/personal/timeCircle/TimeCircle';
@@ -9,6 +9,7 @@ import { getMonthName } from '@/utils/numbers';
 
 function TimeCirclePage() {
   const { consultant, calculationDate, consultationDate } = useConsult();
+  const { t } = useTranslation();
   const universal = new Universal();
   if (!consultant) return (<NoConsultantSelected />);
   return (
@@ -49,7 +50,7 @@ function TimeCirclePage() {
         </div>
         <div className="mt-5 text-center text-2xl">
           <div>{t('timeCircle.consult')}</div>
-          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long' })}</div>
+          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long', locale: t('locale') })}</div>
         </div>
 
       </div>

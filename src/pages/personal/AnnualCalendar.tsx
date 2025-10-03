@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -10,6 +10,7 @@ import { getAllMonths } from '@/utils/numbers';
 
 function AnnualCalendar() {
   const { consultant, calculationDate } = useConsult();
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
   const u = new Universal();
