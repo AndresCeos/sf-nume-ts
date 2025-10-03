@@ -1,6 +1,6 @@
-import { t } from 'i18next';
 import { capitalize } from 'lodash';
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdEdit } from 'react-icons/md';
 
 import CircleNumber from '@/components/CircleNumber';
@@ -18,6 +18,7 @@ type PartnersSingleMonthProps = {
 function PartnersSingleMonth({ month, showMonthSelector = false, consultant }: PartnersSingleMonthProps) {
   const { calculationDate } = useContext(ConsultContext);
   const [selectedMonth, setSelectedMonth] = useState(month);
+  const { t } = useTranslation();
 
   if (!consultant) return null;
   const u = new Universal();

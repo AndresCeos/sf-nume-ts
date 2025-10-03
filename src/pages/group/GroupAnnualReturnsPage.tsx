@@ -22,8 +22,8 @@ export default function GroupAnnualReturnsPage() {
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay grupo seleccionado</h3>
-            <p className="text-gray-600">Por favor, selecciona o crea un grupo para ver la información de pinnacle.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('group.noGroupSelected')}</h3>
+            <p className="text-gray-600">{t('group.noGroupSelectedMessage')}</p>
           </div>
         </div>
       </div>
@@ -36,11 +36,9 @@ export default function GroupAnnualReturnsPage() {
         <SelectGroup />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay miembros en el grupo</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('group.noMembersInGroup')}</h3>
             <p className="text-gray-600">
-              El grupo &quot;
-              {activeGroup.name}
-              &quot; no tiene miembros. Agrega miembros para ver la información de pinnacle.
+              {t('group.noMembersInGroupMessage', { groupName: activeGroup.name })}
             </p>
           </div>
         </div>

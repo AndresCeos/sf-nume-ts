@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { formatDate } from '@/utils/constants';
 import ConsultantContentNotes from './ConsultantContentNotes';
 
@@ -7,6 +9,7 @@ type ConsultantModalNotesProps = {
 
 function ConsultantModalNotes(modalNote: ConsultantModalNotesProps) {
   const { item: itemNote } = modalNote;
+  const { t } = useTranslation();
 
   if (!itemNote) return <div>No notes found</div>;
   const pages = Object.entries(itemNote).map((items) => items);
@@ -15,7 +18,7 @@ function ConsultantModalNotes(modalNote: ConsultantModalNotesProps) {
     <li className="flex flex-col overflow-x-hidden overflow-y-auto h-96">
       { pages.map((items) => (
         <div key={items[0]} className="flex flex-col">
-          <p className="text-gray-600 text-right text-xs">{formatDate({ date: items[0], format: 'short' })}</p>
+          <p className="text-gray-600 text-right text-xs">{formatDate({ date: items[0], format: 'short', locale: t('locale') as string })}</p>
           <ConsultantContentNotes data={items[1]} />
         </div>
       )) }

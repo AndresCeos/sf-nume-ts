@@ -16,7 +16,7 @@ function StatusBarConsultantDetails() {
         {t('birthDate')}
         :
         <strong className="ml-2">
-          {formatDate({ date: consultant.getBirthDate(), format: 'long' })}
+          {formatDate({ date: consultant.getBirthDate(), format: 'long', locale: t('locale') as string })}
         </strong>
       </div>
       <div>
@@ -40,7 +40,7 @@ function StatusBar() {
         {t('consultDate')}
         :
         <strong className="ml-2">
-          {formatDate({ date: consultationDate, format: 'long' })}
+          {formatDate({ date: consultationDate, format: 'long', locale: t('locale') as string })}
         </strong>
       </div>
     </div>

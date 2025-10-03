@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import { formatDate } from '@/utils/constants';
@@ -16,6 +18,7 @@ function ConsultantList({ searchUser }: Props) {
   const users = userAuth?.consultants;
   const deleteConsultantAsync = makeConsultant();
   const handleConsultants = useConsultants();
+  const { t } = useTranslation();
 
   const { handleIsEditingConsultant, selectConsultant } = useConsult();
 
@@ -101,7 +104,7 @@ function ConsultantList({ searchUser }: Props) {
               {' '}
               {user?.scdLastName}
             </div>
-            <div className="col-span-4">{formatDate({ date: new Date(`${user.date}`), format: 'long' })}</div>
+            <div className="col-span-4">{formatDate({ date: new Date(`${user.date}`), format: 'long', locale: t('locale') as string })}</div>
             <div className="col-span-2">
               <button type="button" onClick={() => { handleEditUser(user); }}>
                 <img src="/assets/c_edit.svg" alt="edit" />

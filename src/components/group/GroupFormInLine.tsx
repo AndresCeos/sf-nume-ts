@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdEdit } from 'react-icons/md';
 
 import { ConsultContext } from '@/context/ConsultContext';
@@ -27,6 +28,7 @@ export default function GroupFormInLine({
     isEditingConsultant,
     activeConsultant,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   // Obtener la versión más actualizada del grupo activo
   const currentActiveGroup = activeGroup ? (groupsAvailable.find((g) => g.id === activeGroup.id) || activeGroup) : null;
@@ -91,7 +93,7 @@ export default function GroupFormInLine({
               <img src={add_user_group} className="w-6 h-6 mr-3 text-gray-400" alt="add_user_group" />
               <MdEdit className="text-gray-400 mr-2" />
             </button>
-            <p className="font-bold text-sm mr-3">Grupo:</p>
+            <p className="font-bold text-sm mr-3">{t('group.groupOf')}</p>
             <select
               onChange={selectedGroup}
               className="border rounded px-3 py-2 flex-1"
@@ -99,7 +101,7 @@ export default function GroupFormInLine({
             >
               {!currentActiveGroup && (
                 <option value="">
-                  Selecciona un grupo
+                  {t('group.selectAGroup')}
                 </option>
               )}
               {groupsAvailable.map((group: Api.GroupData) => (
@@ -109,7 +111,7 @@ export default function GroupFormInLine({
                   (
                   {group.members?.length || 0}
                   {' '}
-                  miembros)
+                  {t('group.membersCount')}
                 </option>
               ))}
             </select>
@@ -126,7 +128,7 @@ export default function GroupFormInLine({
             onClick={() => setIsAddFormActive(true)}
             className="btn-save w-50 text-sm"
           >
-            Crear Grupo
+            {t('group.createGroup')}
           </button>
         </div>
 
@@ -139,7 +141,7 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Descripción:</p>
+                <p className="font-bold text-sm mr-3">{t('group.description')}:</p>
                 <input
                   type="text"
                   className="border rounded px-3 py-2 flex-1"
@@ -152,7 +154,7 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Fecha de Creación:</p>
+                <p className="font-bold text-sm mr-3">{t('group.creationDate')}</p>
                 <input
                   value={currentActiveGroup?.date ? new Date(currentActiveGroup.date).toLocaleDateString() : ''}
                   type="text"
@@ -166,7 +168,7 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Miembros:</p>
+                <p className="font-bold text-sm mr-3">{t('group.members')}:</p>
                 <input
                   value={currentActiveGroup?.members?.length || 0}
                   type="text"
@@ -179,7 +181,7 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Último Año de integración:</p>
+                <p className="font-bold text-sm mr-3">{t('group.lastYearIntegration')}</p>
                 <input
                   value={currentActiveGroup?.lastInit || ''}
                   type="text"
@@ -202,7 +204,7 @@ export default function GroupFormInLine({
           {/* Members Header */}
           <div className="bg-black text-white rounded-t-lg px-4 py-3 flex items-center justify-between">
             <h3 className="font-bold">
-              Miembros del Grupo:
+              {t('group.membersOfGroup')}
               {' '}
               {currentActiveGroup.name}
             </h3>

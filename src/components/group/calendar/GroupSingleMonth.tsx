@@ -1,6 +1,5 @@
-import { t } from 'i18next';
-
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { capitalize } from 'lodash';
 
@@ -20,6 +19,7 @@ type GroupSingleMonthProps = {
 
 function GroupSingleMonth({ month, showMonthSelector = false, consultant }: GroupSingleMonthProps) {
   const { calculationDate } = useConsult();
+  const { t } = useTranslation();
   const [selectedMonth, setSelectedMonth] = useState(month);
 
   if (!consultant) return null;

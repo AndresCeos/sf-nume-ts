@@ -48,7 +48,7 @@ function ConsultantProfile() {
       <div className=" px-7 text-13 leading-7">
         {t('forms.birthDate')}
         :
-        <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long' }) : '-'}</strong>
+        <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long', locale: t('locale') as string }) : '-'}</strong>
         <div className="flex justify-between mb-1">
           <div className="text-13 leading-7">
             Nacionalidad:
