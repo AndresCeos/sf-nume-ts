@@ -479,7 +479,8 @@ function CreateNamePage() {
                   <p className="font-bold mb-1">
                     <MdEdit className="text-xl" />
                     {' '}
-                    {t('createName.birthDate')}:
+                    {t('createName.birthDate')}
+                    :
                   </p>
                   <input
                     type="date"

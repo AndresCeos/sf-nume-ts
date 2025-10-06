@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 
-import _ from 'lodash';
 import i18n from '@/utils/i18n';
 
 export function reduceNumber(number: number) {

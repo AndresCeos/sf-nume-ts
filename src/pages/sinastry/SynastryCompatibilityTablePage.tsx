@@ -205,7 +205,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-3 col-span-3 flex justify-center">
             <b>PN</b>
             {' '}
-            = {t('sinastry.compatibilityTable.naturalPartner')}
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.naturalPartner')}
           </div>
           <div className="col-start-10 row-start-4 col-span-3 flex justify-center">
             <img src={pc} alt="pc" className="w-24 h-12 object-contain" />
@@ -213,7 +215,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-5 col-span-3 flex justify-center">
             <b>PC</b>
             {' '}
-            = {t('sinastry.compatibilityTable.compatiblePartner')}
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.compatiblePartner')}
           </div>
           <div className="col-start-10 row-start-6 col-span-3 flex justify-center">
             <img src={pd} alt="pd" className="w-24 h-12 object-contain" />
@@ -221,7 +225,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-7 col-span-3 flex justify-center">
             <b>PD</b>
             {' '}
-            = {t('sinastry.compatibilityTable.challengePartner')}
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.challengePartner')}
           </div>
           <div className="col-start-10 row-start-8 col-span-3 flex justify-center">
             <img src={pne} alt="pne" className="w-24 h-12 object-contain" />
@@ -229,7 +235,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-9 col-span-3 flex justify-center">
             <b>PNe</b>
             {' '}
-            = {t('sinastry.compatibilityTable.neutralPartner')}
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.neutralPartner')}
           </div>
         </div>
       </div>

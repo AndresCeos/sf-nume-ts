@@ -141,7 +141,10 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">{t('group.description')}:</p>
+                <p className="font-bold text-sm mr-3">
+                  {t('group.description')}
+                  :
+                </p>
                 <input
                   type="text"
                   className="border rounded px-3 py-2 flex-1"
@@ -168,7 +171,10 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">{t('group.members')}:</p>
+                <p className="font-bold text-sm mr-3">
+                  {t('group.members')}
+                  :
+                </p>
                 <input
                   value={currentActiveGroup?.members?.length || 0}
                   type="text"

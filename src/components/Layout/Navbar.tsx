@@ -636,8 +636,7 @@ function Navbar() {
                   <img
                     src={i18n.language === 'es'
                       ? 'https://www.worldometers.info/img/flags/small/tn_mx-flag.gif'
-                      : 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif'
-                    }
+                      : 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif'}
                     className="w-8"
                     alt={i18n.language === 'es' ? 'Español - México' : 'English - USA'}
                   />

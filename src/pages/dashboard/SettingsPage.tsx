@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useTranslation } from 'react-i18next';
 
 import SectionTitle from '@/components/SectionTitle';
