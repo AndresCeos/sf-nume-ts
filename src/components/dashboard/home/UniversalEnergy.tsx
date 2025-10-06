@@ -23,7 +23,7 @@ function DisabledEnergyComponent({
   type: string;
 }) {
   return (
-    <ul className="flex flex-col items-center relative opacity-50">
+    <ul className={`flex flex-col items-center relative opacity-50 ${type === 'partner' ? 'order-2' : 'order-3'}`}>
       <li className="mb-2">
         <img
           src={
