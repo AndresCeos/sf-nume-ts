@@ -44,7 +44,7 @@ function EnergyProvider({ children }: any) {
     if (!activeSelection || (activeSelection instanceof Person && activeSelection.id === updatedUserPerson.id)) {
       setActiveSelectionState(updatedUserPerson);
     }
-  }, [userAuth, activeSelection]);
+  }, [userAuth]);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value: EnergyContextInterface = {

@@ -132,7 +132,7 @@ export default function GroupPinnaclePage() {
   ];
 
   return (
-    <div className="page-content bg-cover pb-10 px-4 mx-auto">
+    <div className="page-content bg-cover pb-10 ">
       <SelectGroup />
       <div className="mx-auto px-5 py-6">
         {/* Leyenda de navegación */}
@@ -159,7 +159,7 @@ export default function GroupPinnaclePage() {
           }}
         >
           {/* Grupo - siempre visible, ancho fijo para 2 elementos */}
-          <div className="group-container flex-shrink-0 w-1/3 min-w-0 mt-5 ml-6">
+          <div className="group-container flex-shrink-0 w-1/3 min-w-0 mt-5">
 
             <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
               <div className="flex items-center justify-center">
@@ -212,7 +212,9 @@ export default function GroupPinnaclePage() {
                   {`${t('group.pinnacleLabel')} ${member.name}`}
                 </div>
               </div>
-              <GroupPinnacle main="bg-white" consultant={member} size="lg" />
+              <div className="section-wrap px-2 py-7 h-560">
+                <GroupPinnacle main="bg-white" consultant={member} size="small" />
+              </div>
               <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
                 <div className="flex items-center justify-center">
                   <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
@@ -231,3 +233,6 @@ export default function GroupPinnaclePage() {
     </div>
   );
 }
+/*
+
+*/
