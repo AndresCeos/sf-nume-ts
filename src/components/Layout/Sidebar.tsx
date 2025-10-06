@@ -196,7 +196,7 @@ function Sidebar() {
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
+                <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">{t('sidebar.analysis')}</label>
               </NavLink>
             </li>
@@ -295,7 +295,7 @@ function Sidebar() {
                 className="sidebar-link text-[13px] sidebar-submenu pl-3 pr-1 py-2 flex items-center"
                 aria-current="page"
               >
-                <img src="/assets/sidebar/compatibility_table.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
+                <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">{t('sidebar.pinnacle')}</label>
               </NavLink>
             </li>

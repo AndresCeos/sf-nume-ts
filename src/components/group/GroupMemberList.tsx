@@ -44,8 +44,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
       text: t('group.alerts.confirmDeleteMember', { memberName }) as string,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#ff0000',
       confirmButtonText: t('group.alerts.yesDelete') as string,
       cancelButtonText: t('group.cancel') as string,
     });

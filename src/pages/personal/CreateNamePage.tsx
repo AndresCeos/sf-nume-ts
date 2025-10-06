@@ -283,8 +283,8 @@ function CreateNamePage() {
         text: t('createName.deleteConfirmText', { name: nameToDelete.name }) as string,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#ff0000',
         confirmButtonText: t('createName.deleteConfirmButton') as string,
         cancelButtonText: t('createName.cancelButton') as string,
       });
@@ -473,6 +473,7 @@ function CreateNamePage() {
                     value={inputName}
                     onChange={handleInputChange}
                     className="rounded"
+                    placeholder="No uses acentos o caracteres especiales"
                   />
                 </div>
                 <div className="form-group w-1/3">
@@ -508,6 +509,7 @@ function CreateNamePage() {
                       onChange={handleInputChange}
                       className="rounded"
                       required
+                      placeholder="No uses acentos o caracteres especiales"
                     />
                   </div>
                   <div className="form-group w-1/2">
@@ -523,6 +525,7 @@ function CreateNamePage() {
                       onChange={handleInputChange}
                       className="rounded"
                       required
+                      placeholder="No uses acentos o caracteres especiales"
                     />
                   </div>
                 </div>

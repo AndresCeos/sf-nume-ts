@@ -58,7 +58,7 @@ function SynastryAnnualCalendar() {
   return (
     <div className="page-content bg-cover">
       <SelectPartner />
-      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9">
         <div className="col-span-12">
           <SectionTitle title={t('annualCalendar.annualCalendar')} color="bg-red-day" />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">

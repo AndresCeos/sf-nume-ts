@@ -37,7 +37,7 @@ export default function SelectPartner() {
   };
 
   return (
-    <div className="grid mt-8 mx-14 col-span-12 mb-10 ">
+    <div className="grid mt-8 col-span-12 mb-10 ">
       <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
         <div className="flex items-center">
           <div
@@ -73,7 +73,7 @@ export default function SelectPartner() {
       <div
         className={`pinnacle-wrap px-8 py-8 transition-all duration-300 ease-in-out overflow-hidden ${
           isCollapsed
-            ? 'max-h-0 py-0 opacity-0'
+            ? 'max-h-0 !py-0 opacity-0'
             : 'max-h-[2000px] opacity-100'
         }`}
       >

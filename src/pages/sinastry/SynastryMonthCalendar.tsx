@@ -57,7 +57,7 @@ export default function SynastryMonthCalendarPage() {
   return (
     <div className="page-content bg-cover pb-10">
       <SelectPartner />
-      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9">
         <div className="col-span-12">
           <SectionTitle title={t('monthCalendar.title')} color="bg-red-day" />
 

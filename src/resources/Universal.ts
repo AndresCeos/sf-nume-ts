@@ -5,10 +5,10 @@ import _ from 'lodash';
 
 import { reduceNumber, reduceNumberISK } from '@/utils/numbers';
 
-type SplittedDate = {
-  day?: number,
-  month?: number,
-  year?: number,
+export type SplittedDate = {
+  day: number,
+  month: number,
+  year: number,
 };
 
 export class Universal {
@@ -221,8 +221,8 @@ export class Universal {
    * @returns {number} - Universal Month
    */
   calcUniversalMonth(opts: SplittedDate): number {
-    const monthToCalculate: number = _.isNil(opts?.month) ? getMonth(this.NOW) + 1 : opts.month;
-    const yearToCalculate = _.isNil(opts?.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = opts.month;
+    const yearToCalculate: number = opts.year;
     return reduceNumber(this.calcUniversalYear(yearToCalculate) + monthToCalculate);
   }
 

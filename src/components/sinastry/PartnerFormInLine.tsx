@@ -76,6 +76,8 @@ export default function PartnerFormInLine({
 
   const hasNoPartners = hasPartner;
 
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
+
   // Estado para distinguir si estamos agregando pareja a grupo existente
   const [isAddingPartnerToGroup, setIsAddingPartnerToGroup] = useState(false);
 
@@ -136,8 +138,8 @@ export default function PartnerFormInLine({
       text: t('alerts.confirmDeletePartner', { partnerName }) as string,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#ff0000',
       confirmButtonText: t('alerts.yesDelete') as string,
       cancelButtonText: t('common.cancel') as string,
     });
@@ -244,7 +246,7 @@ export default function PartnerFormInLine({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg">
       {/* Header Section */}
       {/* Main Group Data Form */}
       <div className="space-y-4">
@@ -255,7 +257,7 @@ export default function PartnerFormInLine({
               <img src={add_user_main} className="w-6 h-6 mr-3 text-gray-400" alt="add_user_main" />
               <MdEdit className="text-gray-400 mr-2" />
             </button>
-            <p className="font-bold text-sm mr-3">{t('modal.partner.partnerData')}</p>
+            <p className="font-bold text-sm mr-3">{t('modal.partner.data')}</p>
             <select
               onChange={selectedPartner}
               className="border rounded px-3 py-2 flex-1"
@@ -281,22 +283,27 @@ export default function PartnerFormInLine({
           <button type="button" onClick={removeUser} className="ml-4">
             <img src={c_delete} alt="delete" className="w-5 h-5" />
           </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={handleCreateGroup}
+              className="btn-save w-50 text-sm"
+            >
+              {t('modal.partner.createPartner')}
+            </button>
+          </div>
         </div>
 
         {/* Create Group Button */}
-        <div className="flex justify-center">
-          <button
-            type="button"
-            onClick={handleCreateGroup}
-            className="btn-save w-50 text-sm"
-          >
-            {t('modal.partner.createPartner')}
-          </button>
-        </div>
 
         {/* Group Information */}
-        {currentActivePartnerData && (
+        {(currentActivePartnerData && showMoreInfo) && (
           <div className="flex flex-col gap-4 mt-4">
+            <div className="text-sm text-main text-left">
+              <button type="button" onClick={() => setShowMoreInfo(false)}>
+                {t('modal.partner.lessInfo')}
+              </button>
+            </div>
             <div className="flex flex-row gap-4 w-full">
               <div className="flex items-center w-1/2">
                 <MdEdit className="text-gray-400 mr-2" />
@@ -349,14 +356,20 @@ export default function PartnerFormInLine({
             </div>
           </div>
         )}
-
+        {currentActivePartnerData && currentActivePartnerData.partner && !showMoreInfo && (
+        <div className="text-sm text-gray-600 text-left">
+          <button type="button" onClick={() => setShowMoreInfo(true)}>
+            {t('modal.partner.moreInfo')}
+          </button>
+        </div>
+        )}
         {/* Add Partner Button */}
         {currentActivePartnerData && currentActivePartnerData.partner && currentActivePartnerData.partner.length < 2 && (
           <div className="flex justify-center">
             <button
               type="button"
               onClick={handleAddPartner}
-              className="bg-gold text-white px-6 py-2 rounded-lg font-medium"
+              className="bg-main text-white px-6 py-2 rounded-lg font-bold text-lg"
             >
               {t('modal.partner.addMember')}
             </button>
@@ -369,11 +382,7 @@ export default function PartnerFormInLine({
         )}
 
         {/* Limit Message */}
-        {currentActivePartnerData && currentActivePartnerData.partner && currentActivePartnerData.partner.length >= 2 && (
-          <div className="text-sm text-gray-600 text-center bg-gray-50 p-3 rounded">
-            {t('modal.partner.maxPartnerMembers')}
-          </div>
-        )}
+
       </div>
 
       {/* Partners Section */}
@@ -389,15 +398,6 @@ export default function PartnerFormInLine({
               {' '}
               {currentActivePartnerData.name}
             </h3>
-            {currentActivePartnerData.partner.length < 2 && (
-              <button
-                type="button"
-                onClick={handleAddPartner}
-                className="bg-gold text-white px-4 py-1 rounded text-sm"
-              >
-                {t('modal.partner.addMember')}
-              </button>
-            )}
           </div>
 
           {/* Partners List */}
