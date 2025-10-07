@@ -7,12 +7,14 @@ import SectionTitle from '@/components/SectionTitle';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function ConsultantPage() {
   const [searchString, setSearchString] = useState('');
   const [showNotesModal, setShowNotesModal] = useState(false);
   const { consultant } = useConsult();
   const { user: userAuth } = useAuth();
+  const { t } = useTranslation();
 
   // Obtener las notas del consultor actual
   const users = userAuth?.consultants;
@@ -24,15 +26,15 @@ function ConsultantPage() {
       <div className="mt-8 flex justify-start items-center pt-10">
         <img src="/assets/welcome.png" className="w-16" alt="welcome" />
         <div>
-          <h2 className="font-black mt-0 mb-1 text-main text-2xl">Gestión de Consultantes</h2>
-          <p className="text-gray-600 text-sm">Agrega nuevos consultantes y gestiona tu historial</p>
+          <h2 className="font-black mt-0 mb-1 text-main text-2xl">{t('consultant.page.title')}</h2>
+          <p className="text-gray-600 text-sm">{t('consultant.page.subtitle')}</p>
         </div>
       </div>
       <div className="grid grid-cols-10 mt-8 gap-4">
         <div className="col-span-6">
           <div className="mb-5">
             <SectionTitle
-              title="Agregar Consultante"
+              title={t('consultant.page.addConsultant')}
             />
             <div className="section-wrap px-2 py-7">
               <ConsultantForm />
@@ -40,7 +42,7 @@ function ConsultantPage() {
           </div>
           <div className="mb-5">
             <SectionTitle
-              title="Historial"
+              title={t('consultant.page.history')}
             />
             <div className="section-wrap px-2 py-7 users-wrap">
               <div className="users-search rounded-3xl relative mb-6">
@@ -54,14 +56,14 @@ function ConsultantPage() {
                   className="w-full h-8 bg-transparent outline-none pl-10 pr-4"
                   value={searchString}
                   onChange={(e) => setSearchString(e.target.value)}
-                  placeholder="Buscar"
+                  placeholder={t('consultant.page.search') as string}
                 />
               </div>
               <ul className="users-table h-36 overflow-y-scroll">
                 <li className="w-full grid grid-cols-12 font-bold h-10">
-                  <div className="col-span-6">Nombre</div>
-                  <div className="col-span-4">Fecha de Nacimiento</div>
-                  <div className="col-span-2">Acciones</div>
+                  <div className="col-span-6">{t('consultant.page.name')}</div>
+                  <div className="col-span-4">{t('consultant.page.birthDate')}</div>
+                  <div className="col-span-2">{t('consultant.page.actions')}</div>
                 </li>
                 <ConsultantList searchUser={searchString} />
 
@@ -73,7 +75,7 @@ function ConsultantPage() {
         </div>
         <div className="col-span-4">
           <SectionTitle
-            title="Perfil del Consultante"
+            title={t('consultant.page.profile')}
           />
           <div className="section-wrap px-2 py-7">
             {/* Botón para ver notas */}
@@ -89,7 +91,7 @@ function ConsultantPage() {
                     alt="notas"
                     className="w-4 h-4"
                   />
-                  Ver Notas del Consultor
+                  {t('consultant.page.showNotes')}
                 </button>
               </div>
             )}

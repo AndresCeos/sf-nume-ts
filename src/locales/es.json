@@ -27,6 +27,34 @@
     "november": "Noviembre",
     "december": "Diciembre"
   },
+  "monthsEs": {
+    "enero": "Enero",
+    "febrero": "Febrero",
+    "marzo": "Marzo",
+    "abril": "Abril",
+    "mayo": "Mayo",
+    "junio": "Junio",
+    "julio": "Julio",
+    "agosto": "Agosto",
+    "septiembre": "Septiembre",
+    "octubre": "Octubre",
+    "noviembre": "Noviembre",
+    "diciembre": "Diciembre"
+  },
+  "monthsShort": {
+    "ene": "Ene",
+    "feb": "Feb",
+    "mar": "Mar",
+    "abr": "Abr",
+    "may": "May",
+    "jun": "Jun",
+    "jul": "Jul",
+    "ago": "Ago",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dic": "Dic"
+  },
   "daysOfWeek": {
     "monday": "Lun",
     "tuesday": "Mar",
@@ -388,7 +416,18 @@
     "maternalSurname": "Apellido Materno",
     "birthDate": "Fecha de Nacimiento",
     "createdAt": "Fecha de Creaciòn",
-    "yearMeet": "Año de encuentro"
+    "yearMeet": "Año de encuentro",
+    "nationality": "Nacionalidad",
+    "gender": "Género",
+    "male": "Masculino",
+    "female": "Femenino",
+    "company": "Empresa",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "save": "Guardar",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "required": "Requerido"
   },
   "name": {
     "title": "Nombre",
@@ -675,7 +714,11 @@
       "deleted": "¡Eliminado!",
       "deletedSuccessfully": "La nota ha sido eliminada exitosamente.",
       "error": "Error",
-      "deleteError": "No se pudo eliminar la nota. Por favor, inténtalo de nuevo."
+      "deleteError": "No se pudo eliminar la nota. Por favor, inténtalo de nuevo.",
+      "noNotes": "No hay notas disponibles para este consultor.",
+      "history": "Historial de Notas",
+      "notesConsultant": "Notas del Consultor",
+      "page": "Página"
     },
     "list": {
       "deleteConfirm": "¿Estás seguro de que quieres eliminar este consultante?",
@@ -684,7 +727,27 @@
       "deleted": "¡Eliminado!",
       "deletedSuccessfully": "El consultante ha sido eliminado exitosamente.",
       "error": "Error",
-      "deleteError": "No se pudo eliminar el consultante. Por favor, inténtalo de nuevo."
+      "deleteError": "No se pudo eliminar el consultante. Por favor, inténtalo de nuevo.",
+      "noConsultants": "No tienes consultantes registrados aún",
+      "useForm": "Usa el formulario de arriba para agregar tu primer consultante",
+      "noConsultantsFound": "No se encontraron consultantes con ese nombre",
+      "tryAnotherSearch": "Intenta con otro término de búsqueda"
+    },
+    "page": {
+      "title": "Gestión de Consultantes",
+      "subtitle": "Agrega nuevos consultantes y gestiona tu historial",
+      "name": "Nombre",
+      "birthDate": "Fecha de Nacimiento",
+      "actions": "Acciones",
+      "showNotes": "Ver Notas del Consultor",
+      "addConsultant": "Agregar Consultante",
+      "history": "Historial",
+      "profile": "Perfil del Consultante",
+      "search": "Buscar",
+      "selectConsultant": "Selecciona un consultante",
+      "selectConsultantMessage": "Elige un consultante del historial para ver su perfil completo",
+      "professionalData": "Datos Profesionales",
+      "lastConsult": "Última Consulta"
     }
   },
   "common": {

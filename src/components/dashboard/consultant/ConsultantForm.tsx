@@ -36,19 +36,19 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     let isValid = true;
     let validationMsgs = {};
     if (names === '') {
-      validationMsgs = { ...validationMsgs, names: 'Requerido' };
+      validationMsgs = { ...validationMsgs, names: t('forms.required') };
       isValid = false;
     }
     if (lastName === '') {
-      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, lastName: t('forms.required') };
       isValid = false;
     }
     if (scdLastName === '') {
-      validationMsgs = { ...validationMsgs, scdLastName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, scdLastName: t('forms.required') };
       isValid = false;
     }
     if (date === '') {
-      validationMsgs = { ...validationMsgs, date: 'Requerido' };
+      validationMsgs = { ...validationMsgs, date: t('forms.required') };
       isValid = false;
     }
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
@@ -117,7 +117,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
       <div className="flex w-full">
         <div className="form-group w-1/3 relative">
           <p className="font-bold mb-1">
-            Nombre(s)
+            {t('forms.names')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -132,7 +132,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
         </div>
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Apellido Paterno
+            {t('forms.paternalSurname')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -146,7 +146,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
         </div>
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Apellido Materno
+            {t('forms.maternalSurname')}
             <span className="text-red-800">*</span>
           </p>
           <input
@@ -175,7 +175,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.date) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.date}</p>}
         </div>
         <div className="form-group w-1/3">
-          <p className="font-bold mb-1">Nacionalidad</p>
+          <p className="font-bold mb-1">{t('forms.nationality')}</p>
           <select
             name="nationality"
             className="rounded border h-[30px] border-[#C4C4C4]  w-11/12 "
@@ -193,7 +193,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
           </select>
         </div>
         <div className="form-group w-1/3">
-          <p className="font-bold mb-1">Sexo</p>
+          <p className="font-bold mb-1">{t('forms.gender')}</p>
           <select
             name="gender"
             className="rounded border h-[30px] border-[#C4C4C4] px-2 w-11/12"
@@ -201,15 +201,15 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
             value={gender}
           >
             <option value="">-</option>
-            <option value="F">Femenino</option>
-            <option value="M">Masculino</option>
+            <option value="F">{t('forms.female')}</option>
+            <option value="M">{t('forms.male')}</option>
           </select>
         </div>
       </div>
       <div className="flex w-full mt-3">
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Empresa
+            {t('forms.company')}
           </p>
           <input
             type="text"
@@ -221,7 +221,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
         </div>
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Teléfono
+            {t('forms.phone')}
           </p>
           <input
             type="tel"
@@ -233,7 +233,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
         </div>
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Correo electrónico
+            {t('forms.email')}
           </p>
           <input
             type="text"
@@ -250,13 +250,13 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
             ? (
               <div className="text-center flex justify-center items-center flex-col">
                 <img src="/assets/navbar/add_user.svg" className="mb-3" alt="addUserMain" />
-                <button type="submit" className="btn w-full" disabled={isLoading}>Guardar</button>
+                <button type="submit" className="btn w-full" disabled={isLoading}>{t('forms.save')}</button>
               </div>
             )
             : (
               <div className="w-full flex flex-wrap">
-                <button className="w-full btn mb-3 bg-[#0000ff]" type="submit">Confirmar</button>
-                <button className="w-full btn bg-[#ff0000]" type="button" disabled={isLoading} onClick={() => { handleIsEditingConsultant(false); }}>Cancelar</button>
+                <button className="w-full btn mb-3 bg-[#0000ff]" type="submit">{t('forms.confirm')}</button>
+                <button className="w-full btn bg-[#ff0000]" type="button" disabled={isLoading} onClick={() => { handleIsEditingConsultant(false); }}>{t('forms.cancel')}</button>
               </div>
             )}
           {formError && (

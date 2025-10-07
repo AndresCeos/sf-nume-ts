@@ -24,10 +24,10 @@ function ConsultantProfile() {
           alt="welcome"
         />
         <h3 className="text-main text-lg font-bold mb-2">
-          Selecciona un consultante
+          {t('consultant.page.selectConsultant')}
         </h3>
         <p className="text-gray-600 text-sm">
-          Elige un consultante del historial para ver su perfil completo
+          {t('consultant.page.selectConsultantMessage')}
         </p>
       </div>
     );
@@ -51,11 +51,13 @@ function ConsultantProfile() {
         <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long', locale: t('locale') as string }) : '-'}</strong>
         <div className="flex justify-between mb-1">
           <div className="text-13 leading-7">
-            Nacionalidad:
+            {t('forms.nationality')}
+            :
             <strong>{consultantInfo?.nationality || '-'}</strong>
           </div>
           <div className="text-13 leading-7">
-            Sexo:
+            {t('forms.gender')}
+            :
             <strong>{consultantInfo?.gender || '-'}</strong>
           </div>
         </div>
@@ -65,11 +67,15 @@ function ConsultantProfile() {
       </div>
       <div className="px-7 pt-3 pb-7">
         <div className="text-13 text-main font-bold py-2">
-          <p>Datos Profesionales</p>
+          <p>{t('consultant.page.professionalData')}</p>
         </div>
         <div className="text-13">
           <li>
-            <strong>Empresa: </strong>
+            <strong>
+              {t('forms.company')}
+              :
+              {' '}
+            </strong>
             {consultantInfo?.company || '-'}
           </li>
         </div>
@@ -77,7 +83,7 @@ function ConsultantProfile() {
       <div>
         {showModal
         && (
-        <MyModal size="large" title="Historial de Notas" isOpen={showModal} setIsOpen={setShowModal} icon isLoading={false}>
+        <MyModal size="large" title={t('consultant.notes.history')} isOpen={showModal} setIsOpen={setShowModal} icon isLoading={false}>
           <ConsultantModalNotes item={consultantInfo?.notes} />
         </MyModal>
         )}
