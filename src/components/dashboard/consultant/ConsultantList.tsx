@@ -28,13 +28,12 @@ function ConsultantList({ searchUser }: Props) {
   };
   const handleDeleteUser = (user:Api.Consultant) => {
     Swal.fire({
-      title: '¿Estás segur@?',
-      text: 'Se borrar permanetemente!',
+      title: t('consultant.list.deleteConfirm') as string,
       icon: 'warning',
       confirmButtonColor: '#E28A05',
       showCancelButton: true,
-      confirmButtonText: 'Confirmar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t('forms.confirm') as string,
+      cancelButtonText: t('forms.cancel') as string,
       cancelButtonColor: '#ff0000',
       reverseButtons: true,
     }).then((result) => {
@@ -42,14 +41,14 @@ function ConsultantList({ searchUser }: Props) {
         const consultantToDelete = handleConsultants.removeConsultant(user.id);
         deleteConsultantAsync.mutateAsync(consultantToDelete).then(() => {
           Swal.fire(
-            'Listo',
-            'Consultante Borrado',
+            t('consultant.list.deleted') as string,
+            t('consultant.list.deletedSuccessfully') as string,
             'success',
           );
-        }).catch((err) => {
+        }).catch(() => {
           Swal.fire(
-            'Oups',
-            `Ocurrio un error:${err}`,
+            t('consultant.list.error') as string,
+            t('consultant.list.deleteError') as string,
             'error',
           );
         });
@@ -69,10 +68,10 @@ function ConsultantList({ searchUser }: Props) {
           alt="welcome"
         />
         <p className="text-gray-600 text-sm">
-          No tienes consultantes registrados aún
+          {t('consultant.list.noConsultants')}
         </p>
         <p className="text-gray-500 text-xs mt-1">
-          Usa el formulario de arriba para agregar tu primer consultante
+          {t('consultant.list.useForm')}
         </p>
       </div>
     );
@@ -83,10 +82,10 @@ function ConsultantList({ searchUser }: Props) {
     return (
       <div className="flex flex-col items-center justify-center py-6 text-center">
         <p className="text-gray-600 text-sm">
-          No se encontraron consultantes con ese nombre
+          {t('consultant.list.noConsultantsFound')}
         </p>
         <p className="text-gray-500 text-xs mt-1">
-          Intenta con otro término de búsqueda
+          {t('consultant.list.tryAnotherSearch')}
         </p>
       </div>
     );
