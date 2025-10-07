@@ -13,7 +13,7 @@
 }
 
 .modal-header {
-  background: #693061; /* Color sólido en lugar de gradiente */
+  background: #7f4577; /* Color sólido en lugar de gradiente */
   position: relative;
   overflow: hidden;
 }
@@ -59,7 +59,7 @@
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background: #693061;
+  background: #7f4577;
 }
 
 /* Área de visualización del PDF con altura aumentada */
@@ -168,7 +168,7 @@
 }
 
 .generate-button {
-  background: #693061; /* Color sólido en lugar de gradiente */
+  background: #7f4577; /* Color sólido en lugar de gradiente */
   color: white;
   border: none;
   border-radius: 12px;
@@ -359,7 +359,7 @@
 
 /* Estilos para el botón de generar - COLOR SÓLIDO */
 .generate-btn {
-  background: #693061; /* Color sólido en lugar de gradiente */
+  background: #7f4577; /* Color sólido en lugar de gradiente */
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
@@ -397,7 +397,7 @@
 
 /* Estilos para el footer del modal */
 .modal-footer {
-  background: #693061; /* Color sólido en lugar de gradiente */
+  background: #7f4577; /* Color sólido en lugar de gradiente */
   height: 4px;
   border-radius: 0 0 16px 16px;
 }

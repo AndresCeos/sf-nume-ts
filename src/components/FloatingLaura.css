@@ -59,7 +59,7 @@
 
 /* Header con fondo morado */
 .floating-laura-header {
-  background: #6A2C70;
+  background: #7f4577;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
@@ -132,7 +132,7 @@
 
 .floating-laura-back-link {
   font-size: 16px;
-  color: #6A2C70;
+  color: #7f4577;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
@@ -169,7 +169,7 @@
 
 .floating-laura-search-input:focus {
   outline: none;
-  border-color: #6A2C70;
+  border-color: #7f4577;
   box-shadow: 0 0 0 3px rgba(106, 44, 112, 0.1);
 }
 
@@ -204,7 +204,7 @@
 
 .floating-laura-term-item:hover {
   background: #F3F4F6;
-  border-color: #6A2C70;
+  border-color: #7f4577;
 }
 
 .floating-laura-term-title {
