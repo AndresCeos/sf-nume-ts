@@ -19,10 +19,10 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
         size="large"
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title="Notas del Consultor"
+        title={t('consultant.notes.notesConsultant')}
       >
         <div className="p-4 text-center text-gray-500">
-          No hay notas disponibles para este consultor.
+          {t('consultant.notes.noNotes')}
         </div>
       </NotesModal>
     );
@@ -46,12 +46,12 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
       size="large"
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
-      title="Notas del Consultor"
+      title={t('consultant.notes.notesConsultant')}
     >
       <div className="max-h-96 overflow-y-auto">
         {notesArray.length === 0 ? (
           <div className="p-4 text-center text-gray-500">
-            No hay notas disponibles para este consultor.
+            {t('consultant.notes.noNotes')}
           </div>
         ) : (
           notesArray.map((note) => (
@@ -70,7 +70,8 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
                     <div key={path} className="p-3 bg-white rounded-lg border-2 border-gray-200">
                       <NavLink to={`/${getTheRoute(path)}`}>
                         <div className="font-semibold text-sm text-gray-700 mb-1">
-                          Página:
+                          {t('consultant.notes.page')}
+                          :
                           {' '}
                           {pageNameBySlug({ name: path })}
                         </div>

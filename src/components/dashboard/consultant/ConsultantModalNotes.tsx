@@ -11,7 +11,7 @@ function ConsultantModalNotes(modalNote: ConsultantModalNotesProps) {
   const { item: itemNote } = modalNote;
   const { t } = useTranslation();
 
-  if (!itemNote) return <div>No notes found</div>;
+  if (!itemNote) return <div>{t('consultant.notes.noNotes')}</div>;
   const pages = Object.entries(itemNote).map((items) => items);
 
   return (

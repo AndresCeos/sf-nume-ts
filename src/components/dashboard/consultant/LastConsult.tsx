@@ -3,10 +3,11 @@ import useConsult from '@/hooks/useConsult';
 import {
   getDate, getMonth, getYear,
 } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 function LastConsult() {
   const { activeConsultant } = useConsult();
-
+  const { t } = useTranslation();
   let lastTime = '-';
   if (activeConsultant?.notes && Object.keys(activeConsultant?.notes).length > 0) {
     const date = Object.keys(activeConsultant?.notes)[Object.keys(activeConsultant?.notes).length - 1];
@@ -15,7 +16,8 @@ function LastConsult() {
   }
   return (
     <strong>
-      Última Consulta:
+      {t('consultant.page.lastConsult')}
+      :
       {lastTime}
     </strong>
   );

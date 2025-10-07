@@ -3,6 +3,7 @@ import { getYear } from 'date-fns';
 import useConsult from '@/hooks/useConsult';
 
 import { capitalize } from '@/utils/numbers';
+import { useTranslation } from 'react-i18next';
 
 interface MonthData {
   month: string;
@@ -17,6 +18,7 @@ interface QuarterData {
 
 function PathMonth() {
   const { consultant, consultationDate } = useConsult();
+  const { t } = useTranslation();
 
   if (!consultant) return null;
 
@@ -154,7 +156,7 @@ function PathMonth() {
           {consultant.calcPersonalMonth({ month: monthIndex + 1, day: 1, year: currentYear })}
           {consultant.calcPersonalMonthISK({ month: monthIndex + 1, day: 1, year: currentYear })}
           <div className={`path-month-des ${isActive ? 'path-month-active' : ''}`}>
-            {month.toUpperCase()}
+            {t(`monthsEs.${month.toLowerCase()}`)}
           </div>
         </div>
       ))}

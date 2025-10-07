@@ -27,6 +27,34 @@
     "november": "November",
     "december": "December"
   },
+  "monthsEs": {
+    "enero": "January",
+    "febrero": "February",
+    "marzo": "March",
+    "abril": "April",
+    "mayo": "May",
+    "junio": "June",
+    "julio": "July",
+    "agosto": "August",
+    "septiembre": "September",
+    "octubre": "October",
+    "noviembre": "November",
+    "diciembre": "December"
+  },
+  "monthsShort": {
+    "ene": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "abr": "Apr",
+    "may": "May",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dic": "Dec"
+  },
   "daysOfWeek": {
     "monday": "Mon",
     "tuesday": "Tue",
@@ -90,6 +118,7 @@
     "partner": {
       "selectTitle": "Select Partner",
       "partnerData": "Partner Data",
+      "data": "Data",
       "noPartnersTitle": "No Partners Available",
       "selectLabel": "Select a partner:",
       "selectPlaceholder": "Choose a partner...",
@@ -113,7 +142,9 @@
       "maxPartnerMembers": "This partner already has the maximum of 2 members allowed",
       "partnerMembers": "Partner Members",
       "years": "years",
-      "meeting": "Meeting"
+      "meeting": "Meeting",
+      "lessInfo": "Less Info",
+      "moreInfo": "More Info"
     },
     "group": {
       "selectTitle": "Select Group",
@@ -381,11 +412,22 @@
   "forms": {
     "names": "Name(s)",
     "name": "Name",
-    "paternalSurname": "Paternal Surname",
-    "maternalSurname": "Maternal Surname",
+    "paternalSurname": "Last Name",
+    "maternalSurname": "Second Last Name",
     "birthDate": "Birth Date",
     "createdAt": "Creation Date",
-    "yearMeet": "Meeting Year"
+    "yearMeet": "Meeting Year",
+    "nationality": "Nationality",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "company": "Company",
+    "phone": "Phone",
+    "email": "Email",
+    "save": "Save",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "required": "Required"
   },
   "name": {
     "title": "Name",
@@ -557,6 +599,8 @@
   },
   "group": {
     "title": "Group Management",
+    "lessInfo": "Less Info",
+    "moreInfo": "More Info",
     "management": "Management",
     "createGroup": "Create Group",
     "editGroup": "Edit Group",
@@ -668,7 +712,11 @@
       "deleted": "Deleted!",
       "deletedSuccessfully": "The note has been successfully deleted.",
       "error": "Error",
-      "deleteError": "Could not delete the note. Please try again."
+      "deleteError": "Could not delete the note. Please try again.",
+      "noNotes": "No notes available for this consultant.",
+      "history": "Notes History",
+      "notesConsultant": "Consultant Notes",
+      "page": "Page"
     },
     "list": {
       "deleteConfirm": "Are you sure you want to delete this consultant?",
@@ -677,39 +725,28 @@
       "deleted": "Deleted!",
       "deletedSuccessfully": "The consultant has been successfully deleted.",
       "error": "Error",
-      "deleteError": "Could not delete the consultant. Please try again."
-    }
-  },
-  "modal": {
-    "partner": {
-      "selectTitle": "Select Partner",
-      "noPartnersTitle": "No Partners Available",
-      "selectLabel": "Select a partner:",
-      "selectPlaceholder": "Choose a partner...",
-      "cancel": "Cancel",
-      "save": "Save",
-      "noPartnersMessage": "You don't have any partners created yet",
-      "noPartnersSubMessage": "Create your first partner to get started",
-      "createPartner": "Create Partner"
+      "deleteError": "Could not delete the consultant. Please try again.",
+      "noConsultants": "No consultants registered yet",
+      "useForm": "Use the form above to add your first consultant",
+      "noConsultantsFound": "No consultants found with that name",
+      "tryAnotherSearch": "Try another search term"
     },
-    "group": {
-      "selectTitle": "Select Group",
-      "noGroupsTitle": "No Groups Available",
-      "selectLabel": "Select a group:",
-      "selectPlaceholder": "Choose a group...",
-      "cancel": "Cancel",
-      "save": "Save",
-      "noGroupsMessage": "You don't have any groups created yet",
-      "noGroupsSubMessage": "Create your first group to get started",
-      "createGroup": "Create Group"
+    "page": {
+      "title": "Consultant Management",
+      "subtitle": "Add new consultants and manage your history",
+      "name": "Name",
+      "birthDate": "Birth Date",
+      "actions": "Actions",
+      "showNotes": "Show Consultant Notes",
+      "addConsultant": "Add Consultant",
+      "history": "History",
+      "profile": "Consultant Profile",
+      "search": "Search",
+      "selectConsultant": "Select a consultant",
+      "selectConsultantMessage": "Select a consultant from the history to view their full profile",
+      "professionalData": "Professional Data",
+      "lastConsult": "Last Consult"
     }
-  },
-  "home": {
-    "person": "Person",
-    "personal": "Personal",
-    "partner": "Partner",
-    "partneral": "Partner",
-    "selectPartner": "Select Partner"
   },
   "common": {
     "create": "Create",

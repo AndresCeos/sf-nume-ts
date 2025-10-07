@@ -15,7 +15,7 @@ export default function QuarterCircle({ value, months, isActive }: Omit<QuarterD
     >
       {value}
       <div className={`path-quarter-des ${isActive ? 'path-quater-active' : ''}`}>
-        {months.toUpperCase()}
+        {months}
       </div>
     </div>
   );
