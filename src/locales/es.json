@@ -63,7 +63,7 @@
     "annualCalendar": "Calendario Anual",
     "monthlyCalendar": "Calendario Mensual",
     "partnerNumerology": "Numerología de Pareja",
-    "analysis": "Análisis",
+    "analysis": "Pináculo",
     "destinyTableP": "Tabla del Destino P.",
     "compatibilityTable": "Tabla Compatibilidad",
     "groupNumerology": "Numerología de Grupo",
@@ -90,6 +90,7 @@
     "partner": {
       "selectTitle": "Seleccionar Pareja",
       "partnerData": "Datos de Pareja",
+      "data": "Datos",
       "noPartnersTitle": "No hay Parejas Disponibles",
       "selectLabel": "Selecciona una pareja:",
       "selectPlaceholder": "Elige una pareja...",
@@ -106,14 +107,16 @@
       "yearMeet": "Año en que se conocieron",
       "partnerInfo": "Información de Pareja",
       "partnerInfoMessage": "Después de crear la pareja, podrás agregar hasta 2 personas.\nCada grupo representa una relación específica con su propio año de encuentro.",
-      "assignParner": "Asignar Pareja",
+      "assignPartner": "Asignar Pareja",
       "partner": "Pareja",
-      "addMember": "Agregar Integrante a la Pareja",
+      "addMember": "Agregar Integrante",
       "noPartnerMembers": "Esta parejano cuenta con integrantes",
       "maxPartnerMembers": "Esta pareja ya tiene el máximo de 2 integrantes permitidos",
       "partnerMembers": "Integrantes de la pareja",
       "years": "años",
-      "meeting": "Encuentro"
+      "meeting": "Encuentro",
+      "lessInfo": "Ver menos información",
+      "moreInfo": "Ver más información"
     },
     "group": {
       "selectTitle": "Seleccionar Grupo",
@@ -559,6 +562,8 @@
   },
   "group": {
     "title": "Gestión de Grupos",
+    "lessInfo": "Ver menos información",
+    "moreInfo": "Ver más información",
     "management": "Gestión",
     "createGroup": "Crear Grupo",
     "editGroup": "Editar Grupo",

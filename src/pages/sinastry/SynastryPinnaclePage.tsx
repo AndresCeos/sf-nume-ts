@@ -143,7 +143,7 @@ export default function SynastryPinnaclePage() {
     <div className="page-content bg-cover pb-10">
       <SelectPartner />
 
-      <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
+      <div className="grid grid-cols-12 gap-6 mt-8">
         {/* Synastry Metrics */}
         <div className="col-span-4 mb-1">
           <SectionTitle

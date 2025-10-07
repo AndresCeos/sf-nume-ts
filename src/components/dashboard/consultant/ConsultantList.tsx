@@ -31,11 +31,11 @@ function ConsultantList({ searchUser }: Props) {
       title: '¿Estás segur@?',
       text: 'Se borrar permanetemente!',
       icon: 'warning',
-      confirmButtonColor: '#ff0000',
+      confirmButtonColor: '#E28A05',
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
       cancelButtonText: 'Cancelar',
-      cancelButtonColor: '#E28A05',
+      cancelButtonColor: '#ff0000',
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {

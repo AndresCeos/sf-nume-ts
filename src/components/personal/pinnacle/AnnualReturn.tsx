@@ -24,7 +24,7 @@ function AnnualReturn({
 }: AnnualReturnProps) {
   const { t } = useTranslation();
   const fontSize = { xs: 'xs', xl: 'xl' };
-  const marginBottom = { xs: '4', xl: '8' };
+  const marginBottom = { xs: '7', xl: '8' };
 
   // TODO: refactor this
   const calcAge = (age: number, year: number) => {

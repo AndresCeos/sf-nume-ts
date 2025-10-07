@@ -4,7 +4,7 @@ import Person from '@/resources/Person';
 type PinnacleProps = {
   size: 'small' | 'lg';
   consultant: Person | Group;
-  main: 'bg-active-radial' | 'bg-white';
+  main: 'bg-active-radial' | 'bg-white' | '';
 };
 
 function GroupPinnacle({ size, consultant, main }: PinnacleProps) {

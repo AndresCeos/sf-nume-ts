@@ -9,7 +9,7 @@ import GroupFormInLine from './GroupFormInLine';
 
 export default function SelectGroup() {
   const {
-    groupsAvailable, isEditingConsultant, handleIsEditingConsultant,
+    groupsAvailable, isEditingConsultant, handleIsEditingConsultant, activeGroup,
   } = useContext(ConsultContext);
   const { t } = useTranslation();
 
@@ -25,6 +25,14 @@ export default function SelectGroup() {
     }
   }, [groupsAvailable]);
 
+  useEffect(() => {
+    if (activeGroup) {
+      setIsCollapsed(true);
+    } else {
+      setIsCollapsed(false);
+    }
+  }, [activeGroup]);
+
   const handleEditGroup = () => {
     handleIsEditingConsultant(!isEditingConsultant);
   };
@@ -32,9 +40,10 @@ export default function SelectGroup() {
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+  console.log(activeGroup);
 
   return (
-    <div className="grid mt-8 mx-14 col-span-12 mb-10 ">
+    <div className="grid mt-8 col-span-12  ">
       <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
         <div className="flex items-center">
           <div
@@ -70,7 +79,7 @@ export default function SelectGroup() {
       <div
         className={`pinnacle-wrap px-8 py-8 transition-all duration-300 ease-in-out overflow-hidden ${
           isCollapsed
-            ? 'max-h-0 py-0 opacity-0'
+            ? 'max-h-0 !py-0 opacity-0'
             : 'max-h-[2000px] opacity-100'
         }`}
       >

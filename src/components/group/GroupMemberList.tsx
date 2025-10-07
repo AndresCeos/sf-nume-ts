@@ -25,6 +25,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   const currentActiveGroup = groupsAvailable.find((g) => g.id === activeGroup.id) || activeGroup;
   const [isAddMemberActive, setIsAddMemberActive] = useState(false);
   const [editingMember, setEditingMember] = useState<Api.GroupMember | null>(null);
+  const [showMemberInfo, setShowMemberInfo] = useState(false);
 
   if (!activeConsultant || !activeGroup) return null;
 
@@ -44,8 +45,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
       text: t('group.alerts.confirmDeleteMember', { memberName }) as string,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#ff0000',
       confirmButtonText: t('group.alerts.yesDelete') as string,
       cancelButtonText: t('group.cancel') as string,
     });
@@ -124,20 +125,27 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       {/* Add Member Button */}
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between mb-4">
         <button
           type="button"
           onClick={() => setIsAddMemberActive(true)}
-          className="bg-gold text-white px-4 py-2 rounded text-sm font-medium"
+          className="bg-main text-white px-4 py-2 rounded-3xl text-sm font-bold"
         >
           {t('group.addMember')}
+        </button>
+        <button
+          type="button"
+          onClick={() => setShowMemberInfo(!showMemberInfo)}
+          className="text-sm text-main"
+        >
+          {showMemberInfo ? t('group.lessInfo') : t('group.moreInfo')}
         </button>
       </div>
 
       {/* Members List */}
-      {currentActiveGroup.members && currentActiveGroup.members.length > 0 ? (
+      {currentActiveGroup.members && currentActiveGroup.members.length > 0 && showMemberInfo ? (
         <div className="space-y-3">
           {currentActiveGroup.members.map((member) => {
             const memberPerson = convertMemberToPerson(member);
@@ -190,10 +198,8 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
           })}
         </div>
       ) : (
-        <div className="text-center py-8 text-gray-500">
-          <img src={add_user_group} className="w-16 h-16 mx-auto mb-4 opacity-50" alt="no members" />
-          <p>{t('group.noMembersInThisGroup')}</p>
-          <p className="text-sm">{t('group.clickToAddMember')}</p>
+        <div className="text-center text-gray-500">
+          {!showMemberInfo ? <p className="text-sm">{t('group.noMembersInThisGroup')}</p> : ''}
         </div>
       )}
     </div>

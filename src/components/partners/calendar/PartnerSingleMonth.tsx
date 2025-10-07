@@ -105,6 +105,7 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
           </div>
           <div className="text-2xl col-start-6 col-end-8 flex justify-center items-center bg-purple-50 font-bold text-white">
             {t('annualCalendar.quarter')}
+            :
             {consultant.getQuarterMonth(selectedMonth, calculationDate.year)}
             {consultant.getQuarterMonthISK(selectedMonth, calculationDate.year)}
           </div>

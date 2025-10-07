@@ -93,8 +93,8 @@ function PartnersSingleMonth({ month, showMonthSelector = false, consultant }: P
             <div className="text-white font-bold text-xl px-2"> / </div>
             <div className=" px-2">
               <CircleNumber size="sm" appearance="purple-30" border="main">
-                {u.calcUniversalMonth({ month: selectedMonth, year: calculationDate.year })}
-                {u.calcUniversalMonthISK({ month: selectedMonth, year: calculationDate.year })}
+                {u.calcUniversalMonth({ ...calculationDate, month: selectedMonth })}
+                {u.calcUniversalMonthISK({ ...calculationDate, month: selectedMonth })}
               </CircleNumber>
             </div>
             <div className="text-sm text-white font-bold px-2">{t('monthCalendar.universalYear')}</div>

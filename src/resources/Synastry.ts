@@ -857,11 +857,72 @@ class Synastry {
    * calculate current stage number
    * @returns {Number} stage
    */
-  getLifeStageNumber(year:number):number {
+  getLifeStageNumber(year:number): number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const age = yearToCalculate - Number(this.yearMet);
-    const lifeStage = Math.floor(age / 9);
-    return lifeStage + 1;
+    const monthCut = this.getCustomMonths();
+    const listOfMonths = this.getCustomMonths();
+    const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const indexTemp = listOfMonths.findIndex((i:string) => i === capitalize(actualMonth));
+    const indexEnero = listOfMonths.findIndex((i:string) => i === 'Enero');
+    const index = monthCut.findIndex((i:string) => i === listOfMonths[indexTemp]);
+    const start: number = Number(this.yearMet);
+    const duration = 9 - reduceNumberForSub(
+      this.getA()
+      + this.getB()
+      + start,
+    );
+    let stageOneEnd = start + duration;
+    if (duration === 0) {
+      stageOneEnd += 9;
+    }
+    const stageTwoEnd = stageOneEnd + 9;
+    const stageThrEnd = stageTwoEnd + 9;
+    const stageFouEnd = stageThrEnd + 9;
+    // let stageOne = this.getE()
+    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
+      if (indexEnero > index && yearToCalculate === stageOneEnd) {
+        return 2;
+      }
+      return 1;
+    }
+
+    // let stageTwo = this.getF()
+    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
+      if (indexEnero > index && yearToCalculate === stageTwoEnd) {
+        return 3;
+      }
+      return 2;
+    }
+    // let stageThr = this.getG()
+    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
+      if (indexEnero > index && yearToCalculate === stageThrEnd) {
+        return 4;
+      }
+      return 3;
+    }
+    // const stageFou = this.getH()
+    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
+      if (indexEnero > index && yearToCalculate === stageFouEnd) {
+        return 5;
+      }
+      return 4;
+    }
+    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
+      if (indexEnero > index && yearToCalculate === stageFouEnd + 9) {
+        return 6;
+      }
+      return 5;
+    }
+    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
+      if (indexEnero > index && yearToCalculate === stageFouEnd + 18) {
+        return 7;
+      }
+      return 6;
+    }
+    if ((stageFouEnd + 18) <= yearToCalculate) {
+      return 7;
+    }
+    return 0;
   }
 
   getDoubleLifeStageNumber(year:number):number {
@@ -1026,6 +1087,8 @@ class Synastry {
   getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
     const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
     const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
+    console.log(month);
+    console.log(year);
     const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
     const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');

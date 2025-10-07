@@ -81,7 +81,7 @@ export default function SinastryAnnualReturnsPage() {
   return (
     <div className="page-content bg-cover pb-10">
       <SelectPartner />
-      <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
+      <div className="grid grid-cols-12 gap-6 mt-8">
         <div className="col-span-12">
           <SectionTitle title={t('sinastry.returns')} color="bg-red-day" />
 

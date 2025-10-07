@@ -72,8 +72,8 @@ function TimeCircleWeeks({ consultant }: TimeCircleWeeksProps) {
     const { month, week } = layer;
     numbers.push(
       <span className={layer.className} key={`${month}-${week}`}>
-        {consultant?.calcSelectPersonalWeek(week, calculationDate)}
-        {consultant?.calcSelectPersonalWeekISK(week, calculationDate)}
+        {consultant?.calcSelectPersonalWeek(week, { ...calculationDate, month })}
+        {consultant?.calcSelectPersonalWeekISK(week, { ...calculationDate, month })}
       </span>,
     );
   });
@@ -82,11 +82,11 @@ function TimeCircleWeeks({ consultant }: TimeCircleWeeksProps) {
   for (let i = 1; i <= 12; i++) {
     numbers.push(
       <span className={`${layerMonths.className}${i}`} key={`${year}-${i}`}>
-        {consultant?.calcPersonalMonth(calculationDate)}
-        {consultant?.calcPersonalMonthISK(calculationDate)}
+        {consultant?.calcPersonalMonth({ ...calculationDate, month: i })}
+        {consultant?.calcPersonalMonthISK({ ...calculationDate, month: i })}
         /
-        {u.calcUniversalMonth({ month: i, year })}
-        {u.calcUniversalMonthISK({ month: i, year })}
+        {u.calcUniversalMonth({ ...calculationDate, month: i })}
+        {u.calcUniversalMonthISK({ ...calculationDate, month: i })}
       </span>,
     );
   }

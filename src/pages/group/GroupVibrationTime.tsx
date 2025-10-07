@@ -55,7 +55,7 @@ export default function GroupVibrationTimePage() {
   return (
     <div className="page-content bg-cover">
       <SelectGroup />
-      <div className="grid grid-cols-11 mt-8 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-11 mt-8 gap-6 pb-9">
         <div className="col-span-8">
           <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-group" />
           <div className="section-wrap px-2 py-7">

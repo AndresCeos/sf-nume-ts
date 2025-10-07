@@ -123,7 +123,7 @@ function CreateNamePage() {
   // Función para manejar cambios en inputs
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      name, value, checked,
+      name, value,
     } = e.target;
     if (name === 'name') {
       setInputName(value);
@@ -133,8 +133,6 @@ function CreateNamePage() {
       setInputScdLastName(value);
     } else if (name === 'date') {
       setInputDate(new Date(value));
-    } else if (name === 'isPerson') {
-      setIsPerson(checked);
     }
     // Resetear cálculos cuando se cambian los inputs
     setHasCalculated(false);
@@ -283,8 +281,8 @@ function CreateNamePage() {
         text: t('createName.deleteConfirmText', { name: nameToDelete.name }) as string,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#ff0000',
         confirmButtonText: t('createName.deleteConfirmButton') as string,
         cancelButtonText: t('createName.cancelButton') as string,
       });
@@ -473,6 +471,7 @@ function CreateNamePage() {
                     value={inputName}
                     onChange={handleInputChange}
                     className="rounded"
+                    placeholder="No uses acentos o caracteres especiales"
                   />
                 </div>
                 <div className="form-group w-1/3">
@@ -508,6 +507,7 @@ function CreateNamePage() {
                       onChange={handleInputChange}
                       className="rounded"
                       required
+                      placeholder="No uses acentos o caracteres especiales"
                     />
                   </div>
                   <div className="form-group w-1/2">
@@ -523,26 +523,55 @@ function CreateNamePage() {
                       onChange={handleInputChange}
                       className="rounded"
                       required
+                      placeholder="No uses acentos o caracteres especiales"
                     />
                   </div>
                 </div>
               )}
 
-              {/* Checkbox para indicar si es persona */}
+              {/* Radio buttons para seleccionar tipo de entidad */}
               <div className="mt-4 flex w-full">
-                <label htmlFor="isPerson-checkbox" className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    id="isPerson-checkbox"
-                    type="checkbox"
-                    name="isPerson"
-                    checked={isPerson}
-                    onChange={handleInputChange}
-                    className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                  />
-                  <span className="text-gray-700 font-medium">
-                    {t('createName.isPerson')}
-                  </span>
-                </label>
+                <div className="flex space-x-6">
+                  <label htmlFor="isPerson-radio" className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      id="isPerson-radio"
+                      type="radio"
+                      name="entityType"
+                      value="person"
+                      checked={isPerson}
+                      onChange={(e) => {
+                        setIsPerson(e.target.value === 'person');
+                        setHasCalculated(false);
+                      }}
+                      className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                    />
+                    <span className="text-gray-700 font-medium">
+                      👤
+                      {' '}
+                      {t('createName.person')}
+                    </span>
+                  </label>
+
+                  <label htmlFor="isCompany-radio" className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      id="isCompany-radio"
+                      type="radio"
+                      name="entityType"
+                      value="company"
+                      checked={!isPerson}
+                      onChange={(e) => {
+                        setIsPerson(e.target.value === 'person');
+                        setHasCalculated(false);
+                      }}
+                      className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                    />
+                    <span className="text-gray-700 font-medium">
+                      🏢
+                      {' '}
+                      {t('createName.company')}
+                    </span>
+                  </label>
+                </div>
               </div>
 
               {/* Botones de acción */}
