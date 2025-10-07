@@ -17,6 +17,7 @@ const filltable = (table: any[], fulltable: NameSettings[]) => {
 export default function DestinyTableCreateName({ createNameObj, calculationDate }: DestinyTableCreateNameProps) {
   const age = createNameObj.getYearsOld(calculationDate.year);
   const table = createNameObj.getNameSetting();
+  console.log('table', table);
   let table1: any[] = [];
   let table2: any[] = [];
   let table3: any[] = [];

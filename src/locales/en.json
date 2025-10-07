@@ -680,6 +680,37 @@
       "deleteError": "Could not delete the consultant. Please try again."
     }
   },
+  "modal": {
+    "partner": {
+      "selectTitle": "Select Partner",
+      "noPartnersTitle": "No Partners Available",
+      "selectLabel": "Select a partner:",
+      "selectPlaceholder": "Choose a partner...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "noPartnersMessage": "You don't have any partners created yet",
+      "noPartnersSubMessage": "Create your first partner to get started",
+      "createPartner": "Create Partner"
+    },
+    "group": {
+      "selectTitle": "Select Group",
+      "noGroupsTitle": "No Groups Available",
+      "selectLabel": "Select a group:",
+      "selectPlaceholder": "Choose a group...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "noGroupsMessage": "You don't have any groups created yet",
+      "noGroupsSubMessage": "Create your first group to get started",
+      "createGroup": "Create Group"
+    }
+  },
+  "home": {
+    "person": "Person",
+    "personal": "Personal",
+    "partner": "Partner",
+    "partneral": "Partner",
+    "selectPartner": "Select Partner"
+  },
   "common": {
     "create": "Create",
     "update": "Update",

@@ -133,6 +133,8 @@ function CreateNamePage() {
       setInputScdLastName(value);
     } else if (name === 'date') {
       setInputDate(new Date(value));
+    } else if (name === 'isPerson') {
+      setIsPerson(checked);
     }
     // Resetear cálculos cuando se cambian los inputs
     setHasCalculated(false);

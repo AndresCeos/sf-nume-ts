@@ -390,6 +390,7 @@ export default function SinastryDestinyTablePage() {
   const ageMeetP1 = yearMeet - getYear(person1.birthDate);
   const destinyTableP1 = person1.getDestinityTable();
   const tableFromMeetP1 = destinyTableP1.slice(ageMeetP1);
+  console.log(tableFromMeetP1);
 
   // Calculate age when they met for person2
   const ageMeetP2 = yearMeet - getYear(person2.birthDate);
