@@ -184,7 +184,7 @@ export class Universal {
     if (weekToCalculate === 2) {
       return reduceNumber(weekTwo);
     }
-    const weekThr = weekOne + weekTwo;
+    const weekThr = reduceNumber(weekOne) + reduceNumber(weekTwo);
     if (weekToCalculate === 3) {
       return reduceNumber(weekThr);
     }
