@@ -123,7 +123,7 @@ function CreateNamePage() {
   // Función para manejar cambios en inputs
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      name, value,
+      name, value, checked,
     } = e.target;
     if (name === 'name') {
       setInputName(value);
