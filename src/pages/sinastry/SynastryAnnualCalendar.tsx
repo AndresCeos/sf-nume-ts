@@ -1,5 +1,5 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -15,6 +15,7 @@ function SynastryAnnualCalendar() {
   const {
     consultant, calculationDate, activePartnerData, selectedPartnersAsPersons,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -24,8 +25,8 @@ function SynastryAnnualCalendar() {
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay pareja seleccionada</h3>
-            <p className="text-gray-600">Por favor, selecciona o crea una pareja para ver el calendario anual.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('sinastry.noPartnerSelected')}</h3>
+            <p className="text-gray-600">{t('sinastry.noPartnerSelectedMessage')}</p>
           </div>
         </div>
       </div>
@@ -38,11 +39,9 @@ function SynastryAnnualCalendar() {
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay suficientes miembros en la pareja</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('sinastry.notEnoughMembers')}</h3>
             <p className="text-gray-600">
-              La pareja &quot;
-              {activePartnerData.name}
-              &quot; necesita al menos 2 miembros para ver el calendario anual.
+              {t('sinastry.notEnoughMembersMessage', { name: activePartnerData.name })}
             </p>
           </div>
         </div>
@@ -59,7 +58,7 @@ function SynastryAnnualCalendar() {
   return (
     <div className="page-content bg-cover">
       <SelectPartner />
-      <div className="grid grid-cols-12 mt-8 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-12 mt-8 gap-6 pb-9">
         <div className="col-span-12">
           <SectionTitle title={t('annualCalendar.annualCalendar')} color="bg-red-day" />
           <div className="section-wrap px-2 py-7 grid grid-cols-2 w-full ">

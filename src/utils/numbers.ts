@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 
-import _ from 'lodash';
+import i18n from '@/utils/i18n';
 
 export function reduceNumber(number: number) {
   let reduceSum = number;
@@ -197,17 +197,61 @@ export function inclusionValue(x: string): number {
 }
 
 export function getAllMonths(): string[] {
-  return ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  return [
+    i18n.t('months.january'),
+    i18n.t('months.february'),
+    i18n.t('months.march'),
+    i18n.t('months.april'),
+    i18n.t('months.may'),
+    i18n.t('months.june'),
+    i18n.t('months.july'),
+    i18n.t('months.august'),
+    i18n.t('months.september'),
+    i18n.t('months.october'),
+    i18n.t('months.november'),
+    i18n.t('months.december'),
+  ];
 }
 
 export function getAllMonthsEnglish(): string[] {
   return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 }
+
 export function getDaysOfWeek(): string[] {
-  return ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+  return [
+    i18n.t('daysOfWeek.monday'),
+    i18n.t('daysOfWeek.tuesday'),
+    i18n.t('daysOfWeek.wednesday'),
+    i18n.t('daysOfWeek.thursday'),
+    i18n.t('daysOfWeek.friday'),
+    i18n.t('daysOfWeek.saturday'),
+    i18n.t('daysOfWeek.sunday'),
+  ];
 }
+
 export function getDaysOfWeekEnglish(): string[] {
   return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+}
+
+export function getMonthName(month: number): string {
+  if (typeof month !== 'number' || month < 1 || month > 12) {
+    return '';
+  }
+  const monthKeys = [
+    'months.january',
+    'months.february',
+    'months.march',
+    'months.april',
+    'months.may',
+    'months.june',
+    'months.july',
+    'months.august',
+    'months.september',
+    'months.october',
+    'months.november',
+    'months.december',
+  ];
+  return i18n.t(monthKeys[month - 1]);
 }
 
 type Compatibility = {
@@ -303,15 +347,6 @@ export function getResBridge(a: number, b: number): number {
   return Math.abs(result !== 0 ? result : n1);
 }
 
-export function getMonthName(month: number): string {
-  if (!_.isNumber(month) || month < 1 || month > 12) {
-    return '';
-  }
-  // Los meses en JavaScript son 0-based, por eso restamos 1
-  return new Intl.DateTimeFormat('es', {
-    month: 'long',
-  }).format(new Date(2025, month - 1, 1));
-}
 export function sliceIntoChunks(arr:number[], chunkSize:number) {
   const res = [];
   for (let i = 0; i < arr.length; i += chunkSize) {

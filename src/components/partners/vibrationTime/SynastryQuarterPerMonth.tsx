@@ -2,6 +2,7 @@
 import useConsult from '@/hooks/useConsult';
 import Group from '@/resources/Group';
 import Synastry from '@/resources/Synastry';
+import { useTranslation } from 'react-i18next';
 
 import {
   capitalize,
@@ -10,6 +11,7 @@ import {
 
 function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
   const { calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!synastry) return null;
 
   const listOfMonths = synastry.getCustomMonths();
@@ -52,9 +54,9 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
 
   switch (index) {
     case 0:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[4]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      monthsValues.monthThree = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[4] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwo}${personalQuarter.quarterTwoISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThree}${personalQuarter.quarterThreeISK}`;
@@ -63,10 +65,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth >= 9 && currentMonth <= 11) { monthsValues.isMonthThree = true; }
       break;
     case 1:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[4]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      monthsValues.monthThree = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthFour = `En ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[4] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthFour = t('quarters.inMonth', { month: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
@@ -78,10 +80,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       break;
     case 2:
     case 3:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[4]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      monthsValues.monthThree = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthFour = `De ${listOfMonths[0]} a ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[4] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthFour = t('quarters.monthRange', { from: listOfMonths[0], to: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
@@ -92,10 +94,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth >= 0 && currentMonth <= 2) { monthsValues.isMonthFour = true; }
       break;
     case 4:
-      monthsValues.monthOne = `En ${listOfMonths[index]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      monthsValues.monthThree = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthFour = `De ${listOfMonths[0]} a ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.inMonth', { month: listOfMonths[index] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthFour = t('quarters.monthRange', { from: listOfMonths[0], to: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
@@ -106,9 +108,9 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth >= 0 && currentMonth <= 7) { monthsValues.isMonthFour = true; }
       break;
     case 5:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[8]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthThree = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[8] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[12], to: listOfMonths[4] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
@@ -118,10 +120,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
 
       break;
     case 6:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[8]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthThree = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
-      monthsValues.monthFour = `En ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[8] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[12], to: listOfMonths[4] });
+      monthsValues.monthFour = t('quarters.inMonth', { month: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
@@ -132,10 +134,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth === 5) { monthsValues.isMonthFour = true; }
       break;
     case 7:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[8]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthThree = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
-      monthsValues.monthFour = `De ${listOfMonths[5]} a ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[8] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[12], to: listOfMonths[4] });
+      monthsValues.monthFour = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
@@ -146,10 +148,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth >= 5 && currentMonth <= index - 1) { monthsValues.isMonthFour = true; }
       break;
     case 8:
-      monthsValues.monthOne = `En ${listOfMonths[index]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[9]} a ${listOfMonths[11]}`;
-      monthsValues.monthThree = `De ${listOfMonths[12]} a ${listOfMonths[4]}`;
-      monthsValues.monthFour = `De ${listOfMonths[5]} a ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.inMonth', { month: listOfMonths[index] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[11] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[12], to: listOfMonths[4] });
+      monthsValues.monthFour = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[index - 1] });
 
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwoLast}${personalQuarter.quarterTwoLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
@@ -161,9 +163,9 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth >= 5 && currentMonth <= 7) { monthsValues.isMonthFour = true; }
       break;
     case 9:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[11]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[0]} a ${listOfMonths[4]}`;
-      monthsValues.monthThree = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[11] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[0], to: listOfMonths[4] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwo}${personalQuarter.quarterTwoISK}`;
@@ -173,10 +175,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
 
       break;
     case 10:
-      monthsValues.monthOne = `De ${listOfMonths[index]} a ${listOfMonths[11]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[0]} a ${listOfMonths[4]}`;
-      monthsValues.monthThree = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      monthsValues.monthFour = `En ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[11] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[0], to: listOfMonths[4] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
+      monthsValues.monthFour = t('quarters.inMonth', { month: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwo}${personalQuarter.quarterTwoISK}`;
@@ -187,10 +189,10 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
       if (currentMonth === index - 1) { monthsValues.isMonthFour = true; }
       break;
     case 11:
-      monthsValues.monthOne = `En ${listOfMonths[index]}`;
-      monthsValues.monthTwo = `De ${listOfMonths[0]} a ${listOfMonths[4]}`;
-      monthsValues.monthThree = `De ${listOfMonths[5]} a ${listOfMonths[8]}`;
-      monthsValues.monthFour = `De ${listOfMonths[9]} a ${listOfMonths[index - 1]}`;
+      monthsValues.monthOne = t('quarters.inMonth', { month: listOfMonths[index] });
+      monthsValues.monthTwo = t('quarters.monthRange', { from: listOfMonths[0], to: listOfMonths[4] });
+      monthsValues.monthThree = t('quarters.monthRange', { from: listOfMonths[5], to: listOfMonths[8] });
+      monthsValues.monthFour = t('quarters.monthRange', { from: listOfMonths[9], to: listOfMonths[index - 1] });
       monthsValues.monthOneValue = `${personalYear + personalYearISK}/${personalQuarter.quarterThreeLast}${personalQuarter.quarterThreeLastISK}`;
       monthsValues.monthTwoValue = `${personalYear + personalYearISK}/${personalQuarter.quarterOne}${personalQuarter.quarterOneISK}`;
       monthsValues.monthThreeValue = `${personalYear + personalYearISK}/${personalQuarter.quarterTwo}${personalQuarter.quarterTwoISK}`;

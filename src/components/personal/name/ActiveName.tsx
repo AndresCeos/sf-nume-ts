@@ -13,6 +13,7 @@ export default function ActiveName({
   const { consultationDate: newDate, consultant } = useConsult();
 
   if (!consultant) return null;
+  if (table.length === 0) return null;
 
   const consultantAge = consultant.getYearsOld(newDate.getFullYear());
   const isCycle = (i: number) => (i === consultantAge ? false : nameCycles.includes(i));
@@ -42,7 +43,7 @@ export default function ActiveName({
         </div>
       </div>
       {table.map((el: any, i: number) => (
-        <div className="w-8">
+        <div className="w-8" key={el.timestamp}>
           <div className={`h-30 text-11 ${bkConfig(i + start, 'bg-main-30')} flex items-center justify-center border-t border-gray-500 border-r w-8`}>
             {consultant.getYearOfBirth() + i + start}
             {' '}

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import NoConsultantSelected from '@/components/NoConsultantSelected';
@@ -13,6 +14,7 @@ import SectionTitle from '@/components/SectionTitle';
 
 function SynastryCompatibilityTablePage() {
   const { consultant, activePartnerData, selectedPartnersAsPersons } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   if (!consultant) {
     return <NoConsultantSelected />;
@@ -23,7 +25,7 @@ function SynastryCompatibilityTablePage() {
       <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
         <SelectPartner />
         <div className="col-span-12 text-center">
-          <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la tabla de compatibilidad</strong>
+          <strong>{t('sinastry.selectPartnerForCompatibilityTable')}</strong>
         </div>
       </div>
     );
@@ -38,14 +40,14 @@ function SynastryCompatibilityTablePage() {
       <SelectPartner />
 
       <div className="col-span-12 mb-5">
-        <SectionTitle title="Tabla de Compatibilidad" color="bg-red-day" />
+        <SectionTitle title={t('sinastry.compatibilityTable.title')} color="bg-red-day" />
         <div className="pinnacle-wrap grid grid-cols-12 px-4 py-8 w-full">
-          <div className="col-start-1 col-span-3 row-start-1 bg-main border border-black text-white p-5 font-bold">Cuadro Comparativo</div>
-          <div className="col-start-4 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">Persona 1</div>
-          <div className="col-start-6 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">Persona 2</div>
-          <div className="col-start-8 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">Conexión Numérica</div>
+          <div className="col-start-1 col-span-3 row-start-1 bg-main border border-black text-white p-5 font-bold">{t('sinastry.compatibilityTable.comparativeTable')}</div>
+          <div className="col-start-4 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">{t('sinastry.compatibilityTable.person1')}</div>
+          <div className="col-start-6 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">{t('sinastry.compatibilityTable.person2')}</div>
+          <div className="col-start-8 row-start-1 col-span-2 bg-main border border-black text-white p-5 font-bold">{t('sinastry.compatibilityTable.numericConnection')}</div>
 
-          <div className="col-start-1 col-span-3 row-start-2 bg-purple-30 border border-black p-4 font-bold">Número del Alma</div>
+          <div className="col-start-1 col-span-3 row-start-2 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.soulNumber')}</div>
           <div className="col-start-4 row-start-2 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.calcSoulNumber()}
@@ -64,7 +66,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-3 bg-purple-30 border border-black p-4 font-bold">Número de Expresión del Alma</div>
+          <div className="col-start-1 col-span-3 row-start-3 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.soulExpression')}</div>
           <div className="col-start-4 row-start-3 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.calcSoulExpression()}
@@ -83,7 +85,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-4 bg-purple-30 border border-black p-4 font-bold">Número de Poder del Nombre</div>
+          <div className="col-start-1 col-span-3 row-start-4 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.namePower')}</div>
           <div className="col-start-4 row-start-4 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.calcName()}
@@ -102,7 +104,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-5 bg-purple-30 border border-black p-4 font-bold">Número Personal</div>
+          <div className="col-start-1 col-span-3 row-start-5 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.personalNumber')}</div>
           <div className="col-start-4 row-start-5 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.getB()}
@@ -121,7 +123,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-6 bg-purple-30 border border-black p-4 font-bold">Número de la Personalidad</div>
+          <div className="col-start-1 col-span-3 row-start-6 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.personalityNumber')}</div>
           <div className="col-start-4 row-start-6 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.getD()}
@@ -140,7 +142,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-7 bg-purple-30 border border-black p-4 font-bold">Número del Subconsciente</div>
+          <div className="col-start-1 col-span-3 row-start-7 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.subconscious')}</div>
           <div className="col-start-4 row-start-7 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.getI()}
@@ -159,7 +161,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-8 bg-purple-30 border border-black p-4 font-bold">Número del Destino</div>
+          <div className="col-start-1 col-span-3 row-start-8 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.destinyNumber')}</div>
           <div className="col-start-4 row-start-8 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.getH()}
@@ -178,7 +180,7 @@ function SynastryCompatibilityTablePage() {
             </CircleNumber>
           </div>
 
-          <div className="col-start-1 col-span-3 row-start-9 bg-purple-30 border border-black p-4 font-bold">Número de la Madurez</div>
+          <div className="col-start-1 col-span-3 row-start-9 bg-purple-30 border border-black p-4 font-bold">{t('sinastry.compatibilityTable.maturity')}</div>
           <div className="col-start-4 row-start-9 col-span-2 border border-black p-4 font-bold">
             <div className="cicle-year bg-gray-300 text-xl border border-black font-bold flex items-center justify-center rounded-md w-10 h-10 m-auto">
               {partner1.calcMaturity()}
@@ -203,7 +205,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-3 col-span-3 flex justify-center">
             <b>PN</b>
             {' '}
-            = Pareja Natural
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.naturalPartner')}
           </div>
           <div className="col-start-10 row-start-4 col-span-3 flex justify-center">
             <img src={pc} alt="pc" className="w-24 h-12 object-contain" />
@@ -211,7 +215,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-5 col-span-3 flex justify-center">
             <b>PC</b>
             {' '}
-            = Pareja Compatible
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.compatiblePartner')}
           </div>
           <div className="col-start-10 row-start-6 col-span-3 flex justify-center">
             <img src={pd} alt="pd" className="w-24 h-12 object-contain" />
@@ -219,7 +225,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-7 col-span-3 flex justify-center">
             <b>PD</b>
             {' '}
-            = Pareja Desafío
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.challengePartner')}
           </div>
           <div className="col-start-10 row-start-8 col-span-3 flex justify-center">
             <img src={pne} alt="pne" className="w-24 h-12 object-contain" />
@@ -227,7 +235,9 @@ function SynastryCompatibilityTablePage() {
           <div className="col-start-10 row-start-9 col-span-3 flex justify-center">
             <b>PNe</b>
             {' '}
-            = Pareja Neutral
+            =
+            {' '}
+            {t('sinastry.compatibilityTable.neutralPartner')}
           </div>
         </div>
       </div>

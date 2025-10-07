@@ -46,7 +46,6 @@ function PartnerSelectionModal({
 
     const selectedPartner = partnerData.find((p) => p.id === selectedPartnerId);
 
-    console.log('selectedPartner', selectedPartner);
     if (selectedPartner) {
       const newConsultant: Api.Consultant = {
         ...activeConsultant,
@@ -132,7 +131,7 @@ function PartnerSelectionModal({
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="btn btn-secondary"
+              className="btn btn-cancel"
             >
               {t('modal.partner.cancel')}
             </button>
@@ -161,7 +160,7 @@ function PartnerSelectionModal({
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="btn btn-secondary"
+              className="btn btn-cancel"
             >
               {t('modal.partner.cancel')}
             </button>

@@ -1,6 +1,5 @@
-import { t } from 'i18next';
-
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { capitalize } from 'lodash';
 
@@ -19,6 +18,7 @@ type SingleMonthsProps = {
 function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
   const { consultant, calculationDate } = useConsult();
   const [selectedMonth, setSelectedMonth] = useState(month);
+  const { t } = useTranslation();
 
   if (!consultant) return null;
   const u = new Universal();
@@ -93,8 +93,8 @@ function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
             <div className="text-white font-bold text-xl px-2"> / </div>
             <div className=" px-2">
               <CircleNumber size="sm" appearance="purple-30" border="main">
-                {u.calcUniversalMonth({ month: selectedMonth, year: calculationDate.year })}
-                {u.calcUniversalMonthISK({ month: selectedMonth, year: calculationDate.year })}
+                {u.calcUniversalMonth({ ...calculationDate, month: selectedMonth })}
+                {u.calcUniversalMonthISK({ ...calculationDate, month: selectedMonth })}
               </CircleNumber>
             </div>
             <div className="text-sm text-white font-bold px-2">{t('monthCalendar.universalYear')}</div>
@@ -102,6 +102,7 @@ function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
           </div>
           <div className="text-2xl col-start-6 col-end-8 flex justify-center items-center bg-purple-50 font-bold text-white">
             {t('annualCalendar.quarter')}
+            :
             {consultant.getQuarterMonth(selectedMonth, calculationDate.year)}
             {consultant.getQuarterMonthISK(selectedMonth, calculationDate.year)}
           </div>
@@ -121,6 +122,7 @@ function SingleMonth({ month, showMonthSelector = false }: SingleMonthsProps) {
         </div>
         <div className="text-xl col-start-6 col-end-8 flex justify-center bg-purple-50 p-2 text-white">
           {t('annualCalendar.quarter')}
+          :
           {' '}
           {consultant.getQuarterMonth(personalMonth.month, personalMonth.year)}
           {consultant.getQuarterMonthISK(personalMonth.month, personalMonth.year)}

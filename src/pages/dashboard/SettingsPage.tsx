@@ -1,9 +1,15 @@
+/* eslint-disable max-len */
+import { useTranslation } from 'react-i18next';
+
 import SectionTitle from '@/components/SectionTitle';
 import SettingsForm from '@/components/dashboard/settings/SettingsForm';
 import { useAuth } from '@/context/AuthProvider';
+import { formatDate, licenseTypes } from '@/utils/constants';
 
 function SettingsPage() {
   const { user: userAuth } = useAuth();
+  const { t } = useTranslation();
+
   return (
     <div className="page-content bg-cover">
       <div className="grid grid-cols-12 mt-8 gap-4 pb-5">
@@ -17,7 +23,7 @@ function SettingsPage() {
             </div>
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-5">
           <div>
             <SectionTitle
               title="Mi Cuenta"
@@ -26,12 +32,22 @@ function SettingsPage() {
               <p className="text-13 font-bold text-gray-400">
                 Versión del Software:
                 {' '}
-                <span className="text-13 text-gray-400">{userAuth?.app_version}</span>
+                <span className="text-13 text-black">{userAuth?.app_version}</span>
               </p>
               <p className="text-13 font-bold text-gray-400">
                 Número de Licencia:
                 {' '}
-                <span className="text-13 text-gray-400">{userAuth?.license.id}</span>
+                <span className="text-13 text-black">{userAuth?.license.id}</span>
+              </p>
+              <p className="text-13 font-bold text-gray-400">
+                Fecha de expiración:
+                {' '}
+                <span className="text-13 text-black">{userAuth?.license.expirationDate ? formatDate({ date: userAuth?.license.expirationDate, format: 'long', locale: t('locale') as string }) : 'N/A'}</span>
+              </p>
+              <p className="text-13 font-bold text-gray-400">
+                Tipo de Licencia:
+                {' '}
+                <span className="text-13 text-black">{licenseTypes(userAuth?.license?.licenseId || '')}</span>
               </p>
             </div>
           </div>

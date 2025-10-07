@@ -118,8 +118,15 @@ function UniversalEnergyPartner({
       >
         <button
           type="button"
-          onClick={hasPartnerData && currentPartner ? setActive : undefined}
-          disabled={!hasPartnerData || !currentPartner}
+          onClick={() => {
+            if (hasPartnerData && currentPartner) {
+              setActive();
+            } else if (hasPartnerData) {
+              // Si hay datos pero no hay pareja seleccionada, abrir modal
+              openModal();
+            }
+          }}
+          disabled={!hasPartnerData}
           className="w-full"
         >
           {_.toUpper(t('home.energy') as string)}

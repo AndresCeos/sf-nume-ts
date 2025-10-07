@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import makeProfile from '@/api/useProfileUpdate';
 import { useAuth } from '@/context/AuthProvider';
 import useForm from '@/hooks/useForm';
+import { useTranslation } from 'react-i18next';
 
 type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
 const FORM_STATUS_INITIAL_STATE: FormStatus = { displayValidations: false, isValid: false, validationMsgs: {} };
@@ -16,6 +17,7 @@ function SettingsForm() {
 
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   const initialForm = {
     firstName: profile?.firstName,
@@ -149,7 +151,7 @@ function SettingsForm() {
           <div className="flex w-full">
             <div className="form-group w-1/3">
               <p className="font-bold mb-1 text-13">
-                Fecha de Nacimiento
+                {t('forms.birthDate')}
                 {' '}
                 <span className="text-red-400">*</span>
               </p>

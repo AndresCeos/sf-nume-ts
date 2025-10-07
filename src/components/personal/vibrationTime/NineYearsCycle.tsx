@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
@@ -7,6 +7,7 @@ import StageOne from './StageOne';
 
 function NineYearsCycle() {
   const { consultant, calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!consultant) return null;
 
   const hasDouble = consultant.hasDoubleStage();

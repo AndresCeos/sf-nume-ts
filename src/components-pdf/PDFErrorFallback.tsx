@@ -1,5 +1,6 @@
 import { PDFError } from '@/types/pdf.types';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import { useTranslation } from 'react-i18next';
 
 interface PDFErrorFallbackProps {
   error: PDFError;
@@ -66,6 +67,7 @@ export default function PDFErrorFallback({
   consultant,
   fallbackMessage = 'No se pudo generar este componente del reporte',
 }: PDFErrorFallbackProps) {
+  const { t } = useTranslation();
   const formatTimestamp = (timestamp: Date) => timestamp.toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'long',
@@ -147,7 +149,7 @@ export default function PDFErrorFallback({
           </Text>
           {consultant.birthDate && (
             <Text style={styles.errorDetails}>
-              Fecha de nacimiento:
+              {t('forms.birthDate')}
               {' '}
               {consultant.getFormattedBirthDate?.() || consultant.birthDate}
             </Text>

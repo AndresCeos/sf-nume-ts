@@ -8,13 +8,14 @@ import SectionTitle from '@/components/SectionTitle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
-import { t } from 'i18next';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function SynastryVibrationTimePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -23,7 +24,7 @@ export default function SynastryVibrationTimePage() {
       <div className="page-content bg-home-background bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
-          <strong>Selecciona un grupo de parejas con al menos 2 miembros para ver la sinastría</strong>
+          <strong>{t('sinastry.selectPartnerWithMembersMinimum')}</strong>
         </div>
       </div>
     );
@@ -36,7 +37,7 @@ export default function SynastryVibrationTimePage() {
   return (
     <div className="page-content bg-cover">
       <SelectPartner />
-      <div className="grid grid-cols-11 mt-8 gap-6 pb-9 pt-10">
+      <div className="grid grid-cols-11 mt-8 gap-6 pb-9">
         <div className="col-span-8">
 
           <SectionTitle title={t('vibrationTime.energy.energy')} color="bg-red-day" />

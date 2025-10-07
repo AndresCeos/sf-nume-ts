@@ -8,11 +8,13 @@ import { useEffect, useState } from 'react';
 import makeConsultant from '@/api/useConsultant';
 import { useAuth } from '@/context/AuthProvider';
 import useConsultants from '@/hooks/useConsultants';
+import { useTranslation } from 'react-i18next';
 
 type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
 const FORM_STATUS_INITIAL_STATE: FormStatus = { displayValidations: false, isValid: false, validationMsgs: {} };
 
 function ConsultantForm({ initialForm }: { initialForm: any }) {
+  const { t } = useTranslation();
   const addConsultantAsync = makeConsultant();
   const handleConsultants = useConsultants();
   const [isLoading, setIsLoading] = useState(false);
@@ -160,7 +162,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
       <div className="flex w-full mt-3">
         <div className="form-group w-1/3">
           <p className="font-bold mb-1">
-            Fecha de Nacimiento
+            {t('forms.birthDate')}
             <span className="text-red-800">*</span>
           </p>
           <input

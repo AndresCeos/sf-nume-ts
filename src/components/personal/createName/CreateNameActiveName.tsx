@@ -12,6 +12,7 @@ type ActiveNameProps = {
 export default function CreateNameActiveName({
   table, start, nameCycles, nameSubCycles, consultant, age,
 }: ActiveNameProps) {
+  if (table.length === 0) return null;
   const consultantAge = age;
   const isCycle = (i: number) => (i === consultantAge ? false : nameCycles.includes(i));
   const isSubCycle = (i: number) => (i === consultantAge ? false : nameSubCycles.includes(i));

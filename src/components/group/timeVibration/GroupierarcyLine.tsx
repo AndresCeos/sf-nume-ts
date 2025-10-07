@@ -1,4 +1,6 @@
 /* eslint-disable max-len */
+import { useTranslation } from 'react-i18next';
+
 import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
 import Group from '@/resources/Group';
@@ -8,6 +10,7 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
   const {
     calculationDate, calculationYear, consultationDate,
   } = useConsult();
+  const { t } = useTranslation();
   if (!groupConsult) return null;
 
   return (
@@ -16,7 +19,7 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
         <div className="w-1/5 flex justify-center border-r border-black">
           <div className="grid grid-cols-3 pt-3 w-220 gap-2 relative hierarchy-lines m-auto px-5 ">
             <div className="col-start-2 row-start-1">
-              <p className="mb-1 font-bold text-sm">Diálogo</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
                 {getSumHierarchy(groupConsult.getB(), groupConsult.calcLifeStage(groupConsult.getLifeStageNumber(calculationDate.year)))}
               </CircleNumber>
@@ -35,16 +38,16 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
               <CircleNumber size="sm" appearance="white" border="red">
                 {getResHierarchy(groupConsult.getB(), groupConsult.calcLifeStage(groupConsult.getLifeStageNumber(calculationDate.year)))}
               </CircleNumber>
-              <p className="mb-1 font-bold text-sm">Reto</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
-            <div className="col-start-1 row-start-3 font-bold text-sm">NP</div>
-            <div className="col-start-3 row-start-3 font-bold text-sm">Etapa</div>
+            <div className="col-start-1 row-start-3 font-bold text-sm">{t('hierarchyLine.np')}</div>
+            <div className="col-start-3 row-start-3 font-bold text-sm">{t('hierarchyLine.stage')}</div>
           </div>
         </div>
         <div className="w-1/5 flex justify-center border-r border-black">
           <div className="grid grid-cols-3 pt-3 w-220 gap-2 relative hierarchy-lines m-auto px-5 ">
             <div className="col-start-2 row-start-1">
-              <p className="mb-1 font-bold text-sm">Diálogo</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
                 {getSumHierarchy(groupConsult.calcLifeStage(groupConsult.getLifeStageNumber(calculationDate.year)), groupConsult.calcPersonalYear(calculationYear))}
               </CircleNumber>
@@ -63,16 +66,16 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
               <CircleNumber size="sm" appearance="white" border="red">
                 {getResHierarchy(groupConsult.calcLifeStage(groupConsult.getLifeStageNumber(calculationDate.year)), groupConsult.calcPersonalYear(calculationYear))}
               </CircleNumber>
-              <p className="mb-1 font-bold text-sm">Reto</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
-            <div className="col-start-1 row-start-3 font-bold text-sm">Etapa</div>
-            <div className="col-start-3 row-start-3 font-bold text-sm">Año P.</div>
+            <div className="col-start-1 row-start-3 font-bold text-sm">{t('hierarchyLine.stage')}</div>
+            <div className="col-start-3 row-start-3 font-bold text-sm">{t('hierarchyLine.personalYear')}</div>
           </div>
         </div>
         <div className="w-1/5 flex justify-center border-r border-black">
           <div className="grid grid-cols-3 pt-3 w-220 gap-2 relative hierarchy-lines m-auto px-5 ">
             <div className="col-start-2 row-start-1">
-              <p className="mb-1 font-bold text-sm">Diálogo</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
                 {getSumHierarchy(groupConsult.calcPersonalYear(calculationYear), groupConsult.calcCurrentQuarter(consultationDate))}
               </CircleNumber>
@@ -91,16 +94,16 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
               <CircleNumber size="sm" appearance="white" border="red">
                 {getResHierarchy(groupConsult.calcPersonalYear(calculationYear), groupConsult.calcCurrentQuarter(consultationDate))}
               </CircleNumber>
-              <p className="mb-1 font-bold text-sm">Reto</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
-            <div className="col-start-1 row-start-3 font-bold text-sm">Año P.</div>
-            <div className="col-start-3 row-start-3 font-bold text-sm">Cuat.</div>
+            <div className="col-start-1 row-start-3 font-bold text-sm">{t('hierarchyLine.personalYear')}</div>
+            <div className="col-start-3 row-start-3 font-bold text-sm">{t('hierarchyLine.quarter')}</div>
           </div>
         </div>
         <div className="w-1/5 flex justify-center border-r border-black">
           <div className="grid grid-cols-3 pt-3 w-220 gap-2 relative hierarchy-lines m-auto px-5 ">
             <div className="col-start-2 row-start-1">
-              <p className="mb-1 font-bold text-sm">Diálogo</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
                 {getSumHierarchy(groupConsult.calcCurrentQuarter(consultationDate), groupConsult.calcPersonalMonth(calculationDate))}
               </CircleNumber>
@@ -119,16 +122,16 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
               <CircleNumber size="sm" appearance="white" border="red">
                 {getResHierarchy(groupConsult.calcCurrentQuarter(consultationDate), groupConsult.calcPersonalMonth(calculationDate))}
               </CircleNumber>
-              <p className="mb-1 font-bold text-sm">Reto</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
-            <div className="col-start-1 row-start-3 font-bold text-sm">Cuat.</div>
-            <div className="col-start-3 row-start-3 font-bold text-sm">Mes P.</div>
+            <div className="col-start-1 row-start-3 font-bold text-sm">{t('hierarchyLine.quarter')}</div>
+            <div className="col-start-3 row-start-3 font-bold text-sm">{t('hierarchyLine.personalMonth')}</div>
           </div>
         </div>
         <div className="w-1/5 flex justify-center ">
           <div className="grid grid-cols-3 pt-3 w-220 gap-2 relative hierarchy-lines m-auto px-5">
             <div className="col-start-2 row-start-1">
-              <p className="mb-1 font-bold text-sm">Diálogo</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
                 {getSumHierarchy(groupConsult.calcPersonalMonth(calculationDate), Number(groupConsult.calcPersonalWeek(calculationDate.day, calculationDate.month, calculationDate.year)))}
               </CircleNumber>
@@ -147,10 +150,10 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
               <CircleNumber size="sm" appearance="white" border="red">
                 {getResHierarchy(groupConsult.calcPersonalMonth(calculationDate), Number(groupConsult.calcPersonalWeek(calculationDate.day, calculationDate.month, calculationDate.year)))}
               </CircleNumber>
-              <p className="mb-1 font-bold text-sm">Reto</p>
+              <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
-            <div className="col-start-1 row-start-3 font-bold text-sm">Mes P.</div>
-            <div className="col-start-3 row-start-3 font-bold text-sm">Semana P.</div>
+            <div className="col-start-1 row-start-3 font-bold text-sm">{t('hierarchyLine.personalMonth')}</div>
+            <div className="col-start-3 row-start-3 font-bold text-sm">{t('hierarchyLine.personalWeek')}</div>
           </div>
         </div>
       </div>

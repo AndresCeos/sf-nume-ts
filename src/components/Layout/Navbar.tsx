@@ -49,7 +49,7 @@ function Notifications() {
 
 function Navbar() {
   const { user: userAuth } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     firstName, lastName, scdLastName, birthDate, email,
   } = userAuth?.user ?? {};
@@ -199,6 +199,7 @@ function Navbar() {
         synastry={synastryObject}
         partnerYear={activePartnerData?.yearMeet ?? 0}
         groupYear={activeGroup?.lastInit ?? 0}
+        locale={t('locale') as string}
       />
     )).toBlob();
     saveAs(blob, `${consultant?.fullName} - ${path}.pdf`);
@@ -213,33 +214,33 @@ function Navbar() {
       let reportListType: any = null;
       const reports: Record<string, any> = {
         personal: {
-          pinnacle: { name: 'Pináculo', fn: PinnaclePDF },
-          lifePath: { name: 'Camino de Vida', fn: LifePathPDF },
-          name: { name: 'Nombre', fn: NamePDF },
-          destiny_table: { name: 'Tabla del Destino', fn: DestinyPDF },
-          time_vibration: { name: 'Vibración del Tiempo', fn: TimeVibrationPDF },
-          annual_returns: { name: 'Retornos Anuales', fn: AnnualReturnsPDF },
-          time_circle: { name: 'Círculo del Tiempo', fn: CircleTimePDF },
-          annual_calendar: { name: 'Calendario Anual', fn: CalendarPDF },
-          monthly_calendar: { name: 'Calendario Mensual', fn: MonthPDF },
+          pinnacle: { name: t('reports.personal.pinnacle'), fn: PinnaclePDF },
+          lifePath: { name: t('reports.personal.lifePath'), fn: LifePathPDF },
+          name: { name: t('reports.personal.name'), fn: NamePDF },
+          destiny_table: { name: t('reports.personal.destinyTable'), fn: DestinyPDF },
+          time_vibration: { name: t('reports.personal.vibrationTime'), fn: TimeVibrationPDF },
+          annual_returns: { name: t('reports.personal.annualReturns'), fn: AnnualReturnsPDF },
+          time_circle: { name: t('reports.personal.timeCircle'), fn: CircleTimePDF },
+          annual_calendar: { name: t('reports.personal.annualCalendar'), fn: CalendarPDF },
+          monthly_calendar: { name: t('reports.personal.monthlyCalendar'), fn: MonthPDF },
         },
         partner: {
-          synastry_pinnacle: { name: 'Pináculo de Sinastria', fn: SynastryPinnaclePDF },
-          synastry_annual_returns: { name: 'Retornos Anuales de Sinastria', fn: SynastryAnnualReturnsPDF },
-          synastry_destiny_table: { name: 'Tabla del Destino de Sinastria', fn: SynastryDestinyPDF },
-          synastry_compatibility_table: { name: 'Tabla de Compatibilidad de Sinastria', fn: CompatibilityTablePDF },
-          synastry_time_circle: { name: 'Círculo del Tiempo de Sinastria', fn: SynastryCircleTimePDF },
-          synastry_annual_calendar: { name: 'Calendario Anual de Sinastria', fn: SynastryCalendarPDF },
-          synastry_monthly_calendar: { name: 'Calendario Mensual de Sinastria', fn: SynastryCalendarMonthPDF },
-          synastry_time_vibration: { name: 'Vibración del Tiempo de Sinastria', fn: SynastryVibrationTimePDF },
+          synastry_pinnacle: { name: t('reports.partner.synastryPinnacle'), fn: SynastryPinnaclePDF },
+          synastry_annual_returns: { name: t('reports.partner.synastryAnnualReturns'), fn: SynastryAnnualReturnsPDF },
+          synastry_destiny_table: { name: t('reports.partner.synastryDestinyTable'), fn: SynastryDestinyPDF },
+          synastry_compatibility_table: { name: t('reports.partner.synastryCompatibilityTable'), fn: CompatibilityTablePDF },
+          synastry_time_circle: { name: t('reports.partner.synastryTimeCircle'), fn: SynastryCircleTimePDF },
+          synastry_annual_calendar: { name: t('reports.partner.synastryAnnualCalendar'), fn: SynastryCalendarPDF },
+          synastry_monthly_calendar: { name: t('reports.partner.synastryMonthlyCalendar'), fn: SynastryCalendarMonthPDF },
+          synastry_time_vibration: { name: t('reports.partner.synastryVibrationTime'), fn: SynastryVibrationTimePDF },
         },
         group: {
-          group_pinnacle: { name: 'Pináculo de Grupo', fn: GroupPinnaclePDF },
-          group_annual_returns: { name: 'Retornos Anuales de Grupo', fn: GroupAnnualReturnsPDF },
-          group_time_circle: { name: 'Círculo del Tiempo de Grupo', fn: GroupCircleTimePDF },
-          group_annual_calendar: { name: 'Calendario Anual de Grupo', fn: GroupCalendarPDF },
-          group_monthly_calendar: { name: 'Calendario Mensual de Grupo', fn: GroupCalendarMonthPDF },
-          group_vibration_time: { name: 'Vibración del Tiempo de Grupo', fn: GroupVibrationTimePDF },
+          group_pinnacle: { name: t('reports.group.groupPinnacle'), fn: GroupPinnaclePDF },
+          group_annual_returns: { name: t('reports.group.groupAnnualReturns'), fn: GroupAnnualReturnsPDF },
+          group_time_circle: { name: t('reports.group.groupTimeCircle'), fn: GroupCircleTimePDF },
+          group_annual_calendar: { name: t('reports.group.groupAnnualCalendar'), fn: GroupCalendarPDF },
+          group_monthly_calendar: { name: t('reports.group.groupMonthlyCalendar'), fn: GroupCalendarMonthPDF },
+          group_vibration_time: { name: t('reports.group.groupVibrationTime'), fn: GroupVibrationTimePDF },
         },
       };
 
@@ -257,8 +258,8 @@ function Navbar() {
           id: 'no_reports_available',
           type: 'validation',
           severity: 'high',
-          message: 'No hay reportes disponibles',
-          details: `No se encontraron reportes para la ruta: ${path}`,
+          message: t('reports.errors.noReportsAvailable') as string,
+          details: t('reports.errors.noReportsFound', { path }) as string,
           timestamp: new Date(),
           recoverable: false,
           suggestions: ['Verificar la configuración de reportes', 'Contactar al administrador'],
@@ -273,7 +274,7 @@ function Navbar() {
         id: 'modal_open_error',
         type: 'system',
         severity: 'high',
-        message: 'Error al abrir el modal de reportes',
+        message: t('reports.errors.modalOpenError') as string,
         details: error instanceof Error ? error.message : 'Error desconocido',
         timestamp: new Date(),
         recoverable: true,
@@ -311,7 +312,7 @@ function Navbar() {
         id: 'report_selection_error',
         type: 'system',
         severity: 'medium',
-        message: 'Error al seleccionar reporte',
+        message: t('reports.errors.reportSelectionError') as string,
         details: error instanceof Error ? error.message : 'Error desconocido',
         timestamp: new Date(),
         recoverable: true,
@@ -335,7 +336,7 @@ function Navbar() {
             id: 'preview_error',
             type: 'system',
             severity: 'medium',
-            message: 'Error al activar vista previa',
+            message: t('reports.errors.previewError') as string,
             details: error instanceof Error ? error.message : 'Error desconocido',
             timestamp: new Date(),
             recoverable: true,
@@ -424,6 +425,7 @@ function Navbar() {
             month={calculationDate.month}
             partnerYear={activePartnerData?.yearMeet ?? 0}
             groupYear={activeGroup?.lastInit ?? 0}
+            locale={t('locale') as string}
           />
         </PDFViewer>
       );
@@ -435,7 +437,7 @@ function Navbar() {
         id: 'pdf_generation_error',
         type: 'generation',
         severity: 'high',
-        message: 'Error al generar el reporte PDF',
+        message: t('reports.errors.generateError') as string,
         details: errorMessage,
         component: 'PDF Generation',
         timestamp: new Date(),
@@ -457,6 +459,12 @@ function Navbar() {
     setGenerationError(null);
     setPreviewDocument(false);
     // The user can try again by clicking the generate button
+  };
+
+  const toggleLanguage = () => {
+    const currentLang = i18n.language;
+    const newLang = currentLang === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(newLang);
   };
 
   return (
@@ -490,7 +498,7 @@ function Navbar() {
               <li className="flex items-center justify-center">
                 <Link
                   className="button-nav-bar"
-                  to="/consultante"
+                  to="/consultant"
                   onClick={handlerEdit}
                 >
                   <img
@@ -619,11 +627,20 @@ function Navbar() {
                 <Notifications />
               </li>
               <li className="flex items-center justify-center ml-6">
-                <img
-                  src="https://www.worldometers.info/img/flags/small/tn_mx-flag.gif"
-                  className="w-8"
-                  alt="country"
-                />
+                <button
+                  type="button"
+                  onClick={toggleLanguage}
+                  className="hover:opacity-80 transition-opacity cursor-pointer"
+                  title={i18n.language === 'es' ? 'Change to English' : 'Cambiar a Español'}
+                >
+                  <img
+                    src={i18n.language === 'es'
+                      ? 'https://www.worldometers.info/img/flags/small/tn_mx-flag.gif'
+                      : 'https://www.worldometers.info/img/flags/small/tn_us-flag.gif'}
+                    className="w-8"
+                    alt={i18n.language === 'es' ? 'Español - México' : 'English - USA'}
+                  />
+                </button>
               </li>
               <li className="flex items-center justify-center mx-4 text-white">|</li>
               <li className="flex items-center justify-center text-sm text-white max-w-[110px]">

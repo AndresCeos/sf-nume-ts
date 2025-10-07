@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import { useContext, useState } from 'react';
 
@@ -21,6 +21,7 @@ type PartnerSingleMonthProps = {
 function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: PartnerSingleMonthProps) {
   const { calculationDate } = useContext(ConsultContext);
   const [selectedMonth, setSelectedMonth] = useState(month);
+  const { t } = useTranslation();
 
   if (!consultant) return null;
   const u = new Universal();
@@ -104,6 +105,7 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
           </div>
           <div className="text-2xl col-start-6 col-end-8 flex justify-center items-center bg-purple-50 font-bold text-white">
             {t('annualCalendar.quarter')}
+            :
             {consultant.getQuarterMonth(selectedMonth, calculationDate.year)}
             {consultant.getQuarterMonthISK(selectedMonth, calculationDate.year)}
           </div>

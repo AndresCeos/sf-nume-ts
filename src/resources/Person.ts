@@ -50,7 +50,7 @@ type Appearance = {
 type Appearances = {
   [key: number]: Appearance,
 };
-type NameSettings = {
+export type NameSettings = {
   pmN?: number,
   pmD?: number,
   pmC?: string,
@@ -568,12 +568,16 @@ class Person {
  * @returns {Number}
  */
   getSoulCheck(): number {
+    console.log('Aqui');
     const names = this.nameView.toLowerCase().split(' ');
-    const lastName = this.lastName.split('');
-    const scdLastName = this.scdLastName.split('');
+    const lastName = this.lastName.toLowerCase().split(' ');
+    const scdLastName = this.scdLastName.toLowerCase().split(' ');
     let n = 0;
     let ln = 0;
     let sln = 0;
+    console.log('names', names);
+    console.log('lastName', lastName);
+    console.log('scdLastName', scdLastName);
 
     names.forEach((el) => {
       const vowels = el.split('');
@@ -588,6 +592,7 @@ class Person {
       let val = 0;
       vowels.forEach((element) => {
         val += vowelsValues(element);
+        console.log('val', val);
       });
       ln += val;
     });
@@ -596,9 +601,14 @@ class Person {
       let val = 0;
       vowels.forEach((element) => {
         val += vowelsValues(element);
+        console.log('val', val);
       });
       sln += val;
     });
+    console.log('n', n);
+    console.log('ln', ln);
+    console.log('sln', sln);
+    console.log('reduceNumber', reduceNumber(n + ln + sln));
     return reduceNumber(n + ln + sln);
   }
 
@@ -789,8 +799,8 @@ class Person {
    * @returns {Number} personalMonth
    */
   calcPersonalMonth(opts: SplittedDate): number {
-    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
-    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = opts.month;
+    const yearToCalculate: number = opts.year;
     return reduceNumber(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
   }
 
@@ -847,8 +857,8 @@ class Person {
  * @returns {Number}
  */
   calcSelectPersonalWeek(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): number {
-    const monthToCalculate: number = _.isNil(opts.month) ? getMonth(this.NOW) + 1 : opts.month;
-    const yearToCalculate = _.isNil(opts.year) ? getYear(this.NOW) : opts.year;
+    const monthToCalculate: number = opts.month;
+    const yearToCalculate: number = opts.year;
     const weekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
     if (weekToCalculate === 1) { return reduceNumber(weekOne); }
     const weekTwo = this.calcPersonalYear(yearToCalculate) + reduceNumber(weekOne);
@@ -1208,7 +1218,7 @@ class Person {
       ungroupNameV += vowelsValues(letter);
       ungroupNameC += consonantValues(letter);
     }
-    const checkReduced = reduceNumber(ungroupNameV) + reduceNumber(ungroupNameC);
+    const checkReduced = reduceNumber(reduceNumber(ungroupNameV) + reduceNumber(ungroupNameC));
 
     return [{
       v: reduceNumber(ungroupNameV),

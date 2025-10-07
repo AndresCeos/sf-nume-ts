@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 
 import { formatDate, getTheRoute, pageNameBySlug } from '@/utils/constants';
 import { NavLink } from 'react-router-dom';
@@ -10,6 +11,8 @@ type ConsultantNotesModalProps = {
 };
 
 function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModalProps) {
+  const { t } = useTranslation();
+
   if (!notes) {
     return (
       <NotesModal
@@ -56,10 +59,10 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
               <div className="bg-gradient-to-r from-main-50 to-secondary-50 rounded-xl p-4 border border-main-200">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-main-800 font-semibold text-sm">
-                    {formatDate({ date: new Date(note.date), format: 'long' })}
+                    {formatDate({ date: new Date(note.date), format: 'long', locale: t('locale') as string })}
                   </h3>
                   <span className="text-xs text-gray-500">
-                    {formatDate({ date: new Date(note.date), format: 'short' })}
+                    {formatDate({ date: new Date(note.date), format: 'short', locale: t('locale') as string })}
                   </span>
                 </div>
                 <div className="grid gap-3">

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import AnnualReturn from '@/components/personal/pinnacle/AnnualReturn';
 import SelectPartner from '@/components/sinastry/SelectPartner';
@@ -10,6 +11,7 @@ import SectionTitle from '@/components/SectionTitle';
 
 export default function SinastryAnnualReturnsPage() {
   const { consultant, selectedPartnersAsPersons, calculationDate } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -19,7 +21,7 @@ export default function SinastryAnnualReturnsPage() {
       <div className="page-content bg-cover pb-10">
         <SelectPartner />
         <div className="col-span-12 text-center mt-8">
-          <strong>Selecciona un grupo de parejas con al menos 2 personas para ver esta información</strong>
+          <strong>{t('sinastry.selectPartnerWithMembers')}</strong>
         </div>
       </div>
     );
@@ -79,9 +81,9 @@ export default function SinastryAnnualReturnsPage() {
   return (
     <div className="page-content bg-cover pb-10">
       <SelectPartner />
-      <div className="grid grid-cols-12 gap-6 mt-8 pt-10">
+      <div className="grid grid-cols-12 gap-6 mt-8">
         <div className="col-span-12">
-          <SectionTitle title=" 9 Retornos" color="bg-red-day" />
+          <SectionTitle title={t('sinastry.returns')} color="bg-red-day" />
 
           <div className="pinnacle-wrap grid grid-cols-3 p-1">
             <div className="bg-white p-4 h-80">

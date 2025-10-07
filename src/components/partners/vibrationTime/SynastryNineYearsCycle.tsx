@@ -1,17 +1,18 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import CircleNumber from '@/components/CircleNumber';
 import useConsult from '@/hooks/useConsult';
 import Group from '@/resources/Group';
 import Synastry from '@/resources/Synastry';
 import { generateUniqueKey } from '@/utils/numbers';
-import SynastryStageOne from './SynastryStageOne';
 
 function SynastryNineYearsCycle({ synastry }: { synastry: Synastry | Group }) {
   const { calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!synastry) return null;
 
   const nineYearCycle = synastry.getNineYearCycleStage(calculationDate.year);
+  console.log(nineYearCycle);
 
   return (
     <div className="grid grid-cols-9 px-4 py-8 w-full">
@@ -32,18 +33,16 @@ function SynastryNineYearsCycle({ synastry }: { synastry: Synastry | Group }) {
             {synastry.calcPersonalYear(year)}
             {synastry.calcPersonalYearISK(year)}
           </CircleNumber>
-          {(synastry.getLifeStageNumber(calculationDate.year) !== 1)
-            ? (
-              <b className={`
+
+          <b className={`
             ${(year === calculationDate.year) ? 'text-black' : 'text-gray-300'}
             `}
-              >
-                {`${year}`}
-              </b>
-            ) : ''}
+          >
+            {`${year}`}
+          </b>
+
         </div>
       ))}
-      {(synastry.getLifeStageNumber(calculationDate.year) === 1) ? <SynastryStageOne synastry={synastry} /> : null}
       <div className="col-start-4 border-r-2 row-start-1 border-green-700 h-4 mt-12" />
       <div className="col-start-1  row-start-2 flex justify-start h-4">
         <div className="border-r-2 border-green-700" />

@@ -1,4 +1,5 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MdEdit } from 'react-icons/md';
 
 import { ConsultContext } from '@/context/ConsultContext';
@@ -27,6 +28,8 @@ export default function GroupFormInLine({
     isEditingConsultant,
     activeConsultant,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
 
   // Obtener la versión más actualizada del grupo activo
   const currentActiveGroup = activeGroup ? (groupsAvailable.find((g) => g.id === activeGroup.id) || activeGroup) : null;
@@ -81,7 +84,7 @@ export default function GroupFormInLine({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg">
       {/* Main Group Data Form */}
       <div className="space-y-4">
         {/* Group Selection */}
@@ -91,7 +94,7 @@ export default function GroupFormInLine({
               <img src={add_user_group} className="w-6 h-6 mr-3 text-gray-400" alt="add_user_group" />
               <MdEdit className="text-gray-400 mr-2" />
             </button>
-            <p className="font-bold text-sm mr-3">Grupo:</p>
+            <p className="font-bold text-sm mr-3">{t('group.groupOf')}</p>
             <select
               onChange={selectedGroup}
               className="border rounded px-3 py-2 flex-1"
@@ -99,7 +102,7 @@ export default function GroupFormInLine({
             >
               {!currentActiveGroup && (
                 <option value="">
-                  Selecciona un grupo
+                  {t('group.selectAGroup')}
                 </option>
               )}
               {groupsAvailable.map((group: Api.GroupData) => (
@@ -109,7 +112,7 @@ export default function GroupFormInLine({
                   (
                   {group.members?.length || 0}
                   {' '}
-                  miembros)
+                  {t('group.membersCount')}
                 </option>
               ))}
             </select>
@@ -117,29 +120,52 @@ export default function GroupFormInLine({
           <button type="button" onClick={removeGroup} className="ml-4">
             <img src={c_delete} alt="delete" className="w-5 h-5" />
           </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={() => setIsAddFormActive(true)}
+              className="btn-save w-50 text-sm"
+            >
+              {t('group.createGroup')}
+            </button>
+          </div>
         </div>
 
         {/* Create Group Button */}
-        <div className="flex justify-center">
-          <button
-            type="button"
-            onClick={() => setIsAddFormActive(true)}
-            className="btn-save w-50 text-sm"
-          >
-            Crear Grupo
-          </button>
-        </div>
+        {(currentActiveGroup && !showMoreInfo) && (
+          <div className="flex justify-left text-main text-sm">
+            <button
+              type="button"
+              onClick={() => setShowMoreInfo(true)}
+              className=""
+            >
+              {t('group.moreInfo')}
+            </button>
+          </div>
+        )}
 
         {/* Group Information */}
-        {currentActiveGroup && (
+        {currentActiveGroup && showMoreInfo && (
           <div className="flex flex-col gap-4 mt-4">
+            <div className="flex justify-left text-main text-sm">
+              <button
+                type="button"
+                onClick={() => setShowMoreInfo(false)}
+                className=""
+              >
+                {t('group.lessInfo')}
+              </button>
+            </div>
 
             <div className="flex flex-row gap-4 w-full">
               <div className="flex items-center w-1/2">
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Descripción:</p>
+                <p className="font-bold text-sm mr-3">
+                  {t('group.description')}
+                  :
+                </p>
                 <input
                   type="text"
                   className="border rounded px-3 py-2 flex-1"
@@ -152,7 +178,7 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Fecha de Creación:</p>
+                <p className="font-bold text-sm mr-3">{t('group.creationDate')}</p>
                 <input
                   value={currentActiveGroup?.date ? new Date(currentActiveGroup.date).toLocaleDateString() : ''}
                   type="text"
@@ -166,7 +192,10 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Miembros:</p>
+                <p className="font-bold text-sm mr-3">
+                  {t('group.members')}
+                  :
+                </p>
                 <input
                   value={currentActiveGroup?.members?.length || 0}
                   type="text"
@@ -179,7 +208,7 @@ export default function GroupFormInLine({
                 <button type="button" onClick={editGroup}>
                   <MdEdit className="text-gray-400 mr-2" />
                 </button>
-                <p className="font-bold text-sm mr-3">Último Año de integración:</p>
+                <p className="font-bold text-sm mr-3">{t('group.lastYearIntegration')}</p>
                 <input
                   value={currentActiveGroup?.lastInit || ''}
                   type="text"
@@ -197,12 +226,12 @@ export default function GroupFormInLine({
       {/* Members Section */}
       {currentActiveGroup && currentActiveGroup.id && (
         <>
-          <hr className="my-6" />
+          <hr className="my-1" />
 
           {/* Members Header */}
           <div className="bg-black text-white rounded-t-lg px-4 py-3 flex items-center justify-between">
             <h3 className="font-bold">
-              Miembros del Grupo:
+              {t('group.membersOfGroup')}
               {' '}
               {currentActiveGroup.name}
             </h3>

@@ -13,7 +13,6 @@ export default function CreateNameBreakDown({ consultant, checkBreakdown }: { co
     name, lastName, scdLastName, nameView,
   } = consultant;
   const names = nameView.toLocaleLowerCase().split(' ');
-  console.log('names', names);
 
   const ungroupNames = names.map((el: string) => ({
     name: consultant.getUngroupName(el),

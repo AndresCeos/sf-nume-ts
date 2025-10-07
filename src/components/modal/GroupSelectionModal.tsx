@@ -46,7 +46,6 @@ function GroupSelectionModal({
 
     const selectedGroup = groupData.find((g) => g.id === selectedGroupId);
 
-    console.log('selectedGroup', selectedGroup);
     if (selectedGroup) {
       const newConsultant: Api.Consultant = {
         ...activeConsultant,
@@ -162,7 +161,7 @@ function GroupSelectionModal({
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="btn btn-secondary"
+              className="btn btn-cancel"
             >
               {t('modal.group.cancel')}
             </button>

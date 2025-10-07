@@ -2,6 +2,7 @@ import {
   getDate,
   getYear,
 } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import { capitalize } from '@/utils/numbers';
 
@@ -15,13 +16,14 @@ import useConsult from '@/hooks/useConsult';
 interface QuarterData {
   id: string;
   months: string;
-  value: number;
+  value: string;
   isActive: boolean;
 }
 
 type WeekNumber = 1 | 2 | 3 | 4;
 
 function LearningStage() {
+  const { t } = useTranslation();
   const { consultant, consultationDate, calculationDate } = useConsult();
 
   if (!consultant) return null;
@@ -48,11 +50,11 @@ function LearningStage() {
     };
 
     const karmic = {
-      q1: Number(consultant.getQuarterOneISK()),
-      q2: Number(consultant.getQuarterTwoISK(currentYear)),
-      q3: Number(consultant.getQuarterThreeISK(currentYear)),
-      q2Last: Number(consultant.getQuarterTwoISK(lastYear)),
-      q3Last: Number(consultant.getQuarterThreeISK(lastYear)),
+      q1: consultant.getQuarterOneISK(),
+      q2: consultant.getQuarterTwoISK(currentYear),
+      q3: consultant.getQuarterThreeISK(currentYear),
+      q2Last: consultant.getQuarterTwoISK(lastYear),
+      q3Last: consultant.getQuarterThreeISK(lastYear),
     };
 
     return { current, karmic };
@@ -74,19 +76,19 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3 + karmic.q3,
+            value: `${current.q3}${karmic.q3}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
         );
@@ -96,25 +98,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[index - 1]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth === 0,
           },
         );
@@ -125,25 +127,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 3 && currentMonth <= 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[0]} - ${listOfMonths3[index - 1]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 2,
           },
         );
@@ -153,25 +155,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth === 4,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[0]} - ${listOfMonths3[index - 1]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 7,
           },
         );
@@ -181,19 +183,19 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
         );
@@ -203,25 +205,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 6 && currentMonth <= 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[12]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[index - 1]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth === 5,
           },
         );
@@ -231,25 +233,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[8]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth >= 7 && currentMonth <= 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[12]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[5]} - ${listOfMonths3[index - 1]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 6,
           },
         );
@@ -259,25 +261,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]}`,
-            value: current.q2last + karmic.q2Last,
+            value: `${current.q2last}${karmic.q2Last}`,
             isActive: currentMonth === 8,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[9]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[12]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[5]} - ${listOfMonths3[index - 1]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 7,
           },
         );
@@ -287,19 +289,19 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 9 && currentMonth <= 11,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
         );
@@ -309,25 +311,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]} - ${listOfMonths3[11]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth >= 10 && currentMonth <= 11,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q4',
             months: ` ${listOfMonths3[index - 1]}`,
-            value: current.q3 + karmic.q3,
+            value: `${current.q3}${karmic.q3}`,
             isActive: currentMonth === 9,
           },
         );
@@ -337,25 +339,25 @@ function LearningStage() {
           {
             id: 'q1',
             months: `${listOfMonths3[index]}`,
-            value: current.q3last + karmic.q3Last,
+            value: `${current.q3last}${karmic.q3Last}`,
             isActive: currentMonth === 11,
           },
           {
             id: 'q2',
             months: `${listOfMonths3[0]} - ${listOfMonths3[4]}`,
-            value: current.q1 + karmic.q1,
+            value: `${current.q1}${karmic.q1}`,
             isActive: currentMonth >= 0 && currentMonth <= 4,
           },
           {
             id: 'q3',
             months: `${listOfMonths3[5]} - ${listOfMonths3[8]}`,
-            value: current.q2 + karmic.q2,
+            value: `${current.q2}${karmic.q2}`,
             isActive: currentMonth >= 5 && currentMonth <= 8,
           },
           {
             id: 'q4',
             months: `${listOfMonths3[9]} - ${listOfMonths3[index - 1]}`,
-            value: current.q3 + karmic.q3,
+            value: `${current.q3}${karmic.q3}`,
             isActive: currentMonth >= 9 && currentMonth <= 10,
           },
         );
@@ -370,7 +372,7 @@ function LearningStage() {
   const quarters = calculateQuarters();
   const activeStage = consultant.getLifeStageNumber(calculationDate);
   const currentWeek = Math.ceil(getDate(newDate) / 7) as WeekNumber;
-
+  console.log('quarters', quarters);
   // Calculate cycle years
   const cycle = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i);
 
@@ -380,7 +382,7 @@ function LearningStage() {
         <div className="px-8 py-8">
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pb-2">
             <div className="col-span-3 text-13 font-black pt-3">
-              1. Etapa de Vida
+              {t('lifePath.learningStage.lifeStage')}
             </div>
             <div className="col-span-7 flex justify-between">
               {[1, 2, 3, 4, 5, 6, 7].map((stage) => (
@@ -391,11 +393,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pt-4 pb-2">
             <div className="col-span-3 text-13 font-black pt-3">
-              2. Año Personal
+              {t('lifePath.learningStage.personalYear')}
             </div>
             <div className="col-span-7 grid grid-cols-10 gap-x-6 border-4 border-b-0 border-secondary">
               <div className="bg-purple-30 text-13 font-bold flex items-center justify-center col-span-10 h-7">
-                CICLO DE 9 AÑOS
+                {t('lifePath.learningStage.nineYearCycle')}
               </div>
 
               {cycle.map((year) => (
@@ -406,11 +408,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pt-3 pb-12">
             <div className="col-span-3 text-13 font-black pt-3">
-              3. Cuatrimestres
+              {t('lifePath.learningStage.quarters')}
             </div>
             <div className="col-span-7 border-4 border-b-0 border-green">
               <div className="bg-green-30 text-13 font-bold flex items-center justify-center h-7">
-                CUATRIMESTRES
+                {t('lifePath.learningStage.quartersLabel')}
               </div>
 
               <div className="flex justify-between mt-5">
@@ -428,11 +430,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 border-b-2 border-gray-400 border-dashed mb-3 pt-4 pb-12">
             <div className="col-span-3 text-13 font-black pt-3 h-7">
-              4. Meses Personales
+              {t('lifePath.learningStage.personalMonths')}
             </div>
             <div className="col-span-7 border-4 border-b-0 border-gold">
               <div className="bg-gold-30 text-13 font-bold flex items-center justify-center h-7">
-                MESES PERSONALES
+                {t('lifePath.learningStage.personalMonthsLabel')}
               </div>
               <PathMonth />
             </div>
@@ -440,11 +442,11 @@ function LearningStage() {
 
           <div className="grid grid-cols-10 mb-3 pt-3 pb-12">
             <div className="col-span-3 text-13 font-black pt-3 h-7">
-              5. Semanas Personales
+              {t('lifePath.learningStage.personalWeeks')}
             </div>
             <div className="col-span-7 border-4 border-b-0 border-blue-week">
               <div className="bg-blue-week text-13 font-bold flex items-center justify-center h-7">
-                SEMANAS PERSONALES
+                {t('lifePath.learningStage.personalWeeksLabel')}
                 {' '}
                 {currentWeek}
               </div>

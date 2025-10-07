@@ -81,20 +81,20 @@ function NamePage() {
   return (
     <div className="page-content bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
-        <div className="col-span-5 mb-5">
+        <div className="col-span-5">
           <SectionTitle
             title={t('name.numericValues.title')}
             button={{
               handle: checkName,
               isActive: checkN,
-              text: 'Comprobación',
+              text: t('common.verification'),
             }}
           />
           <NumericalValuesOfTheName
             checkN={checkN}
           />
         </div>
-        <div className="col-span-7 mb-5">
+        <div className="col-span-7">
           <SectionTitle title={t('name.potential.title')} />
           <FrequentNamePotential />
         </div>
@@ -105,7 +105,7 @@ function NamePage() {
             button={{
               handle: checkBreakdownFunction,
               isActive: checkBreakdown,
-              text: 'Comprobación',
+              text: t('common.verification'),
             }}
           />
           <Breakdown checkBreakdown={checkBreakdown} />

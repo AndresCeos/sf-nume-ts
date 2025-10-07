@@ -1,8 +1,10 @@
 import useConsult from '@/hooks/useConsult';
 import CurrentQuarterFont from './CurrentQuarterFont';
+import { useTranslation } from 'react-i18next';
 
 export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boolean, isSynastry: boolean }) {
   const { consultant, calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
   const indexOfMonth = listOfMonths.findIndex((element) => element === 'Enero');
@@ -16,10 +18,10 @@ export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boole
     >
       <div className="grid grid-cols-11 grid-rows-14 w-full mx-4 my-8 ">
         <div className="col-start-1 col-end-3 row-start-1  flex justify-start items-center bg-main p-1 text-white font-bold border border-gray-500">
-          Año calendario
+          {t('headers.calendarYear')}
         </div>
         <div className="col-start-1 col-end-3  row-start-2 flex justify-start items-center p-1 bg-purple-30 font-bold border border-gray-500">
-          Año personal
+          {t('headers.personalYear')}
         </div>
         <CurrentQuarterFont isGroup={isGroup} isSynastry={isSynastry} />
         {listOfMonths.map((data, index) => (

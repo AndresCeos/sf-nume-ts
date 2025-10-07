@@ -4,14 +4,14 @@ import Person from '@/resources/Person';
 type PinnacleProps = {
   size: 'small' | 'lg';
   consultant: Person | Group;
-  main: 'bg-active-radial' | 'bg-white';
+  main: 'bg-active-radial' | 'bg-white' | '';
 };
 
 function GroupPinnacle({ size, consultant, main }: PinnacleProps) {
   if (!consultant) return null;
 
   return (
-    <div id="pinnacle" className={`relative rounded-b-2xl border-1 border-[#00000066] ${size} ${main}`}>
+    <div id="pinnacle" className={`relative !text-${size} ${main}`}>
 
       <img id="pinnacle-img" src="/assets/pinnacle.svg" className="absolute top-0 left-0 right-0 mx-auto" alt="background" />
 

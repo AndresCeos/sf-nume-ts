@@ -116,8 +116,15 @@ function UniversalEnergyGroup({
       >
         <button
           type="button"
-          onClick={hasGroupData && currentGroup ? setActive : undefined}
-          disabled={!hasGroupData || !currentGroup}
+          onClick={() => {
+            if (hasGroupData && currentGroup) {
+              setActive();
+            } else if (hasGroupData) {
+              // Si hay datos pero no hay grupo seleccionado, abrir modal
+              openModal();
+            }
+          }}
+          disabled={!hasGroupData}
           className="w-full"
         >
           {_.toUpper(t('home.energy') as string)}

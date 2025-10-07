@@ -1,5 +1,5 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
 import TimeCircle from '@/components/partners/timeCircle/TimeCircle';
@@ -14,6 +14,7 @@ function SynastryTimeCirclePage() {
   const {
     consultant, activePartnerData, selectedPartnersAsPersons, calculationDate, consultationDate,
   } = useContext(ConsultContext);
+  const { t } = useTranslation();
 
   const universal = new Universal();
 
@@ -25,8 +26,8 @@ function SynastryTimeCirclePage() {
         <SelectPartner />
         <div className="mx-auto px-5 py-6">
           <div className="text-center bg-white rounded-lg p-8 shadow-md">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">No hay pareja seleccionada</h3>
-            <p className="text-gray-600">Por favor, selecciona o crea una pareja con al menos 2 miembros para ver la información del círculo del tiempo.</p>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">{t('sinastry.noPartnerForTimeCircle')}</h3>
+            <p className="text-gray-600">{t('sinastry.noPartnerForTimeCircleMessage')}</p>
           </div>
         </div>
       </div>
@@ -77,7 +78,7 @@ function SynastryTimeCirclePage() {
         </div>
         <div className="mt-5 text-center text-2xl">
           <div>{t('timeCircle.consult')}</div>
-          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long' })}</div>
+          <div className="font-bold">{formatDate({ date: consultationDate, format: 'long', locale: t('locale') as string })}</div>
         </div>
 
       </div>

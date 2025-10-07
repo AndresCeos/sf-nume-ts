@@ -5,6 +5,7 @@ type NameBreakdownProps = {
 type UngroupName = {
   v: number;
   L: string;
+  checkL?: string;
   c: number;
 };
 
