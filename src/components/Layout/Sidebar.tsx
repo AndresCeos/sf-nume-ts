@@ -186,7 +186,7 @@ function Sidebar() {
                 onClick={() => setCurrentPage('partner')}
               >
                 <img src="/assets/sidebar/partner.svg" className="w-6 h-4 object-center" alt="ic_partner" />
-                <label className="ml-2">{t('sidebar.partnerNumerology')}</label>
+                <label className="ml-2 ">{t('sidebar.partnerNumerology')}</label>
               </button>
             </li>
             <li className={currentPage === 'partner' ? '' : 'hidden'}>

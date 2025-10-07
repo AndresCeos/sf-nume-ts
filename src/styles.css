@@ -6689,6 +6689,9 @@ left: 36px;
 .z-100 {
   z-index: 100;
 }
+.bottom-100{
+  bottom: 100px;
+}
 
 #App-statusBar+div {
   max-width: 1094px;
