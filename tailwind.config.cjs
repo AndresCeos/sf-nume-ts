@@ -9,9 +9,9 @@ module.exports = {
     extend: {
       colors: {
         main: {
-          50: '#D8C7EB',
-          700: '#693061',
-          900: '#320033',
+          50: '#7f4577',
+          700: '#7f4577',
+          900: '#7f4577',
         },
         secondary: '#9F5D9B',
         confirm: '#0000ff',
@@ -33,7 +33,7 @@ module.exports = {
         'app': "url('/assets/app_background.jpg')",
         'login-numbers': "url('/assets/login_numbers.jpg')",
         'login-shape': "url('/assets/login_shape.png')",
-        'home-background': "url('/assets/app_background.jpg')",
+        'home-background': "url('/assets/newFondo.jpg')",
       },
     },
   },

@@ -35,7 +35,7 @@
     height: 100vh;
     position: fixed;
     z-index: 99999999;
-    background: #693061;
+    background: #7f4577;
     display: none;
 }
 
@@ -45,7 +45,7 @@
     height: 100vh;
     position: fixed;
     z-index: 99999999;
-    background: #693061;
+    background: #7f4577;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -166,9 +166,9 @@ img {
   border-radius: 10px;
   border: 3px solid #ffffff;
 }
-
+/* old main color #693061 */
 :root {
-  --main-color: #693061;
+  --main-color: #7f4577;
   --secondary-color: #9F5D9B;
   --confirm-color: #0000ff;
   --cancel-color: #ff0000;
@@ -2606,13 +2606,13 @@ padding: 10px 15px; */
 }
 
 .box-name {
-  background-color: #693061;
+  background-color: #7f4577;
   color: #fff;
 }
 
 .box-main {
   border: 2px solid;
-  border-color: #693061;
+  border-color: #7f4577;
   background-color: #fff;
   color: #333;
 }
@@ -4465,13 +4465,13 @@ padding: 10px 15px; */
 }
 
 .box-name {
-  background-color: #693061;
+  background-color: #7f4577;
   color: #fff;
 }
 
 .box-main {
   border: 2px solid;
-  border-color: #693061;
+  border-color: #7f4577;
   background-color: #fff;
   color: #333;
 }
@@ -6688,6 +6688,9 @@ left: 36px;
 
 .z-100 {
   z-index: 100;
+}
+.bottom-100{
+  bottom: 100px;
 }
 
 #App-statusBar+div {
