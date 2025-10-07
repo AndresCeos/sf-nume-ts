@@ -1,5 +1,5 @@
 import {
-  memo, useCallback, useMemo, useState,
+  memo, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import Modal from 'react-modal';
 
@@ -8,6 +8,14 @@ const loadGlosario = async () => {
   const { default: glosario } = await import('@/resources/glosario.json');
   return glosario;
 };
+
+// Función para normalizar texto eliminando acentos y caracteres especiales
+const normalizeText = (text: string): string => text
+  .toLowerCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
+  .replace(/[^\w\s]/g, '') // Eliminar caracteres especiales excepto letras, números y espacios
+  .trim();
 
 interface FloatingLauraProps {
   isOpen: boolean;
@@ -37,7 +45,7 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
   }, [glosarioData, isLoading]);
 
   // Cargar datos cuando se abre el modal
-  useMemo(() => {
+  useEffect(() => {
     if (isOpen && !glosarioData) {
       loadGlosarioData();
     }
@@ -47,8 +55,8 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
   const filteredTerms = useMemo(() => {
     if (!searchTerm.trim() || !glosarioData) return [];
 
-    const searchLower = searchTerm.toLowerCase();
-    return Object.keys(glosarioData).filter((key) => key.toLowerCase().includes(searchLower));
+    const normalizedSearchTerm = normalizeText(searchTerm);
+    return Object.keys(glosarioData).filter((key) => normalizeText(key).includes(normalizedSearchTerm));
   }, [searchTerm, glosarioData]);
 
   const handleTermClick = useCallback((term: string) => {
