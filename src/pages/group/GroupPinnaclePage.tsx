@@ -144,22 +144,8 @@ export default function GroupPinnaclePage() {
             </p>
           </div>
         </div>
-
-        {/* Contenedor principal con scroll horizontal */}
-        <div
-          ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-6 pb-4 cursor-grab active:cursor-grabbing"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
-          style={{
-            cursor: isDragging ? 'grabbing' : 'grab',
-            userSelect: isDragging ? 'none' : 'auto',
-          }}
-        >
-          {/* Grupo - siempre visible, ancho fijo para 2 elementos */}
-          <div className="group-container flex-shrink-0 w-1/3 min-w-0 mt-5">
+        <div className="flex">
+          <div className="group-container flex-shrink-0 w-[330px] min-w-0 mt-5 pr-4">
 
             <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
               <div className="flex items-center justify-center">
@@ -178,7 +164,9 @@ export default function GroupPinnaclePage() {
                 {`${t('group.pinnacleLabel')} ${activeGroup.name}`}
               </div>
             </div>
-            <GroupPinnacle main="bg-active-radial" consultant={GroupPerson} size="lg" />
+            <div className="section-wrap px-2 py-7 h-560 bg-active-radial">
+              <GroupPinnacle main="" consultant={GroupPerson} size="small" />
+            </div>
             <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5">
               <div className="flex items-center justify-center">
                 <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
@@ -192,42 +180,58 @@ export default function GroupPinnaclePage() {
             </div>
           </div>
 
-          {/* Miembros - scroll horizontal */}
-          {selectedGroup.map((member: Person, index: number) => (
-            <div key={member.id || index} className="member-container flex-shrink-0 w-1/3 min-w-0 mt-5">
-              <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl`}>
-                <div className="flex items-center justify-center">
-                  <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                    <TiPlus className="text-2xl" />
+          {/* Contenedor principal con scroll horizontal */}
+          <div
+            ref={scrollContainerRef}
+            className="w-2/3 flex overflow-x-auto gap-6 pb-4 cursor-grab active:cursor-grabbing"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            style={{
+              cursor: isDragging ? 'grabbing' : 'grab',
+              userSelect: isDragging ? 'none' : 'auto',
+            }}
+          >
+            {/* Grupo - siempre visible, ancho fijo para 2 elementos */}
+
+            {/* Miembros - scroll horizontal */}
+            {selectedGroup.map((member: Person, index: number) => (
+              <div key={member.id || index} className="member-container flex-shrink-0 w-[314px] min-w-0 mt-5">
+                <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl`}>
+                  <div className="flex items-center justify-center">
+                    <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
+                      <TiPlus className="text-2xl" />
+                    </div>
+                    {`${t('group.nameLabel')} ${member.name}`}
                   </div>
-                  {`${t('group.nameLabel')} ${member.name}`}
+                </div>
+                <GroupPinnacleName main="" Consultant={member} />
+                <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
+                  <div className="flex items-center justify-center">
+                    <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
+                      <TiPlus className="text-2xl" />
+                    </div>
+                    {`${t('group.pinnacleLabel')} ${member.name}`}
+                  </div>
+                </div>
+                <div className="section-wrap px-2 py-7 h-560">
+                  <GroupPinnacle main="bg-white" consultant={member} size="small" />
+                </div>
+                <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
+                  <div className="flex items-center justify-center">
+                    <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
+                      <TiPlus className="text-2xl" />
+                    </div>
+                    {`${t('group.returnLabel')} ${member.name}`}
+                  </div>
+                </div>
+                <div className="pinnacle-wrap bg-white p-4">
+                  <AnnualReturn annualReturn={member.annualReturn(calculationDate)} current months size="xl" />
                 </div>
               </div>
-              <GroupPinnacleName main="" Consultant={member} />
-              <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
-                <div className="flex items-center justify-center">
-                  <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                    <TiPlus className="text-2xl" />
-                  </div>
-                  {`${t('group.pinnacleLabel')} ${member.name}`}
-                </div>
-              </div>
-              <div className="section-wrap px-2 py-7 h-560">
-                <GroupPinnacle main="bg-white" consultant={member} size="small" />
-              </div>
-              <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
-                <div className="flex items-center justify-center">
-                  <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                    <TiPlus className="text-2xl" />
-                  </div>
-                  {`${t('group.returnLabel')} ${member.name}`}
-                </div>
-              </div>
-              <div className="pinnacle-wrap bg-white p-4">
-                <AnnualReturn annualReturn={member.annualReturn(calculationDate)} current months size="xl" />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

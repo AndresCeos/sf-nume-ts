@@ -562,6 +562,8 @@
   },
   "group": {
     "title": "Gestión de Grupos",
+    "lessInfo": "Ver menos información",
+    "moreInfo": "Ver más información",
     "management": "Gestión",
     "createGroup": "Crear Grupo",
     "editGroup": "Editar Grupo",

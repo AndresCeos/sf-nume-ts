@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdEdit } from 'react-icons/md';
 
@@ -29,6 +29,7 @@ export default function GroupFormInLine({
     activeConsultant,
   } = useContext(ConsultContext);
   const { t } = useTranslation();
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
 
   // Obtener la versión más actualizada del grupo activo
   const currentActiveGroup = activeGroup ? (groupsAvailable.find((g) => g.id === activeGroup.id) || activeGroup) : null;
@@ -83,7 +84,7 @@ export default function GroupFormInLine({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg">
       {/* Main Group Data Form */}
       <div className="space-y-4">
         {/* Group Selection */}
@@ -119,22 +120,42 @@ export default function GroupFormInLine({
           <button type="button" onClick={removeGroup} className="ml-4">
             <img src={c_delete} alt="delete" className="w-5 h-5" />
           </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={() => setIsAddFormActive(true)}
+              className="btn-save w-50 text-sm"
+            >
+              {t('group.createGroup')}
+            </button>
+          </div>
         </div>
 
         {/* Create Group Button */}
-        <div className="flex justify-center">
-          <button
-            type="button"
-            onClick={() => setIsAddFormActive(true)}
-            className="btn-save w-50 text-sm"
-          >
-            {t('group.createGroup')}
-          </button>
-        </div>
+        {(currentActiveGroup && !showMoreInfo) && (
+          <div className="flex justify-left text-main text-sm">
+            <button
+              type="button"
+              onClick={() => setShowMoreInfo(true)}
+              className=""
+            >
+              {t('group.moreInfo')}
+            </button>
+          </div>
+        )}
 
         {/* Group Information */}
-        {currentActiveGroup && (
+        {currentActiveGroup && showMoreInfo && (
           <div className="flex flex-col gap-4 mt-4">
+            <div className="flex justify-left text-main text-sm">
+              <button
+                type="button"
+                onClick={() => setShowMoreInfo(false)}
+                className=""
+              >
+                {t('group.lessInfo')}
+              </button>
+            </div>
 
             <div className="flex flex-row gap-4 w-full">
               <div className="flex items-center w-1/2">
@@ -205,7 +226,7 @@ export default function GroupFormInLine({
       {/* Members Section */}
       {currentActiveGroup && currentActiveGroup.id && (
         <>
-          <hr className="my-6" />
+          <hr className="my-1" />
 
           {/* Members Header */}
           <div className="bg-black text-white rounded-t-lg px-4 py-3 flex items-center justify-between">

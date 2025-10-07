@@ -68,7 +68,7 @@ export default function GroupAnnualReturnsPage() {
   return (
     <div className="page-content bg-cover pb-10 px-4">
       <SelectGroup />
-      <div className="grid grid-cols-12 mt-8 pb-10 pt-10">
+      <div className="grid grid-cols-12 mt-8 pb-10">
         <div className="col-span-13">
           <div className="bg-black text-white text-base font-bold h-8 flex justify-start items-center rounded-tl-2xl rounded-tr-2xl">
             <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">

@@ -907,9 +907,48 @@ class Group {
 
   getLifeStageNumber(year:number):number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const age = yearToCalculate - Number(this.groupDate);
-    const lifeStage = Math.floor(age / 9);
-    return lifeStage + 1;
+    const start: number = Number(this.groupDate);
+    const duration = 9 - reduceNumberForSub(
+      this.getA() + this.getB() + start,
+    );
+    let stageOneEnd = start + duration;
+    console.log(`${stageOneEnd}stage-1`);
+    if (duration === 0) {
+      stageOneEnd += 9;
+    }
+    // let stageOne = this.getE()
+    if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
+      return 1;
+    }
+
+    // let stageTwo = this.getF()
+    const stageTwoEnd = stageOneEnd + 9;
+    if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
+      return 2;
+    }
+
+    // let stageThr = this.getG()
+    const stageThrEnd = stageTwoEnd + 9;
+    if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
+      return 3;
+    }
+
+    // const stageFou = this.getH()
+    const stageFouEnd = stageThrEnd + 9;
+    if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
+      return 4;
+    }
+
+    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
+      return 5;
+    }
+    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
+      return 6;
+    }
+    if ((stageFouEnd + 18) <= yearToCalculate) {
+      return 7;
+    }
+    return 0;
   }
 
   getDoubleLifeStageNumber(year:number):number {

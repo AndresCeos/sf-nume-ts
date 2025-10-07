@@ -8,12 +8,19 @@ import PartnerFormInLine from './PartnerFormInLine';
 
 export default function SelectPartner() {
   const {
-    partnerDataAvailable, consultant, isEditingConsultant, handleIsEditingConsultant,
+    partnerDataAvailable, consultant, isEditingConsultant, handleIsEditingConsultant, activePartnerData,
   } = useContext(ConsultContext);
   const [partnerEmpty, setPartnerEmpty] = useState(true);
   const [isAddFormActive, setIsAddFormActive] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { t } = useTranslation();
+  useEffect(() => {
+    if (activePartnerData) {
+      setIsCollapsed(true);
+    } else {
+      setIsCollapsed(false);
+    }
+  }, [activePartnerData]);
 
   useEffect(() => {
     // Cambiar la lógica para usar partnerDataAvailable en lugar de partnersAvailable
