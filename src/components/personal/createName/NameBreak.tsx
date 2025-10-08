@@ -1,4 +1,5 @@
 import Person from '@/resources/Person';
+import { reduceNumber } from '@/utils/numbers';
 import NameBreakdown from './NameBreakdown';
 
 type NameBreakProps = {
@@ -19,6 +20,7 @@ type Ungroup = {
 export default function NameBreak({ createNameObj, checkBreakdown }: NameBreakProps) {
   const ungroupName = createNameObj.getUngroupName();
   const ungroupNameT = createNameObj.getUngroupNameTotal();
+  const unGroupNameV = createNameObj.getUngroupNameValues();
 
   let ungroup: Ungroup[] = [];
   const split = 28;
@@ -58,7 +60,7 @@ export default function NameBreak({ createNameObj, checkBreakdown }: NameBreakPr
                           ${ungroup.length > 1 ? 'mb-4' : ''}
                         `}
             >
-              {ungroupNameT[0].v !== 0 ? ungroupNameT[0].v : ''}
+              {checkBreakdown ? ungroupNameT[0].v : reduceNumber(unGroupNameV[0].vA)}
             </div>
             <div className={`
                           text-13 w-30 h-30 font-bold bg-main text-white rounded-md inner-shadow
@@ -72,7 +74,7 @@ export default function NameBreak({ createNameObj, checkBreakdown }: NameBreakPr
                           ${ungroup.length > 1 ? 'mb-4' : ''}
                         `}
             >
-              {ungroupNameT[0].c !== 0 ? ungroupNameT[0].c : ''}
+              {checkBreakdown ? ungroupNameT[0].c : reduceNumber(unGroupNameV[0].cA)}
             </div>
           </div>
           <div className="ml-3">
