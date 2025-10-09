@@ -33,7 +33,7 @@ module.exports = {
         'app': "url('/assets/app_background.jpg')",
         'login-numbers': "url('/assets/login_numbers.jpg')",
         'login-shape': "url('/assets/login_shape.png')",
-        'home-background': "url('/assets/newFondo.jpg')",
+        'home-background': "url('/assets/newBg2.png')",
       },
     },
   },
