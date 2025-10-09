@@ -59,14 +59,14 @@ export default function GroupFormInLine({
       members: [],
       lastInit: 0,
     };
-    selectActiveGroup(emptyGroup);
+    selectActiveGroup(emptyGroup, 0);
   };
 
   const selectedGroup = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
     const selectedGroupData = groupsAvailable.find((group) => group.id === id);
     if (selectedGroupData) {
-      selectActiveGroup(selectedGroupData);
+      selectActiveGroup(selectedGroupData, selectedGroupData.lastInit || 0);
     }
   };
 

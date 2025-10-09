@@ -24,6 +24,7 @@ function NamePage() {
   const { t } = useTranslation();
   const [checkN, setcheckN] = useState(false);
   const [checkBreakdown, setcheckBreakdown] = useState(false);
+  const [checkActiveName, setcheckActiveName] = useState(false);
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -78,6 +79,14 @@ function NamePage() {
     }
   };
 
+  const checkActiveNameFunction = () => {
+    if (checkActiveName) {
+      setcheckActiveName(false);
+    } else {
+      setcheckActiveName(true);
+    }
+  };
+
   return (
     <div className="page-content bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 gap-6 pt-10">
@@ -112,8 +121,15 @@ function NamePage() {
         </div>
 
         <div className="col-span-12 mb-5">
-          <SectionTitle title={t('name.activeName.title')} />
-          <ActiveNameComponents />
+          <SectionTitle
+            title={t('name.activeName.title')}
+            button={{
+              handle: checkActiveNameFunction,
+              isActive: checkActiveName,
+              text: t('common.verification'),
+            }}
+          />
+          <ActiveNameComponents checkActiveName={checkActiveName} />
         </div>
 
         <div className="col-span-12 mb-5">

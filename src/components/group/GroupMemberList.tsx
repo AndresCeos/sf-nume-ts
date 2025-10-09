@@ -140,7 +140,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
           onClick={() => setShowMemberInfo(!showMemberInfo)}
           className="text-sm text-main"
         >
-          {showMemberInfo ? t('group.lessInfo') : t('group.moreInfo')}
+          {showMemberInfo ? t('group.cancel') : t('group.editMember')}
         </button>
       </div>
 

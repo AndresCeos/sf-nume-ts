@@ -1,3 +1,5 @@
+import { reduceNumber } from '@/utils/numbers';
+
 type NameBreakdownProps = {
   name: any;
   values: any;
@@ -56,13 +58,13 @@ export default function NameBreakdown({
           <>
             <div className="ml-5">
               <div className="text-13 w-30 h-30 bg-gold bg-opacity-10 rounded-md inner-shadow">
-                {total[0].v !== 0 ? total[0].v : ''}
+                {checkBreakdown ? total[0].v : reduceNumber(values[0].vA)}
               </div>
               <div className="text-13 w-30 h-30 font-bold bg-main text-white rounded-md inner-shadow">
                 {checkBreakdown ? total[0].checkL : total[0].L}
               </div>
               <div className="text-13 w-30 h-30 bg-gold bg-opacity-10 rounded-md inner-shadow">
-                {total[0].c !== 0 ? total[0].c : ''}
+                {checkBreakdown ? total[0].c : reduceNumber(values[0].cA)}
               </div>
             </div>
             <div className="ml-3">

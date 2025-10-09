@@ -9,7 +9,7 @@ type UngroupName = {
   c: number;
 };
 
-export default function ActiveNameComponents() {
+export default function ActiveNameComponents({ checkActiveName }: { checkActiveName: boolean }) {
   const { consultant } = useConsult();
   if (!consultant) return null;
   const { t } = useTranslation();
@@ -89,7 +89,7 @@ export default function ActiveNameComponents() {
               =
             </div>
             <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-blue-30 border border-blue rounded-full inner-shadow mx-4">
-              {consultant.calcSoulNumber()}
+              {checkActiveName ? consultant.getSoulCheck() : consultant.calcSoulNumber()}
               {consultant.calcSoulNumberISK()}
             </div>
             <div className="col-span-2 text-13 font-bold text-gray-500 w-32">

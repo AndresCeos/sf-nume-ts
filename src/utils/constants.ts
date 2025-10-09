@@ -1,3 +1,4 @@
+import { getYear } from 'date-fns';
 import { includes } from 'lodash';
 
 // eslint-disable-next-line prefer-destructuring
@@ -22,6 +23,13 @@ export const sanitize = (text: string) => text
   .replace(/\s+/g, '-')
   .replace(/[^\w-]+/g, '')
   .replace(/-+/g, '-');
+
+export const isValidDate = (date: string) => {
+  if (!date) return false;
+  if (getYear(new Date(date)) > 2100) return false;
+  if (getYear(new Date(date)) < 1800) return false;
+  return true;
+};
 
 export function pageNameBySlug(opts:{ name:string }) {
   switch (opts.name) {
