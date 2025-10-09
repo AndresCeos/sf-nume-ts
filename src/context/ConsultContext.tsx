@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 
+import Group from '@/resources/Group';
 import Person from '@/resources/Person';
+import Synastry from '@/resources/Synastry';
 
 export interface ConsultContextInterface {
   consultant: Person | null;
@@ -14,10 +16,17 @@ export interface ConsultContextInterface {
   consultationDate: Date; // Fecha de Consulta en formato Date
   calculationDate: { day: number; month: number; year: number }; // Fecha de Consulta en formato { day: number; month: number; year: number }
   calculationYear: number; // Año de Consulta
+  // Guest management
+  guestPartner: Api.Partner[] | null;
+  activeGuestPartner: Synastry | null;
+  selectActiveGuestPartner: (partner: Api.Partner[], yearMet: number) => void;
+  guestGroup: Api.GroupMember[] | null;
+  activeGuestGroup: Group | null;
+  selectActiveGuestGroup: (group: Api.GroupMember[], groupYear: number) => void;
 
   // Partner management
   activePartner: Person | null;
-  selectActivePartner: (partner: Api.Partner) => void;
+  selectActivePartner: (partner: Api.Partner, yearMet: number) => void;
   updateUserPartnerActive:(activePartnerId: string) => void;
   updateConsultantPartners: (consultant: Api.Consultant) => void;
   partnersAvailable: Api.Partner[];
@@ -27,7 +36,7 @@ export interface ConsultContextInterface {
   selectedGroup: Person[];
   isEditingGroup: boolean;
   setIsEditingGroup: (isEditing: boolean) => void;
-  selectActiveGroup: (group: Api.GroupData) => void;
+  selectActiveGroup: (group: Api.GroupData, groupYear: number) => void;
   setSelectedGroup: (group: Person[]) => void;
   createGroup: (groupData: Omit<Api.GroupData, 'id' | 'members'>) => void;
   updateConsultantGroups: (consultant: Api.Consultant) => void;
@@ -61,6 +70,13 @@ const createDefaultValues = (): ConsultContextInterface => ({
   updateUserPartnerActive: () => null,
   updateConsultantPartners: () => null,
   partnersAvailable: [],
+  // Guest management
+  guestPartner: null,
+  guestGroup: null,
+  activeGuestPartner: null,
+  selectActiveGuestPartner: () => null,
+  activeGuestGroup: null,
+  selectActiveGuestGroup: () => null,
   // Group management defaults
   selectedGroup: [],
   setSelectedGroup: () => null,
