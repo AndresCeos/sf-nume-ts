@@ -341,7 +341,7 @@ const quaterY = StyleSheet.create({
 });
 function FontSelect({ consultant }: { consultant: Person }) {
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i: string) => i === 'Enero');
+  const indexOfMonth = consultant.getMonthOfBirth();
   if (indexOfMonth === 0) {
     return (
       <>
@@ -513,7 +513,7 @@ function FontSelect({ consultant }: { consultant: Person }) {
 function Ciclo({ consultant, cycleNineY }: { consultant: Person, cycleNineY: number[] }) {
   const { calculationDate } = useConsult();
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i: string) => i === 'Enero');
+  const indexOfMonth = consultant.getMonthOfBirth();
 
   return (
     <View style={quaterY.flex}>

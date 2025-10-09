@@ -9,7 +9,8 @@ export default function SynastryQuarterPerYear({ synastry }: { synastry: Synastr
   const { t } = useTranslation();
   if (!synastry) return null;
   const listOfMonths = synastry.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((element) => element === 'Enero');
+  // Use birth month index (0-11) instead of searching for 'Enero'
+  const indexOfMonth = synastry.getMonthOfBirth();
   const nineYearCycle = synastry.getNineYearCycle(calculationDate.year);
   const newDate = calculationDate;
   return (
@@ -27,7 +28,7 @@ export default function SynastryQuarterPerYear({ synastry }: { synastry: Synastr
         <SynastryCurrentQuarterFont synastry={synastry} />
         {listOfMonths.map((data, index) => (
           <>
-            {data === 'Enero' && index < 12 ? (
+            {index === 0 && index < 12 ? (
               <div
                 className={`${
                   index === 0 ? 'row-start-14 ' : `row-start-${index + 2} `

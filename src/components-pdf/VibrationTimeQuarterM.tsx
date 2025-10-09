@@ -94,7 +94,7 @@ export default function VibrationTimeQuarterM({ consultant, date }: { consultant
   const personalYear = consultant.calcPersonalYear(date.year);
 
   const actualMonth = allMonths[date.month - 1];
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  const index = consultant.getMonthOfBirth();
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
   switch (index) {
     case 0:

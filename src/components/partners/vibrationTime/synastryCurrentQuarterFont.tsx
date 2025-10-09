@@ -7,7 +7,7 @@ function SynastryCurrentQuarterFont({ synastry }: { synastry: Synastry | Group }
   const { calculationDate } = useConsult();
   if (!synastry) return null;
   const listOfMonths = synastry.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i) => i === 'Enero');
+  const indexOfMonth = synastry.getMonthOfBirth();
   const nineYearCycle = synastry.getNineYearCycle(calculationDate.year);
 
   if (indexOfMonth === 0) {

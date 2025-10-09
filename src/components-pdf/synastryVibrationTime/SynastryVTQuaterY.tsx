@@ -544,7 +544,7 @@ export function Ciclo({ synastry, date, indexOfMonth }: { synastry: Synastry, da
 }
 export default function SynastryVTQuarterY({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
   const listOfMonths = synastry.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i) => i === 'Enero');
+  const indexOfMonth = synastry.getMonthOfBirth();
   const m1 = listOfMonths[0];
   const m2 = listOfMonths[1];
   const m3 = listOfMonths[2];

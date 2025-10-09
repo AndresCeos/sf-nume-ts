@@ -11,7 +11,8 @@ function CustomMonths({ year, i }:YearIndex) {
   const { consultant, calculationDate } = useConsult();
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((element) => element === 'Enero');
+  // Use birth month index (0-11) instead of searching for 'Enero'
+  const indexOfMonth = consultant.getMonthOfBirth();
   const bornFirst = consultant.getDayOfBirth();
   const isCurrentYear = year === calculationDate.year;
   const isPreviousYear = year === calculationDate.year - 1;

@@ -7,7 +7,8 @@ export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boole
   const { t } = useTranslation();
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((element) => element === 'Enero');
+  // Use birth month index (0-11) instead of searching for 'Enero'
+  const indexOfMonth = consultant.getMonthOfBirth();
   const nineYearCycle = consultant.getNineYearCycle(calculationDate);
   const bornFirst = consultant.getDayOfBirth();
   const newDate = calculationDate;
@@ -26,7 +27,7 @@ export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boole
         <CurrentQuarterFont isGroup={isGroup} isSynastry={isSynastry} />
         {listOfMonths.map((data, index) => (
           <>
-            {data === 'Enero' && index < 12 ? (
+            {index === 0 && index < 12 ? (
               <div
                 className={`${
                   index === 0 ? 'row-start-14 ' : `row-start-${index + 2} `
