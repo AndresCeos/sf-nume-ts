@@ -1,179 +1,185 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import makeConsultant from '@/api/useConsultant';
 import MyModal from '@/components/MyModal';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
+import { isValidDate } from '@/utils/constants';
 import Swal from 'sweetalert2';
 
 type PartnerSelectionModalProps = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  partnerData: Api.PartnerData[];
-  currentPartner: Api.PartnerData;
-  onSelectPartner: (partner: Api.PartnerData) => void;
+  yearMeetProps: number;
+  nameProps: string;
 };
 
 function PartnerSelectionModal({
   isOpen,
   setIsOpen,
-  partnerData = [],
-  currentPartner,
-  onSelectPartner,
+  yearMeetProps,
+  nameProps,
 }: PartnerSelectionModalProps) {
-  const [selectedPartnerId, setSelectedPartnerId] = useState(
-    currentPartner?.id || '',
-  );
+  const {
+    guestPartner, selectActiveGuestPartner, activeConsultant,
+  } = useConsult();
+  const [partnerOne, setPartnerOne] = useState({
+    name: guestPartner?.[0]?.names || '',
+    birthDate: guestPartner?.[0]?.date || '',
+  });
+  const [partnerTwo, setPartnerTwo] = useState({
+    name: guestPartner?.[1]?.names || '',
+    birthDate: guestPartner?.[1]?.date || '',
+  });
+  const [yearMeet, setYearMeet] = useState(yearMeetProps || 0);
+  const [name, setName] = useState(nameProps || '');
   const { t } = useTranslation();
-  const navigate = useNavigate();
+
   const addConsultantAsync = makeConsultant();
   const handleConsultants = useConsultants();
-  const { activeConsultant } = useConsult();
-  const hasPartnerData = partnerData.length > 0;
   if (!activeConsultant) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!hasPartnerData) {
-      // Redirigir a la página de creación de parejas
-      navigate('/partner/synastry_pinnacle');
-      setIsOpen(false);
+    if (!isValidDate(partnerOne.birthDate) || !isValidDate(partnerTwo.birthDate)) {
       return;
     }
 
-    const selectedPartner = partnerData.find((p) => p.id === selectedPartnerId);
+    const partnerOneTemp: Api.Partner = {
+      id: Math.random().toString(36).substring(2, 9) || '',
+      names: partnerOne.name || '',
+      lastName: '',
+      scdLastName: '',
+      date: partnerOne.birthDate || '',
+    };
+    const partnerTwoTemp: Api.Partner = {
+      id: Math.random().toString(36).substring(2, 9) || '',
+      names: partnerTwo.name || '',
+      lastName: '',
+      scdLastName: '',
+      date: partnerTwo.birthDate || '',
+    };
 
-    if (selectedPartner) {
-      const newConsultant: Api.Consultant = {
-        ...activeConsultant,
-        guestEnergy: {
-          ...activeConsultant?.guestEnergy,
-          guestPartner: selectedPartner,
-        },
-      };
-      const consultantToEdit = handleConsultants.updateConsultant(activeConsultant.id, newConsultant);
-      addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
-        Swal.fire({
-          title: '¡Guardado exitosamente!',
-          text: 'La pareja ha sido guardada correctamente.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-        });
-        onSelectPartner(selectedPartner);
-        setIsOpen(false);
-      }).catch((err) => {
-        Swal.fire({
-          title: 'Error',
-          text: err.message,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-        });
-      }).finally(() => {
-        Swal.fire({
-          title: 'Guardando...',
-          text: 'Por favor espera mientras se guarda la pareja.',
-          icon: 'info',
-          confirmButtonText: 'Aceptar',
-        });
+    const newConsultant: Api.Consultant = {
+      ...activeConsultant,
+      guestEnergyPartner: {
+        guestPartner: [partnerOneTemp, partnerTwoTemp],
+        guestMeetYear: yearMeet,
+        name,
+      },
+    };
+
+    const consultantToEdit = handleConsultants.updateConsultant(activeConsultant?.id || '', newConsultant);
+    addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
+      selectActiveGuestPartner([partnerOneTemp, partnerTwoTemp], yearMeet);
+      Swal.fire({
+        title: t('modal.partner.successSave') as string,
+        text: t('modal.partner.successSaveMessage') as string,
+        icon: 'success',
+        confirmButtonText: t('modal.partner.accept') as string,
       });
-    }
-  };
-
-  const handleCreatePartner = () => {
-    navigate('/partner/synastry_pinnacle');
-    setIsOpen(false);
+      setIsOpen(false);
+    }).catch((err) => {
+      Swal.fire({
+        title: t('modal.partner.errorSave') as string,
+        text: err.message,
+        icon: 'error',
+        confirmButtonText: t('modal.partner.accept') as string,
+      });
+    }).finally(() => {
+      Swal.fire({
+        title: t('modal.partner.saving') as string,
+        text: t('modal.partner.pleaseWait') as string,
+        icon: 'info',
+        confirmButtonText: t('modal.partner.accept') as string,
+      });
+    });
   };
 
   return (
     <MyModal
       size="small"
-      title={
-        hasPartnerData
-          ? (t('modal.partner.selectTitle') as string)
-          : (t('modal.partner.noPartnersTitle') as string)
-      }
+      title={t('modal.partner.guestPartner') as string}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       isLoading={false}
     >
-      {hasPartnerData ? (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="partner-select">
-              {t('modal.partner.selectLabel')}
-            </label>
-            <select
-              id="partner-select"
-              value={selectedPartnerId}
-              onChange={(e) => setSelectedPartnerId(e.target.value)}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <div className="form-group gap-2">
+            <p>{t('modal.partner.namePartner')}</p>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full border border-gray-500 p-2 rounded-md"
-              required
-            >
-              <option value="">
-                {t('modal.partner.selectPlaceholder')}
-              </option>
-              {partnerData.map((partner) => (
-                <option key={partner.id} value={partner.id}>
-                  {partner.name}
-                  {' '}
-                  (
-                  {partner.yearMeet}
-                  )
-                </option>
-              ))}
-            </select>
+            />
           </div>
-
-          <div className="flex gap-2 justify-end">
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="btn btn-cancel"
-            >
-              {t('modal.partner.cancel')}
-            </button>
-            <button
-              type="submit"
-              disabled={!selectedPartnerId}
-              className="btn"
-            >
-              {t('modal.partner.save')}
-            </button>
+          <div className="form-group gap-2">
+            <p>{t('modal.partner.partnerOne')}</p>
+            <input
+              type="text"
+              name="partnerOne"
+              value={partnerOne.name}
+              placeholder={t('forms.name') as string}
+              onChange={(e) => setPartnerOne({ ...partnerOne, name: e.target.value })}
+              className="w-full border border-gray-500 p-2 rounded-md"
+            />
+            <input
+              type="date"
+              name="partnerOneBirthDate"
+              value={partnerOne.birthDate}
+              onChange={(e) => setPartnerOne({ ...partnerOne, birthDate: e.target.value })}
+              className="w-full border border-gray-500 p-2 rounded-md"
+            />
           </div>
-        </form>
-      ) : (
-        <div className="flex flex-col gap-4">
-          <div className="text-center">
-            <p className="text-gray-600 mb-4">
-              {t('modal.partner.noPartnersMessage')}
-            </p>
-            <div className="text-6xl mb-4">💕</div>
-            <p className="text-sm text-gray-500">
-              {t('modal.partner.noPartnersSubMessage')}
-            </p>
+          <div className="form-group gap-2">
+            <p>{t('modal.partner.partnerTwo')}</p>
+            <input
+              type="text"
+              name="partnerTwo"
+              value={partnerTwo.name}
+              placeholder={t('forms.name') as string}
+              onChange={(e) => setPartnerTwo({ ...partnerTwo, name: e.target.value })}
+              className="w-full border border-gray-500 p-2 rounded-md"
+            />
+            <input
+              type="date"
+              name="partnerTwoBirthDate"
+              value={partnerTwo.birthDate}
+              onChange={(e) => setPartnerTwo({ ...partnerTwo, birthDate: e.target.value })}
+              className="w-full border border-gray-500 p-2 rounded-md"
+            />
           </div>
-
-          <div className="flex gap-2 justify-end">
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="btn btn-cancel"
-            >
-              {t('modal.partner.cancel')}
-            </button>
-            <button
-              type="button"
-              onClick={handleCreatePartner}
-              className="btn"
-            >
-              {t('modal.partner.createPartner')}
-            </button>
+          <div className="form-group gap-2">
+            <p>{t('modal.partner.yearMeet')}</p>
+            <input
+              type="number"
+              name="yearMeet"
+              value={yearMeet}
+              onChange={(e) => setYearMeet(Number(e.target.value))}
+              className="w-full border border-gray-500 p-2 rounded-md"
+            />
           </div>
         </div>
-      )}
+        <div className="flex gap-2 justify-end">
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            className="btn btn-cancel"
+          >
+            {t('modal.partner.cancel')}
+          </button>
+          <button
+            type="submit"
+            className="btn"
+          >
+            {t('modal.partner.save')}
+          </button>
+        </div>
+      </form>
     </MyModal>
   );
 }

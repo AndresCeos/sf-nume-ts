@@ -20,7 +20,7 @@ function NineYearsCycle() {
         {t('lifePath.nineYearsCycle.yearX', { year: consultant.calcPersonalYear(consultationDate.getFullYear()) })}
       </div>
       <div className="col-start-1 col-span-2 row-start-5 h-9 arrow-down-cycle" />
-      <div className="col-start-1 col-span-2 row-start-6 text-13 font-bold">
+      <div className="col-start-1 col-span-2 row-start-6 row-span-1 text-13 font-bold">
         {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.0`)}
         <br />
         {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.1`)}
@@ -41,7 +41,7 @@ function NineYearsCycle() {
             <div className="col-start-4 col-span-2 row-start-5 h-9 arrow-down-line" />
             <div className="col-start-4 col-span-2 row-start-6 h-9 arrow-down-cycle" />
             <div className="col-start-4 col-span-2 row-start-7 text-13 font-bold">
-              <div className="col-start-7 col-span-2 row-start-6 text-13 font-bold">
+              <div className="col-start-7 col-span-2 row-start-6 text-13 font-bold -mt-[50px]">
                 {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.3`)}
               </div>
             </div>
@@ -91,7 +91,7 @@ function NineYearsCycle() {
             </div>
             <div className="col-start-10 col-span-2 row-start-5 h-9 arrow-down-line" />
             <div className="col-start-10 col-span-2 row-start-6 h-9 arrow-down-cycle" />
-            <div className="col-start-10 col-span-2 row-start-7 text-13 font-bold">
+            <div className="col-start-10 col-span-2 row-start-7 text-13 font-bold -mt-[50px]">
               {t(`lifePath.nineYearsCycle.cycles.${consultant.calcPersonalYear(consultationDate.getFullYear())}.5`)}
             </div>
             <div className="col-start-12 row-start-1 text-13 font-medium">

@@ -156,7 +156,6 @@ function CreateNamePage() {
   const handleSave = async () => {
     try {
       if (!activeConsultant || !isValid()) {
-        console.error('No se puede guardar: datos inválidos o consultor no seleccionado');
         return;
       }
 

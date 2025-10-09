@@ -40,19 +40,19 @@ function SettingsForm() {
     let isValid = true;
     let validationMsgs = {};
     if (firstName === '') {
-      validationMsgs = { ...validationMsgs, firstName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, firstName: t('forms.required') as string };
       isValid = false;
     }
     if (lastName === '') {
-      validationMsgs = { ...validationMsgs, lastName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, lastName: t('forms.required') as string };
       isValid = false;
     }
     if (scdLastName === '') {
-      validationMsgs = { ...validationMsgs, scdLastName: 'Requerido' };
+      validationMsgs = { ...validationMsgs, scdLastName: t('forms.required') as string };
       isValid = false;
     }
     if (birthDate === null || birthDate === undefined) {
-      validationMsgs = { ...validationMsgs, birthDate: 'Requerido' };
+      validationMsgs = { ...validationMsgs, birthDate: t('forms.required') as string };
       isValid = false;
     }
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
@@ -99,11 +99,11 @@ function SettingsForm() {
     <form action="" onSubmit={handleOnSubmit}>
       <div className="flex w-full">
         <div className="p-5 w-3/5 border-r-2 border-black">
-          <h2 className="text-sm font-extrabold text-gray-400 mb-5">Datos Personales</h2>
+          <h2 className="text-sm font-extrabold text-gray-400 mb-5">{t('forms.personalData')}</h2>
           <div className="flex w-full">
             <div className="form-group w-1/3 mb-5">
               <p className="font-bold mb-1 text-13">
-                Nombre(s)
+                {t('forms.names')}
                 {' '}
                 <span className="text-red-400">*</span>
               </p>
@@ -118,7 +118,7 @@ function SettingsForm() {
             </div>
             <div className="form-group w-1/3 mb-5">
               <p className="font-bold mb-1 text-13">
-                Apellido Paterno
+                {t('forms.paternalSurname')}
                 {' '}
                 <span className="text-red-400">*</span>
               </p>
@@ -133,7 +133,7 @@ function SettingsForm() {
             </div>
             <div className="form-group w-1/3">
               <p className="font-bold mb-1 text-13">
-                Apellido Materno
+                {t('forms.maternalSurname')}
                 {' '}
                 <span className="text-red-400">*</span>
               </p>
@@ -166,7 +166,7 @@ function SettingsForm() {
             </div>
             <div className="form-group w-1/3">
               <p className="font-bold mb-1 text-13">
-                Teléfono
+                {t('forms.phone')}
                 {' '}
               </p>
               <input
@@ -179,7 +179,7 @@ function SettingsForm() {
             </div>
             <div className="form-group w-1/3">
               <p className="font-bold mb-1 text-13">
-                Email
+                {t('forms.email')}
                 {' '}
               </p>
               <input
@@ -193,16 +193,16 @@ function SettingsForm() {
             </div>
           </div>
           <div className=" w-full">
-            <p className="text-13 font-bold mt-5">Contraseña</p>
-            <p className="text-blue underline"><a href="https://app.numerologia-cotidiana.com/mi-cuenta/lost-password/" target="_blank" rel="noreferrer">Cambiar mi contraseña</a></p>
+            <p className="text-13 font-bold mt-5">{t('forms.password')}</p>
+            <p className="text-blue underline"><a href="https://app.numerologia-cotidiana.com/mi-cuenta/lost-password/" target="_blank" rel="noreferrer">{t('forms.changePassword')}</a></p>
           </div>
         </div>
         <div className="p-5 w-2/5">
-          <h2 className="text-sm font-extrabold text-gray-400 mb-5">Datos Profesionales</h2>
+          <h2 className="text-sm font-extrabold text-gray-400 mb-5">{t('forms.professionalData')}</h2>
           <div className="w-full">
             <div className="form-group w-full mb-5">
               <p className="font-bold mb-1 text-13">
-                Empresa
+                {t('forms.company')}
                 {' '}
               </p>
               <input
@@ -216,7 +216,7 @@ function SettingsForm() {
             <div className="flex w-full mb-5">
               <div className="form-group w-1/2">
                 <p className="font-bold mb-1 text-13">
-                  Dirección
+                  {t('forms.address')}
                   {' '}
                 </p>
                 <input
@@ -229,7 +229,7 @@ function SettingsForm() {
               </div>
               <div className="form-group w-1/2">
                 <p className="font-bold mb-1 text-13">
-                  Teléfono
+                  {t('forms.phone')}
                   {' '}
                 </p>
                 <input
@@ -244,7 +244,7 @@ function SettingsForm() {
             <div className="flex w-full mb-5">
               <div className="form-group w-1/2">
                 <p className="font-bold mb-1 text-13">
-                  Página Web
+                  {t('forms.website')}
                   {' '}
                 </p>
                 <input
@@ -257,7 +257,7 @@ function SettingsForm() {
               </div>
               <div className="form-group w-1/2">
                 <p className="font-bold mb-1 text-13">
-                  Adjuntar Logo
+                  {t('forms.attachLogo')}
                   {' '}
                 </p>
                 <input
@@ -267,9 +267,9 @@ function SettingsForm() {
                   onChange={(e) => handleInputChange(e.target)}
                   value={logo}
                 />
-                <p className="text-13 mt-2">Tamaño del archivo max. 1MB</p>
-                <p className="text-13">Tipo de archivo .jpeg ó .png</p>
-                <p className="text-13">Dimensiones recomendadas 309x174 pixeles</p>
+                <p className="text-13 mt-2">{t('forms.logoSize')}</p>
+                <p className="text-13">{t('forms.logoType')}</p>
+                <p className="text-13">{t('forms.logoDimensions')}</p>
               </div>
             </div>
 
@@ -277,7 +277,7 @@ function SettingsForm() {
         </div>
       </div>
       <div className="m-5 mb-2 flex justify-center">
-        <button type="submit" className="btn px-5" disabled={isLoading}>Guardar</button>
+        <button type="submit" className="btn px-5" disabled={isLoading}>{t('forms.save')}</button>
       </div>
     </form>
   );

@@ -568,16 +568,12 @@ class Person {
  * @returns {Number}
  */
   getSoulCheck(): number {
-    console.log('Aqui');
     const names = this.nameView.toLowerCase().split(' ');
     const lastName = this.lastName.toLowerCase().split(' ');
     const scdLastName = this.scdLastName.toLowerCase().split(' ');
     let n = 0;
     let ln = 0;
     let sln = 0;
-    console.log('names', names);
-    console.log('lastName', lastName);
-    console.log('scdLastName', scdLastName);
 
     names.forEach((el) => {
       const vowels = el.split('');
@@ -592,7 +588,6 @@ class Person {
       let val = 0;
       vowels.forEach((element) => {
         val += vowelsValues(element);
-        console.log('val', val);
       });
       ln += val;
     });
@@ -601,14 +596,9 @@ class Person {
       let val = 0;
       vowels.forEach((element) => {
         val += vowelsValues(element);
-        console.log('val', val);
       });
       sln += val;
     });
-    console.log('n', n);
-    console.log('ln', ln);
-    console.log('sln', sln);
-    console.log('reduceNumber', reduceNumber(n + ln + sln));
     return reduceNumber(n + ln + sln);
   }
 
@@ -1198,15 +1188,26 @@ class Person {
 
   getUngroupNameValues(name: string = this.fullName) {
     const letters = name.toLowerCase().replace(/\s/g, '');
-    let ungroupNameV = 0;
-    let ungroupNameC = 0;
+    const words = name.toLowerCase().split(' ');
+
+    // Calcular sumas reducidas de vocales y consonantes por palabra
+    const wordsSumVReduce: number = words
+      .map((word) => reduceNumber(word.split('').reduce((acc, letter) => acc + vowelsValues(letter), 0)))
+      .reduce((acc, sum) => acc + sum, 0);
+    const wordsSumCReduce: number = words
+      .map((word) => reduceNumber(word.split('').reduce((acc, letter) => acc + consonantValues(letter), 0)))
+      .reduce((acc, sum) => acc + sum, 0);
+
+    let unGroupNameV = 0;
+    let unGroupNameC = 0;
 
     for (const letter of letters) {
-      ungroupNameV += vowelsValues(letter);
-      ungroupNameC += consonantValues(letter);
+      unGroupNameV += vowelsValues(letter);
+      unGroupNameC += consonantValues(letter);
     }
-
-    return [{ v: ungroupNameV, L: '', c: ungroupNameC }];
+    return [{
+      v: unGroupNameV, L: '', c: unGroupNameC, vA: wordsSumVReduce, cA: wordsSumCReduce,
+    }];
   }
 
   getUngroupNameTotal(name: string = this.fullName) {
@@ -1219,7 +1220,6 @@ class Person {
       ungroupNameC += consonantValues(letter);
     }
     const checkReduced = reduceNumber(reduceNumber(ungroupNameV) + reduceNumber(ungroupNameC));
-
     return [{
       v: reduceNumber(ungroupNameV),
       L: reduceNumber(ungroupNameV + ungroupNameC),

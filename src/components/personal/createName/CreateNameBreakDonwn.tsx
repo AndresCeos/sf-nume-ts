@@ -10,7 +10,7 @@ type UngroupName = {
 export default function CreateNameBreakDown({ consultant, checkBreakdown }: { consultant: Person, checkBreakdown: boolean }) {
   if (!consultant) return null;
   const {
-    name, lastName, scdLastName, nameView,
+    lastName, scdLastName, nameView,
   } = consultant;
   const names = nameView.toLocaleLowerCase().split(' ');
 
@@ -41,14 +41,6 @@ export default function CreateNameBreakDown({ consultant, checkBreakdown }: { co
   for (let index = ungroupSCDLast.length; index < 28; index += 1) {
     ungroupSCDLast.push({} as UngroupName);
   }
-
-  const ungroupName = consultant.getUngroupName(name);
-  const ungroupNameV = consultant.getUngroupNameValues(name);
-  const ungroupNameT = consultant.getUngroupNameTotal(name);
-
-  for (let index = ungroupName.length; index < 28; index += 1) {
-    ungroupName.push({} as UngroupName);
-  }
   return (
     <div className="pinnacle-wrap px-8 py-8">
       {ungroupNames.map((ungroup, index) => (
@@ -72,13 +64,6 @@ export default function CreateNameBreakDown({ consultant, checkBreakdown }: { co
         values={ungroupSCDLastV}
         total={ungroupSCDLastT}
         description="AM"
-        checkBreakdown={checkBreakdown}
-      />
-      <NameBreakdown
-        name={ungroupName}
-        values={ungroupNameV}
-        total={ungroupNameT}
-        description="NA"
         checkBreakdown={checkBreakdown}
       />
     </div>

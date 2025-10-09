@@ -111,7 +111,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/create_name.svg" className="w-6 h-4 object-center" alt="ic_create_name" />
                 <label className="ml-2">{t('sidebar.createName')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>
@@ -257,7 +257,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/circle_time.svg" className="w-6 h-4 object-center" alt="ic_circle_time" />
                 <label className="ml-2">{t('sidebar.timeCircle')}</label>
                 <span className="bg-yellow text-white text-xs font-medium me-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>
@@ -271,7 +271,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
                 <label className="ml-2">{t('sidebar.monthlyCalendar')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>
@@ -285,7 +285,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
                 <label className="ml-2">{t('sidebar.annualCalendar')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>
@@ -343,7 +343,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/circle_time.svg" className="w-6 h-4 object-center" alt="ic_circle_time" />
                 <label className="ml-2">{t('sidebar.timeCircle')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>
@@ -357,7 +357,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
                 <label className="ml-2">{t('sidebar.annualCalendar')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>
@@ -371,7 +371,7 @@ function Sidebar() {
                 <img src="/assets/sidebar/calendar.svg" className="w-6 h-4 object-center" alt="ic_calendar" />
                 <label className="ml-2">{t('sidebar.monthlyCalendar')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
-                  new
+                  {t('sidebar.new')}
                 </span>
               </NavLink>
             </li>

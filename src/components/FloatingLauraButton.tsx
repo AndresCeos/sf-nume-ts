@@ -1,9 +1,11 @@
 import miniLaura from '@/assets/mini-laura.png';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FloatingLaura from './FloatingLaura';
 
 export default function FloatingLauraButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleClick = () => {
     setIsModalOpen(true);
@@ -19,7 +21,7 @@ export default function FloatingLauraButton() {
         type="button"
         onClick={handleClick}
         className="floating-laura-button"
-        title="Glosario de Numerología"
+        title={t('modal.glossary.title') as string}
       >
         <img
           src={miniLaura}

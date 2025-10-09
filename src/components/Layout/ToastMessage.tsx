@@ -50,10 +50,10 @@ export default function ToastMessage({
   }
 
   return (
-    <div className="fixed bottom-100 right-5 z-50">
+    <div className="fixed bottom-100 right-6 z-50">
       <div
         id="toast-default"
-        className={`flex items-center w-full max-w-xs p-4 text-gray-500 bg-main rounded-lg transition-all duration-300 ease-in-out transform ${
+        className={`flex items-center w-full max-w-md p-4 text-gray-500 bg-main rounded-lg transition-all duration-300 ease-in-out transform ${
           isAnimating && isVisible
             ? 'translate-x-0 opacity-100 scale-100'
             : 'translate-x-full opacity-0 scale-95'
@@ -61,7 +61,7 @@ export default function ToastMessage({
         role="alert"
       >
 
-        <div className="ms-3 text-sm font-normal text-white">
+        <div className="mx-3 text-sm font-normal text-white">
           <a href="https://tienda.numerologia-cotidiana.com/" target="_blank" rel="noreferrer">{message}</a>
         </div>
         <button

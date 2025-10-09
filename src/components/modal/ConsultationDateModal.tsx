@@ -29,8 +29,13 @@ function ConsultationDateModal() {
         selectConsultationDate(new Date());
       }
       if (result.isDenied) {
-        const date = (document?.getElementById('newDate') as any)?.value ?? new Date();
-        selectConsultationDate(new Date(date));
+        const dateValue = (document?.getElementById('newDate') as any)?.value;
+        if (dateValue) {
+          // Crear fecha sin problemas de zona horaria
+          const [year, month, day] = dateValue.split('-').map(Number);
+          const selectedDate = new Date(year, month - 1, day);
+          selectConsultationDate(selectedDate);
+        }
       }
     });
   };

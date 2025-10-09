@@ -28,7 +28,6 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     handleInputChange, formError, setFormError, reset,
     groupData,
     partnerData,
-    guestEnergy,
   } = useForm(initialForm);
 
   const [formStatus, setFormStatus] = useState<FormStatus>(FORM_STATUS_INITIAL_STATE);
@@ -82,7 +81,6 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
       partnerData,
       phone,
       scdLastName,
-      guestEnergy,
     };
     setIsLoading(true);
     if (isEditingConsultant) {
@@ -290,10 +288,6 @@ function ConsultantFormWrapper() {
     email: (isEditingConsultant && consultant) ? consultantData?.email : '',
     groupData: (isEditingConsultant && consultant) ? consultantData?.groupData : [],
     partnerData: (isEditingConsultant && consultant) ? consultantData?.partnerData : [],
-    guestEnergy: (isEditingConsultant && consultant) ? consultantData?.guestEnergy : {
-      guestPartner: undefined,
-      guestGroup: undefined,
-    },
   };
 
   return <ConsultantForm initialForm={initialForm} key={`${consultant?.id}_${isEditingConsultant}`} />;
