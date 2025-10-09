@@ -100,7 +100,14 @@
     "logout": "Salir",
     "userManual": "Manual de Usuario",
     "policiesAndPrivacy": "Políticas y Privacidad",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "new": "Nuevo",
+    "generalData": "Datos Generales",
+    "myAccount": "Mi Cuenta",
+    "version": "Versión del Software",
+    "licenseNumberArithmax": "Número de Licencia",
+    "expirationDate": "Fecha de expiración",
+    "licenseType": "Tipo de Licencia"
   },
   "modal": {
     "date": {
@@ -144,7 +151,15 @@
       "years": "años",
       "meeting": "Encuentro",
       "lessInfo": "Ver menos información",
-      "moreInfo": "Ver más información"
+      "moreInfo": "Ver más información",
+      "guestPartner": "Pareja Invitada",
+      "partnerOne": "Integrante 1",
+      "partnerTwo": "Integrante 2",
+      "successSave": "¡Guardado exitosamente!",
+      "successSaveMessage": "La pareja ha sido guardada correctamente.",
+      "errorSave": "Error",
+      "pleaseWait": "Por favor espera mientras se guarda la pareja.",
+      "accept": "Aceptar"
     },
     "group": {
       "selectTitle": "Seleccionar Grupo",
@@ -155,7 +170,28 @@
       "save": "Guardar",
       "noGroupsMessage": "No tienes grupos creados aún",
       "noGroupsSubMessage": "Crea tu primer grupo para comenzar",
-      "createGroup": "Crear Grupo"
+      "createGroup": "Crear Grupo",
+      "guestGroup": "Grupo Invitado",
+      "nameGroup": "Nombre del Grupo",
+      "lastYearIntegration": "Último Año de integración",
+      "integrant": "Integrante",
+      "successSave": "¡Guardado exitosamente!",
+      "successSaveMessage": "El grupo ha sido guardado correctamente.",
+      "errorSave": "Error",
+      "pleaseWait": "Por favor espera mientras se guarda el grupo.",
+      "accept": "Aceptar",
+      "clean": "Limpiar"
+    },
+    "glossary": {
+      "title": "Glosario de Numerología",
+      "backToSearch": "Volver a la búsqueda",
+      "definition": "Definición",
+      "search": "Buscar término",
+      "searched":"Búsqueda",
+      "searchPlaceholder": "Escribe el término aquí...",
+      "loading": "Cargando glosario...",
+      "noResults": "No se encontraron términos que coincidan",
+      "writeToSearch": "Escribe un término para buscar en el glosario"
     }
   },
   "loginPage": {
@@ -427,7 +463,17 @@
     "save": "Guardar",
     "confirm": "Confirmar",
     "cancel": "Cancelar",
-    "required": "Requerido"
+    "required": "Requerido",
+    "personalData": "Datos Personales",
+    "password": "Contraseña",
+    "professionalData": "Datos Profesionales",
+    "address": "Dirección",
+    "website": "Página Web",
+    "attachLogo": "Adjuntar Logo",
+    "logoSize": "Tamaño del archivo max. 1MB",
+    "logoType": "Tipo de archivo .jpeg ó .png",
+    "logoDimensions": "Dimensiones recomendadas 309x174 pixeles",
+    "changePassword": "Cambiar contraseña"
   },
   "name": {
     "title": "Nombre",

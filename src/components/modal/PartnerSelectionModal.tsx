@@ -74,25 +74,25 @@ function PartnerSelectionModal({
     addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
       selectActiveGuestPartner([partnerOneTemp, partnerTwoTemp], yearMeet);
       Swal.fire({
-        title: '¡Guardado exitosamente!',
-        text: 'La pareja ha sido guardada correctamente.',
+        title: t('modal.partner.successSave') as string,
+        text: t('modal.partner.successSaveMessage') as string,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('modal.partner.accept') as string,
       });
       setIsOpen(false);
     }).catch((err) => {
       Swal.fire({
-        title: 'Error',
+        title: t('modal.partner.errorSave') as string,
         text: err.message,
         icon: 'error',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('modal.partner.accept') as string,
       });
     }).finally(() => {
       Swal.fire({
-        title: 'Guardando...',
-        text: 'Por favor espera mientras se guarda la pareja.',
+        title: t('modal.partner.saving') as string,
+        text: t('modal.partner.pleaseWait') as string,
         icon: 'info',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('modal.partner.accept') as string,
       });
     });
   };
@@ -100,7 +100,7 @@ function PartnerSelectionModal({
   return (
     <MyModal
       size="small"
-      title="Pareja Invitado"
+      title={t('modal.partner.guestPartner') as string}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       isLoading={false}
@@ -108,7 +108,7 @@ function PartnerSelectionModal({
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div className="form-group gap-2">
-            <p>{t('modal.partner.name')}</p>
+            <p>{t('modal.partner.namePartner')}</p>
             <input
               type="text"
               name="name"

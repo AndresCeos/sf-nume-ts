@@ -1,6 +1,7 @@
 import {
   memo, useCallback, useEffect, useMemo, useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import Modal from 'react-modal';
 
 // Lazy load del glosario para evitar cargar todo al inicio
@@ -28,6 +29,7 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
   const [selectedDefinition, setSelectedDefinition] = useState<string>('');
   const [glosarioData, setGlosarioData] = useState<Record<string, string> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   // Cargar glosario solo cuando se abre el modal
   const loadGlosarioData = useCallback(async () => {
@@ -80,7 +82,7 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
       onRequestClose={onClose}
       className="floating-laura-modal"
       overlayClassName="floating-laura-overlay"
-      contentLabel="Glosario de Numerología"
+      contentLabel={t('modal.glossary.title') as string}
     >
       <div className="floating-laura-content">
         <div className="floating-laura-header">
@@ -91,7 +93,7 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
               </svg>
             </div>
             <h2 className="floating-laura-header-title">
-              {selectedTerm || 'Glosario de Numerología'}
+              {selectedTerm || t('modal.glossary.title')}
             </h2>
           </div>
           <button
@@ -113,13 +115,13 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
                   className="floating-laura-back-link"
                   onClick={handleBackToSearch}
                 >
-                  Volver a la búsqueda
+                  {t('modal.glossary.backToSearch')}
                 </button>
               </div>
             </div>
 
             <div className="floating-laura-definition-content">
-              <p className="floating-laura-label">Definición</p>
+              <p className="floating-laura-label">{t('modal.glossary.definition')}</p>
               <div className="floating-laura-definition-text">
                 <p className="floating-laura-definition-paragraph">
                   {selectedDefinition}
@@ -132,15 +134,18 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
           <>
             <div className="floating-laura-info-section">
               <div className="floating-laura-info-item">
-                <span className="floating-laura-info-label">Búsqueda:</span>
+                <span className="floating-laura-info-label">
+                  {t('modal.glossary.searched')}
+                  :
+                </span>
               </div>
             </div>
 
             <div className="floating-laura-search-section">
-              <p className="floating-laura-label">Buscar término</p>
+              <p className="floating-laura-label">{t('modal.glossary.search')}</p>
               <input
                 type="text"
-                placeholder="Escribe el término aquí..."
+                placeholder={t('modal.glossary.searchPlaceholder') as string}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="floating-laura-search-input"
@@ -150,15 +155,13 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
             <div className="floating-laura-results">
               {isLoading && (
                 <p className="floating-laura-placeholder">
-                  Cargando glosario...
+                  {t('modal.glossary.loading')}
                 </p>
               )}
 
               {!isLoading && searchTerm.trim() && filteredTerms.length === 0 && (
                 <p className="floating-laura-no-results">
-                  No se encontraron términos que coincidan con &quot;
-                  {searchTerm}
-                  &quot;
+                  {t('modal.glossary.noResults')}
                 </p>
               )}
 
@@ -179,7 +182,7 @@ function FloatingLaura({ isOpen, onClose }: FloatingLauraProps) {
 
               {!isLoading && !searchTerm.trim() && (
                 <p className="floating-laura-placeholder">
-                  Escribe un término para buscar en el glosario
+                  {t('modal.glossary.writeToSearch')}
                 </p>
               )}
             </div>

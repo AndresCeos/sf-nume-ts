@@ -16,7 +16,7 @@ function SettingsPage() {
         <div className="col-span-12">
           <div className="">
             <SectionTitle
-              title="Datos Generales"
+              title={t('sidebar.generalData')}
             />
             <div className="section-wrap px-2 py-5">
               <SettingsForm />
@@ -26,26 +26,30 @@ function SettingsPage() {
         <div className="col-span-5">
           <div>
             <SectionTitle
-              title="Mi Cuenta"
+              title={t('sidebar.myAccount')}
             />
             <div className="section-wrap px-2 py-5">
               <p className="text-13 font-bold text-gray-400">
-                Versión del Software:
+                {t('sidebar.version')}
+                :
                 {' '}
                 <span className="text-13 text-black">{userAuth?.app_version}</span>
               </p>
               <p className="text-13 font-bold text-gray-400">
-                Número de Licencia:
+                {t('sidebar.licenseNumberArithmax')}
+                :
                 {' '}
                 <span className="text-13 text-black">{userAuth?.license.id}</span>
               </p>
               <p className="text-13 font-bold text-gray-400">
-                Fecha de expiración:
+                {t('sidebar.expirationDate')}
+                :
                 {' '}
                 <span className="text-13 text-black">{userAuth?.license.expirationDate ? formatDate({ date: userAuth?.license.expirationDate, format: 'long', locale: t('locale') as string }) : 'N/A'}</span>
               </p>
               <p className="text-13 font-bold text-gray-400">
-                Tipo de Licencia:
+                {t('sidebar.licenseType')}
+                :
                 {' '}
                 <span className="text-13 text-black">{licenseTypes(userAuth?.license?.licenseId || '')}</span>
               </p>

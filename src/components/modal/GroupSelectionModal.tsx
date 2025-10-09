@@ -86,25 +86,25 @@ function GroupSelectionModal({
     addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
       selectActiveGuestGroup(validGroupMembers, guestYear);
       Swal.fire({
-        title: '¡Guardado exitosamente!',
-        text: 'El grupo ha sido guardado correctamente.',
+        title: t('modal.group.successSave') as string,
+        text: t('modal.group.successSaveMessage') as string,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('modal.group.accept') as string,
       });
       setIsOpen(false);
     }).catch((err) => {
       Swal.fire({
-        title: 'Error',
+        title: t('modal.group.errorSave') as string,
         text: err.message,
         icon: 'error',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('modal.group.accept') as string,
       });
     }).finally(() => {
       Swal.fire({
-        title: 'Guardando...',
-        text: 'Por favor espera mientras se guarda el grupo.',
+        title: t('modal.group.saving') as string,
+        text: t('modal.group.pleaseWait') as string,
         icon: 'info',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: t('modal.group.accept') as string,
       });
     });
   };
@@ -112,7 +112,7 @@ function GroupSelectionModal({
   return (
     <MyModal
       size="large"
-      title="Grupo Invitado"
+      title={t('modal.group.guestGroup') as string}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       isLoading={false}
@@ -121,7 +121,7 @@ function GroupSelectionModal({
         <div className="flex w-full gap-1">
           <div className="form-group gap-1 w-1/2">
             <p>
-              Nombre del grupo
+              {t('modal.group.nameGroup') as string}
             </p>
             <div className="form-group">
               <input
@@ -136,7 +136,7 @@ function GroupSelectionModal({
           </div>
           <div className="form-group gap-1 w-1/2">
             <p>
-              Última fecha deintegración
+              {t('modal.group.lastYearIntegration') as string}
             </p>
             <input
               type="number"
@@ -154,7 +154,7 @@ function GroupSelectionModal({
             {[0, 2, 4, 6].map((index) => (
               <div key={groupMembers[index].id} className="form-group gap-1">
                 <p>
-                  Integrante
+                  {t('modal.group.integrant') as string}
                   {' '}
                   {index + 1}
                 </p>
@@ -181,7 +181,7 @@ function GroupSelectionModal({
             {[1, 3, 5, 7].map((index) => (
               <div key={groupMembers[index].id} className="form-group gap-1">
                 <p>
-                  Integrante
+                  {t('modal.group.integrant') as string}
                   {' '}
                   {index + 1}
                 </p>
