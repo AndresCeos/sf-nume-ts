@@ -23,13 +23,14 @@ interface QuarterData {
 type WeekNumber = 1 | 2 | 3 | 4;
 
 function LearningStage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { consultant, consultationDate, calculationDate } = useConsult();
 
   if (!consultant) return null;
 
   const listOfMonths = consultant.getCustomMonths();
-  const index = listOfMonths.findIndex((i:string) => i === 'Enero');
+  // Use birth month index (0-11) instead of searching for 'Enero'
+  const index = consultant.getMonthOfBirth();
   const listOfMonths3 = listOfMonths.map((e:string) => e.substring(0, 3));
 
   const currentYear = getYear(consultationDate);
@@ -62,8 +63,9 @@ function LearningStage() {
 
   const { current, karmic } = getQuarterValues();
 
-  // Get current month info
-  const currentMonthName = capitalize(consultationDate.toLocaleString('es-ES', { month: 'long' }));
+  // Get current month info - use current language
+  const locale = i18n.language === 'es' ? 'es-ES' : 'en-US';
+  const currentMonthName = capitalize(consultationDate.toLocaleString(locale, { month: 'long' }));
   const currentMonth = listOfMonths.findIndex((i) => i === currentMonthName);
 
   // Calculate quarters based on index

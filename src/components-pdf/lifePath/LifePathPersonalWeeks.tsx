@@ -55,8 +55,8 @@ export const lifePath = StyleSheet.create({
 export default function LifePathPersonalWeeks({ consultant, now, newDate }: { consultant: Person, now: SplittedDate, newDate: Date }) {
   const listOfMonths = consultant.getCustomMonths();
 
-  const actualMonth = capitalize(newDate.toLocaleString('es-ES', { month: 'long' }));
-  const currentMonth = listOfMonths.findIndex((i:string) => i === capitalize(actualMonth));
+  // Use month index directly from the date (0-11)
+  const currentMonth = newDate.getMonth();
   const currentMonthName = capitalize(listOfMonths[currentMonth]);
 
   return (

@@ -1422,9 +1422,10 @@ class Person {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const listOfMonths = this.getCustomMonths();
     const actualMonth = getMonthName(this.NOW.getMonth() + 1);
-    const birthDateMonth = getMonthName(this.getMonthOfBirth());
+    const birthDateMonth = getMonthName(this.getMonthOfBirth() + 1);
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
-    const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (index < 5) {
       if (birthDateMonth === actualMonth && getDate(this.birthDate) > 20) {
         return this.getQuarterThree(yearToCalculate - 1);
@@ -1457,7 +1458,8 @@ class Person {
     const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
     const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
-    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         if (indexEnero === 0) { return this.getQuarterOne(); }
@@ -1864,9 +1866,10 @@ class Person {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const listOfMonths = this.getCustomMonths();
     const actualMonth = getMonthName(monthToCalculate);
-    const birthDateMonth = getMonthName(this.getMonthOfBirth());
+    const birthDateMonth = getMonthName(this.getMonthOfBirth() + 1);
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
-    const indexEnero = listOfMonths.findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (index < 5) {
       if (birthDateMonth === actualMonth && getDate(this.birthDate) > 20) {
         return this.getQuarterThreeISK(yearToCalculate - 1);
@@ -1898,7 +1901,8 @@ class Person {
     const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
     const quarterMonth = getMonthName(monthToCalculate);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
-    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         return this.getQuarterOneISK();

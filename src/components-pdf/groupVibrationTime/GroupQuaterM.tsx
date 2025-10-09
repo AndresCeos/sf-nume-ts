@@ -88,7 +88,7 @@ export default function GroupQuaterM({ groupConsult, date }:{ groupConsult:Group
   const personalYear = groupConsult.calcPersonalYear(date.year);
 
   const actualMonth = allMonths[date.month - 1];
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  const index = groupConsult.getMonthOfBirth();
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
 
   switch (index) {

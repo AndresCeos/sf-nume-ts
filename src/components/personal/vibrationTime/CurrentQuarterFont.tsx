@@ -5,7 +5,7 @@ function CurrentQuarterFont({ isGroup, isSynastry }: { isGroup: boolean, isSynas
   const { consultant, calculationDate } = useConsult();
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i) => i === 'Enero');
+  const indexOfMonth = consultant.getMonthOfBirth();
   const nineYearCycle = consultant.getNineYearCycle(calculationDate);
   const bornFirst = consultant.getDayOfBirth();
 

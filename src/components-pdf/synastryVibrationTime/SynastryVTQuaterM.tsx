@@ -88,7 +88,7 @@ export default function SynastryVTQuaterM({ synastry, date }: { synastry: Synast
   const personalYear = synastry.calcPersonalYear(date.year);
 
   const actualMonth = allMonths[date.month - 1];
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  const index = synastry.getMonthOfBirth();
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
 
   switch (index) {

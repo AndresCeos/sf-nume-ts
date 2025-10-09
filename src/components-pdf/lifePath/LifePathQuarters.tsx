@@ -60,7 +60,9 @@ export default function LifePathQuarters({ consultant, now }: { consultant: Pers
   let m1; let m2; let m3; let m4; let cm1; let cm2; let cm3; let
     cm4 = '';
   const listOfMonths = consultant.getCustomMonths();
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  // Find the birth month index (0-11) in the custom months array
+  const birthMonth = consultant.getMonthOfBirth(); // 0-11
+  const index = birthMonth;
 
   const quarter1 = consultant.getQuarterOne();
   const quarter2 = consultant.getQuarterTwo(now.year);

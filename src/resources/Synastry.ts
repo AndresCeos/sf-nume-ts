@@ -863,7 +863,8 @@ class Synastry {
     const listOfMonths = this.getCustomMonths();
     const actualMonth = getMonthName(this.NOW.getMonth() + 1);
     const indexTemp = listOfMonths.findIndex((i:string) => i === capitalize(actualMonth));
-    const indexEnero = listOfMonths.findIndex((i:string) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     const index = monthCut.findIndex((i:string) => i === listOfMonths[indexTemp]);
     const start: number = Number(this.yearMet);
     const duration = 9 - reduceNumberForSub(
@@ -1091,7 +1092,8 @@ class Synastry {
     console.log(year);
     const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
-    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         if (indexEnero === 0) { return this.getQuarterOne(); }
@@ -1120,7 +1122,8 @@ class Synastry {
     const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
     const quarterMonth = getMonthName(monthToCalculate);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
-    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         return this.getQuarterOneISK();

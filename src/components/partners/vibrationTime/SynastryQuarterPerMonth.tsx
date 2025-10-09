@@ -49,7 +49,7 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
   };
 
   const actualMonth = allMonths[calculationDate.month - 1];
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  const index = synastry.getMonthOfBirth();
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
 
   switch (index) {

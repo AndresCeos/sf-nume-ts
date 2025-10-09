@@ -537,7 +537,7 @@ export function Ciclo({ groupConsult, date, indexOfMonth }:{ groupConsult: Group
 
 export default function GroupQuaterY({ groupConsult, date }:{ groupConsult:Group, date:SplittedDate }) {
   const listOfMonths = groupConsult.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i) => i === 'Enero');
+  const indexOfMonth = groupConsult.getMonthOfBirth();
   const m1 = listOfMonths[0];
   const m2 = listOfMonths[1];
   const m3 = listOfMonths[2];
