@@ -38,7 +38,7 @@ function EnergyProvider({ children }: any) {
   const [guestGroup, setGuestGroup] = useState<GuestGroup | null>(null);
 
   useEffect(() => {
-    if (userAuth?.guests) {
+    if (userAuth?.user) {
       // Load guest partner from user
       const guestPartnerData: GuestPartner = userAuth?.guests?.guestEnergyPartner || null;
       setGuestPartner(guestPartnerData || null);

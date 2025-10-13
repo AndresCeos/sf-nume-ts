@@ -9,8 +9,7 @@ import Swal from 'sweetalert2';
 type GroupSelectionModalProps = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  nameProps: string;
-  guestYearProps: number;
+  guestGroupProps: Api.GuestEnergyGroup | null;
 };
 interface GroupMemberProps {
   id: number;
@@ -21,28 +20,30 @@ interface GroupMemberProps {
 function GroupSelectionModal({
   isOpen,
   setIsOpen,
-  nameProps,
-  guestYearProps,
+  guestGroupProps,
 }: GroupSelectionModalProps) {
+  // Early return ANTES de cualquier hook
+  if (!guestGroupProps) {
+    return null;
+  }
+
   const { t } = useTranslation();
   const updateGuestEnergy = makeGuestEnergy();
   const {
-    guestGroup,
     selectActiveGuestGroup,
   } = useEnergy();
+
+  const [name, setName] = useState(guestGroupProps.name || '');
+  const [guestYear, setGuestYear] = useState(guestGroupProps.guestYearGroup || 0);
 
   // Estado optimizado: un solo array en lugar de 8 estados separados
   const [groupMembers, setGroupMembers] = useState<GroupMemberProps[]>(
     () => Array.from({ length: 8 }, (_, index) => ({
       id: index + 1,
-      name: guestGroup?.guestGroup?.[index]?.name || '',
-      date: guestGroup?.guestGroup?.[index]?.date || '',
+      name: guestGroupProps?.guestGroup?.[index]?.name || '',
+      date: guestGroupProps?.guestGroup?.[index]?.date || '',
     })),
   );
-
-  const [name, setName] = useState<string>(nameProps || '');
-  const [guestYear, setGuestYear] = useState<number>(guestYearProps || 0);
-
   // Función genérica para actualizar cualquier miembro del grupo
   const updateGroupMember = (
     index: number,

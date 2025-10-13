@@ -103,8 +103,7 @@ function UniversalEnergyPartner({
       <PartnerSelectionModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        yearMeetProps={guestPartner?.guestMeetYear || 0}
-        nameProps={guestPartner?.name || ''}
+        guestPartnerProps={guestPartner || null}
       />
     </ul>
   );

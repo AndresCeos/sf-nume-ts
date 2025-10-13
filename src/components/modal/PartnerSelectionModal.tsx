@@ -10,29 +10,33 @@ import Swal from 'sweetalert2';
 type PartnerSelectionModalProps = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  yearMeetProps: number;
-  nameProps: string;
+  guestPartnerProps: Api.GuestEnergyPartner | null;
 };
 
 function PartnerSelectionModal({
   isOpen,
   setIsOpen,
-  yearMeetProps,
-  nameProps,
+  guestPartnerProps,
 }: PartnerSelectionModalProps) {
-  const { guestPartner, selectActiveGuestPartner } = useEnergy();
+  // Early return ANTES de cualquier hook
+  if (!guestPartnerProps) {
+    return null;
+  }
+
+  const { t } = useTranslation();
   const updateGuestEnergy = makeGuestEnergy();
+  const { selectActiveGuestPartner } = useEnergy();
+
+  const [yearMeet, setYearMeet] = useState(guestPartnerProps?.guestMeetYear || 0);
+  const [name, setName] = useState(guestPartnerProps?.name || '');
   const [partnerOne, setPartnerOne] = useState({
-    name: guestPartner?.guestPartner?.[0]?.names || '',
-    birthDate: guestPartner?.guestPartner?.[0]?.date || '',
+    name: guestPartnerProps?.guestPartner[0].names || '',
+    birthDate: guestPartnerProps?.guestPartner[0].date || '',
   });
   const [partnerTwo, setPartnerTwo] = useState({
-    name: guestPartner?.guestPartner?.[1]?.names || '',
-    birthDate: guestPartner?.guestPartner?.[1]?.date || '',
+    name: guestPartnerProps?.guestPartner[1].names || '',
+    birthDate: guestPartnerProps?.guestPartner[1].date || '',
   });
-  const [yearMeet, setYearMeet] = useState(yearMeetProps || 0);
-  const [name, setName] = useState(nameProps || '');
-  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

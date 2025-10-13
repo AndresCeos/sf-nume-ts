@@ -3,25 +3,19 @@ import UniversalEnergyPartner from '@/components/Universal/universalEnergy/Unive
 import UniversalEnergyPerson from '@/components/Universal/universalEnergy/UniversalEnergyPerson';
 import UniversalEnergyValues from '@/components/Universal/universalEnergy/UniversalEnergyValues';
 import { useAuth } from '@/context/AuthProvider';
-import useConsult from '@/hooks/useConsult';
 import useEnergy from '@/hooks/useEnergy';
 import Person from '@/resources/Person';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 function UniversalEnergy() {
-  const { consultant } = useConsult();
   const { user: userAuth } = useAuth();
   const {
     setActiveSelection,
     selectedType,
     setSelectedType,
     activeSelection,
-    guestPartner,
-    guestGroup,
   } = useEnergy();
-  console.log('guestPartner', guestPartner);
-  console.log('guestGroup', guestGroup);
   const { t } = useTranslation();
 
   const userPerson = new Person({
@@ -39,7 +33,7 @@ function UniversalEnergy() {
       setActiveSelection(userPerson);
       setSelectedType('person');
     }
-  }, [consultant, setActiveSelection, setSelectedType, userPerson, activeSelection]);
+  }, [setActiveSelection, setSelectedType, userPerson, activeSelection]);
 
   // Funciones para manejar la selección activa
   const handlePersonSelect = () => {

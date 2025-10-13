@@ -104,8 +104,7 @@ function UniversalEnergyGroup({
       <GroupSelectionModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        nameProps={guestGroup?.name || ''}
-        guestYearProps={guestGroup?.guestYearGroup || 0}
+        guestGroupProps={guestGroup || null}
       />
     </ul>
   );
