@@ -48,20 +48,20 @@ declare namespace Api {
   }
 
   interface GuestEnergyPartner {
-    name?: string;
-    guestPartner?: Partner[];
-    guestMeetYear?: number;
+    name: string;
+    guestPartner: Partner[];
+    guestMeetYear: number;
   }
 
   interface GuestEnergyGroup {
-    name?: string;
-    guestGroup?: GroupMember[];
-    guestYearGroup?: number;
+    name: string;
+    guestGroup: GroupMember[];
+    guestYearGroup: number;
   }
 
   interface Guest {
-    name: string;
-    date: Date;
+    guestEnergyPartner: GuestEnergyPartner;
+    guestEnergyGroup: GuestEnergyGroup;
   }
 
   interface License {
@@ -75,7 +75,7 @@ declare namespace Api {
     app_version: string;
     company: Company;
     consultants: Consultant[];
-    guests: Guest[];
+    guests: Guest;
     license: License;
     token: string;
     user: User;

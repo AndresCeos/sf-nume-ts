@@ -219,7 +219,9 @@
     "day": "Day",
     "week": "Week",
     "month": "Month",
-    "year": "Year"
+    "year": "Year",
+    "selectConsultant": "Select a consultant to view the personal, partner, and group information",
+    "editInformation": "Click on the name to edit the information"
   },
   "universalEnergy": {
     "personTitle": "PERSON",

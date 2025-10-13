@@ -219,7 +219,9 @@
     "day": "Día",
     "week": "Sem",
     "month": "Mes",
-    "year": "Año"
+    "year": "Año",
+    "selectConsultant": "Selecciona un consultante para ver la información personal, de pareja y grupo",
+    "editInformation": "Haz clic en el nombre para editar la información"
   },
   "universalEnergy": {
     "personTitle": "PERSONA",

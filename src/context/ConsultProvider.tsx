@@ -6,9 +6,7 @@ import {
 import { ConsultContext, ConsultContextInterface } from './ConsultContext';
 import { consultReducer, types } from './ConsultReducer';
 
-import Group from '@/resources/Group';
 import Person from '@/resources/Person';
-import Synastry from '@/resources/Synastry';
 
 const INITIAL_STATE = {
   consultant: null,
@@ -31,10 +29,6 @@ function ConsultProvider({ children }: any) {
   const [consultationDate, setConsultationDate] = useState<Date>(new Date());
   const [activePartner, setActivePartner] = useState<Person | null>(null);
   const [partnersAvailable, setPartnersAvailable] = useState<Api.Partner[]>([]);
-  const [activeGuestPartner, setActiveGuestPartner] = useState<Synastry | null>(null);
-  const [activeGuestGroup, setActiveGuestGroup] = useState<Group | null>(null);
-  const [guestPartner, setGuestPartner] = useState<Api.Partner[] | null>(null);
-  const [guestGroup, setGuestGroup] = useState<Api.GroupMember[] | null>(null);
 
   // Memoize calculationDate to prevent unnecessary recalculations
   const calculationDate = useMemo(() => ({
@@ -86,34 +80,6 @@ function ConsultProvider({ children }: any) {
     // Load group data from consultant
     setGroupsAvailable(newConsultant.groupData || []);
     setActiveGroup(null);
-
-    // Load guest partner from consultant
-    setGuestPartner(newConsultant.guestEnergyPartner?.guestPartner || []);
-    setActiveGuestPartner(newConsultant.guestEnergyPartner?.guestPartner
-      ? new Synastry(new Person({
-        id: newConsultant.guestEnergyPartner.guestPartner[0].id,
-        name: newConsultant.guestEnergyPartner.guestPartner[0].names,
-        lastName: newConsultant.guestEnergyPartner.guestPartner[0].lastName,
-        scdLastName: newConsultant.guestEnergyPartner.guestPartner[0].scdLastName,
-        birthDate: newConsultant.guestEnergyPartner.guestPartner[0].date,
-      }), new Person({
-        id: newConsultant.guestEnergyPartner.guestPartner[1].id,
-        name: newConsultant.guestEnergyPartner.guestPartner[1].names,
-        lastName: newConsultant.guestEnergyPartner.guestPartner[1].lastName,
-        scdLastName: newConsultant.guestEnergyPartner.guestPartner[1].scdLastName,
-        birthDate: newConsultant.guestEnergyPartner.guestPartner[1].date,
-      })) : null);
-
-    // Load group data from consultant
-    setGuestGroup(newConsultant.guestEnergyGroup?.guestGroup || []);
-    setActiveGuestGroup(newConsultant.guestEnergyGroup?.guestGroup
-      ? new Group(newConsultant.guestEnergyGroup.guestGroup.map((g) => new Person({
-        id: g.id,
-        name: g.name,
-        lastName: g.lastName,
-        scdLastName: g.scdLastName,
-        birthDate: g.date,
-      })), newConsultant.guestEnergyGroup.guestYearGroup || 0) : null);
 
     const action = { type: types.selectConsultant, consultant: newConsultant };
     dispatch(action);
@@ -353,44 +319,6 @@ function ConsultProvider({ children }: any) {
     setSelectedGroup(group);
   }, []);
 
-  // Memoize selectActiveGuestPartner function
-  const selectActiveGuestPartner = useCallback((partner: Api.Partner[], yearMet: number) => {
-    if (!partner) {
-      throw new Error('partner is required');
-    }
-    const mapPartner: Person[] = partner.map((p) => new Person({
-      id: p.id,
-      name: p.names,
-      lastName: p.lastName,
-      scdLastName: p.scdLastName,
-      birthDate: p.date,
-      yearMet,
-    }));
-    const synastry: Synastry = new Synastry(
-      mapPartner[0],
-      mapPartner[1],
-    );
-    setActiveGuestPartner(synastry);
-    setGuestPartner(partner);
-  }, []);
-
-  // Memoize selectActiveGuestGroup function
-  const selectActiveGuestGroup = useCallback((group: Api.GroupMember[], groupYear: number) => {
-    if (!group) {
-      throw new Error('group is required');
-    }
-    const mapGroup: Person[] = group.map((g) => new Person({
-      id: g.id,
-      name: g.name,
-      lastName: g.lastName,
-      scdLastName: g.scdLastName,
-      birthDate: g.date,
-    }));
-    const groupClass: Group = new Group(mapGroup, groupYear);
-    setActiveGuestGroup(groupClass);
-    setGuestGroup(group);
-  }, []);
-
   // Memoize the entire context value to prevent unnecessary re-renders
   const value: ConsultContextInterface = useMemo(() => ({
     ...consultState,
@@ -408,13 +336,6 @@ function ConsultProvider({ children }: any) {
     partnersAvailable,
     updateUserPartnerActive,
     updateConsultantPartners,
-    // Guest management
-    activeGuestPartner,
-    selectActiveGuestPartner,
-    guestPartner,
-    guestGroup,
-    activeGuestGroup,
-    selectActiveGuestGroup,
     // PartnerData management
     partnerDataAvailable,
     activePartnerData,
@@ -449,11 +370,6 @@ function ConsultProvider({ children }: any) {
     partnersAvailable,
     updateUserPartnerActive,
     updateConsultantPartners,
-    // Guest dependencies
-    activeGuestPartner,
-    selectActiveGuestPartner,
-    activeGuestGroup,
-    selectActiveGuestGroup,
     // PartnerData dependencies
     partnerDataAvailable,
     activePartnerData,

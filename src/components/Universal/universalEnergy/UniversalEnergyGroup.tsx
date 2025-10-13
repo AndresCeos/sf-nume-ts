@@ -20,13 +20,12 @@ type UniversalEnergyGroupProps = {
 function UniversalEnergyGroup({
   setActive, selected,
 }: UniversalEnergyGroupProps) {
+  const { calculationYear, calculationDate } = useConsult();
   const {
-    activeConsultant, calculationYear, activeGuestGroup, calculationDate,
-  } = useConsult();
-  const { setActiveSelection, selectedType } = useEnergy();
+    setActiveSelection, selectedType, guestGroup, activeGuestGroup,
+  } = useEnergy();
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  if (!activeConsultant) return null;
 
   // Efecto para establecer automáticamente el grupo seleccionado como selección activa
   useEffect(() => {
@@ -82,9 +81,9 @@ function UniversalEnergyGroup({
               <TiPlus />
             </div>
           )}
-          {activeGuestGroup && (
+          {guestGroup && (
             <div className="flex items-center justify-center">
-              {activeConsultant?.guestEnergyGroup?.name || t('home.selectGroup')}
+              {guestGroup.name || t('home.selectGroup')}
             </div>
           )}
         </button>
@@ -105,8 +104,8 @@ function UniversalEnergyGroup({
       <GroupSelectionModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        nameProps={activeConsultant?.guestEnergyGroup?.name || ''}
-        guestYearProps={activeConsultant?.guestEnergyGroup?.guestYearGroup || 0}
+        nameProps={guestGroup?.name || ''}
+        guestYearProps={guestGroup?.guestYearGroup || 0}
       />
     </ul>
   );
