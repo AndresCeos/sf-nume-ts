@@ -1,17 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import makeConsultant from '@/api/useConsultant';
+import makeGuestEnergy from '@/api/useGuestEnergy';
 import MyModal from '@/components/MyModal';
-import useConsult from '@/hooks/useConsult';
-import useConsultants from '@/hooks/useConsultants';
+import useEnergy from '@/hooks/useEnergy';
 import Swal from 'sweetalert2';
 
 type GroupSelectionModalProps = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  nameProps: string;
-  guestYearProps: number;
+  guestGroupProps: Api.GuestEnergyGroup | null;
 };
 interface GroupMemberProps {
   id: number;
@@ -22,28 +20,25 @@ interface GroupMemberProps {
 function GroupSelectionModal({
   isOpen,
   setIsOpen,
-  nameProps,
-  guestYearProps,
+  guestGroupProps,
 }: GroupSelectionModalProps) {
   const { t } = useTranslation();
-
-  const addConsultantAsync = makeConsultant();
-  const handleConsultants = useConsultants();
+  const updateGuestEnergy = makeGuestEnergy();
   const {
-    activeConsultant, guestGroup, selectActiveGuestGroup,
-  } = useConsult();
+    selectActiveGuestGroup,
+  } = useEnergy();
+
+  const [name, setName] = useState('');
+  const [guestYear, setGuestYear] = useState(0);
 
   // Estado optimizado: un solo array en lugar de 8 estados separados
   const [groupMembers, setGroupMembers] = useState<GroupMemberProps[]>(
     () => Array.from({ length: 8 }, (_, index) => ({
       id: index + 1,
-      name: guestGroup?.[index]?.name || '',
-      date: guestGroup?.[index]?.date || '',
+      name: '',
+      date: '',
     })),
   );
-
-  const [name, setName] = useState<string>(nameProps || '');
-  const [guestYear, setGuestYear] = useState<number>(guestYearProps || 0);
 
   // Función genérica para actualizar cualquier miembro del grupo
   const updateGroupMember = (
@@ -54,9 +49,35 @@ function GroupSelectionModal({
     setGroupMembers((prev) => prev.map((member, i) => (i === index ? { ...member, [field]: value } : member)));
   };
 
-  if (!activeConsultant) return null;
+  useEffect(() => {
+    if (guestGroupProps) {
+      setName(guestGroupProps.name || '');
+      setGuestYear(guestGroupProps.guestYearGroup || 0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+      // Verificar que guestGroup existe y es un array antes de mapear
+      if (guestGroupProps.guestGroup && Array.isArray(guestGroupProps.guestGroup)) {
+        const mappedMembers = guestGroupProps.guestGroup.map((member: Api.GroupMember, index: number) => ({
+          id: index + 1,
+          name: member.name || '',
+          date: member.date || '',
+        }));
+
+        // Completar con miembros vacíos hasta tener 8
+        const fullMembers = [...mappedMembers];
+        while (fullMembers.length < 8) {
+          fullMembers.push({
+            id: fullMembers.length + 1,
+            name: '',
+            date: '',
+          });
+        }
+
+        setGroupMembers(fullMembers.slice(0, 8));
+      }
+    }
+  }, [guestGroupProps]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validGroupMembers: Api.GroupMember[] = groupMembers
       .filter((member) => member.name !== '' && member.date !== '')
@@ -74,39 +95,31 @@ function GroupSelectionModal({
       return;
     }
 
-    const newConsultant: Api.Consultant = {
-      ...activeConsultant,
-      guestEnergyGroup: {
-        guestGroup: validGroupMembers,
-        name,
-        guestYearGroup: guestYear,
-      },
+    const guestEnergyGroup: Api.GuestEnergyGroup = {
+      guestGroup: validGroupMembers,
+      name,
+      guestYearGroup: guestYear,
     };
-    const consultantToEdit = handleConsultants.updateConsultant(activeConsultant.id, newConsultant);
-    addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
-      selectActiveGuestGroup(validGroupMembers, guestYear);
-      Swal.fire({
-        title: t('modal.group.successSave') as string,
-        text: t('modal.group.successSaveMessage') as string,
-        icon: 'success',
-        confirmButtonText: t('modal.group.accept') as string,
+
+    try {
+      await updateGuestEnergy.mutateAsync(guestEnergyGroup).then(() => {
+        selectActiveGuestGroup({ guestGroup: validGroupMembers, guestYearGroup: guestYear, name });
+        setIsOpen(false);
+        Swal.fire({
+          title: t('modal.group.successSave') as string,
+          text: t('modal.group.successSaveMessage') as string,
+          icon: 'success',
+          confirmButtonText: t('modal.group.accept') as string,
+        });
       });
-      setIsOpen(false);
-    }).catch((err) => {
+    } catch (err) {
       Swal.fire({
         title: t('modal.group.errorSave') as string,
-        text: err.message,
+        text: err instanceof Error ? err.message : t('modal.group.unknownError') as string,
         icon: 'error',
         confirmButtonText: t('modal.group.accept') as string,
       });
-    }).finally(() => {
-      Swal.fire({
-        title: t('modal.group.saving') as string,
-        text: t('modal.group.pleaseWait') as string,
-        icon: 'info',
-        confirmButtonText: t('modal.group.accept') as string,
-      });
-    });
+    }
   };
 
   return (

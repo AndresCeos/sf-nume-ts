@@ -40,7 +40,6 @@ export default function SelectGroup() {
   const handleToggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
-  console.log(activeGroup);
 
   return (
     <div className="grid mt-8 col-span-12  ">

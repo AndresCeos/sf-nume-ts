@@ -77,6 +77,9 @@ function Sidebar() {
               >
                 <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">{t('sidebar.pinnacle')}</label>
+                <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
+                  {t('sidebar.new')}
+                </span>
               </NavLink>
             </li>
             <li className={currentPage === 'personal' ? '' : 'hidden'}>
@@ -201,6 +204,9 @@ function Sidebar() {
               >
                 <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">{t('sidebar.analysis')}</label>
+                <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
+                  {t('sidebar.new')}
+                </span>
               </NavLink>
             </li>
             <li className={currentPage === 'partner' ? '' : 'hidden'}>
@@ -309,6 +315,9 @@ function Sidebar() {
               >
                 <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
                 <label className="ml-2">{t('sidebar.pinnacle')}</label>
+                <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
+                  {t('sidebar.new')}
+                </span>
               </NavLink>
             </li>
             <li className={currentPage === 'group' ? '' : 'hidden'}>

@@ -1,46 +1,55 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import makeConsultant from '@/api/useConsultant';
+import makeGuestEnergy from '@/api/useGuestEnergy';
 import MyModal from '@/components/MyModal';
-import useConsult from '@/hooks/useConsult';
-import useConsultants from '@/hooks/useConsultants';
+import useEnergy from '@/hooks/useEnergy';
 import { isValidDate } from '@/utils/constants';
 import Swal from 'sweetalert2';
 
 type PartnerSelectionModalProps = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  yearMeetProps: number;
-  nameProps: string;
+  guestPartnerProps: Api.GuestEnergyPartner | null;
 };
 
 function PartnerSelectionModal({
   isOpen,
   setIsOpen,
-  yearMeetProps,
-  nameProps,
+  guestPartnerProps,
 }: PartnerSelectionModalProps) {
-  const {
-    guestPartner, selectActiveGuestPartner, activeConsultant,
-  } = useConsult();
+  const { t } = useTranslation();
+  const updateGuestEnergy = makeGuestEnergy();
+  const { selectActiveGuestPartner } = useEnergy();
+
+  const [yearMeet, setYearMeet] = useState(0);
+  const [name, setName] = useState('');
   const [partnerOne, setPartnerOne] = useState({
-    name: guestPartner?.[0]?.names || '',
-    birthDate: guestPartner?.[0]?.date || '',
+    name: '',
+    birthDate: '',
   });
   const [partnerTwo, setPartnerTwo] = useState({
-    name: guestPartner?.[1]?.names || '',
-    birthDate: guestPartner?.[1]?.date || '',
+    name: '',
+    birthDate: '',
   });
-  const [yearMeet, setYearMeet] = useState(yearMeetProps || 0);
-  const [name, setName] = useState(nameProps || '');
-  const { t } = useTranslation();
+  useEffect(() => {
+    if (guestPartnerProps) {
+      setYearMeet(guestPartnerProps.guestMeetYear || 0);
+      setName(guestPartnerProps.name || '');
+      setPartnerOne({
+        name: guestPartnerProps.guestPartner?.[0]?.names || '',
+        birthDate: guestPartnerProps.guestPartner?.[0]?.date || '',
+      });
+      setPartnerTwo({
+        name: guestPartnerProps.guestPartner?.[1]?.names || '',
+        birthDate: guestPartnerProps.guestPartner?.[1]?.date || '',
+      });
+    }
+  }, [guestPartnerProps]);
 
-  const addConsultantAsync = makeConsultant();
-  const handleConsultants = useConsultants();
-  if (!activeConsultant) return null;
+  // IMPORTANTE: El return debe estar DESPUÉS de TODOS los hooks
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValidDate(partnerOne.birthDate) || !isValidDate(partnerTwo.birthDate)) {
       return;
@@ -61,40 +70,31 @@ function PartnerSelectionModal({
       date: partnerTwo.birthDate || '',
     };
 
-    const newConsultant: Api.Consultant = {
-      ...activeConsultant,
-      guestEnergyPartner: {
-        guestPartner: [partnerOneTemp, partnerTwoTemp],
-        guestMeetYear: yearMeet,
-        name,
-      },
+    const guestEnergyPartner: Api.GuestEnergyPartner = {
+      guestPartner: [partnerOneTemp, partnerTwoTemp],
+      guestMeetYear: yearMeet,
+      name,
     };
 
-    const consultantToEdit = handleConsultants.updateConsultant(activeConsultant?.id || '', newConsultant);
-    addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
-      selectActiveGuestPartner([partnerOneTemp, partnerTwoTemp], yearMeet);
-      Swal.fire({
-        title: t('modal.partner.successSave') as string,
-        text: t('modal.partner.successSaveMessage') as string,
-        icon: 'success',
-        confirmButtonText: t('modal.partner.accept') as string,
+    try {
+      await updateGuestEnergy.mutateAsync(guestEnergyPartner).then(() => {
+        selectActiveGuestPartner({ guestPartner: [partnerOneTemp, partnerTwoTemp], guestMeetYear: yearMeet, name });
+        setIsOpen(false);
+        Swal.fire({
+          title: t('modal.partner.successSave') as string,
+          text: t('modal.partner.successSaveMessage') as string,
+          icon: 'success',
+          confirmButtonText: t('modal.partner.accept') as string,
+        });
       });
-      setIsOpen(false);
-    }).catch((err) => {
+    } catch (err) {
       Swal.fire({
         title: t('modal.partner.errorSave') as string,
-        text: err.message,
+        text: err instanceof Error ? err.message : t('modal.partner.unknownError') as string,
         icon: 'error',
         confirmButtonText: t('modal.partner.accept') as string,
       });
-    }).finally(() => {
-      Swal.fire({
-        title: t('modal.partner.saving') as string,
-        text: t('modal.partner.pleaseWait') as string,
-        icon: 'info',
-        confirmButtonText: t('modal.partner.accept') as string,
-      });
-    });
+    }
   };
 
   return (

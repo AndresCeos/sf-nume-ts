@@ -1088,8 +1088,6 @@ class Synastry {
   getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
     const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
     const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
-    console.log(month);
-    console.log(year);
     const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
     // Use birth month index (0-11) instead of searching for 'Enero'
