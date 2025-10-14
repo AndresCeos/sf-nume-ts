@@ -1,8 +1,6 @@
 import { createContext } from 'react';
 
-import Group from '@/resources/Group';
 import Person from '@/resources/Person';
-import Synastry from '@/resources/Synastry';
 
 export interface ConsultContextInterface {
   consultant: Person | null;
@@ -62,13 +60,6 @@ const createDefaultValues = (): ConsultContextInterface => ({
   updateUserPartnerActive: () => null,
   updateConsultantPartners: () => null,
   partnersAvailable: [],
-  // Guest management
-  guestPartner: null,
-  guestGroup: null,
-  activeGuestPartner: null,
-  selectActiveGuestPartner: () => null,
-  activeGuestGroup: null,
-  selectActiveGuestGroup: () => null,
   // Group management defaults
   selectedGroup: [],
   setSelectedGroup: () => null,
