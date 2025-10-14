@@ -109,6 +109,14 @@
     "expirationDate": "Expiration Date",
     "licenseType": "License Type"
   },
+  "settings": {
+    "haveProblem": "Have a problem?",
+    "contactUs": "Contact us",
+    "supportTools": "Support Tools",
+    "sendRequest": "Send Request",
+    "helpCenter": "Help Center",
+    "glossary": "Glossary"
+  },
   "modal": {
     "date": {
       "title": "Select the date you want to consult",
