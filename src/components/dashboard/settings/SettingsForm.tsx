@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import makeProfile from '@/api/useProfileUpdate';
 import { useAuth } from '@/context/AuthProvider';
 import useForm from '@/hooks/useForm';
+import { isValidDate } from '@/utils/constants';
 import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2';
 
 type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
 const FORM_STATUS_INITIAL_STATE: FormStatus = { displayValidations: false, isValid: false, validationMsgs: {} };
@@ -54,6 +56,8 @@ function SettingsForm() {
     if (birthDate === null || birthDate === undefined) {
       validationMsgs = { ...validationMsgs, birthDate: t('forms.required') as string };
       isValid = false;
+    } else {
+      isValidDate(birthDate.toString());
     }
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
   };
@@ -63,6 +67,7 @@ function SettingsForm() {
   }, [firstName, lastName, scdLastName, birthDate]);
 
   useEffect(() => {}, [isLoading]);
+
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formStatus.isValid) {
@@ -85,7 +90,12 @@ function SettingsForm() {
     };
 
     setIsLoading(true);
-    updateProfileSync.mutateAsync(newProfile).then(() => {
+    await updateProfileSync.mutateAsync(newProfile).then(() => {
+      Swal.fire({
+        title: t('forms.success') as string,
+        icon: 'success',
+        confirmButtonText: t('forms.confirm') as string,
+      });
       setFormStatus(FORM_STATUS_INITIAL_STATE);
       setIsLoading(false);
       reset();

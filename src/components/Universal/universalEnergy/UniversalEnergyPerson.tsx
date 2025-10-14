@@ -20,14 +20,11 @@ type UniversalEnergyPersonProps = {
 function UniversalEnergyPerson({
   person, setActive, /* handleUpdateGuest, */ selected,
 }: UniversalEnergyPersonProps) {
-  const { calculationYear } = useConsult();
+  const { calculationYear, calculationDate } = useConsult();
   const { t } = useTranslation();
   const {
     /* id, */ name, birthDate,
   } = person;
-
-  const day = Number(person?.getDayOfBirth());
-  const month = Number(person?.getMonthOfBirth());
 
   return (
     <ul className={cx(
@@ -67,13 +64,13 @@ function UniversalEnergyPerson({
         )}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {person && person.calcPersonalDay({ day, month, year: calculationYear })}
+        {person && person.calcPersonalDay(calculationDate)}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {person && person.calcPersonalWeek({ day, month, year: calculationYear })}
+        {person && person.calcPersonalWeek(calculationDate)}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
-        {person && person.calcPersonalMonth({ day, month, year: calculationYear })}
+        {person && person.calcPersonalMonth(calculationDate)}
       </li>
       <li className="rounded-full bg-white w-10 h-10 flex items-center justify-center border border-gray-700 inner-shadow text-xl mb-3 font-black">
         {person && person.calcPersonalYear(calculationYear)}

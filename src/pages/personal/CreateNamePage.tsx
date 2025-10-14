@@ -589,13 +589,13 @@ function CreateNamePage() {
                   type="button"
                   onClick={handleSave}
                   disabled={!isValid() || !hasCalculated}
-                  className={`btn-save ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`btn-save !bg-main-50 ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   {t('createName.save')}
                 </button>
                 <button
                   type="button"
-                  className={`btn-save ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`btn-save !bg-[#5DC4FE] ${(!isValid() || !hasCalculated) ? 'opacity-50 cursor-not-allowed' : ''}`}
                   onClick={handleGeneratePDF}
                   disabled={!isValid() || !hasCalculated}
                 >

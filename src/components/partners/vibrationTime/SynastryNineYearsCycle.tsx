@@ -12,7 +12,6 @@ function SynastryNineYearsCycle({ synastry }: { synastry: Synastry | Group }) {
   if (!synastry) return null;
 
   const nineYearCycle = synastry.getNineYearCycleStage(calculationDate.year);
-  console.log(nineYearCycle);
 
   return (
     <div className="grid grid-cols-9 px-4 py-8 w-full">

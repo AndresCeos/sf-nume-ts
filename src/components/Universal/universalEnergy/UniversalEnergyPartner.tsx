@@ -19,13 +19,12 @@ type UniversalEnergyPartnerProps = {
 function UniversalEnergyPartner({
   setActive, selected,
 }: UniversalEnergyPartnerProps) {
+  const { calculationYear, calculationDate } = useConsult();
   const {
-    activeConsultant, calculationYear, activeGuestPartner, calculationDate,
-  } = useConsult();
-  const { setActiveSelection, selectedType } = useEnergy();
+    setActiveSelection, selectedType, activeGuestPartner, guestPartner,
+  } = useEnergy();
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  if (!activeConsultant) return null;
 
   // Efecto para establecer automáticamente la pareja seleccionada como selección activa
   useEffect(() => {
@@ -81,14 +80,9 @@ function UniversalEnergyPartner({
               <TiPlus />
             </div>
           )}
-          {!activeGuestPartner && (
+          {guestPartner && (
             <div className="flex items-center justify-center">
-              <TiPlus />
-            </div>
-          )}
-          {activeGuestPartner && (
-            <div className="flex items-center justify-center">
-              { activeConsultant?.guestEnergyPartner?.name || t('home.selectPartner')}
+              { guestPartner.name || t('home.selectPartner')}
             </div>
           )}
         </button>
@@ -109,8 +103,7 @@ function UniversalEnergyPartner({
       <PartnerSelectionModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        yearMeetProps={activeConsultant?.guestEnergyPartner?.guestMeetYear || 0}
-        nameProps={activeConsultant?.guestEnergyPartner?.name || ''}
+        guestPartnerProps={guestPartner || null}
       />
     </ul>
   );

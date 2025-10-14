@@ -912,7 +912,6 @@ class Group {
       this.getA() + this.getB() + start,
     );
     let stageOneEnd = start + duration;
-    console.log(`${stageOneEnd}stage-1`);
     if (duration === 0) {
       stageOneEnd += 9;
     }

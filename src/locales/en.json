@@ -109,6 +109,14 @@
     "expirationDate": "Expiration Date",
     "licenseType": "License Type"
   },
+  "settings": {
+    "haveProblem": "Have a problem?",
+    "contactUs": "Contact us",
+    "supportTools": "Support Tools",
+    "sendRequest": "Send Request",
+    "helpCenter": "Help Center",
+    "glossary": "Glossary"
+  },
   "modal": {
     "date": {
       "title": "Select the date you want to consult",
@@ -219,7 +227,9 @@
     "day": "Day",
     "week": "Week",
     "month": "Month",
-    "year": "Year"
+    "year": "Year",
+    "selectConsultant": "Select a consultant to view the personal, partner, and group information",
+    "editInformation": "Click on the name to edit the information"
   },
   "universalEnergy": {
     "personTitle": "PERSON",
@@ -473,7 +483,9 @@
     "logoSize": "Logo Size max. 1MB",
     "logoType": "Logo Type .jpeg or .png",
     "logoDimensions": "Logo Dimensions recommended 309x174 pixels",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "success": "Successfully saved",
+    "error": "Error saving"
   },
   "name": {
     "title": "Name",
