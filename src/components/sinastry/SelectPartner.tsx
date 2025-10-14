@@ -14,8 +14,9 @@ export default function SelectPartner() {
   const [isAddFormActive, setIsAddFormActive] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { t } = useTranslation();
+
   useEffect(() => {
-    if (activePartnerData) {
+    if (activePartnerData && activePartnerData.partner && activePartnerData.partner.length > 1) {
       setIsCollapsed(true);
     } else {
       setIsCollapsed(false);

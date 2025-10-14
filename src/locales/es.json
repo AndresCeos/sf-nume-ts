@@ -109,6 +109,14 @@
     "expirationDate": "Fecha de expiración",
     "licenseType": "Tipo de Licencia"
   },
+  "settings": {
+    "haveProblem": "¿Tienes un problema?",
+    "contactUs": "Ponte en contacto con nosotros",
+    "supportTools": "Herramientas de soporte",
+    "sendRequest": "Enviar Solicitud",
+    "helpCenter": "Centro de ayuda",
+    "glossary": "Glosario"
+  },
   "modal": {
     "date": {
       "title": "Seleccione la fecha que quieras consultar",
@@ -219,7 +227,9 @@
     "day": "Día",
     "week": "Sem",
     "month": "Mes",
-    "year": "Año"
+    "year": "Año",
+    "selectConsultant": "Selecciona un consultante para ver la información personal, de pareja y grupo",
+    "editInformation": "Haz clic en el nombre para editar la información"
   },
   "universalEnergy": {
     "personTitle": "PERSONA",
@@ -473,7 +483,9 @@
     "logoSize": "Tamaño del archivo max. 1MB",
     "logoType": "Tipo de archivo .jpeg ó .png",
     "logoDimensions": "Dimensiones recomendadas 309x174 pixeles",
-    "changePassword": "Cambiar contraseña"
+    "changePassword": "Cambiar contraseña",
+    "success": "¡Guardado exitosamente!",
+    "error": "Error al guardar"
   },
   "name": {
     "title": "Nombre",

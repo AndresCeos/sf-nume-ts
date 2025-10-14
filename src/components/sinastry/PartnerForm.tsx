@@ -2,6 +2,7 @@ import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
+import { isValidDate } from '@/utils/constants';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import add_user_main from '../../assets/icons/add_user_main.svg';
@@ -57,29 +58,6 @@ export default function PartnerForm({
     reset,
   } = useForm(initialForm);
 
-  // Función para validar formato de fecha en tiempo real
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputDate = e.target.value;
-
-    // Si el campo está vacío, permitir que se borre
-    if (!inputDate) {
-      handleInputChange(e.target);
-      return;
-    }
-
-    // Validar que sea una fecha válida
-    const dateObj = new Date(inputDate);
-    const year = dateObj.getFullYear();
-
-    // Validar que el año sea de 4 dígitos y esté en un rango razonable
-    if (Number.isNaN(year) || year < 1900 || year > 2100) {
-      // No permitir fechas inválidas, pero sí mostrar el error en la validación
-      return;
-    }
-
-    handleInputChange(e.target);
-  };
-
   const isFormValid = () => {
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
@@ -106,17 +84,8 @@ export default function PartnerForm({
       validationMsgs = { ...validationMsgs, date: t('validation.required') };
       isValid = false;
     } else {
-      // Validar que la fecha tenga un año de 4 dígitos
-      const dateObj = new Date(date);
-      const year = dateObj.getFullYear();
-
-      if (Number.isNaN(year) || year < 1900 || year > 2100) {
-        validationMsgs = { ...validationMsgs, date: 'El año debe ser de 4 dígitos y estar entre 1900-2100' };
-        isValid = false;
-      } else if (dateObj > new Date()) {
-        validationMsgs = { ...validationMsgs, date: 'La fecha no puede ser futura' };
-        isValid = false;
-      }
+      // Validar que la fecha tenga un año de 4 dígito
+      isValidDate(date);
     }
 
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
@@ -124,7 +93,7 @@ export default function PartnerForm({
 
   useEffect(() => {
     isFormValid();
-  }, [names, lastName, date]);
+  }, [names, lastName]);
 
   const closeForm = () => {
     setIsAddFormActive(false);
@@ -265,10 +234,8 @@ export default function PartnerForm({
             type="date"
             name="date"
             className="rounded border-[#C4C4C4] border w-11/12"
-            onChange={handleDateChange}
+            onChange={(e) => handleInputChange(e.target)}
             value={date}
-            min="1900-01-01"
-            max="2100-12-31"
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.date) && (
             <span className="form-error">{formStatus.validationMsgs.date}</span>

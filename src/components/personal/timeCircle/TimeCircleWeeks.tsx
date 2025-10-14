@@ -77,7 +77,6 @@ function TimeCircleWeeks({ consultant }: TimeCircleWeeksProps) {
       </span>,
     );
   });
-  console.log('numbers', consultant?.calcPersonalMonth({ ...calculationDate, month: 10 }));
   const layerMonths = { className: 'time-circle-pm m-' };
   for (let i = 1; i <= 12; i++) {
     numbers.push(

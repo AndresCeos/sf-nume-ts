@@ -5,6 +5,7 @@ import makeConsultant from '@/api/useConsultant';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
+import { isValidDate } from '@/utils/constants';
 import add_user_group from '../../assets/icons/add_user_group.svg';
 
 type FormStatus = {
@@ -77,6 +78,8 @@ export default function GroupForm({
     if (!date) {
       validationMsgs = { ...validationMsgs, date: t('group.validation.required') };
       isValid = false;
+    } else {
+      isValidDate(date);
     }
 
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
