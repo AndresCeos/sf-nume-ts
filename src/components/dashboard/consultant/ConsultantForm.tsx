@@ -2,13 +2,13 @@
 import useConsult from '@/hooks/useConsult';
 import useForm from '@/hooks/useForm';
 import countries from '@/resources/countries.json';
-import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 
 import makeConsultant from '@/api/useConsultant';
 import { useAuth } from '@/context/AuthProvider';
 import useConsultants from '@/hooks/useConsultants';
 import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2';
 
 type FormStatus = { displayValidations: boolean, isValid: boolean, validationMsgs: Record<string, string> };
 const FORM_STATUS_INITIAL_STATE: FormStatus = { displayValidations: false, isValid: false, validationMsgs: {} };
@@ -52,6 +52,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     }
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
   };
+  console.log('initialForm', initialForm);
 
   useEffect(() => {
     isFormValid();
@@ -84,8 +85,14 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     };
     setIsLoading(true);
     if (isEditingConsultant) {
+      console.log('newConsultant', newConsultant);
       const consultantToEdit = handleConsultants.updateConsultant(consultant?.id || '', newConsultant);
       addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
+        Swal.fire({
+          title: t('forms.success') as string,
+          icon: 'success',
+          confirmButtonText: t('forms.confirm') as string,
+        });
         handleIsEditingConsultant(false);
         setFormStatus(FORM_STATUS_INITIAL_STATE);
         reset();
@@ -97,6 +104,11 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     } else {
       const consultantsList = handleConsultants.addConsultant(newConsultant);
       addConsultantAsync.mutateAsync(consultantsList).then(() => {
+        Swal.fire({
+          title: t('forms.success') as string,
+          icon: 'success',
+          confirmButtonText: t('forms.confirm') as string,
+        });
         handleIsEditingConsultant(false);
         setFormStatus(FORM_STATUS_INITIAL_STATE);
         reset();
@@ -168,7 +180,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
             name="date"
             className="rounded w-11/12 border-[#C4C4C4]  border "
             onChange={(e) => handleInputChange(e.target)}
-            value={typeof date === 'string' ? date : format(new Date(date), 'yyyy-MM-dd')}
+            value={typeof date === 'string' ? date : ''}
           />
           {(formStatus?.displayValidations && formStatus?.validationMsgs?.date) && <p className="mt-1 p-1 text-red-50 bg-red-600 rounded-sm">{formStatus.validationMsgs.date}</p>}
         </div>
@@ -248,12 +260,30 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
             ? (
               <div className="text-center flex justify-center items-center flex-col">
                 <img src="/assets/navbar/add_user.svg" className="mb-3" alt="addUserMain" />
-                <button type="submit" className="btn w-full" disabled={isLoading}>{t('forms.save')}</button>
+                <button type="submit" className="btn w-full">
+                  {isLoading ? (
+                    <svg className="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                  ) : (
+                    t('forms.save')
+                  )}
+                </button>
               </div>
             )
             : (
               <div className="w-full flex flex-wrap">
-                <button className="w-full btn mb-3 bg-[#0000ff]" type="submit">{t('forms.confirm')}</button>
+                <button className="w-full btn mb-3 bg-[#0000ff]" type="submit">
+                  {isLoading ? (
+                    <svg className="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                  ) : (
+                    t('forms.confirm')
+                  )}
+                </button>
                 <button className="w-full btn bg-[#ff0000]" type="button" disabled={isLoading} onClick={() => { handleIsEditingConsultant(false); }}>{t('forms.cancel')}</button>
               </div>
             )}

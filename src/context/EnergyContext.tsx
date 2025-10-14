@@ -23,10 +23,10 @@ export interface EnergyContextInterface {
   setSelectedType: (type: 'universal' | 'person' | 'partner' | 'group' | undefined) => void;
   guestPartner: GuestPartner | null;
   activeGuestPartner: Synastry | null;
-  selectActiveGuestPartner: (guestPartner: GuestPartner) => void;
+  selectActiveGuestPartner: (GuestPartner: GuestPartner) => void;
   guestGroup: GuestGroup | null;
   activeGuestGroup: Group | null;
-  selectActiveGuestGroup: (guestGroup: GuestGroup) => void;
+  selectActiveGuestGroup: (GuestGroup: GuestGroup) => void;
 }
 
 export const energyContextDefaults: EnergyContextInterface = {

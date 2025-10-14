@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import makeGuestEnergy from '@/api/useGuestEnergy';
@@ -18,43 +18,42 @@ function PartnerSelectionModal({
   setIsOpen,
   guestPartnerProps,
 }: PartnerSelectionModalProps) {
-  // Early return ANTES de cualquier hook
-  if (!guestPartnerProps) {
-    return null;
-  }
-
   const { t } = useTranslation();
   const updateGuestEnergy = makeGuestEnergy();
   const { selectActiveGuestPartner } = useEnergy();
 
-  const [yearMeet, setYearMeet] = useState(guestPartnerProps?.guestMeetYear || 0);
-  const [name, setName] = useState(guestPartnerProps?.name || '');
+  const [yearMeet, setYearMeet] = useState(0);
+  const [name, setName] = useState('');
   const [partnerOne, setPartnerOne] = useState({
-    name: guestPartnerProps?.guestPartner[0].names || '',
-    birthDate: guestPartnerProps?.guestPartner[0].date || '',
+    name: '',
+    birthDate: '',
   });
   const [partnerTwo, setPartnerTwo] = useState({
-    name: guestPartnerProps?.guestPartner[1].names || '',
-    birthDate: guestPartnerProps?.guestPartner[1].date || '',
+    name: '',
+    birthDate: '',
   });
+  useEffect(() => {
+    if (guestPartnerProps) {
+      setYearMeet(guestPartnerProps.guestMeetYear || 0);
+      setName(guestPartnerProps.name || '');
+      setPartnerOne({
+        name: guestPartnerProps.guestPartner?.[0]?.names || '',
+        birthDate: guestPartnerProps.guestPartner?.[0]?.date || '',
+      });
+      setPartnerTwo({
+        name: guestPartnerProps.guestPartner?.[1]?.names || '',
+        birthDate: guestPartnerProps.guestPartner?.[1]?.date || '',
+      });
+    }
+  }, [guestPartnerProps]);
+
+  // IMPORTANTE: El return debe estar DESPUÉS de TODOS los hooks
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValidDate(partnerOne.birthDate) || !isValidDate(partnerTwo.birthDate)) {
       return;
     }
-
-    // Mostrar loading ANTES de la operación
-    Swal.fire({
-      title: t('modal.partner.saving') as string,
-      text: t('modal.partner.pleaseWait') as string,
-      icon: 'info',
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
 
     const partnerOneTemp: Api.Partner = {
       id: Math.random().toString(36).substring(2, 9) || '',
@@ -78,17 +77,16 @@ function PartnerSelectionModal({
     };
 
     try {
-      await updateGuestEnergy.mutateAsync(guestEnergyPartner);
-      selectActiveGuestPartner({ guestPartner: [partnerOneTemp, partnerTwoTemp], guestMeetYear: yearMeet, name });
-
-      await Swal.fire({
-        title: t('modal.partner.successSave') as string,
-        text: t('modal.partner.successSaveMessage') as string,
-        icon: 'success',
-        confirmButtonText: t('modal.partner.accept') as string,
+      await updateGuestEnergy.mutateAsync(guestEnergyPartner).then(() => {
+        selectActiveGuestPartner({ guestPartner: [partnerOneTemp, partnerTwoTemp], guestMeetYear: yearMeet, name });
+        setIsOpen(false);
+        Swal.fire({
+          title: t('modal.partner.successSave') as string,
+          text: t('modal.partner.successSaveMessage') as string,
+          icon: 'success',
+          confirmButtonText: t('modal.partner.accept') as string,
+        });
       });
-
-      setIsOpen(false);
     } catch (err) {
       Swal.fire({
         title: t('modal.partner.errorSave') as string,

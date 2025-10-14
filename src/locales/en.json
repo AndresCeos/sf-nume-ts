@@ -475,7 +475,9 @@
     "logoSize": "Logo Size max. 1MB",
     "logoType": "Logo Type .jpeg or .png",
     "logoDimensions": "Logo Dimensions recommended 309x174 pixels",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "success": "Successfully saved",
+    "error": "Error saving"
   },
   "name": {
     "title": "Name",

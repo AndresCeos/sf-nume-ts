@@ -475,7 +475,9 @@
     "logoSize": "Tamaño del archivo max. 1MB",
     "logoType": "Tipo de archivo .jpeg ó .png",
     "logoDimensions": "Dimensiones recomendadas 309x174 pixeles",
-    "changePassword": "Cambiar contraseña"
+    "changePassword": "Cambiar contraseña",
+    "success": "¡Guardado exitosamente!",
+    "error": "Error al guardar"
   },
   "name": {
     "title": "Nombre",
