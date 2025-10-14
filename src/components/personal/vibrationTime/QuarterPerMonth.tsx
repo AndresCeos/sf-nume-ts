@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import { useTranslation } from 'react-i18next';
 import useConsult from '@/hooks/useConsult';
+import { useTranslation } from 'react-i18next';
 
 import {
   capitalize,
@@ -47,7 +47,7 @@ function QuarterPerMonth() {
   };
 
   const actualMonth = allMonths[calculationDate.month - 1];
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  const index = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
 
   switch (index) {
@@ -205,7 +205,7 @@ function QuarterPerMonth() {
 
   return (
     <div className="h-full">
-      <div className="items-center text-black flex justify-center text-xl font-bold bg-black bg-opacity-15 border-t border-solid border-gray-300 h-14 text-xl ">{calculationDate.year}</div>
+      <div className="items-center text-black flex justify-center text-xl font-bold bg-black bg-opacity-15 border-t border-solid border-gray-300 h-14">{calculationDate.year}</div>
       <div>
         <div className={` ${monthsValues.isMonthOne ? 'text-black bg-black bg-opacity-15 ' : 'text-gray-500'} items-center  font-bold border-t border-gray-300 flex justify-center  h-14 text-xl`}>{monthsValues.monthOne}</div>
         <div className={`${monthsValues.isMonthOne ? 'text-black bg-black bg-opacity-15 ' : 'text-gray-500'} items-center flex justify-center border-t border-gray-300 font-bold h-12 text-xl`}>{monthsValues.monthOneValue}</div>

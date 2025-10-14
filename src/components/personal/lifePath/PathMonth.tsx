@@ -18,15 +18,16 @@ interface QuarterData {
 
 function PathMonth() {
   const { consultant, consultationDate } = useConsult();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   if (!consultant) return null;
 
   const listOfMonths = consultant.getCustomMonths();
-  const index = listOfMonths.findIndex((i: string) => i === 'Enero');
+  const index = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
 
-  // Get current month info
-  const actualMonth = capitalize(consultationDate.toLocaleString('es-ES', { month: 'long' }));
+  // Get current month info - use current language
+  const locale = i18n.language === 'es' ? 'es-ES' : 'en-US';
+  const actualMonth = capitalize(consultationDate.toLocaleString(locale, { month: 'long' }));
   const currentYear = getYear(consultationDate);
 
   // Calculate quarters based on index
@@ -156,7 +157,7 @@ function PathMonth() {
           {consultant.calcPersonalMonth({ month: monthIndex + 1, day: 1, year: currentYear })}
           {consultant.calcPersonalMonthISK({ month: monthIndex + 1, day: 1, year: currentYear })}
           <div className={`path-month-des ${isActive ? 'path-month-active' : ''}`}>
-            {t(`monthsEs.${month.toLowerCase()}`)}
+            {month}
           </div>
         </div>
       ))}

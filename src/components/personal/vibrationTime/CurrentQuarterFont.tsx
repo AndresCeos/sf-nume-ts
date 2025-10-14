@@ -1,11 +1,14 @@
 /* eslint-disable max-len */
 import useConsult from '@/hooks/useConsult';
+import { capitalize } from '@/utils/numbers';
+import { useTranslation } from 'react-i18next';
 
 function CurrentQuarterFont({ isGroup, isSynastry }: { isGroup: boolean, isSynastry: boolean }) {
   const { consultant, calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((i) => i === 'Enero');
+  const indexOfMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january')));
   const nineYearCycle = consultant.getNineYearCycle(calculationDate);
   const bornFirst = consultant.getDayOfBirth();
 

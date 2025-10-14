@@ -2,6 +2,8 @@
 import React from 'react';
 
 import useConsult from '@/hooks/useConsult';
+import { capitalize } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 type YearIndex = {
   year:number,
@@ -9,9 +11,11 @@ type YearIndex = {
 };
 function CustomMonths({ year, i }:YearIndex) {
   const { consultant, calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = listOfMonths.findIndex((element) => element === 'Enero');
+  // Use birth month index (0-11) instead of searching for 'Enero'
+  const indexOfMonth = listOfMonths.findIndex((index) => index === capitalize(t('months.january') as string));
   const bornFirst = consultant.getDayOfBirth();
   const isCurrentYear = year === calculationDate.year;
   const isPreviousYear = year === calculationDate.year - 1;
