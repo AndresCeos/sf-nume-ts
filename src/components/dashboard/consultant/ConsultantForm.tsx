@@ -52,7 +52,6 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     }
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
   };
-  console.log('initialForm', initialForm);
 
   useEffect(() => {
     isFormValid();
@@ -85,7 +84,6 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
     };
     setIsLoading(true);
     if (isEditingConsultant) {
-      console.log('newConsultant', newConsultant);
       const consultantToEdit = handleConsultants.updateConsultant(consultant?.id || '', newConsultant);
       addConsultantAsync.mutateAsync(consultantToEdit).then(() => {
         Swal.fire({

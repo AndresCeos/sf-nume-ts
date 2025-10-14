@@ -14,7 +14,6 @@ const getUser = (): Promise<Api.UserResponse> => axios.post('/wp-json/app/v2/aut
 async function loadUser() {
   if (storage.getToken()) {
     const data = await getUser();
-    console.log('data', data);
     return data;
   }
   return null;
