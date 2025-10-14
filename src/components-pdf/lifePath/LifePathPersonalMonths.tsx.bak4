@@ -174,7 +174,7 @@ export default function LifePathPersonalMonths({ consultant, now, newDate }: { c
               const index = allMonths.findIndex((month:string) => month === mes);
               return (
                 <View style={lifePath.itemWrap}>
-                  <View style={[lifePath.item, { backgroundColor: `${index === currentMonthIndex ? '#E7B62C' : '#F5E2A7'}` }]}>
+                  <View style={[lifePath.item, { backgroundColor: `${capitalize(mes) === actualMonth ? '#E7B62C' : '#F5E2A7'}` }]}>
                     <Text>
                       {consultant.calcPersonalMonth({ ...now, month: index + 1 })}
                       {consultant.calcPersonalMonthISK({ ...now, month: index + 1 })}
@@ -200,7 +200,7 @@ export default function LifePathPersonalMonths({ consultant, now, newDate }: { c
               const index = allMonths.findIndex((month:string) => month === mes);
               return (
                 <View style={lifePath.itemWrap}>
-                  <View style={[lifePath.item, { backgroundColor: `${index === currentMonthIndex ? '#E7B62C' : '#F5E2A7'}` }]}>
+                  <View style={[lifePath.item, { backgroundColor: `${capitalize(mes) === actualMonth ? '#E7B62C' : '#F5E2A7'}` }]}>
                     <Text>
                       {consultant.calcPersonalMonth({ ...now, month: index + 1 })}
                       {consultant.calcPersonalMonthISK({ ...now, month: index + 1 })}
@@ -226,7 +226,7 @@ export default function LifePathPersonalMonths({ consultant, now, newDate }: { c
               const index = allMonths.findIndex((month:string) => month === mes);
               return (
                 <View style={lifePath.itemWrap}>
-                  <View style={[lifePath.item, { backgroundColor: `${index === currentMonthIndex ? '#E7B62C' : '#F5E2A7'}` }]}>
+                  <View style={[lifePath.item, { backgroundColor: `${capitalize(mes) === actualMonth ? '#E7B62C' : '#F5E2A7'}` }]}>
                     <Text>
                       {consultant.calcPersonalMonth({ ...now, month: index + 1 })}
                       {consultant.calcPersonalMonthISK({ ...now, month: index + 1 })}

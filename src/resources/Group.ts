@@ -824,7 +824,8 @@ class Group {
     const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
     const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
-    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         if (indexEnero === 0) { return this.getQuarterOne(); }
@@ -853,7 +854,8 @@ class Group {
     const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
     const quarterMonth = getMonthName(monthToCalculate);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
-    const indexEnero = this.getCustomMonths().findIndex((i) => i === 'Enero');
+    // Use birth month index (0-11) instead of searching for 'Enero'
+    const indexEnero = this.getMonthOfBirth();
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         return this.getQuarterOneISK();

@@ -47,7 +47,7 @@ function QuarterPerMonth() {
   };
 
   const actualMonth = allMonths[calculationDate.month - 1];
-  const index = listOfMonths.findIndex((i) => i === 'Enero');
+  const index = consultant.getMonthOfBirth();
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
 
   switch (index) {
