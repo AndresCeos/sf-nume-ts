@@ -1,6 +1,7 @@
 import useConsult from '@/hooks/useConsult';
-import CurrentQuarterFont from './CurrentQuarterFont';
+import { capitalize } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import CurrentQuarterFont from './CurrentQuarterFont';
 
 export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boolean, isSynastry: boolean }) {
   const { consultant, calculationDate } = useConsult();
@@ -8,10 +9,11 @@ export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boole
   if (!consultant) return null;
   const listOfMonths = consultant.getCustomMonths();
   // Use birth month index (0-11) instead of searching for 'Enero'
-  const indexOfMonth = consultant.getMonthOfBirth();
+  const indexOfMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   const nineYearCycle = consultant.getNineYearCycle(calculationDate);
   const bornFirst = consultant.getDayOfBirth();
   const newDate = calculationDate;
+
   return (
     <div
       id="destinityTable"
@@ -27,7 +29,7 @@ export default function QuarterPerYear({ isGroup, isSynastry }: { isGroup: boole
         <CurrentQuarterFont isGroup={isGroup} isSynastry={isSynastry} />
         {listOfMonths.map((data, index) => (
           <>
-            {index === 0 && index < 12 ? (
+            {data === capitalize(t('months.january') as string) && index < 12 ? (
               <div
                 className={`${
                   index === 0 ? 'row-start-14 ' : `row-start-${index + 2} `
