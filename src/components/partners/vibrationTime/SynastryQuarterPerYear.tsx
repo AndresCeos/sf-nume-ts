@@ -1,8 +1,9 @@
 import useConsult from '@/hooks/useConsult';
 import Group from '@/resources/Group';
 import Synastry from '@/resources/Synastry';
-import SynastryCurrentQuarterFont from './synastryCurrentQuarterFont';
+import { capitalize } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import SynastryCurrentQuarterFont from './synastryCurrentQuarterFont';
 
 export default function SynastryQuarterPerYear({ synastry }: { synastry: Synastry | Group }) {
   const { calculationDate } = useConsult();
@@ -10,7 +11,7 @@ export default function SynastryQuarterPerYear({ synastry }: { synastry: Synastr
   if (!synastry) return null;
   const listOfMonths = synastry.getCustomMonths();
   // Use birth month index (0-11) instead of searching for 'Enero'
-  const indexOfMonth = synastry.getMonthOfBirth();
+  const indexOfMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   const nineYearCycle = synastry.getNineYearCycle(calculationDate.year);
   const newDate = calculationDate;
   return (
@@ -28,7 +29,7 @@ export default function SynastryQuarterPerYear({ synastry }: { synastry: Synastr
         <SynastryCurrentQuarterFont synastry={synastry} />
         {listOfMonths.map((data, index) => (
           <>
-            {index === 0 && index < 12 ? (
+            {data === capitalize(t('months.january') as string) && index < 12 ? (
               <div
                 className={`${
                   index === 0 ? 'row-start-14 ' : `row-start-${index + 2} `
