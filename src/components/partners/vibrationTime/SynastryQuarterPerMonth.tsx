@@ -49,8 +49,13 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
   };
 
   const actualMonth = allMonths[calculationDate.month - 1];
-  const index = synastry.getMonthOfBirth();
+  const index = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
+
+  console.log('actualMonth', actualMonth);
+  console.log('index', index);
+  console.log('currentMonth', currentMonth);
+  console.log('listOfMonths', listOfMonths);
 
   switch (index) {
     case 0:
@@ -207,7 +212,7 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
 
   return (
     <div className="h-full">
-      <div className="items-center text-black flex justify-center text-xl font-bold bg-black bg-opacity-15 border-t border-solid border-gray-300 h-14 text-xl ">{calculationDate.year}</div>
+      <div className="items-center text-black flex justify-center text-xl font-bold bg-black bg-opacity-15 border-t border-solid border-gray-300 h-14">{calculationDate.year}</div>
       <div>
         <div className={` ${monthsValues.isMonthOne ? 'text-black bg-black bg-opacity-15 ' : 'text-gray-500'} items-center  font-bold border-t border-gray-300 flex justify-center  h-14 text-xl`}>{monthsValues.monthOne}</div>
         <div className={`${monthsValues.isMonthOne ? 'text-black bg-black bg-opacity-15 ' : 'text-gray-500'} items-center flex justify-center border-t border-gray-300 font-bold h-12 text-xl`}>{monthsValues.monthOneValue}</div>

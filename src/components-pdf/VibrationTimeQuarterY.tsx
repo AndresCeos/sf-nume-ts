@@ -1,6 +1,8 @@
 import useConsult from '@/hooks/useConsult';
 import Person, { SplittedDate } from '@/resources/Person';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import { capitalize } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 const quaterY = StyleSheet.create({
   container: {
@@ -340,8 +342,9 @@ const quaterY = StyleSheet.create({
   },
 });
 function FontSelect({ consultant }: { consultant: Person }) {
+  const { t } = useTranslation();
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = consultant.getMonthOfBirth();
+  const indexOfMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   if (indexOfMonth === 0) {
     return (
       <>
@@ -511,9 +514,10 @@ function FontSelect({ consultant }: { consultant: Person }) {
 }
 
 function Ciclo({ consultant, cycleNineY }: { consultant: Person, cycleNineY: number[] }) {
+  const { t } = useTranslation();
   const { calculationDate } = useConsult();
   const listOfMonths = consultant.getCustomMonths();
-  const indexOfMonth = consultant.getMonthOfBirth();
+  const indexOfMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
 
   return (
     <View style={quaterY.flex}>

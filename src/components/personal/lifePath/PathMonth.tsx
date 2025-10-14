@@ -23,7 +23,7 @@ function PathMonth() {
   if (!consultant) return null;
 
   const listOfMonths = consultant.getCustomMonths();
-  const index = consultant.getMonthOfBirth();
+  const index = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
 
   // Get current month info - use current language
   const locale = i18n.language === 'es' ? 'es-ES' : 'en-US';

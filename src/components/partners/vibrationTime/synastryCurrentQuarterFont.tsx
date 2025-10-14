@@ -2,12 +2,15 @@
 import useConsult from '@/hooks/useConsult';
 import Group from '@/resources/Group';
 import Synastry from '@/resources/Synastry';
+import { capitalize } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 function SynastryCurrentQuarterFont({ synastry }: { synastry: Synastry | Group }) {
   const { calculationDate } = useConsult();
+  const { t } = useTranslation();
   if (!synastry) return null;
   const listOfMonths = synastry.getCustomMonths();
-  const indexOfMonth = synastry.getMonthOfBirth();
+  const indexOfMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   const nineYearCycle = synastry.getNineYearCycle(calculationDate.year);
 
   if (indexOfMonth === 0) {

@@ -2,6 +2,7 @@ import Person, { SplittedDate } from '@/resources/Person';
 import { getAllMonths } from '@/utils/numbers';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 import { capitalize } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 export const lifePath = StyleSheet.create({
   container: {
@@ -53,6 +54,7 @@ export const lifePath = StyleSheet.create({
 });
 
 export default function LifePathPersonalMonths({ consultant, now, newDate }: { consultant: Person, now: SplittedDate, newDate: Date }) {
+  const { t } = useTranslation();
   const listOfMonths = consultant.getCustomMonths();
   let quarterOne: string[] = [];
   let quarterTwo: string[] = [];
@@ -61,7 +63,7 @@ export default function LifePathPersonalMonths({ consultant, now, newDate }: { c
   const allMonths = getAllMonths();
 
   // Use birth month index (0-11) instead of searching for 'Enero'
-  const indexMonth = consultant.getMonthOfBirth();
+  const indexMonth = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   // Get current month index from the date (0-11)
   const currentMonthIndex = newDate.getMonth();
 
@@ -133,10 +135,10 @@ export default function LifePathPersonalMonths({ consultant, now, newDate }: { c
     default:
   }
   // Find which quarter contains the current month by comparing indices
-  const isQuarterOne = quarterOne.find((month) => allMonths.findIndex(m => m === month) === currentMonthIndex);
-  const isQuarterTwo = quarterTwo.find((month) => allMonths.findIndex(m => m === month) === currentMonthIndex);
-  const isQuarterThree = quarterThree.find((month) => allMonths.findIndex(m => m === month) === currentMonthIndex);
-  const isQuarterFour = quarterFour.find((month) => allMonths.findIndex(m => m === month) === currentMonthIndex);
+  const isQuarterOne = quarterOne.find((month) => allMonths.findIndex((m) => m === month) === currentMonthIndex);
+  const isQuarterTwo = quarterTwo.find((month) => allMonths.findIndex((m) => m === month) === currentMonthIndex);
+  const isQuarterThree = quarterThree.find((month) => allMonths.findIndex((m) => m === month) === currentMonthIndex);
+  const isQuarterFour = quarterFour.find((month) => allMonths.findIndex((m) => m === month) === currentMonthIndex);
 
   if (isQuarterOne !== undefined) {
     return (
