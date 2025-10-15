@@ -4,7 +4,7 @@ import useConsult from '@/hooks/useConsult';
 
 export default function FrequentNamePotential() {
   const { t } = useTranslation();
-  const { consultant } = useConsult();
+  const { consultant, calculationDate } = useConsult();
 
   if (!consultant) return null;
   const nameCycles = consultant.calcNameCycles();
@@ -31,7 +31,7 @@ export default function FrequentNamePotential() {
             {t('name.potential.personalYear')}
           </p>
           <div className="w-10 h-10 text-2xl font-black text-black flex justify-center items-center bg-white border border-main rounded-full inner-shadow">
-            {consultant.calcPersonalYear()}
+            {consultant.calcPersonalYear(calculationDate.year)}
           </div>
           <div className="w-8 flex items-center justify-center">
             <svg
@@ -52,7 +52,7 @@ export default function FrequentNamePotential() {
             </svg>
           </div>
           <div className="w-10 h-10 text-2xl font-black text-black flex justify-center items-center bg-white border border-main rounded-full inner-shadow">
-            {consultant.calcAgeDigit()}
+            {consultant.calcAgeDigit(calculationDate.year)}
           </div>
           <p className="text-13 ml-3">
             {t('name.potential.ageDigit')}

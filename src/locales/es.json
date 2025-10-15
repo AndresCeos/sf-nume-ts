@@ -585,6 +585,7 @@
     "clearSelection": "Limpiar Selección",
     "person": "Persona",
     "company": "Empresa/Producto",
+    "productionName": "Nombre de Realización",
     "invalidData": "Ingresa datos validos.",
     "verification": "Comprobación",
     "numericValues": "Valores Numéricos del Nombre",
