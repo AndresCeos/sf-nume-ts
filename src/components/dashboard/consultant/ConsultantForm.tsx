@@ -74,6 +74,7 @@ function ConsultantForm({ initialForm }: { initialForm: any }) {
       gender,
       group: [],
       groupData,
+      createNames: [],
       lastName,
       names,
       nationality,
@@ -316,6 +317,7 @@ function ConsultantFormWrapper() {
     email: (isEditingConsultant && consultant) ? consultantData?.email : '',
     groupData: (isEditingConsultant && consultant) ? consultantData?.groupData : [],
     partnerData: (isEditingConsultant && consultant) ? consultantData?.partnerData : [],
+    createNames: (isEditingConsultant && consultant) ? consultantData?.createNames : [],
   };
 
   return <ConsultantForm initialForm={initialForm} key={`${consultant?.id}_${isEditingConsultant}`} />;

@@ -408,10 +408,6 @@ function CreateNamePage() {
                             month: 'long',
                             day: 'numeric',
                           })}
-                          {' '}
-                          •
-                          {' '}
-                          {savedName.isPerson ? `👤 ${t('createName.person')}` : `🏢 ${t('createName.company')}`}
                         </option>
                       ))}
                     </select>
@@ -540,8 +536,8 @@ function CreateNamePage() {
                       name="entityType"
                       value="person"
                       checked={isPerson}
-                      onChange={(e) => {
-                        setIsPerson(e.target.value === 'person');
+                      onChange={() => {
+                        setIsPerson(true);
                         setHasCalculated(false);
                       }}
                       className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
@@ -560,8 +556,8 @@ function CreateNamePage() {
                       name="entityType"
                       value="company"
                       checked={!isPerson}
-                      onChange={(e) => {
-                        setIsPerson(e.target.value === 'person');
+                      onChange={() => {
+                        setIsPerson(false);
                         setHasCalculated(false);
                       }}
                       className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
@@ -570,6 +566,25 @@ function CreateNamePage() {
                       🏢
                       {' '}
                       {t('createName.company')}
+                    </span>
+                  </label>
+                  <label htmlFor="isRealiceName-radio" className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      id="isRealiceName-radio"
+                      type="radio"
+                      name="entityType"
+                      value="realiceName"
+                      checked={!isPerson}
+                      onChange={() => {
+                        setIsPerson(false);
+                        setHasCalculated(false);
+                      }}
+                      className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                    />
+                    <span className="text-gray-700 font-medium">
+                      👤
+                      {' '}
+                      {t('createName.productionName')}
                     </span>
                   </label>
                 </div>
