@@ -73,7 +73,8 @@
     "notes": "Notas de\n Consulta",
     "saveReport": "Guardar\n reporte",
     "printReports": "Imprimir\n reportes",
-    "helloMessage": "Hola! <strong>{{name}}</strong>"
+    "helloMessage": "Hola! <strong>{{name}}</strong>",
+    "support": "Soporte"
   },
   "sidebar": {
     "home": "Inicio",
@@ -199,7 +200,8 @@
       "searchPlaceholder": "Escribe el término aquí...",
       "loading": "Cargando glosario...",
       "noResults": "No se encontraron términos que coincidan",
-      "writeToSearch": "Escribe un término para buscar en el glosario"
+      "writeToSearch": "Escribe un término para buscar en el glosario",
+      "glossary": "Glosario"
     }
   },
   "loginPage": {
@@ -293,7 +295,7 @@
     "np": "NP",
     "stage": "Etapa",
     "personalYear": "AP",
-    "quarter": "Cuatrimestre",
+    "quarter": "Cuatri- \n mestre",
     "personalMonth": "MP",
     "personalWeek": "SP",
     "personalDay": "DP"
