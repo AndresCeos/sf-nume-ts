@@ -203,7 +203,7 @@ function Sidebar() {
                 aria-current="page"
               >
                 <img src="/assets/sidebar/pinnacle.svg" className="w-6 h-4 object-center" alt="ic_pinnacle" />
-                <label className="ml-2">{t('sidebar.analysis')}</label>
+                <label className="ml-2">{t('sidebar.pinnacle')}</label>
                 <span className="bg-yellow text-white text-xs font-medium ml-2 px-1 py-0.5 rounded-sm">
                   {t('sidebar.new')}
                 </span>

@@ -15,7 +15,7 @@ function ConsultantPicker() {
   }) => ({
     value: id,
     label: `${names} ${lastName} ${scdLastName}`,
-  }));
+  })).sort((a, b) => a.label.localeCompare(b.label));
 
   const handleChange = (selectedOption: SingleValue<{ value: string | undefined, label: string }>) => {
     if (selectedOption?.value === undefined) return;
@@ -41,7 +41,7 @@ function ConsultantPicker() {
         options={options as never}
         onChange={handleChange}
         value={formatConsultantActive()}
-        className="px-2 w-72"
+        className="px-2 w-96"
         placeholder={t('select')}
         classNamePrefix="bg-transparent border-0 outline-none font-bold"
         noOptionsMessage={() => t('noOptions')}

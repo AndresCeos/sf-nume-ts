@@ -73,7 +73,8 @@
     "notes": "Consultation\n Notes",
     "saveReport": "Save\n report",
     "printReports": "Print\n reports",
-    "helloMessage": "Hello! <strong>{{name}}</strong>"
+    "helloMessage": "Hello! <strong>{{name}}</strong>",
+    "support": "Support"
   },
   "sidebar": {
     "home": "Home",
@@ -199,7 +200,8 @@
       "searchPlaceholder": "Write the term here...",
       "loading": "Loading glossary...",
       "noResults": "No terms found that match",
-      "writeToSearch": "Write a term to search in the glossary"
+      "writeToSearch": "Write a term to search in the glossary",
+      "glossary": "Glossary"
     }
   },
   "loginPage": {
@@ -311,8 +313,8 @@
       "maturity": "Maturity"
     },
     "bridge": {
-      "bridge": "Bridges by stage",
-      "bridgeX": "Bridge {{stage}}",
+      "bridge": "Life stages",
+      "bridgeX": "Stage {{stage}}",
       "duration": "{{amount}} years"
     },
     "annualReturns": {
