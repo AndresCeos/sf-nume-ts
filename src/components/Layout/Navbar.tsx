@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 
+import miniLaura from '@/assets/mini-laura.png';
 import AnnualReturnsPDF from '@/components-pdf/document/AnnualReturnsPDF';
 import CalendarPDF from '@/components-pdf/document/CalendarPDF';
 import CircleTimePDF from '@/components-pdf/document/CircleTimePDF';
@@ -39,6 +40,7 @@ import { PDFPageConfig } from '@/types/pdf.types';
 import { pdf, PDFViewer } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import { useEffect, useState } from 'react';
+import FloatingLaura from '../FloatingLaura';
 import ConsultationDateModal from '../modal/ConsultationDateModal';
 import ModalPDF from '../ModalPDF';
 import PDFErrorDisplay from '../PDFErrorDisplay';
@@ -63,6 +65,7 @@ function Navbar() {
   const [isDownloadPDFEnabled, setIsDownloadPDFEnabled] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
+  const [isGlossaryModalOpen, setIsGlossaryModalOpen] = useState(false);
 
   // Error handling hook
   const {
@@ -482,6 +485,22 @@ function Navbar() {
             className="main-menu hidden w-full md:block md:w-auto mr-3"
           >
             <ul className="flex flex-col md:flex-row md:space-x-5 md:mt-0 text-xs font-medium h-full">
+              <li className="flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  className="button-nav-bar"
+                  onClick={() => setIsGlossaryModalOpen(true)}
+                >
+                  <img
+                    src={miniLaura}
+                    alt="add_user"
+                    className="mb-1"
+                    width={50}
+                    height={50}
+                  />
+                  {t('modal.glossary.glossary')}
+                </button>
+              </li>
               <li className="flex items-center justify-center">
                 <Link
                   className="button-nav-bar"
@@ -615,12 +634,13 @@ function Navbar() {
                   )}
               </li>
               <li className="flex items-center justify-center ml-20">
-                <a href="https://app.numerologia-cotidiana.com/formulario-de-soporte-arithmax/" target="_blank" rel="noreferrer">
+                <a className="button-nav-bar" href="https://app.numerologia-cotidiana.com/formulario-de-soporte-arithmax/" target="_blank" rel="noreferrer">
                   <img
                     src="/assets/navbar/mail.svg"
                     alt="email"
-                    className="w-6 lg:w-8"
+                    className="w-6 lg:w-8 mb-1"
                   />
+                  {t('navbar.support')}
                 </a>
               </li>
               <li className="flex items-center justify-center ml-7">
@@ -789,6 +809,10 @@ function Navbar() {
         </ModalPDF>
       ) : null
     }
+      <FloatingLaura
+        isOpen={isGlossaryModalOpen}
+        onClose={() => setIsGlossaryModalOpen(false)}
+      />
     </>
   );
 }
