@@ -12,6 +12,7 @@ import NoConsultantSelected from '@/components/NoConsultantSelected';
 import DestinyTable from '@/components/personal/destinyTable/DestinyTable';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 import { ConsultContext } from '@/context/ConsultContext';
+import useConsult from '@/hooks/useConsult';
 import Synastry from '@/resources/Synastry';
 import { reduceNumber } from '@/utils/numbers';
 
@@ -36,6 +37,7 @@ function SinastryDestinyTable({
 }: SinastryDestinyTableComponent) {
   const [binomActive, setBinomActive] = useState(false);
   const { t } = useTranslation();
+  const { calculationDate } = useConsult();
   const singleC = consultant.getSingle();
   const singleP = partner.getSingle();
   const synastry = new Synastry(consultant, partner);
@@ -113,7 +115,7 @@ function SinastryDestinyTable({
         </div>
       </div>
       {partnerDT.map((el, i) => {
-        const isCurrentYear = new Date().getFullYear() === consultant.getYearOfBirth() + i + start;
+        const isCurrentYear = calculationDate.year === consultant.getYearOfBirth() + i + start;
         return (
           <>
             <div className="nameBreakdown">
@@ -126,13 +128,13 @@ function SinastryDestinyTable({
                 {consultant.getYearOfBirth() + i + start}
               </div>
               <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
               }`}
               >
                 {i + start}
               </div>
               <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmC}</strong>
@@ -143,7 +145,7 @@ function SinastryDestinyTable({
                 </p>
               </div>
               <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMC}</strong>
@@ -154,14 +156,14 @@ function SinastryDestinyTable({
                 </p>
               </div>
               <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfC}</strong>
                 <p className="h-4 text-center text-10">{singleC && `${el.pfN} / ${el.pfD}`}</p>
               </div>
               <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
               } ${binomActive && 'text-xs'}`}
               >
                 {binomActive ? (
@@ -173,13 +175,13 @@ function SinastryDestinyTable({
                 ) : <strong>{reduceNumber(el.pmD + el.pMD + el.pfD)}</strong>}
               </div>
               <div className={`mt-5 h-10 w-7 text-13 font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
               }`}
               >
                 {consultant.calcPersonalYear(consultant.getYearOfBirth() + i + start)}
               </div>
               <div className={`h-10 w-7 text-13 font-bold border-b border-r border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 {reduceNumber(el.pmD + el.pMD + el.pfD + consultant.calcPersonalYear(consultant.getYearOfBirth() + i + start))}
@@ -188,19 +190,19 @@ function SinastryDestinyTable({
 
             <div className="nameBreakdown">
               <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-main-30'
               }`}
               >
                 {partner.getYearOfBirth() + i + startP}
               </div>
               <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-black bg-opacity-10'
               }`}
               >
                 {i + startP}
               </div>
               <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCP}</strong>
@@ -211,7 +213,7 @@ function SinastryDestinyTable({
                 </p>
               </div>
               <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCP}</strong>
@@ -222,14 +224,14 @@ function SinastryDestinyTable({
                 </p>
               </div>
               <div className={`h-12 w-7 text-13 border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCP}</strong>
                 <p className="h-4 text-center text-10">{singleP && `${el.pfNP}/${el.pfDP}`}</p>
               </div>
               <div className={`h-10 w-7 border-b border-r border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-pink'
               } ${binomActive && 'text-xs'}`}
               >
                 {binomActive ? (
@@ -241,13 +243,13 @@ function SinastryDestinyTable({
                 ) : <strong>{reduceNumber(el.pmDP + el.pMDP + el.pfDP)}</strong>}
               </div>
               <div className={`mt-5 h-10 w-7 text-13 font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-gray bg-opacity-15'
               }`}
               >
                 {partner.calcPersonalYear(partner.getYearOfBirth() + i + startP)}
               </div>
               <div className={`h-10 w-7 text-13 font-bold border-b border-r border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-50' : 'bg-white'
               }`}
               >
                 {reduceNumber(el.pmDP + el.pMDP + el.pfDP + partner.calcPersonalYear(partner.getYearOfBirth() + i + startP))}
@@ -256,19 +258,19 @@ function SinastryDestinyTable({
 
             <div className="nameBreakdown">
               <div className={`h-6 w-7 text-10 text-center border-t border-gray-400 border-r ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-main-30'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-main-30'
               }`}
               >
                 {consultant.getYearOfBirth() + i + start}
               </div>
               <div className={`h-6 w-7 text-13 text-center border-b border-r border-gray-400 ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 {reduceNumber(i + start + i + startP)}
               </div>
               <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pmCPC}</strong>
@@ -279,7 +281,7 @@ function SinastryDestinyTable({
                 </p>
               </div>
               <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pMCPC}</strong>
@@ -290,14 +292,14 @@ function SinastryDestinyTable({
                 </p>
               </div>
               <div className={`h-12 w-7 text-xs border-b border-r border-gray-400 flex flex-col ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 <strong className="h-6 w-7 leading-6 text-center border-b border-gray-400">{el.pfCPC}</strong>
                 <p className="h-4 text-center text-10">{(singleC && singleP) && `${el.pfNPC}/${el.pfDPC}`}</p>
               </div>
               <div className={`h-10 w-7 text-xs border-b border-r border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 <strong>
@@ -307,13 +309,13 @@ function SinastryDestinyTable({
                 </strong>
               </div>
               <div className={`mt-5 h-10 w-7 text-xs font-bold border-b border-r border-t border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 {synastry.calcPersonalYear(consultant.getYearOfBirth() + i + start)}
               </div>
               <div className={`h-10 w-7 text-xs font-bold border-b border-r border-gray-400 flex items-center justify-center ${
-                new Date().getFullYear() === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
+                calculationDate.year === consultant.getYearOfBirth() + i + start ? 'bg-red-80' : 'bg-gold-15'
               }`}
               >
                 {reduceNumber(el.pmDPC + el.pMDPC + el.pfDPC + synastry.calcPersonalYear(consultant.getYearOfBirth() + i + start))}

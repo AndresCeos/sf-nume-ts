@@ -169,8 +169,8 @@ class Person {
     return age;
   }
 
-  calcAgeDigit(): number {
-    return reduceNumber((this.getYearsOld() - 1) + this.getYearsOld());
+  calcAgeDigit(yearToCalculate?: number): number {
+    return reduceNumber((this.getYearsOld(yearToCalculate) - 1) + this.getYearsOld(yearToCalculate));
   }
 
   /** ======================Pinnacle Calcs ==================== */

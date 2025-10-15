@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import useConsult from '@/hooks/useConsult';
 import Person from '@/resources/Person';
 import { reduceNumber } from '@/utils/numbers';
 
@@ -31,9 +32,10 @@ export default function DestinyTable({
   nameSubCycles,
 }: DestinyTableProps) {
   const { t } = useTranslation();
+  const { calculationDate } = useConsult();
   const single = consultant.getSingle();
   const [binomActive, setBinomActive] = useState(false);
-  const consultantAge = consultant.getYearsOld();
+  const consultantAge = consultant.getYearsOld(calculationDate.year);
 
   const isCycle = (i: number) => (i === consultantAge ? false : nameCycles.includes(i));
   const isSubCycle = (i: number) => (i === consultantAge ? false : nameSubCycles.includes(i));
