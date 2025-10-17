@@ -1,4 +1,3 @@
-import request from 'axios';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -18,24 +17,17 @@ function LoginPage() {
   };
 
   const {
-    email, password, handleInputChange, formError, setFormError,
+    email, password, handleInputChange,
   } = useForm(initialForm);
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormError('');
     try {
       await login({ username: email, password });
     } catch (err) {
-      if (request.isAxiosError(err)) {
-        setFormError(err.response?.data?.data?.msg ?? t('somethingWentWrong') as string);
-        return;
-      }
-      setFormError(t('somethingWentWrong') as string);
+      // Los errores se manejan en AuthProvider con toast notifications
     }
   };
-
-  const createMarkup = (text: string) => ({ __html: text });
 
   return (
     <>
@@ -96,13 +88,6 @@ function LoginPage() {
                   {t('loginPage.enter')}
                   {isLoggingIn && <CgSpinnerTwo className="animate-spin ml-2" />}
                 </button>
-                {formError && (
-                  <div
-                    className="text-red-500 text-center text-sm mt-3"
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={createMarkup(formError)}
-                  />
-                )}
               </form>
               <a href="https://app.numerologia-cotidiana.com/mi-cuenta/lost-password/" target="_blank" rel="noreferrer">
                 {t('loginPage.forgotPassword')}
