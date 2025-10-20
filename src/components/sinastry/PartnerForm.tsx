@@ -62,13 +62,13 @@ export default function PartnerForm({
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
 
-    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
     if (!names) {
       validationMsgs = { ...validationMsgs, names: t('validation.required') };
       isValid = false;
     } else if (!names.match(letters)) {
-      validationMsgs = { ...validationMsgs, name: t('validation.invalid') };
+      validationMsgs = { ...validationMsgs, names: t('validation.invalid') };
       isValid = false;
     }
 
@@ -80,12 +80,17 @@ export default function PartnerForm({
       isValid = false;
     }
 
+    if (scdLastName && !scdLastName.match(letters)) {
+      validationMsgs = { ...validationMsgs, scdLastName: t('validation.invalid') };
+      isValid = false;
+    }
+
     if (!date) {
       validationMsgs = { ...validationMsgs, date: t('validation.required') };
       isValid = false;
-    } else {
-      // Validar que la fecha tenga un año de 4 dígito
-      isValidDate(date);
+    } else if (!isValidDate(date)) {
+      validationMsgs = { ...validationMsgs, date: t('validation.invalid') };
+      isValid = false;
     }
 
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
@@ -93,7 +98,7 @@ export default function PartnerForm({
 
   useEffect(() => {
     isFormValid();
-  }, [names, lastName]);
+  }, [names, lastName, scdLastName, date]);
 
   const closeForm = () => {
     setIsAddFormActive(false);
@@ -103,6 +108,7 @@ export default function PartnerForm({
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('formStatus', formStatus);
 
     if (!formStatus.isValid) {
       setFormStatus((prevState) => ({ ...prevState, displayValidations: true }));
@@ -115,9 +121,9 @@ export default function PartnerForm({
     try {
       const newPartner: Api.Partner = {
         id: isEditing && partnerToEdit ? partnerToEdit.id : Math.random().toString(36).substring(2, 9),
-        names,
-        lastName,
-        scdLastName,
+        names: names.trim(),
+        lastName: lastName.trim(),
+        scdLastName: scdLastName.trim(),
         date: date.toString(),
       };
 
@@ -185,8 +191,8 @@ export default function PartnerForm({
             onChange={(e) => handleInputChange(e.target)}
             value={names}
           />
-          {(formStatus?.displayValidations && formStatus?.validationMsgs?.name) && (
-            <span className="form-error">{formStatus.validationMsgs.name}</span>
+          {(formStatus?.displayValidations && formStatus?.validationMsgs?.names) && (
+            <span className="form-error">{formStatus.validationMsgs.names}</span>
           )}
         </div>
 
@@ -220,6 +226,9 @@ export default function PartnerForm({
             onChange={(e) => handleInputChange(e.target)}
             value={scdLastName}
           />
+          {(formStatus?.displayValidations && formStatus?.validationMsgs?.scdLastName) && (
+            <span className="form-error">{formStatus.validationMsgs.scdLastName}</span>
+          )}
         </div>
       </div>
 
