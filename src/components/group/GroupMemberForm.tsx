@@ -84,7 +84,7 @@ export default function GroupMemberForm({
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
 
-    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
 
     if (!name) {
       validationMsgs = { ...validationMsgs, name: t('group.validation.required') };
@@ -102,12 +102,17 @@ export default function GroupMemberForm({
       isValid = false;
     }
 
+    if (scdLastName && !scdLastName.match(letters)) {
+      validationMsgs = { ...validationMsgs, scdLastName: t('group.validation.notValid') };
+      isValid = false;
+    }
+
     if (!date) {
       validationMsgs = { ...validationMsgs, date: t('group.validation.required') };
       isValid = false;
-    } else {
-      // Validar que el año tenga exactamente 4 dígitos
-      isValidDate(date);
+    } else if (!isValidDate(date)) {
+      validationMsgs = { ...validationMsgs, date: t('group.validation.notValid') };
+      isValid = false;
     }
 
     if (!dateInit) {
@@ -130,7 +135,7 @@ export default function GroupMemberForm({
 
   useEffect(() => {
     isFormValid();
-  }, [name, lastName, date, dateInit]);
+  }, [name, lastName, scdLastName, date, dateInit]);
 
   const closeForm = () => {
     setIsAddMemberActive(false);
@@ -151,9 +156,9 @@ export default function GroupMemberForm({
     try {
       const newMember: Api.GroupMember = {
         id: isEditing && memberToEdit ? memberToEdit.id : Math.random().toString(36).substring(2, 9),
-        name,
-        lastName,
-        scdLastName,
+        name: name.trim(),
+        lastName: lastName.trim(),
+        scdLastName: scdLastName.trim(),
         date: date.toString(),
         dateInit: dateInit || new Date().getFullYear(),
       };
@@ -244,6 +249,9 @@ export default function GroupMemberForm({
             onChange={(e) => handleInputChange(e.target)}
             value={scdLastName}
           />
+          {(formStatus?.displayValidations && formStatus?.validationMsgs?.scdLastName) && (
+            <span className="form-error">{formStatus.validationMsgs.scdLastName}</span>
+          )}
         </div>
       </div>
 

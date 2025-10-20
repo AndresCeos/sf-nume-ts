@@ -71,7 +71,7 @@ export default function PartnerDataForm({
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
 
-    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
+    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s0-9]+$/;
 
     if (!name) {
       validationMsgs = { ...validationMsgs, name: t('validation.required') };
