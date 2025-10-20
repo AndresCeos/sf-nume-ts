@@ -60,7 +60,7 @@ export default function GroupForm({
     let isValid = true;
     let validationMsgs: Record<string, string> = {};
 
-    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
+    const letters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s0-9]+$/;
 
     if (!name) {
       validationMsgs = { ...validationMsgs, name: t('group.validation.required') };
@@ -70,16 +70,12 @@ export default function GroupForm({
       isValid = false;
     }
 
-    if (!description) {
-      validationMsgs = { ...validationMsgs, description: t('group.validation.required') };
-      isValid = false;
-    }
-
     if (!date) {
       validationMsgs = { ...validationMsgs, date: t('group.validation.required') };
       isValid = false;
-    } else {
-      isValidDate(date);
+    } else if (!isValidDate(date)) {
+      validationMsgs = { ...validationMsgs, date: t('group.validation.notValid') };
+      isValid = false;
     }
 
     setFormStatus((prevState) => ({ ...prevState, isValid, validationMsgs }));
@@ -109,8 +105,8 @@ export default function GroupForm({
     try {
       const newGroup: Api.GroupData = {
         id: isEditing && groupToEdit ? groupToEdit.id : Math.random().toString(36).substring(2, 9),
-        name,
-        description,
+        name: name.trim(),
+        description: description.trim(),
         date: date.toString(),
         members: isEditing && groupToEdit ? groupToEdit.members || [] : [],
         lastInit: new Date().getFullYear(),
@@ -186,7 +182,6 @@ export default function GroupForm({
         <div className="form-group w-full">
           <p className="font-bold mb-1">
             {t('group.descriptionOfGroup')}
-            <span className="text-red-800">*</span>
           </p>
           <textarea
             id="group-description"
