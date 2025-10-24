@@ -23,7 +23,6 @@ import useConsultants from '@/hooks/useConsultants';
 import Person from '@/resources/Person';
 import { PDFPageConfig } from '@/types/pdf.types';
 import { pdf } from '@react-pdf/renderer';
-import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
 
 function CreateNamePage() {
@@ -58,6 +57,18 @@ function CreateNamePage() {
   const [checkP, setcheckP] = useState(false);
   const [checkBreakdown, setcheckBreakdown] = useState(false);
 
+  // Función para formatear fecha de forma segura
+  const formatDateForInput = (date: Date) => {
+    if (date instanceof Date && !Number.isNaN(date.getTime())) {
+      // Usar métodos locales para evitar problemas de zona horaria
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+    return '';
+  };
+
   // Limpiar variables de cálculo cuando cambia el consultor
   useEffect(() => {
     if (activeConsultant?.id) {
@@ -87,7 +98,7 @@ function CreateNamePage() {
     name: calculatedName || inputName,
     lastName: calculatedLastName || inputLastName,
     scdLastName: calculatedScdLastName || inputScdLastName,
-    birthDate: format(calculatedDate, 'yyyy-MM-dd'),
+    birthDate: formatDateForInput(calculatedDate || inputDate),
     isPerson,
   };
 
@@ -132,7 +143,9 @@ function CreateNamePage() {
     } else if (name === 'scdLastName') {
       setInputScdLastName(value);
     } else if (name === 'date') {
-      setInputDate(new Date(value));
+      // Crear fecha sin problemas de zona horaria
+      const [year, month, day] = value.split('-').map(Number);
+      setInputDate(new Date(year, month - 1, day));
     } else if (name === 'isPerson') {
       setIsPerson(checked);
     }
@@ -165,7 +178,7 @@ function CreateNamePage() {
         name: inputName,
         lastName: inputLastName,
         scdLastName: inputScdLastName,
-        birthDate: format(inputDate, 'yyyy-MM-dd'),
+        birthDate: formatDateForInput(inputDate), // Usar función segura
         isPerson,
       };
 
@@ -244,7 +257,9 @@ function CreateNamePage() {
           setInputScdLastName('');
         }
 
-        setInputDate(new Date(savedName.birthDate));
+        // Crear fecha sin problemas de zona horaria
+        const [year, month, day] = savedName.birthDate.split('-').map(Number);
+        setInputDate(new Date(year, month - 1, day));
         setIsPerson(savedName.isPerson ?? true); // Usar true como valor por defecto si no existe
         setHasCalculated(false); // Resetear cálculos para que el usuario haga clic en "Calcular"
       }
@@ -325,14 +340,6 @@ function CreateNamePage() {
     }
   };
 
-  // Función para formatear fecha de forma segura
-  const formatDateForInput = (date: Date) => {
-    if (date instanceof Date && !Number.isNaN(date.getTime())) {
-      return date.toISOString().split('T')[0];
-    }
-    return '';
-  };
-
   const handleGeneratePDF = async () => {
     const config = [CreateNamePDF as unknown as PDFPageConfig];
     const profile = new Person({
@@ -403,11 +410,15 @@ function CreateNamePage() {
                           {' '}
                           •
                           {' '}
-                          {new Date(savedName.birthDate).toLocaleDateString('es-ES', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
+                          {(() => {
+                            const [year, month, day] = savedName.birthDate.split('-').map(Number);
+                            const date = new Date(year, month - 1, day);
+                            return date.toLocaleDateString('es-ES', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            });
+                          })()}
                         </option>
                       ))}
                     </select>
