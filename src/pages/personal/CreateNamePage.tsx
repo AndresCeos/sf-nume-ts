@@ -163,17 +163,6 @@ function CreateNamePage() {
     setCalculatedScdLastName(inputScdLastName);
     setCalculatedDate(inputDate);
     setHasCalculated(true);
-
-    // Crear el objeto con los valores actuales del input
-    const currentCreateNameData = {
-      id: consultant.id,
-      name: inputName,
-      lastName: inputLastName,
-      scdLastName: inputScdLastName,
-      birthDate: formatDateForInput(inputDate),
-      isPerson,
-    };
-    console.log('createNameData', currentCreateNameData);
   };
 
   // Función para guardar
