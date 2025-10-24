@@ -7,6 +7,7 @@ type PinnacleProps = {
 };
 
 function PinnacleCreateName({ size, isVerificationActive, consultant }: PinnacleProps) {
+  console.log('consultant', consultant);
   return (
     <div id="pinnacle" className={`relative ${size}`}>
 
