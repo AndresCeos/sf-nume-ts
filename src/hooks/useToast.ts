@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 
-export const useToast = () => {
+export default function useToast() {
   const showSuccess = (message: string) => {
     toast.success(message, {
       duration: 4000,
@@ -61,4 +61,4 @@ export const useToast = () => {
     showInfo,
     showWarning,
   };
-};
+}
