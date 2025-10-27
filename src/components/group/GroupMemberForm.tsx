@@ -163,12 +163,24 @@ export default function GroupMemberForm({
         dateInit: dateInit || new Date().getFullYear(),
       };
 
+      // Calcular todos los dateInit de los miembros actualizados para obtener el más reciente
+      const updatedMembers = isEditing && memberToEdit
+        ? activeGroup.members?.map((m: Api.GroupMember) => (m.id === memberToEdit.id ? newMember : m)) || []
+        : [...(activeGroup.members || []), newMember];
+
+      // Encontrar el dateInit más reciente de todos los miembros
+      const allDateInits = updatedMembers
+        .map((m: Api.GroupMember) => m.dateInit)
+        .filter((year): year is number => typeof year === 'number' && year > 0);
+
+      const mostRecentYear = allDateInits.length > 0
+        ? Math.max(...allDateInits)
+        : (dateInit || new Date().getFullYear());
+
       const updatedGroup: Api.GroupData = {
         ...activeGroup,
-        lastInit: dateInit || new Date().getFullYear(),
-        members: isEditing && memberToEdit
-          ? activeGroup.members?.map((m: Api.GroupMember) => (m.id === memberToEdit.id ? newMember : m)) || []
-          : [...(activeGroup.members || []), newMember],
+        lastInit: mostRecentYear,
+        members: updatedMembers,
       };
 
       const updatedConsultant: Api.Consultant = {
