@@ -275,8 +275,13 @@ function SettingsForm() {
                   name="logo"
                   className="rounded  border-[#C4C4C4]  border w-11/12"
                   onChange={(e) => handleInputChange(e.target)}
-                  value={logo}
+                  accept="image/*"
                 />
+                {logo && typeof logo === 'string' && (
+                  <div className="mt-2">
+                    <img src={logo} alt="Logo" className="max-w-full h-20 object-contain" />
+                  </div>
+                )}
                 <p className="text-13 mt-2">{t('forms.logoSize')}</p>
                 <p className="text-13">{t('forms.logoType')}</p>
                 <p className="text-13">{t('forms.logoDimensions')}</p>
