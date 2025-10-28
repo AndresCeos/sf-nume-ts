@@ -616,27 +616,27 @@ class Group {
    * calculate personal week
    * @returns {Number} sumPersonalWeek
    */
-  calcPersonalWeek(year:number, month:number, day:number):number {
+  calcPersonalWeek(day:number, month:number, year:number):number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
     const dayToCalculate = _.isNil(day) ? getDate(this.NOW) : day;
-    const sumPersonalWeekOne = reduceNumber(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
+    const sumPersonalWeekOne = monthToCalculate + this.calcPersonalYear(yearToCalculate);
     if (dayToCalculate >= 1 && dayToCalculate <= 7) {
-      return sumPersonalWeekOne;
+      return reduceNumber(sumPersonalWeekOne);
     }
-    const sumPersonalWeekTwo = reduceNumber(this.calcPersonalYear(yearToCalculate) + sumPersonalWeekOne);
+    const sumPersonalWeekTwo = this.calcPersonalYear(yearToCalculate) + reduceNumber(sumPersonalWeekOne);
     if (dayToCalculate >= 8 && dayToCalculate <= 14) {
-      return sumPersonalWeekTwo;
+      return reduceNumber(sumPersonalWeekTwo);
     }
 
-    const sumPersonalWeekThree = reduceNumber(sumPersonalWeekTwo + sumPersonalWeekOne);
+    const sumPersonalWeekThree = reduceNumber(sumPersonalWeekTwo) + reduceNumber(sumPersonalWeekOne);
     if ((dayToCalculate) >= 15 && dayToCalculate <= 21) {
-      return sumPersonalWeekThree;
+      return reduceNumber(sumPersonalWeekThree);
     }
 
-    const sumPersonalWeekFour = reduceNumber(monthToCalculate + sumPersonalWeekOne);
+    const sumPersonalWeekFour = reduceNumber(monthToCalculate + reduceNumber(sumPersonalWeekOne));
     if (dayToCalculate >= 22) {
-      return sumPersonalWeekFour;
+      return reduceNumber(sumPersonalWeekFour);
     }
     return 0;
   }

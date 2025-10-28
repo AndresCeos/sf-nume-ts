@@ -2,6 +2,7 @@ import { useAuth } from '@/context/AuthProvider';
 import useEnergy from '@/hooks/useEnergy';
 import Person from '@/resources/Person';
 import TimeCircle from '../../personal/timeCircle/TimeCircle';
+import TimeCircleUniversal from './timeCircle/TimeCircleUniversal';
 
 function EnergyTimeCircle() {
   const { activeSelection, selectedType } = useEnergy();
@@ -15,7 +16,13 @@ function EnergyTimeCircle() {
     scdLastName: userAuth?.user.scdLastName || '',
     birthDate: userAuth?.user.birthDate?.toString() || '',
   });
-
+  if (selectedType === 'universal') {
+    return (
+      <div className="row-span-2 flex justify-center items-center">
+        <TimeCircleUniversal />
+      </div>
+    );
+  }
   // Si hay una selección activa, usarla
   if (activeSelection) {
     return (
@@ -26,17 +33,6 @@ function EnergyTimeCircle() {
   }
 
   // Si se seleccionó universal, mostrar mensaje
-  if (selectedType === 'universal') {
-    return (
-      <div className="row-span-2 flex justify-center items-center">
-        <div className="text-center">
-          <img src="/assets/ic-universal.svg" alt="universal" className="w-16 h-16 mx-auto mb-4 opacity-50" />
-          <p className="text-gray-600 text-lg font-bold">Energía Universal</p>
-          <p className="text-gray-500 text-sm">Los cálculos universales no requieren círculo de tiempo</p>
-        </div>
-      </div>
-    );
-  }
 
   // Si no hay selección activa, mostrar userPerson por defecto
   return (
