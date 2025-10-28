@@ -52,6 +52,10 @@ function UniversalEnergy() {
     setSelectedType('group');
   };
 
+  const handleUniversalSelect = () => {
+    setSelectedType('universal');
+  };
+
   return (
     <div>
       <div className="mt-14 mb-5 text-center">
@@ -68,7 +72,10 @@ function UniversalEnergy() {
       </div>
       <div className="grid grid-cols-4 mt-1">
         {/* Energía Universal - siempre visible */}
-        <UniversalEnergyValues />
+        <UniversalEnergyValues
+          setActive={handleUniversalSelect}
+          selected={selectedType === 'universal'}
+        />
 
         {/* Personal - habilitado solo si hay consultante */}
         <UniversalEnergyPerson
