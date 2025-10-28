@@ -565,11 +565,11 @@ class Synastry {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
     const dayToCalculate = _.isNil(day) ? getDate(this.NOW) : day;
-    const sumPersonalWeekOne = reduceNumber(this.calcPersonalYear(yearToCalculate) + monthToCalculate);
+    const sumPersonalWeekOne = reduceNumber(reduceNumber(this.calcPersonalYear(yearToCalculate)) + reduceNumber(monthToCalculate));
     if (dayToCalculate >= 1 && dayToCalculate <= 7) {
       return sumPersonalWeekOne;
     }
-    const sumPersonalWeekTwo = reduceNumber(this.calcPersonalYear(yearToCalculate) + sumPersonalWeekOne);
+    const sumPersonalWeekTwo = reduceNumber(reduceNumber(this.calcPersonalYear(yearToCalculate)) + reduceNumber(sumPersonalWeekOne));
     if (dayToCalculate >= 8 && dayToCalculate <= 14) {
       return sumPersonalWeekTwo;
     }
@@ -579,7 +579,7 @@ class Synastry {
       return sumPersonalWeekThree;
     }
 
-    const sumPersonalWeekFour = reduceNumber(monthToCalculate + sumPersonalWeekOne);
+    const sumPersonalWeekFour = reduceNumber(reduceNumber(monthToCalculate) + sumPersonalWeekOne);
     if (dayToCalculate >= 22) {
       return sumPersonalWeekFour;
     }

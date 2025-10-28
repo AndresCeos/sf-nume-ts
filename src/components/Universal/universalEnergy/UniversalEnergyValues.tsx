@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -5,7 +6,12 @@ import useConsult from '@/hooks/useConsult';
 import Universal from '@/resources/Universal';
 import { formatDate } from '@/utils/constants';
 
-function UniversalEnergyValues() {
+type UniversalEnergyValuesProps = {
+  setActive: () => void;
+  selected: boolean;
+};
+
+function UniversalEnergyValues({ setActive, selected }: UniversalEnergyValuesProps) {
   const { consultationDate, calculationDate, calculationYear } = useConsult();
 
   const { t } = useTranslation();
@@ -18,14 +24,18 @@ function UniversalEnergyValues() {
         <img src="/assets/ic-universal.svg" alt="universal" width={55} height={55} />
       </li>
       <li
-        className="text-center cursor-pointer text-black"
+        className={cx('text-center cursor-pointer', {
+          'text-main-700': !selected,
+          'text-black': selected,
+        })}
       >
-
-        {_.toUpper(t('home.energy') as string)}
-        <br />
-        <div className="font-black">
-          {_.toUpper(t('home.universal') as string)}
-        </div>
+        <button type="button" onClick={setActive}>
+          {_.toUpper(t('home.energy') as string)}
+          <br />
+          <div className="font-black">
+            {_.toUpper(t('home.universal') as string)}
+          </div>
+        </button>
 
       </li>
       <li className="rounded-full bg-white w-32 h-10 flex items-center justify-center border border-gray-700 inner-shadow mt-3 mb-6 font-black text-[13px] text-center">

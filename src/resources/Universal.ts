@@ -176,20 +176,20 @@ export class Universal {
   calcUniversalWeek(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): number {
     const monthToCalculate: number = _.isNil(opts?.month) ? getMonth(this.NOW) + 1 : opts.month;
     const yearToCalculate = _.isNil(opts?.year) ? getYear(this.NOW) : opts.year;
-    const weekOne = monthToCalculate + this.calcUniversalYear(yearToCalculate);
+    const weekOne = reduceNumber(reduceNumber(monthToCalculate) + reduceNumber(yearToCalculate));
     if (weekToCalculate === 1) {
-      return reduceNumber(weekOne);
+      return weekOne;
     }
-    const weekTwo = this.calcUniversalYear(yearToCalculate) + weekOne;
+    const weekTwo = reduceNumber(reduceNumber(yearToCalculate) + weekOne);
     if (weekToCalculate === 2) {
-      return reduceNumber(weekTwo);
+      return weekTwo;
     }
-    const weekThr = reduceNumber(weekOne) + reduceNumber(weekTwo);
+    const weekThr = reduceNumber(weekOne + weekTwo);
     if (weekToCalculate === 3) {
-      return reduceNumber(weekThr);
+      return weekThr;
     }
-    const weekFou = monthToCalculate + weekOne;
-    return reduceNumber(weekFou);
+    const weekFou = reduceNumber(reduceNumber(monthToCalculate) + weekOne);
+    return weekFou;
   }
 
   calcUniversalWeekISK(weekToCalculate: 1 | 2 | 3 | 4, opts: SplittedDate): string {
