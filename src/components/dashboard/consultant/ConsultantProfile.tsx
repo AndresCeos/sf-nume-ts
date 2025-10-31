@@ -33,6 +33,15 @@ function ConsultantProfile() {
     );
   }
   const consultantInfo = Array.isArray(users) ? users.find((element) => element.id === consultant.id) : null;
+
+  const formattedBirthDate = consultantInfo?.date
+    ? formatDate({
+      date: consultantInfo.date,
+      format: 'long',
+      locale: t('locale') as string,
+    })
+    : '-';
+
   return (
     <div>
       <div className="flex">
@@ -48,7 +57,7 @@ function ConsultantProfile() {
       <div className=" px-7 text-13 leading-7">
         {t('forms.birthDate')}
         :
-        <strong>{(consultantInfo?.date) ? formatDate({ date: new Date(`${consultantInfo?.date}`), format: 'long', locale: t('locale') as string }) : '-'}</strong>
+        <strong>{formattedBirthDate}</strong>
         <div className="flex justify-between mb-1">
           <div className="text-13 leading-7">
             {t('forms.nationality')}

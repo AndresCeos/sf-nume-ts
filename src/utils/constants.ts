@@ -6,9 +6,39 @@ const env = import.meta.env;
 
 export default env;
 
+/**
+ * Parse a date string or Date object as a local date to avoid timezone offset issues.
+ * When parsing date strings in format "YYYY-MM-DD", JavaScript interprets them as UTC,
+ * which can cause dates to shift by one day when converted to local time in certain timezones.
+ * This function ensures dates are parsed as local dates regardless of timezone.
+ *
+ * @param dateValue - A date string (e.g., "1997-12-12") or Date object
+ * @returns A Date object representing the date in local timezone
+ */
+export function parseLocalDate(dateValue: string | Date): Date {
+  if (dateValue instanceof Date) {
+    return dateValue;
+  }
+
+  // If it's a string, parse it as local date to avoid timezone offset issues
+  // Expected format: "YYYY-MM-DD"
+  const dateParts = dateValue.split('-');
+  if (dateParts.length !== 3) {
+    // Fallback to standard Date parsing if format is unexpected
+    return new Date(dateValue);
+  }
+
+  return new Date(
+    parseInt(dateParts[0], 10), // year
+    parseInt(dateParts[1], 10) - 1, // month (0-indexed)
+    parseInt(dateParts[2], 10), // day
+  );
+}
+
 export function formatDate(opts: { date: Date | string, format: 'short' | 'long', locale?: string }) {
   const locale = opts.locale || 'es-MX';
-  return new Date(opts.date).toLocaleDateString(locale, {
+  const date = parseLocalDate(opts.date);
+  return date.toLocaleDateString(locale, {
     day: '2-digit',
     month: opts.format === 'long' ? 'long' : 'short',
     year: 'numeric',

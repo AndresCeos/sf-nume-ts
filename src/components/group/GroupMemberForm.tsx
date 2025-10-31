@@ -6,6 +6,7 @@ import useConsultants from '@/hooks/useConsultants';
 import useForm from '@/hooks/useForm';
 import { isValidDate } from '@/utils/constants';
 import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2';
 import add_user_group from '../../assets/icons/add_user_group.svg';
 
 type FormStatus = {
@@ -147,6 +148,15 @@ export default function GroupMemberForm({
 
     if (!formStatus.isValid) {
       setFormStatus((prevState) => ({ ...prevState, displayValidations: true }));
+      return;
+    }
+    if (activeGroup.members?.length && activeGroup.members.length > 7) {
+      Swal.fire({
+        title: t('group.error') as string,
+        text: t('group.maxMembers') as string,
+        icon: 'error',
+        confirmButtonText: t('group.accept') as string,
+      });
       return;
     }
 
