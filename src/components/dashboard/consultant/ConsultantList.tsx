@@ -103,7 +103,7 @@ function ConsultantList({ searchUser }: Props) {
               {' '}
               {user?.scdLastName}
             </div>
-            <div className="col-span-4">{formatDate({ date: new Date(`${user.date}`), format: 'long', locale: t('locale') as string })}</div>
+            <div className="col-span-4">{formatDate({ date: user.date || new Date(), format: 'long', locale: t('locale') as string })}</div>
             <div className="col-span-2">
               <button type="button" onClick={() => { handleEditUser(user); }}>
                 <img src="/assets/c_edit.svg" alt="edit" />

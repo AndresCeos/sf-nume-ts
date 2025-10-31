@@ -52,11 +52,6 @@ function SynastryQuarterPerMonth({ synastry }: { synastry: Synastry | Group }) {
   const index = listOfMonths.findIndex((i) => i === capitalize(t('months.january') as string));
   const currentMonth = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
 
-  console.log('actualMonth', actualMonth);
-  console.log('index', index);
-  console.log('currentMonth', currentMonth);
-  console.log('listOfMonths', listOfMonths);
-
   switch (index) {
     case 0:
       monthsValues.monthOne = t('quarters.monthRange', { from: listOfMonths[index], to: listOfMonths[4] });

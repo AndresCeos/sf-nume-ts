@@ -128,6 +128,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
     <div className="p-3">
       {/* Add Member Button */}
       <div className="flex justify-between mb-4">
+        {currentActiveGroup.members?.length && currentActiveGroup.members.length < 8 && (
         <button
           type="button"
           onClick={() => setIsAddMemberActive(true)}
@@ -135,12 +136,19 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
         >
           {t('group.addMember')}
         </button>
+        )}
+        <p className="text-lg text-main">
+          {t('group.members')}
+          :
+          {' '}
+          {currentActiveGroup.members?.length || 0}
+        </p>
         <button
           type="button"
           onClick={() => setShowMemberInfo(!showMemberInfo)}
           className="text-sm text-main"
         >
-          {showMemberInfo ? t('group.cancel') : t('group.editMember')}
+          {showMemberInfo ? t('group.hideMembers') : t('group.showMembers')}
         </button>
       </div>
 
@@ -198,9 +206,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
           })}
         </div>
       ) : (
-        <div className="text-center text-gray-500">
-          {!showMemberInfo ? <p className="text-sm">{t('group.noMembersInThisGroup')}</p> : ''}
-        </div>
+        <div className="text-center text-gray-500" />
       )}
     </div>
   );
