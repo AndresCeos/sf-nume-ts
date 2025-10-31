@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import { formatDate, getTheRoute, pageNameBySlug } from '@/utils/constants';
+import {
+  formatDate, getTheRoute, pageNameBySlug, parseLocalDate,
+} from '@/utils/constants';
 import { NavLink } from 'react-router-dom';
 import NotesModal from './NotesModal';
 
@@ -36,8 +38,8 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
 
   // Ordenar por fecha descendente (más recientes primero)
   notesArray.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
+    const dateA = parseLocalDate(a.date);
+    const dateB = parseLocalDate(b.date);
     return dateB.getTime() - dateA.getTime();
   });
 
@@ -59,10 +61,10 @@ function ConsultantNotesModal({ isOpen, setIsOpen, notes }: ConsultantNotesModal
               <div className="bg-gradient-to-r from-main-50 to-secondary-50 rounded-xl p-4 border border-main-200">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-main-800 font-semibold text-sm">
-                    {formatDate({ date: new Date(note.date), format: 'long', locale: t('locale') as string })}
+                    {formatDate({ date: note.date, format: 'long', locale: t('locale') as string })}
                   </h3>
                   <span className="text-xs text-gray-500">
-                    {formatDate({ date: new Date(note.date), format: 'short', locale: t('locale') as string })}
+                    {formatDate({ date: note.date, format: 'short', locale: t('locale') as string })}
                   </span>
                 </div>
                 <div className="grid gap-3">

@@ -17,6 +17,7 @@ import {
   getMonthName,
   reduceMonth, reduceNumber, reduceNumberForSub, reduceNumberISK,
 } from '@/utils/numbers';
+import { useTranslation } from 'react-i18next';
 
 export type AnnualReturn = {
   yearToCalculate: number,
@@ -820,12 +821,15 @@ class Group {
   }
 
   getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
+    const { t } = useTranslation();
     const year = _.isNil(yearToCalculate) ? getYear(this.NOW) : yearToCalculate;
     const month = _.isNil(monthToCalculate) ? getMonth(this.NOW) + 1 : monthToCalculate;
     const quarterMonth = getMonthName(month);
     const monthIndex = this.getCustomMonths().findIndex((i) => i === capitalize(quarterMonth));
+
     // Use birth month index (0-11) instead of searching for 'Enero'
-    const indexEnero = this.getMonthOfBirth();
+    const indexEnero = this.getCustomMonths().findIndex((i) => i === capitalize(t('months.january') as string));
+
     if (monthIndex < 5) {
       if (monthIndex >= indexEnero) {
         if (indexEnero === 0) { return this.getQuarterOne(); }

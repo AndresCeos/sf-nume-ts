@@ -283,7 +283,7 @@ function SynastryTimeCurve({ isPartner, synastry }: { isPartner: boolean, synast
         <div className="col-start-1 col-end-7 row-start-11 h-6" />
         <div className="col-start-1 col-end-7 row-start-12 h-6" />
       </div>
-      <div id="lifePathYears" className="grid grid-cols-19 w-full -ml-3 mt-3">
+      <div id="lifePathYears" className="grid grid-cols-19 w-full -ml-3 mt-3 px-5">
         <div className="col-start-1 col-end-7 text-13 row-start-1">
           {synastry.getYearTimeCurve()}
         </div>
