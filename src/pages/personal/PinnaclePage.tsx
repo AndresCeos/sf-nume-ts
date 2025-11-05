@@ -32,7 +32,7 @@ function PinnaclePage() {
   const handlePinnacleNameVerification = () => {
     setIsPinnacleNameVerificationActive(!isPinnacleNameVerificationActive);
   };
-  const handleCurveTimeVerification = () => { // TODO: implement
+  const handleCurveTimeVerification = () => {
     setIsCurveTimeVerificationActive(!isCurveTimeVerificationActive);
   };
 

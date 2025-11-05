@@ -252,10 +252,19 @@ class Synastry {
   }
 
   getHCheck():number {
-    return reduceNumber(
-      this.getA()
-      + this.getC(),
-    );
+    const birthDate = this.consultant.getBirthDate();
+    const partnerBirthDate = this.partner.getBirthDate();
+
+    const monthReduce = getMonth(birthDate) + 1;
+    const monthReducePartner = getMonth(partnerBirthDate) + 1;
+
+    const yearReduce = getYear(birthDate);
+    const yearReducePartner = getYear(partnerBirthDate);
+
+    const sumReduce = monthReduce + yearReduce + monthReducePartner + yearReducePartner;
+    console.log('sumReduce', sumReduce);
+
+    return reduceNumber(sumReduce);
   }
 
   getI():number {
@@ -860,13 +869,10 @@ class Synastry {
    */
   getLifeStageNumber(year:number): number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
-    const monthCut = this.getCustomMonths();
-    const listOfMonths = this.getCustomMonths();
+    const months = getAllMonths();
     const actualMonth = getMonthName(this.NOW.getMonth() + 1);
-    const indexTemp = listOfMonths.findIndex((i:string) => i === capitalize(actualMonth));
-    // Use birth month index (0-11) instead of searching for 'Enero'
+    const currentMonthIndex = months.findIndex((i:string) => i === capitalize(actualMonth));
     const indexEnero = this.getMonthOfBirth();
-    const index = monthCut.findIndex((i:string) => i === listOfMonths[indexTemp]);
     const start: number = Number(this.yearMet);
     const duration = 9 - reduceNumberForSub(
       this.getA()
@@ -880,50 +886,56 @@ class Synastry {
     const stageTwoEnd = stageOneEnd + 9;
     const stageThrEnd = stageTwoEnd + 9;
     const stageFouEnd = stageThrEnd + 9;
-    // let stageOne = this.getE()
+    const shouldAdvanceStage = (currentMonthIndex + 1) >= indexEnero;
+
     if (start <= yearToCalculate && yearToCalculate <= stageOneEnd) {
-      if (indexEnero > index && yearToCalculate === stageOneEnd) {
+      if (shouldAdvanceStage && yearToCalculate === stageOneEnd) {
         return 2;
       }
       return 1;
     }
 
-    // let stageTwo = this.getF()
     if (stageOneEnd <= yearToCalculate && yearToCalculate <= stageTwoEnd) {
-      if (indexEnero > index && yearToCalculate === stageTwoEnd) {
+      if (shouldAdvanceStage && yearToCalculate === stageTwoEnd) {
         return 3;
       }
       return 2;
     }
-    // let stageThr = this.getG()
+
     if (stageTwoEnd <= yearToCalculate && yearToCalculate <= stageThrEnd) {
-      if (indexEnero > index && yearToCalculate === stageThrEnd) {
+      if (shouldAdvanceStage && yearToCalculate === stageThrEnd) {
         return 4;
       }
       return 3;
     }
-    // const stageFou = this.getH()
+
     if (stageThrEnd <= yearToCalculate && yearToCalculate <= stageFouEnd) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd) {
+      if (shouldAdvanceStage && yearToCalculate === stageFouEnd) {
         return 5;
       }
       return 4;
     }
-    if (stageFouEnd <= yearToCalculate && yearToCalculate <= (stageFouEnd + 9)) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd + 9) {
+
+    const stageFivEnd = stageFouEnd + 9;
+    if (stageFouEnd <= yearToCalculate && yearToCalculate <= stageFivEnd) {
+      if (shouldAdvanceStage && yearToCalculate === stageFivEnd) {
         return 6;
       }
       return 5;
     }
-    if ((stageFouEnd + 9) <= yearToCalculate && yearToCalculate <= (stageFouEnd + 18)) {
-      if (indexEnero > index && yearToCalculate === stageFouEnd + 18) {
+
+    const stageSixEnd = stageFouEnd + 18;
+    if (stageFivEnd <= yearToCalculate && yearToCalculate <= stageSixEnd) {
+      if (shouldAdvanceStage && yearToCalculate === stageSixEnd) {
         return 7;
       }
       return 6;
     }
-    if ((stageFouEnd + 18) <= yearToCalculate) {
+
+    if (stageSixEnd < yearToCalculate) {
       return 7;
     }
+
     return 0;
   }
 
