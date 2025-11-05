@@ -8,7 +8,7 @@ import SectionTitle from '@/components/SectionTitle';
 import SelectPartner from '@/components/sinastry/SelectPartner';
 import { ConsultContext } from '@/context/ConsultContext';
 import Synastry from '@/resources/Synastry';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function SynastryVibrationTimePage() {
@@ -16,6 +16,7 @@ export default function SynastryVibrationTimePage() {
     consultant, activePartnerData, selectedPartnersAsPersons,
   } = useContext(ConsultContext);
   const { t } = useTranslation();
+  const [isCurveTimeVerificationActive, setIsCurveTimeVerificationActive] = useState(false);
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -34,6 +35,11 @@ export default function SynastryVibrationTimePage() {
   const partner2 = selectedPartnersAsPersons[1];
 
   const synastry = new Synastry(partner1, partner2);
+
+  const handleCurveTimeVerification = () => { // TODO: implement
+    setIsCurveTimeVerificationActive(!isCurveTimeVerificationActive);
+  };
+
   return (
     <div className="page-content bg-cover">
       <SelectPartner />
@@ -71,10 +77,18 @@ export default function SynastryVibrationTimePage() {
         </div>
         <div className="col-span-12">
 
-          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-red-day" />
+          <SectionTitle
+            title={t('vibrationTime.annualReturns.annualReturns')}
+            color="bg-red-day"
+            button={{
+              text: t('pinnacle.verification') as string,
+              handle: handleCurveTimeVerification,
+              isActive: isCurveTimeVerificationActive,
+            }}
+          />
 
           <div className="section-wrap px-2">
-            <SynastryTimeCurve isPartner synastry={synastry} />
+            <SynastryTimeCurve isPartner synastry={synastry} isVerificationActive={isCurveTimeVerificationActive} />
           </div>
         </div>
 

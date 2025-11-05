@@ -493,8 +493,9 @@ class Person {
     const reducedYear = reduceNumber(getYear(this.birthDate));
     const reducedMonth = reduceNumber(getMonth(this.birthDate) + 1);
     const reducedDay = reduceNumber(getDate(this.birthDate));
+    // console.log(reducedMonth, reducedDay, reducedYear);
 
-    const stageOne = reduceNumberForSub(reducedMonth + reducedDay);
+    const stageOne = reduceNumber(reducedMonth + reducedDay);
     if (stage === 1) return stageOne;
 
     const stageTwo = reduceNumber(reducedDay + reducedYear);

@@ -9,7 +9,7 @@ import SynastryTimeCurve from '@/components/partners/vibrationTime/SynastryTimeC
 import SectionTitle from '@/components/SectionTitle';
 import { ConsultContext } from '@/context/ConsultContext';
 import Group from '@/resources/Group';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function GroupVibrationTimePage() {
@@ -17,6 +17,11 @@ export default function GroupVibrationTimePage() {
     consultant, activeGroup, selectedGroup,
   } = useContext(ConsultContext);
   const { t } = useTranslation();
+  const [isCurveTimeVerificationActive, setIsCurveTimeVerificationActive] = useState(false);
+
+  const handleCurveTimeVerification = () => {
+    setIsCurveTimeVerificationActive(!isCurveTimeVerificationActive);
+  };
 
   if (!consultant) return (<NoConsultantSelected />);
 
@@ -82,9 +87,17 @@ export default function GroupVibrationTimePage() {
           </div>
         </div>
         <div className="col-span-12">
-          <SectionTitle title={t('vibrationTime.annualReturns.annualReturns')} color="bg-group" />
+          <SectionTitle
+            title={t('vibrationTime.annualReturns.annualReturns')}
+            color="bg-group"
+            button={{
+              text: t('pinnacle.verification') as string,
+              handle: handleCurveTimeVerification,
+              isActive: isCurveTimeVerificationActive,
+            }}
+          />
           <div className="section-wrap px-2">
-            <SynastryTimeCurve isPartner synastry={groupPerson} />
+            <SynastryTimeCurve isPartner synastry={groupPerson} isVerificationActive={isCurveTimeVerificationActive} />
           </div>
         </div>
         <div className="col-span-12">
