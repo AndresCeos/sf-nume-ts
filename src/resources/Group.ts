@@ -320,10 +320,20 @@ class Group {
   }
 
   getHCheck():number {
-    return reduceNumber(
-      this.getA()
-      + this.getC(),
-    );
+    const partnerGroup = this.group;
+    let A = 0;
+    partnerGroup.forEach((pinnacleA) => {
+      const birthDate = pinnacleA.getBirthDate();
+      A += getMonth(birthDate) + 1;
+    });
+    let C = 0;
+    partnerGroup.forEach((pinnacleC) => {
+      const birthDate = pinnacleC.getBirthDate();
+      C += getYear(birthDate);
+    });
+    const sumReduce = A + C;
+    console.log('sumReduce', sumReduce);
+    return reduceNumber(sumReduce);
   }
 
   getHISKCheck():string {

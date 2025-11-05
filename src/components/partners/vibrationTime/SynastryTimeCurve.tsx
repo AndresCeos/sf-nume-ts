@@ -6,7 +6,7 @@ import useConsult from '@/hooks/useConsult';
 import Group from '@/resources/Group';
 import Synastry from '@/resources/Synastry';
 
-function SynastryTimeCurve({ isPartner, synastry }: { isPartner: boolean, synastry: Synastry | Group }) {
+function SynastryTimeCurve({ isPartner, synastry, isVerificationActive }: { isPartner: boolean, synastry: Synastry | Group, isVerificationActive: boolean }) {
   const { calculationDate } = useConsult();
   const { t } = useTranslation();
 
@@ -195,7 +195,7 @@ function SynastryTimeCurve({ isPartner, synastry }: { isPartner: boolean, synast
         <div className="m-auto col-start-11 col-end-13 row-start-4 relative w-full h-full">
           <div className="absolute z-10 centered-axis-x">
             <div className="w-10 h-10 text-xl font-black text-black flex justify-center items-center bg-green border border-green rounded-full inner-shadow">
-              {synastry.calcLifeStage(4)}
+              {(!isVerificationActive) ? synastry.calcLifeStage(4) : synastry.getHCheck()}
               {synastry.calcLifeStageISK(4)}
             </div>
           </div>
