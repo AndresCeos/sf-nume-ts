@@ -9,17 +9,17 @@ import GroupQuaterM from '../groupVibrationTime/GroupQuaterM';
 import GroupQuaterY from '../groupVibrationTime/GroupQuaterY';
 import GroupTimeCurve from '../groupVibrationTime/GroupTimeCurve';
 
-export default function GroupVibrationTimePDF({ groupConsult, newDate, date }: { groupConsult: Group, newDate: Date, date: SplittedDate }) {
+export default function GroupVibrationTimePDF({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
   return [
     {
       bg: gVibration,
       children:
   <>
     <GroupData groupConsult={groupConsult} />
-    <GroupEnergy groupConsult={groupConsult} date={date} newDate={newDate} />
+    <GroupEnergy groupConsult={groupConsult} date={date} />
     <GroupCycle groupConsult={groupConsult} date={date} />
     <GroupQuaterM groupConsult={groupConsult} date={date} />
-    <GroupLine groupConsult={groupConsult} date={date} newDate={newDate} />
+    <GroupLine groupConsult={groupConsult} date={date} />
   </>,
     },
     {
