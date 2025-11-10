@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import {
   useCallback,
@@ -7,9 +8,9 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HiArrowRight } from 'react-icons/hi';
-import { TiPlus } from 'react-icons/ti';
 
 import NoConsultantSelected from '@/components/NoConsultantSelected';
+import SectionTitle from '@/components/SectionTitle';
 import SelectGroup from '@/components/group/SelectGroup';
 import GroupPinnacle from '@/components/group/pinnacle/GroupPinnacle';
 import GroupPinnacleName from '@/components/group/pinnacle/GroupPinnacleName';
@@ -27,6 +28,32 @@ export default function GroupPinnaclePage() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [isGroupPinnacleVerificationActive, setIsGroupPinnacleVerificationActive] = useState(false);
+  const [isCheckGPActive, setIsCheckGPActive] = useState(false);
+
+  const [memberNameChecks, setMemberNameChecks] = useState<Record<string, boolean>>({});
+  const [memberPinnacleChecks, setMemberPinnacleChecks] = useState<Record<string, boolean>>({});
+
+  const toggleMemberNameCheck = (memberId: string) => {
+    setMemberNameChecks((prev) => ({
+      ...prev,
+      [memberId]: !prev[memberId],
+    }));
+  };
+
+  const toggleMemberPinnacleCheck = (memberId: string) => {
+    setMemberPinnacleChecks((prev) => ({
+      ...prev,
+      [memberId]: !prev[memberId],
+    }));
+  };
+  const handleCheckGPActive = () => {
+    setIsCheckGPActive(!isCheckGPActive);
+  };
+
+  const handleGroupPinnacleVerification = () => {
+    setIsGroupPinnacleVerificationActive(!isGroupPinnacleVerificationActive);
+  };
 
   // Función para terminar el drag (memoizada para useEffect)
   const handleMouseUp = useCallback(() => {
@@ -146,35 +173,34 @@ export default function GroupPinnaclePage() {
         </div>
         <div className="flex">
           <div className="group-container flex-shrink-0 w-[330px] min-w-0 mt-5 pr-4">
-
-            <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl">
-              <div className="flex items-center justify-center">
-                <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                  <TiPlus className="text-2xl" />
-                </div>
-                {`${t('group.nameLabel')} ${activeGroup.name}`}
-              </div>
+            <SectionTitle
+              title={`${t('group.nameLabel')} ${activeGroup.name}`}
+              color="bg-group"
+              button={{
+                text: isCheckGPActive ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
+                handle: handleCheckGPActive,
+                isActive: isCheckGPActive,
+              }}
+            />
+            <div className="mb-5">
+              <GroupPinnacleName main="bg-active-radial" Consultant={GroupPerson} isVerificationActive={isCheckGPActive} />
             </div>
-            <GroupPinnacleName main="bg-active-radial" Consultant={GroupPerson} />
-            <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5">
-              <div className="flex items-center justify-center">
-                <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                  <TiPlus className="text-2xl" />
-                </div>
-                {`${t('group.pinnacleLabel')} ${activeGroup.name}`}
-              </div>
+            <SectionTitle
+              title={`${t('group.pinnacleLabel')} ${activeGroup.name}`}
+              color=" bg-group"
+              button={{
+                text: isGroupPinnacleVerificationActive ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
+                handle: handleGroupPinnacleVerification,
+                isActive: isGroupPinnacleVerificationActive,
+              }}
+            />
+            <div className="section-wrap px-2 py-7 h-560 bg-active-radial mb-5">
+              <GroupPinnacle main="" consultant={GroupPerson} size="small" isVerificationActive={isGroupPinnacleVerificationActive} />
             </div>
-            <div className="section-wrap px-2 py-7 h-560 bg-active-radial">
-              <GroupPinnacle main="" consultant={GroupPerson} size="small" />
-            </div>
-            <div className="bg-black text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5">
-              <div className="flex items-center justify-center">
-                <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                  <TiPlus className="text-2xl" />
-                </div>
-                {`${t('group.returnLabel')} ${activeGroup.name}`}
-              </div>
-            </div>
+            <SectionTitle
+              title={`${t('group.returnLabel')} ${activeGroup.name}`}
+              color="bg-group"
+            />
             <div className="pinnacle-wrap bg-active-radial p-4">
               <AnnualReturn annualReturn={annualReturn} current months size="xl" />
             </div>
@@ -196,41 +222,51 @@ export default function GroupPinnaclePage() {
             {/* Grupo - siempre visible, ancho fijo para 2 elementos */}
 
             {/* Miembros - scroll horizontal */}
-            {selectedGroup.map((member: Person, index: number) => (
-              <div key={member.id || index} className="member-container flex-shrink-0 w-[314px] min-w-0 mt-5">
-                <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl`}>
-                  <div className="flex items-center justify-center">
-                    <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                      <TiPlus className="text-2xl" />
-                    </div>
-                    {`${t('group.nameLabel')} ${member.name}`}
+            {selectedGroup.map((member: Person, index: number) => {
+              const hasMemberId = member.id !== undefined && member.id !== null;
+              const memberKey = hasMemberId ? String(member.id) : `member-${index}`;
+              const isMemberNameActive = memberNameChecks[memberKey] ?? false;
+              const isMemberPinnacleActive = memberPinnacleChecks[memberKey] ?? false;
+
+              return (
+                <div key={memberKey} className="member-container flex-shrink-0 w-[314px] min-w-0 mt-5">
+                  <SectionTitle
+                    title={`${t('group.nameLabel')} ${member.name}`}
+                    color="bg-group"
+                    button={{
+                      text: isMemberNameActive ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
+                      handle: () => toggleMemberNameCheck(memberKey),
+                      isActive: isMemberNameActive,
+                    }}
+                    bg={colors[index]}
+                  />
+                  <div className="mb-5">
+                    <GroupPinnacleName main="" Consultant={member} isVerificationActive={isMemberNameActive} />
+                  </div>
+                  <SectionTitle
+                    title={`${t('group.pinnacleLabel')} ${member.name}`}
+                    color=" bg-group"
+                    button={{
+                      text: isMemberPinnacleActive ? t('sinastry.pinnacle.normal') : t('sinastry.pinnacle.verification'),
+                      handle: () => toggleMemberPinnacleCheck(memberKey),
+                      isActive: isMemberPinnacleActive,
+                    }}
+                    bg={colors[index]}
+                  />
+                  <div className="section-wrap px-2 py-7 h-560 mb-5">
+                    <GroupPinnacle main="bg-white" consultant={member} size="small" isVerificationActive={isMemberPinnacleActive} />
+                  </div>
+                  <SectionTitle
+                    title={`${t('group.returnLabel')} ${member.name}`}
+                    color="bg-group"
+                    bg={colors[index]}
+                  />
+                  <div className="pinnacle-wrap bg-white p-4">
+                    <AnnualReturn annualReturn={member.annualReturn(calculationDate)} current months size="xl" />
                   </div>
                 </div>
-                <GroupPinnacleName main="" Consultant={member} />
-                <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
-                  <div className="flex items-center justify-center">
-                    <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                      <TiPlus className="text-2xl" />
-                    </div>
-                    {`${t('group.pinnacleLabel')} ${member.name}`}
-                  </div>
-                </div>
-                <div className="section-wrap px-2 py-7 h-560">
-                  <GroupPinnacle main="bg-white" consultant={member} size="small" />
-                </div>
-                <div className={`${colors[index]} text-white text-base font-bold h-8 flex items-center justify-between rounded-tl-2xl rounded-tr-2xl mt-5`}>
-                  <div className="flex items-center justify-center">
-                    <div className="w-9 h-9 flex justify-center items-center rounded-full -ml-3 mr-2 bg-group p-2">
-                      <TiPlus className="text-2xl" />
-                    </div>
-                    {`${t('group.returnLabel')} ${member.name}`}
-                  </div>
-                </div>
-                <div className="pinnacle-wrap bg-white p-4">
-                  <AnnualReturn annualReturn={member.annualReturn(calculationDate)} current months size="xl" />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

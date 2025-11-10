@@ -51,7 +51,7 @@ export default function SynastryNineCycle({ synastry, date }: { synastry: Synast
       <View style={[cycle.cyleMap, { width: '80px' }]}>
         <Text style={[cycle.text, { top: 25, left: 130, width: '50px' }]}>
           Etapa:
-          {synastry.getLifeStageNumber(currentYear)}
+          {synastry.getLifeStageNumber(date.month, currentYear)}
           :
           {' '}
         </Text>

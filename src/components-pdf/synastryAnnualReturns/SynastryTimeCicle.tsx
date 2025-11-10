@@ -99,7 +99,7 @@ export default function SynastryTimeCycle({ synastry, date }: { synastry: Synast
           }]}
           >
             Etapa
-            {synastry.getLifeStageNumber(date.year)}
+            {synastry.getLifeStageNumber(date.month, date.year)}
           </Text>
           <Text style={cycle.circle}>
             {synastry.getLifeStage(date.year)}

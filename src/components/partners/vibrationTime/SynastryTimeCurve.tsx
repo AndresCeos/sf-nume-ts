@@ -14,9 +14,9 @@ function SynastryTimeCurve({ isPartner, synastry, isVerificationActive }: { isPa
 
   let activeStage;
   if (isPartner) {
-    activeStage = synastry.getLifeStageNumber(calculationDate.year);
+    activeStage = synastry.getLifeStageNumber(calculationDate.month, calculationDate.year);
   } else {
-    activeStage = synastry.getLifeStageNumber({ ...calculationDate, month: calculationDate.month + 1 }.year);
+    activeStage = synastry.getLifeStageNumber(calculationDate.month, calculationDate.year);
   }
   const activeSecondStage = synastry.getDoubleLifeStageNumber(calculationDate.year);
   const doubleStage = synastry.hasDoubleStage();

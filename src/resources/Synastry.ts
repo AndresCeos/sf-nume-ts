@@ -143,10 +143,21 @@ class Synastry {
   }
 
   getDCheck():number {
-    const A = reduceNumber(this.getA());
-    const B = reduceNumber(this.getB());
-    const C = reduceNumber(this.getC());
-    return reduceNumber(A + B + C);
+    const birthDate = this.consultant.getBirthDate();
+    const partnerBirthDate = this.partner.getBirthDate();
+
+    const monthReduce = getMonth(birthDate) + 1;
+    const monthReducePartner = getMonth(partnerBirthDate) + 1;
+
+    const yearReduce = getYear(birthDate);
+    const yearReducePartner = getYear(partnerBirthDate);
+
+    const dayReduce = getDate(birthDate);
+    const dayReducePartner = getDate(partnerBirthDate);
+
+    const sumReduce = monthReduce + yearReduce + monthReducePartner + yearReducePartner + dayReduce + dayReducePartner;
+
+    return reduceNumber(sumReduce);
   }
 
   getDISK():string {
@@ -867,12 +878,16 @@ class Synastry {
    * calculate current stage number
    * @returns {Number} stage
    */
-  getLifeStageNumber(year:number): number {
+  getLifeStageNumber(month:number, year:number): number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
+    console.log('monthToCalculate', monthToCalculate);
     const months = getAllMonths();
-    const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const actualMonth = getMonthName(monthToCalculate);
     const currentMonthIndex = months.findIndex((i:string) => i === capitalize(actualMonth));
     const indexEnero = this.getMonthOfBirth();
+    console.log('indexEnero', indexEnero);
+    console.log('currentMonthIndex', currentMonthIndex);
     const start: number = Number(this.yearMet);
     const duration = 9 - reduceNumberForSub(
       this.getA()
@@ -1084,18 +1099,68 @@ class Synastry {
     return this.karmic.includes(quarterThr) ? '*' : '';
   }
 
-  calcCurrentQuarter(month :Date):number {
-    const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const monthNumber = getMonth(monthToCalculate) + 1;
-    const quarter = Math.ceil(monthNumber / 3);
-    return quarter;
+  calcCurrentQuarter(year :number):number {
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const months = getAllMonths();
+    const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const currentMonth = months.findIndex((i) => i === capitalize(actualMonth));
+    const index = this.getCustomMonths().findIndex((i) => i === capitalize(actualMonth));
+    const indexEnero = this.getMonthOfBirth();
+    const shouldAdvanceStage = (currentMonth + 1) >= indexEnero;
+    if (index < 5) {
+      return this.getQuarterOne();
+    }
+    if (index > 4 && index < 9) {
+      if (indexEnero === 0) {
+        return this.getQuarterTwo(yearToCalculate);
+      }
+      if (!shouldAdvanceStage) {
+        return this.getQuarterTwo(yearToCalculate - 1);
+      }
+      return this.getQuarterTwo(yearToCalculate);
+    }
+    if (index > 8) {
+      if (indexEnero === 0) {
+        return this.getQuarterThree(yearToCalculate);
+      }
+      if (!shouldAdvanceStage) {
+        return this.getQuarterThree(yearToCalculate - 1);
+      }
+      return this.getQuarterThree(yearToCalculate);
+    }
+    return 0;
   }
 
-  calcCurrentQuarterISK(month :Date):string {
-    const monthToCalculate = _.isNil(month) ? this.NOW : month;
-    const monthNumber = getMonth(monthToCalculate) + 1;
-    const quarter = Math.ceil(monthNumber / 3);
-    return this.karmic.includes(quarter) ? '*' : '';
+  calcCurrentQuarterISK(year :number):string {
+    const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const months = getAllMonths();
+    const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const currentMonth = months.findIndex((i) => i === capitalize(actualMonth));
+    const index = this.getCustomMonths().findIndex((i) => i === capitalize(actualMonth));
+    const indexEnero = this.getMonthOfBirth();
+    const shouldAdvanceStage = (currentMonth + 1) >= indexEnero;
+    if (index < 5) {
+      return this.getQuarterOneISK();
+    }
+    if (index > 4 && index < 9) {
+      if (indexEnero === 0) {
+        return this.getQuarterTwoISK(yearToCalculate);
+      }
+      if (!shouldAdvanceStage) {
+        return this.getQuarterTwoISK(yearToCalculate - 1);
+      }
+      return this.getQuarterTwoISK(yearToCalculate);
+    }
+    if (index > 8) {
+      if (indexEnero === 0) {
+        return this.getQuarterThreeISK(yearToCalculate);
+      }
+      if (!shouldAdvanceStage) {
+        return this.getQuarterThreeISK(yearToCalculate - 1);
+      }
+      return this.getQuarterThreeISK(yearToCalculate);
+    }
+    return '';
   }
 
   getQuarterMonth(monthToCalculate: number, yearToCalculate: number): number {
