@@ -55,7 +55,7 @@ export const lifePathDialogs = StyleSheet.create({
   },
 });
 
-export default function SynastryLine({ synastry, date, newDate }: { synastry: Synastry, date: SplittedDate, newDate: Date }) {
+export default function SynastryLine({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
   return (
     <View style={lifePathDialogs.container}>
       <View style={[lifePathDialogs.wrap]}>
@@ -88,30 +88,30 @@ export default function SynastryLine({ synastry, date, newDate }: { synastry: Sy
       </View>
       <View style={[lifePathDialogs.wrap, lifePathDialogs.wrap_3]}>
         <View style={[lifePathDialogs.item, lifePathDialogs.top]}>
-          <Text>{getSumHierarchy(synastry.calcPersonalYear(date.year), synastry.calcCurrentQuarter(newDate))}</Text>
+          <Text>{getSumHierarchy(synastry.calcPersonalYear(date.year), synastry.calcCurrentQuarter(date.year))}</Text>
         </View>
         <View style={[lifePathDialogs.item, lifePathDialogs.left]}>
           <Text>{synastry.calcPersonalYear(date.year)}</Text>
         </View>
         <View style={[lifePathDialogs.item, lifePathDialogs.right]}>
-          <Text>{synastry.calcCurrentQuarter(newDate)}</Text>
+          <Text>{synastry.calcCurrentQuarter(date.year)}</Text>
         </View>
         <View style={[lifePathDialogs.item, lifePathDialogs.bottom]}>
-          <Text>{getResHierarchy(synastry.calcPersonalYear(date.year), synastry.calcCurrentQuarter(newDate))}</Text>
+          <Text>{getResHierarchy(synastry.calcPersonalYear(date.year), synastry.calcCurrentQuarter(date.year))}</Text>
         </View>
       </View>
       <View style={[lifePathDialogs.wrap, lifePathDialogs.wrap_4]}>
         <View style={[lifePathDialogs.item, lifePathDialogs.top]}>
-          <Text>{getSumHierarchy(synastry.calcCurrentQuarter(newDate), synastry.calcPersonalMonth(date))}</Text>
+          <Text>{getSumHierarchy(synastry.calcCurrentQuarter(date.year), synastry.calcPersonalMonth(date))}</Text>
         </View>
         <View style={[lifePathDialogs.item, lifePathDialogs.left]}>
-          <Text>{synastry.calcCurrentQuarter(newDate)}</Text>
+          <Text>{synastry.calcCurrentQuarter(date.year)}</Text>
         </View>
         <View style={[lifePathDialogs.item, lifePathDialogs.right]}>
           <Text>{synastry.calcPersonalMonth(date)}</Text>
         </View>
         <View style={[lifePathDialogs.item, lifePathDialogs.bottom]}>
-          <Text>{getResHierarchy(synastry.calcCurrentQuarter(newDate), synastry.calcPersonalMonth(date))}</Text>
+          <Text>{getResHierarchy(synastry.calcCurrentQuarter(date.year), synastry.calcPersonalMonth(date))}</Text>
         </View>
       </View>
       <View style={[lifePathDialogs.wrap, lifePathDialogs.wrap_5]}>

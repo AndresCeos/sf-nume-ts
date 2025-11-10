@@ -5,9 +5,12 @@ type PinnacleProps = {
   size: 'small' | 'lg';
   consultant: Person | Group;
   main: 'bg-active-radial' | 'bg-white' | '';
+  isVerificationActive: boolean;
 };
 
-function GroupPinnacle({ size, consultant, main }: PinnacleProps) {
+function GroupPinnacle({
+  size, consultant, main, isVerificationActive,
+}: PinnacleProps) {
   if (!consultant) return null;
 
   return (
@@ -26,7 +29,7 @@ function GroupPinnacle({ size, consultant, main }: PinnacleProps) {
           {consultant.getCISK()}
         </div>
         <div className="pinnacle-letter" data-letter="D">
-          {`${consultant.getD()}${consultant.getDISK()}`}
+          { (!isVerificationActive) ? `${consultant.getDCheck()}${consultant.getDISKCheck()}` : `${consultant.getD()}${consultant.getDISK()}`}
         </div>
 
         <div className="pinnacle-letter" data-letter="E">{`${consultant.getE()}${consultant.getEISK()}`}</div>
@@ -36,7 +39,7 @@ function GroupPinnacle({ size, consultant, main }: PinnacleProps) {
           {consultant.getIISK()}
         </div>
 
-        <div className="pinnacle-letter" data-letter="H">{`${consultant.getH()}${consultant.getHISK()}`}</div>
+        <div className="pinnacle-letter" data-letter="H">{ (!isVerificationActive) ? `${consultant.getHCheck()}${consultant.getHISK()}` : `${consultant.getH()}${consultant.getHISKCheck()}`}</div>
         <div className="pinnacle-letter" data-letter="G">
           {consultant.getG()}
           {consultant.getGISK()}

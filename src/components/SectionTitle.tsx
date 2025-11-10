@@ -11,13 +11,14 @@ type SectionTitleProps = {
     text: string;
     handle: () => void;
   };
+  bg?: string;
 };
 
 function SectionTitle({
-  title, color, button, fontSize,
+  title, color, button, fontSize, bg,
 }: SectionTitleProps) {
   return (
-    <div className="bg-black text-white text-xs font-bold h-8 flex justify-between items-center rounded-t-lg">
+    <div className={cx('text-white text-xs font-bold h-8 flex justify-between items-center rounded-t-lg ', bg)}>
       <div className="flex items-center">
         <div className={cx('w-9 h-9 flex justify-center items-center rounded-full -ml-2 p-1', color)}>
           <TiPlus />
@@ -44,6 +45,7 @@ SectionTitle.defaultProps = {
   color: 'bg-main-700',
   button: undefined,
   fontSize: 'text-xs',
+  bg: 'bg-black',
 };
 
 export default SectionTitle;

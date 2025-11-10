@@ -8,9 +8,10 @@ import Person from '@/resources/Person';
 type PinnacleNameProps = {
   Consultant: Person | Group;
   main: 'bg-active-radial' | '';
+  isVerificationActive: boolean;
 };
 
-export function GroupPinnacleName({ Consultant, main }: PinnacleNameProps) {
+export function GroupPinnacleName({ Consultant, main, isVerificationActive }: PinnacleNameProps) {
   const { t } = useTranslation();
 
   if (!Consultant) return null;
@@ -20,19 +21,19 @@ export function GroupPinnacleName({ Consultant, main }: PinnacleNameProps) {
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
         <label className="text-10">{t('pinnacle.name.name')}</label>
         <CircleNumber size="sm" appearance="blue-30" border="blue">
-          { `${Consultant.calcName()}${Consultant.calcNameISK()}`}
+          { (isVerificationActive) ? `${Consultant.getNameCheck()}${Consultant.calcNameISK()}` : `${Consultant.calcName()}${Consultant.calcNameISK()}`}
         </CircleNumber>
       </div>
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
         <label className="text-10 mt-3">{t('pinnacle.name.soul')}</label>
         <CircleNumber size="sm" appearance="blue-30" border="blue" radiant="true">
-          { `${Consultant.calcSoulNumber()}${Consultant.calcSoulNumberISK()}`}
+          { (isVerificationActive) ? `${Consultant.getSoulCheck()}${Consultant.calcSoulNumberISK()}` : `${Consultant.calcSoulNumber()}${Consultant.calcSoulNumberISK()}`}
         </CircleNumber>
       </div>
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">
         <label className="text-10 mt-3">{t('pinnacle.name.expression')}</label>
         <CircleNumber size="sm" appearance="blue-30" border="blue">
-          { `${Consultant.calcSoulExpression()}${Consultant.calcSoulExpressionISK()}`}
+          { (isVerificationActive) ? `${Consultant.getExpressionSoulCheck()}${Consultant.calcSoulExpressionISK()}` : `${Consultant.calcSoulExpression()}${Consultant.calcSoulExpressionISK()}`}
         </CircleNumber>
       </div>
       <div className="flex flex-col items-center justify-center text-gray-500 font-bold">

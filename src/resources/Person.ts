@@ -1423,11 +1423,14 @@ class Person {
   calcCurrentQuarter(month: number, year: number): number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const listOfMonths = this.getCustomMonths();
+    const months = getAllMonths();
     const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const currentMonth = months.findIndex((i) => i === capitalize(actualMonth));
     const birthDateMonth = getMonthName(this.getMonthOfBirth() + 1);
     const index = listOfMonths.findIndex((i) => i === capitalize(actualMonth));
     // Use birth month index (0-11) instead of searching for 'Enero'
     const indexEnero = this.getMonthOfBirth();
+    const shouldAdvanceStage = (currentMonth + 1) >= indexEnero;
     if (index < 5) {
       if (birthDateMonth === actualMonth && getDate(this.birthDate) > 20) {
         return this.getQuarterThree(yearToCalculate - 1);
@@ -1438,7 +1441,7 @@ class Person {
       if (indexEnero === 0) {
         return this.getQuarterTwo(yearToCalculate);
       }
-      if (index >= indexEnero) {
+      if (!shouldAdvanceStage) {
         return this.getQuarterTwo(yearToCalculate - 1);
       }
       return this.getQuarterTwo(yearToCalculate);
@@ -1447,7 +1450,7 @@ class Person {
       if (indexEnero === 0) {
         return this.getQuarterThree(yearToCalculate);
       }
-      if (index >= indexEnero) {
+      if (!shouldAdvanceStage) {
         return this.getQuarterThree(yearToCalculate - 1);
       }
       return this.getQuarterThree(yearToCalculate);

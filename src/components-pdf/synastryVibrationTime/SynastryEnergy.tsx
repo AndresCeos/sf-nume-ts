@@ -14,7 +14,7 @@ export const energy = StyleSheet.create({
   },
 });
 
-export default function SynastryEnergy({ synastry, date, newDate }: { synastry: Synastry, date: SplittedDate, newDate:Date }) {
+export default function SynastryEnergy({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
   const currentYear = date.year;
   const currentMonth = date.month;
   const currentDay = date.day;
@@ -35,8 +35,8 @@ export default function SynastryEnergy({ synastry, date, newDate }: { synastry: 
       </View>
       <View>
         <Text style={[energy.text, { top: 40, left: 140 }]}>
-          {synastry.calcCurrentQuarter(newDate)}
-          {synastry.calcCurrentQuarterISK(newDate)}
+          {synastry.calcCurrentQuarter(currentYear)}
+          {synastry.calcCurrentQuarterISK(currentYear)}
         </Text>
       </View>
       <View>

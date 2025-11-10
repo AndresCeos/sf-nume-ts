@@ -221,7 +221,7 @@ export const timeCurve = StyleSheet.create({
 });
 
 export default function SynastryTimeCurve({ synastry, date }: { synastry: Synastry, date: SplittedDate }) {
-  const activeStage = synastry.getLifeStageNumber(date.year);
+  const activeStage = synastry.getLifeStageNumber(date.month, date.year);
   return (
     <View style={[timeCurve.container]}>
 
