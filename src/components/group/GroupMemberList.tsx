@@ -27,7 +27,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
   const [editingMember, setEditingMember] = useState<Api.GroupMember | null>(null);
   const [showMemberInfo, setShowMemberInfo] = useState(false);
 
-  if (!activeConsultant || !activeGroup) return null;
+  if (!activeConsultant || !activeGroup || !currentActiveGroup) return null;
 
   const handleEditMember = (member: Api.GroupMember) => {
     setEditingMember(member);
@@ -128,7 +128,7 @@ export default function GroupMemberList({ activeGroup }: GroupMemberListProps) {
     <div className="p-3">
       {/* Add Member Button */}
       <div className="flex justify-between mb-4">
-        {currentActiveGroup.members?.length && currentActiveGroup.members.length < 8 && (
+        {currentActiveGroup.members && currentActiveGroup.members.length < 8 && (
         <button
           type="button"
           onClick={() => setIsAddMemberActive(true)}

@@ -14,7 +14,7 @@ export const energy = StyleSheet.create({
   },
 });
 
-export default function GroupEnergy({ groupConsult, date, newDate }: { groupConsult: Group, date: SplittedDate, newDate: Date }) {
+export default function GroupEnergy({ groupConsult, date }: { groupConsult: Group, date: SplittedDate }) {
   const currentYear = date.year;
   const currentMonth = date.month;
   const currentDay = date.day;
@@ -35,8 +35,8 @@ export default function GroupEnergy({ groupConsult, date, newDate }: { groupCons
       </View>
       <View>
         <Text style={[energy.text, { top: 40, left: 140 }]}>
-          {groupConsult.calcCurrentQuarter(newDate)}
-          {groupConsult.calcCurrentQuarterISK(newDate)}
+          {groupConsult.calcCurrentQuarter(date.year)}
+          {groupConsult.calcCurrentQuarterISK(date.year)}
         </Text>
       </View>
       <View>

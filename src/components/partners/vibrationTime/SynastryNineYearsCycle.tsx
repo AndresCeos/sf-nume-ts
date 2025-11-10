@@ -18,11 +18,11 @@ function SynastryNineYearsCycle({ synastry }: { synastry: Synastry | Group }) {
       <div className="col-start-4 col-end-6 flex justify-between items-center mb-6 row-start-1">
         {t('vibrationTime.nineYearsCycle.stage')}
         {' '}
-        {synastry.getLifeStageNumber(calculationDate.year)}
+        {synastry.getLifeStageNumber(calculationDate.month, calculationDate.year)}
         :
         <CircleNumber size="sm" appearance="green-50" border="green">
-          {synastry.calcLifeStage(synastry.getLifeStageNumber(calculationDate.year))}
-          {synastry.calcLifeStageISK(synastry.getLifeStageNumber(calculationDate.year))}
+          {synastry.calcLifeStage(synastry.getLifeStageNumber(calculationDate.month, calculationDate.year))}
+          {synastry.calcLifeStageISK(synastry.getLifeStageNumber(calculationDate.month, calculationDate.year))}
 
         </CircleNumber>
       </div>

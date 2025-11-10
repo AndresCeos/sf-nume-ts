@@ -8,7 +8,7 @@ import { getResHierarchy, getSumHierarchy } from '@/utils/numbers';
 
 export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Group }) {
   const {
-    calculationDate, calculationYear, consultationDate,
+    calculationDate, calculationYear,
   } = useConsult();
   const { t } = useTranslation();
   if (!groupConsult) return null;
@@ -77,7 +77,7 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
             <div className="col-start-2 row-start-1">
               <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
-                {getSumHierarchy(groupConsult.calcPersonalYear(calculationYear), groupConsult.calcCurrentQuarter(consultationDate))}
+                {getSumHierarchy(groupConsult.calcPersonalYear(calculationYear), groupConsult.calcCurrentQuarter(calculationDate.year))}
               </CircleNumber>
             </div>
             <div className="col-start-1 row-start-2 lines">
@@ -87,12 +87,12 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
             </div>
             <div className="col-start-3 row-start-2 triangle">
               <CircleNumber size="sm" appearance="white" border="secondary">
-                {groupConsult.calcCurrentQuarter(consultationDate)}
+                {groupConsult.calcCurrentQuarter(calculationDate.year)}
               </CircleNumber>
             </div>
             <div className="col-start-2 row-start-3">
               <CircleNumber size="sm" appearance="white" border="red">
-                {getResHierarchy(groupConsult.calcPersonalYear(calculationYear), groupConsult.calcCurrentQuarter(consultationDate))}
+                {getResHierarchy(groupConsult.calcPersonalYear(calculationYear), groupConsult.calcCurrentQuarter(calculationDate.year))}
               </CircleNumber>
               <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
@@ -105,12 +105,12 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
             <div className="col-start-2 row-start-1">
               <p className="mb-1 font-bold text-sm">{t('hierarchyLine.dialogue')}</p>
               <CircleNumber size="sm" appearance="green" border="green">
-                {getSumHierarchy(groupConsult.calcCurrentQuarter(consultationDate), groupConsult.calcPersonalMonth(calculationDate))}
+                {getSumHierarchy(groupConsult.calcCurrentQuarter(calculationDate.year), groupConsult.calcPersonalMonth(calculationDate))}
               </CircleNumber>
             </div>
             <div className="col-start-1 row-start-2 lines">
               <CircleNumber size="sm" appearance="white" border="main" radiant="inner-shadow-gold">
-                {groupConsult.calcCurrentQuarter(consultationDate)}
+                {groupConsult.calcCurrentQuarter(calculationDate.year)}
               </CircleNumber>
             </div>
             <div className="col-start-3 row-start-2 triangle">
@@ -120,7 +120,7 @@ export default function GroupHierarchyLine({ groupConsult }: { groupConsult: Gro
             </div>
             <div className="col-start-2 row-start-3">
               <CircleNumber size="sm" appearance="white" border="red">
-                {getResHierarchy(groupConsult.calcCurrentQuarter(consultationDate), groupConsult.calcPersonalMonth(calculationDate))}
+                {getResHierarchy(groupConsult.calcCurrentQuarter(calculationDate.year), groupConsult.calcPersonalMonth(calculationDate))}
               </CircleNumber>
               <p className="mb-1 font-bold text-sm">{t('hierarchyLine.challenge')}</p>
             </div>
