@@ -17,7 +17,7 @@ export default function AnnualReturnsPage() {
     const year = now + yearOffset;
     return {
       year,
-      annualReturn: consultant.annualReturn(calculationDate),
+      annualReturn: consultant.annualReturn({ ...calculationDate, year }),
       personalYear: consultant.calcPersonalYear(year),
       yearsOld: consultant.getYearsOld(year),
     };
@@ -25,7 +25,7 @@ export default function AnnualReturnsPage() {
 
   // Generate data for all years (-4 to +4)
   const yearsData = Array.from({ length: 9 }, (_, index) => generateYearData(index - 4));
-
+  console.log('yearsData', yearsData);
   return (
     <div className="page-content bg-cover pb-10">
       <div className="grid grid-cols-12 mt-8 pb-10 pt-10">
