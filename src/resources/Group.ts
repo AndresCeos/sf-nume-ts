@@ -1002,10 +1002,11 @@ class Group {
    * @returns {Number} stage
    */
 
-  getLifeStageNumber(year:number):number {
+  getLifeStageNumber(month:number, year:number):number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
+    const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
     const months = getAllMonths();
-    const actualMonth = getMonthName(this.NOW.getMonth() + 1);
+    const actualMonth = getMonthName(monthToCalculate);
     const currentMonthIndex = months.findIndex((i:string) => i === capitalize(actualMonth));
     const indexEnero = this.getMonthOfBirth();
     const start: number = Number(this.groupDate);
