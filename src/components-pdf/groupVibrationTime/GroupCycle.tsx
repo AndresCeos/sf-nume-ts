@@ -52,7 +52,7 @@ export default function GroupCycle({ groupConsult, date }: { groupConsult: Group
       <View style={[cycle.cyleMap, { width: '80px' }]}>
         <Text style={[cycle.text, { top: 25, left: 130, width: '50px' }]}>
           Etapa:
-          {groupConsult.getLifeStageNumber(currentYear)}
+          {groupConsult.getLifeStageNumber(date.month, currentYear)}
           :
           {' '}
         </Text>
