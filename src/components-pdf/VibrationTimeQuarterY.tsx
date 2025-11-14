@@ -348,21 +348,21 @@ function FontSelect({ consultant }: { consultant: Person }) {
   if (indexOfMonth === 0) {
     return (
       <>
-        <Text style={[quaterY.backQ1, { left: '250px' }]} />
-        <Text style={[quaterY.backQ2, { left: '250px' }]} />
-        <Text style={[quaterY.pos10, { left: '250px' }]} />
-        <Text style={[quaterY.pos11, { left: '250px' }]} />
-        <Text style={[quaterY.pos12, { left: '250px' }]} />
+        <Text style={[quaterY.backQ1, { left: '257px' }]} />
+        <Text style={[quaterY.backQ2, { left: '257px' }]} />
+        <Text style={[quaterY.pos10, { left: '257px' }]} />
+        <Text style={[quaterY.pos11, { left: '257px' }]} />
+        <Text style={[quaterY.pos12, { left: '257px' }]} />
         {(consultant.getDayOfBirth() > 1)
           ? (
             <>
-              <Text style={[quaterY.pos13, { left: '250px' }]} />
+              <Text style={[quaterY.pos13, { left: '257px' }]} />
               <Text style={[quaterY.lineEnero, { top: '27px' }]} />
             </>
           )
           : (
             <>
-              <Text style={[quaterY.pos13, { left: '200px' }]} />
+              <Text style={[quaterY.pos13, { left: '207px', height: '16px' }]} />
               <Text style={[quaterY.lineEnero, { top: '183px' }]} />
             </>
           )}
