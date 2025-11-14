@@ -20,9 +20,10 @@ import AnnualReturn from '@/components/personal/vibrationTime/AnnualReturn';
 import { useAuth } from '@/context/AuthProvider';
 import useConsult from '@/hooks/useConsult';
 import useConsultants from '@/hooks/useConsultants';
-import Person from '@/resources/Person';
+import Person, { AnnualReturn as AnnualReturnPerson } from '@/resources/Person';
 import { PDFPageConfig } from '@/types/pdf.types';
 import { pdf } from '@react-pdf/renderer';
+import { format } from 'date-fns';
 import { saveAs } from 'file-saver';
 
 function CreateNamePage() {
@@ -38,17 +39,13 @@ function CreateNamePage() {
   const addConsultantAsync = makeConsultant();
 
   // Estados para los inputs (no se actualizan automáticamente)
-  const [inputName, setInputName] = useState('');
-  const [inputDate, setInputDate] = useState(new Date());
-  const [isPerson, setIsPerson] = useState(true);
-  const [inputLastName, setInputLastName] = useState('');
-  const [inputScdLastName, setInputScdLastName] = useState('');
+  const [inputName, setInputName] = useState<string>('');
+  const [inputDate, setInputDate] = useState<string>(new Date().toLocaleDateString('es-ES'));
+  const [isPerson, setIsPerson] = useState<boolean>(true);
+  const [inputLastName, setInputLastName] = useState<string>('');
+  const [inputScdLastName, setInputScdLastName] = useState<string>('');
 
   // Estados para los cálculos (se actualizan solo al hacer clic en "Calcular")
-  const [calculatedName, setCalculatedName] = useState('');
-  const [calculatedLastName, setCalculatedLastName] = useState('');
-  const [calculatedScdLastName, setCalculatedScdLastName] = useState('');
-  const [calculatedDate, setCalculatedDate] = useState(new Date());
   const [hasCalculated, setHasCalculated] = useState(false);
 
   // Estados para nombres guardados
@@ -57,25 +54,33 @@ function CreateNamePage() {
   const [checkP, setcheckP] = useState(false);
   const [checkBreakdown, setcheckBreakdown] = useState(false);
 
-  // Función para formatear fecha de forma segura
-  const formatDateForInput = (date: Date) => {
-    if (date instanceof Date && !Number.isNaN(date.getTime())) {
-      // Usar métodos locales para evitar problemas de zona horaria
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-    return '';
+  // Estado Person
+  const [createNameObj, setCreateNameObj] = useState<Person>(new Person({
+    id: '',
+    name: '',
+    lastName: '',
+    scdLastName: '',
+    birthDate: new Date().toLocaleDateString('es-ES'),
+  }));
+  const annualReturnDefault = {
+    yearToCalculate: 0,
+    age: 0,
+    A: '',
+    B: '',
+    C: '',
+    D: '',
+    E: '',
+    F: '',
+    G: '',
+    H: '',
   };
+  const [annualReturnPastYear, setAnnualReturnPastYear] = useState<AnnualReturnPerson>(annualReturnDefault);
+  const [annualReturnCurrent, setAnnualReturnCurrent] = useState<AnnualReturnPerson>(annualReturnDefault);
+  const [annualReturnNextYear, setAnnualReturnNextYear] = useState<AnnualReturnPerson>(annualReturnDefault);
 
   // Limpiar variables de cálculo cuando cambia el consultor
   useEffect(() => {
     if (activeConsultant?.id) {
-      setCalculatedName('');
-      setCalculatedLastName('');
-      setCalculatedScdLastName('');
-      setCalculatedDate(new Date());
       setHasCalculated(false);
       setSelectedSavedName('');
       setcheckN(false);
@@ -84,29 +89,14 @@ function CreateNamePage() {
       setInputName('');
       setInputLastName('');
       setInputScdLastName('');
-      setInputDate(new Date());
+      setInputDate(new Date().toLocaleDateString('es-ES'));
       setIsPerson(true);
     }
   }, [activeConsultant?.id]);
 
   if (!consultant) return (<NoConsultantSelected />);
 
-  const createNames = activeConsultant?.createNames || [];
-
-  const createNameData = {
-    id: consultant.id,
-    name: calculatedName || inputName,
-    lastName: calculatedLastName || inputLastName,
-    scdLastName: calculatedScdLastName || inputScdLastName,
-    birthDate: formatDateForInput(calculatedDate || inputDate),
-    isPerson,
-  };
-
-  const createNameObj = new Person(createNameData);
-
-  const annualReturnPastYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year - 1 });
-  const annualReturnCurrent = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year });
-  const annualReturnNextYear = createNameObj.annualReturn({ ...calculationDate, year: calculationDate.year + 1 });
+  const createNames: Api.CreateName[] = activeConsultant?.createNames || [];
 
   const checkName = () => {
     setcheckN(!checkN);
@@ -118,7 +108,7 @@ function CreateNamePage() {
   const isValid = () => {
     const valid = /^[a-zA-Z ñÑ]+$/;
     if (inputName === '' || !valid.test(inputName)) return false;
-    if (inputDate === null) return false;
+    if (!inputDate) return false;
     if ((inputLastName === '' && isPerson) || (isPerson && !valid.test(inputLastName))) return false;
     if ((inputScdLastName === '' && isPerson) || (isPerson && !valid.test(inputScdLastName))) return false;
     return true;
@@ -130,7 +120,6 @@ function CreateNamePage() {
       <div className="col-span-12 text-center font-bold">{t('createName.invalidData')}</div>
     );
   }
-
   // Función para manejar cambios en inputs
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -144,8 +133,7 @@ function CreateNamePage() {
       setInputScdLastName(value);
     } else if (name === 'date') {
       // Crear fecha sin problemas de zona horaria
-      const [year, month, day] = value.split('-').map(Number);
-      setInputDate(new Date(year, month - 1, day));
+      setInputDate(value);
     } else if (name === 'isPerson') {
       setIsPerson(checked);
     }
@@ -158,11 +146,18 @@ function CreateNamePage() {
     if (!isValid()) {
       return;
     }
-    setCalculatedName(inputName);
-    setCalculatedLastName(inputLastName);
-    setCalculatedScdLastName(inputScdLastName);
-    setCalculatedDate(inputDate);
+    setCreateNameObj(new Person({
+      id: consultant.id,
+      name: inputName,
+      lastName: isPerson ? inputLastName : '',
+      scdLastName: isPerson ? inputScdLastName : '',
+      birthDate: format(inputDate, 'yyyy-MM-dd'),
+    }));
+    console.log('createNameObj', createNameObj);
     setHasCalculated(true);
+    setAnnualReturnPastYear(createNameObj?.annualReturn({ ...calculationDate, year: calculationDate.year - 1 }) || null);
+    setAnnualReturnCurrent(createNameObj?.annualReturn({ ...calculationDate, year: calculationDate.year }) || null);
+    setAnnualReturnNextYear(createNameObj?.annualReturn({ ...calculationDate, year: calculationDate.year + 1 }) || null);
   };
 
   // Función para guardar
@@ -178,7 +173,7 @@ function CreateNamePage() {
         name: inputName,
         lastName: inputLastName,
         scdLastName: inputScdLastName,
-        birthDate: formatDateForInput(inputDate), // Usar función segura
+        birthDate: inputDate, // Usar función segura
         isPerson,
       };
 
@@ -221,7 +216,8 @@ function CreateNamePage() {
     setSelectedSavedName(selectedId);
 
     if (selectedId) {
-      const savedName = createNames.find((name: any) => name.id === selectedId);
+      const savedName = createNames.find((name: Api.CreateName) => name.id === selectedId);
+      console.log('savedName', savedName);
       if (savedName) {
         // Si es una persona, separar el nombre completo en sus partes
         if (savedName.isPerson) {
@@ -259,7 +255,9 @@ function CreateNamePage() {
 
         // Crear fecha sin problemas de zona horaria
         const [year, month, day] = savedName.birthDate.split('-').map(Number);
-        setInputDate(new Date(year, month - 1, day));
+        console.log('year', year, 'month', month, 'day', day);
+        setInputDate(savedName.birthDate);
+        console.log('inputDate', inputDate);
         setIsPerson(savedName.isPerson ?? true); // Usar true como valor por defecto si no existe
         setHasCalculated(false); // Resetear cálculos para que el usuario haga clic en "Calcular"
       }
@@ -280,7 +278,7 @@ function CreateNamePage() {
       }
 
       // Buscar el nombre a eliminar
-      const nameToDelete = createNames.find((name: any) => name.id === id);
+      const nameToDelete = createNames.find((name: Api.CreateName) => name.id === id);
       if (!nameToDelete) {
         Swal.fire({
           title: t('createName.errorTitle') as string,
@@ -307,7 +305,7 @@ function CreateNamePage() {
         // Actualizar el consultor removiendo el nombre
         const updatedConsultant: Api.Consultant = {
           ...activeConsultant,
-          createNames: activeConsultant.createNames?.filter((name: any) => name.id !== id) || [],
+          createNames: activeConsultant.createNames?.filter((name: Api.CreateName) => name.id !== id) || [],
         };
 
         // Actualizar la lista de consultores
@@ -384,8 +382,6 @@ function CreateNamePage() {
                 </h3>
                 {createNames.length > 0 && (
                   <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-                    {createNames.length}
-                    {' '}
                     {createNames.length === 1 ? t('createName.savedNamesCount', { count: createNames.length }) : t('createName.savedNamesCount_plural', { count: createNames.length })}
                   </span>
                 )}
@@ -402,7 +398,7 @@ function CreateNamePage() {
                       <option value="" className="text-gray-500">
                         {t('createName.selectSavedName')}
                       </option>
-                      {createNames.map((savedName: any) => (
+                      {createNames.map((savedName: Api.CreateName) => (
                         <option key={savedName.id} value={savedName.id} className="py-2">
                           {savedName.isPerson
                             ? `${savedName.name} ${savedName.lastName} ${savedName.scdLastName}`.trim()
@@ -474,6 +470,7 @@ function CreateNamePage() {
                     {t('createName.name')}
                   </p>
                   <input
+                    id="nameCreateName"
                     type="text"
                     name="name"
                     value={inputName}
@@ -490,11 +487,13 @@ function CreateNamePage() {
                     :
                   </p>
                   <input
+                    id="dateCreateName"
                     type="date"
                     name="date"
-                    value={formatDateForInput(inputDate)}
+                    value={inputDate}
                     onChange={handleInputChange}
                     className="rounded"
+                    required
                   />
                 </div>
               </div>
@@ -509,6 +508,7 @@ function CreateNamePage() {
                       {t('createName.paternalSurname')}
                     </p>
                     <input
+                      id="lastNameCreateName"
                       type="text"
                       name="lastName"
                       value={inputLastName}
@@ -525,6 +525,7 @@ function CreateNamePage() {
                       {t('createName.maternalSurname')}
                     </p>
                     <input
+                      id="scdLastNameCreateName"
                       type="text"
                       name="scdLastName"
                       value={inputScdLastName}
@@ -656,7 +657,7 @@ function CreateNamePage() {
                 }}
               />
               <div className="pinnacle-wrap px-8 py-3">
-                <PinnacleCreateName isVerificationActive={checkP} size="sm" consultant={createNameObj} />
+                <PinnacleCreateName isVerificationActive={checkP} size="sm" consultant={createNameObj || null} />
               </div>
             </div>
 
@@ -689,7 +690,7 @@ function CreateNamePage() {
                   text: t('createName.verification'),
                 }}
               />
-              {(createNameData.isPerson) ? (
+              {(isPerson) ? (
                 <CreateNameBreakDown consultant={createNameObj} checkBreakdown={checkBreakdown} />
               ) : (
                 <NameBreak createNameObj={createNameObj} checkBreakdown={checkBreakdown} />
