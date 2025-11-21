@@ -86,21 +86,21 @@ function PartnerSingleMonth({ month, showMonthSelector = false, consultant }: Pa
                 </select>
               </div>
             </div>
-            <div className="text-sm text-white font-bold px-2">{t('monthCalendar.personalYear')}</div>
+            <div className="text-sm text-white font-bold px-2">{t('monthCalendar.personalMonth')}</div>
             <div className=" px-2">
               <CircleNumber size="sm" appearance="purple-30" border="main">
-                {consultant.calcPersonalMonth(calculationDate)}
-                {consultant.calcPersonalMonthISK(calculationDate)}
+                {consultant.calcPersonalMonth({ ...calculationDate, month: selectedMonth })}
+                {consultant.calcPersonalMonthISK({ ...calculationDate, month: selectedMonth })}
               </CircleNumber>
             </div>
             <div className="text-white font-bold text-xl px-2"> / </div>
             <div className=" px-2">
               <CircleNumber size="sm" appearance="purple-30" border="main">
-                {u.calcUniversalMonth(calculationDate)}
-                {u.calcUniversalMonthISK(calculationDate)}
+                {u.calcUniversalMonth({ ...calculationDate, month: selectedMonth })}
+                {u.calcUniversalMonthISK({ ...calculationDate, month: selectedMonth })}
               </CircleNumber>
             </div>
-            <div className="text-sm text-white font-bold px-2">{t('monthCalendar.universalYear')}</div>
+            <div className="text-sm text-white font-bold px-2">{t('monthCalendar.universalMonth')}</div>
 
           </div>
           <div className="text-2xl col-start-6 col-end-8 flex justify-center items-center bg-purple-50 font-bold text-white">
