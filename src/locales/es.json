@@ -658,7 +658,9 @@
   "monthCalendar":{
     "title":"Calendario Mensual",
     "personalYear":"Año Personal",
-    "universalYear":"Año Universal"
+    "universalYear":"Año Universal",
+    "personalMonth":"Mes Personal",
+    "universalMonth":"Mes Universal"
   },
   "group": {
     "title": "Gestión de Grupos",

@@ -656,7 +656,9 @@
   "monthCalendar":{
     "title":"Monthly Calendar",
     "personalYear":"Personal Year",
-    "universalYear":"Universal Year"
+    "universalYear":"Universal Year",
+    "personalMonth":"Personal Month",
+    "universalMonth":"Universal Month"
   },
   "group": {
     "title": "Group Management",
