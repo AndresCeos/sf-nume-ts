@@ -1,6 +1,7 @@
-import Modal from 'react-modal';
 import { Toaster } from 'react-hot-toast';
+import Modal from 'react-modal';
 
+import Analytics from '@/components/Analytics';
 import { AppProvider } from '@/context/AppProvider';
 import { AppRoutes } from '@/router/AppRoutes';
 
@@ -11,6 +12,7 @@ Modal.setAppElement('#root');
 function App() {
   return (
     <AppProvider>
+      <Analytics />
       <Toaster />
       <AppRoutes />
     </AppProvider>
