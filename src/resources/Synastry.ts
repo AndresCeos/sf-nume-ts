@@ -273,7 +273,6 @@ class Synastry {
     const yearReducePartner = getYear(partnerBirthDate);
 
     const sumReduce = monthReduce + yearReduce + monthReducePartner + yearReducePartner;
-    console.log('sumReduce', sumReduce);
 
     return reduceNumber(sumReduce);
   }
@@ -881,13 +880,10 @@ class Synastry {
   getLifeStageNumber(month:number, year:number): number {
     const yearToCalculate = _.isNil(year) ? getYear(this.NOW) : year;
     const monthToCalculate = _.isNil(month) ? getMonth(this.NOW) + 1 : month;
-    console.log('monthToCalculate', monthToCalculate);
     const months = getAllMonths();
     const actualMonth = getMonthName(monthToCalculate);
     const currentMonthIndex = months.findIndex((i:string) => i === capitalize(actualMonth));
     const indexEnero = this.getMonthOfBirth();
-    console.log('indexEnero', indexEnero);
-    console.log('currentMonthIndex', currentMonthIndex);
     const start: number = Number(this.yearMet);
     const duration = 9 - reduceNumberForSub(
       this.getA()

@@ -1,10 +1,11 @@
-import { initReactQueryAuth } from 'react-query-auth';
 import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
+import { initReactQueryAuth } from 'react-query-auth';
 
 import axios from '@/api/axios';
 import LoaderComponent from '@/components/LoaderComponent';
 import storage from '@/utils/storage';
+import { isBefore } from 'date-fns';
 
 interface ApiErrorResponse {
   success: boolean;
@@ -74,9 +75,15 @@ const getUser = (): Promise<Api.UserResponse> => axios.post('/wp-json/app/v3/aut
 async function loadUser() {
   if (storage.getToken()) {
     const data = await getUser();
+    const isExpired = isBefore(data.license.expirationDate, new Date());
+    if ((data.license.status as unknown as string) === 'expired' || isExpired) {
+      storage.clearToken();
+      window.location.assign(window.location.origin as unknown as string);
+      return null;
+    }
     return data;
   }
-  return null;
+  return null as unknown as Api.UserResponse;
 }
 
 type LoginCredentialsDTO = {
