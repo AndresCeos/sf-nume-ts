@@ -108,7 +108,6 @@ export default function PartnerForm({
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('formStatus', formStatus);
 
     if (!formStatus.isValid) {
       setFormStatus((prevState) => ({ ...prevState, displayValidations: true }));

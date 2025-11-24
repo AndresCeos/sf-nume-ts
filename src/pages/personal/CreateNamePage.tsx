@@ -153,7 +153,6 @@ function CreateNamePage() {
       scdLastName: isPerson ? inputScdLastName : '',
       birthDate: format(inputDate, 'yyyy-MM-dd'),
     }));
-    console.log('createNameObj', createNameObj);
     setHasCalculated(true);
     setAnnualReturnPastYear(createNameObj?.annualReturn({ ...calculationDate, year: calculationDate.year - 1 }) || null);
     setAnnualReturnCurrent(createNameObj?.annualReturn({ ...calculationDate, year: calculationDate.year }) || null);
@@ -217,7 +216,6 @@ function CreateNamePage() {
 
     if (selectedId) {
       const savedName = createNames.find((name: Api.CreateName) => name.id === selectedId);
-      console.log('savedName', savedName);
       if (savedName) {
         // Si es una persona, separar el nombre completo en sus partes
         if (savedName.isPerson) {
@@ -254,10 +252,7 @@ function CreateNamePage() {
         }
 
         // Crear fecha sin problemas de zona horaria
-        const [year, month, day] = savedName.birthDate.split('-').map(Number);
-        console.log('year', year, 'month', month, 'day', day);
         setInputDate(savedName.birthDate);
-        console.log('inputDate', inputDate);
         setIsPerson(savedName.isPerson ?? true); // Usar true como valor por defecto si no existe
         setHasCalculated(false); // Resetear cálculos para que el usuario haga clic en "Calcular"
       }
